@@ -1,0 +1,19 @@
+# Embedding Fine-Tuning Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core dependencies (required)
+sentence-transformers>=2.2.0  # Fine-tuning and inference
+torch>=2.0.0                  # PyTorch backend
+httpx>=0.24.0                 # HTTP client for baseline embeddings
+qdrant-client>=1.7.0          # Qdrant vector database client
+
+# Optional: Accelerated training (GPU support)
+# Uncomment if you have NVIDIA GPU
+# accelerate>=0.20.0
+
+# Optional: Progress bars and visualization
+tqdm>=4.65.0
+
+# Development dependencies (for testing)
+# pytest>=7.3.0
+# pytest-cov>=4.1.0

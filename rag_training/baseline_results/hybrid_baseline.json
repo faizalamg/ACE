@@ -1,0 +1,970 @@
+{
+  "timestamp": "2025-12-12T12:46:53.097227",
+  "configuration": {
+    "qdrant_url": "http://localhost:6333",
+    "embedding_url": "http://192.168.10.64:1234",
+    "collection_name": "ace_memories_hybrid",
+    "embedding_model": "text-embedding-nomic-embed-text-v1.5",
+    "top_k": 10,
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75
+  },
+  "test_suite_stats": {
+    "total_memories": 75,
+    "processed": 75,
+    "total_queries_generated": 1038,
+    "queries_per_category": {
+      "direct": 223,
+      "keyword": 95,
+      "question_how": 102,
+      "question_what": 75,
+      "question_why": 51,
+      "semantic": 82,
+      "template": 143,
+      "edge_long": 75,
+      "scenario": 74,
+      "technical": 58,
+      "casual": 39,
+      "implicit": 21
+    },
+    "queries_per_difficulty": {
+      "easy": 318,
+      "medium": 344,
+      "hard": 376
+    },
+    "start_time": "2025-12-12T12:39:21.449530",
+    "end_time": "2025-12-12T12:39:21.458731",
+    "avg_queries_per_memory": 13.84
+  },
+  "search_type": "hybrid",
+  "total_queries": 1038,
+  "overall_recall_at_1": 0.220616570327553,
+  "overall_recall_at_3": 0.45183044315992293,
+  "overall_recall_at_5": 0.5327552986512524,
+  "overall_recall_at_10": 0.5915221579961464,
+  "overall_mrr": 0.3582507569501789,
+  "overall_ndcg_at_10": 0.415554439389939,
+  "latency_min_ms": 25.521400035358965,
+  "latency_max_ms": 128.45020007807761,
+  "latency_avg_ms": 64.70424123399987,
+  "latency_p50_ms": 59.958099969662726,
+  "latency_p95_ms": 108.19980001542717,
+  "latency_p99_ms": 118.02330007776618,
+  "results_by_query_category": {
+    "direct": {
+      "total": 223,
+      "recall_at_1": 0.32286995515695066,
+      "recall_at_5": 0.7354260089686099,
+      "mrr": 0.5017278809879707
+    },
+    "keyword": {
+      "total": 95,
+      "recall_at_1": 0.4421052631578947,
+      "recall_at_5": 0.8210526315789474,
+      "mrr": 0.6144987468671679
+    },
+    "question_how": {
+      "total": 102,
+      "recall_at_1": 0.12745098039215685,
+      "recall_at_5": 0.37254901960784315,
+      "mrr": 0.23401027077497666
+    },
+    "question_what": {
+      "total": 75,
+      "recall_at_1": 0.09333333333333334,
+      "recall_at_5": 0.38666666666666666,
+      "mrr": 0.21952910052910052
+    },
+    "question_why": {
+      "total": 51,
+      "recall_at_1": 0.29411764705882354,
+      "recall_at_5": 0.7058823529411765,
+      "mrr": 0.4619281045751634
+    },
+    "semantic": {
+      "total": 82,
+      "recall_at_1": 0.21951219512195122,
+      "recall_at_5": 0.4878048780487805,
+      "mrr": 0.3475609756097561
+    },
+    "template": {
+      "total": 143,
+      "recall_at_1": 0.04195804195804196,
+      "recall_at_5": 0.17482517482517482,
+      "mrr": 0.09392274392274391
+    },
+    "edge_long": {
+      "total": 75,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_5": 0.84,
+      "mrr": 0.5867142857142856
+    },
+    "scenario": {
+      "total": 74,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.08108108108108109,
+      "mrr": 0.025225225225225224
+    },
+    "technical": {
+      "total": 58,
+      "recall_at_1": 0.3103448275862069,
+      "recall_at_5": 0.7586206896551724,
+      "mrr": 0.4952586206896552
+    },
+    "casual": {
+      "total": 39,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_5": 0.7692307692307693,
+      "mrr": 0.5431623931623931
+    },
+    "implicit": {
+      "total": 21,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    }
+  },
+  "results_by_difficulty": {
+    "easy": {
+      "total": 318,
+      "recall_at_1": 0.3584905660377358,
+      "recall_at_5": 0.7610062893081762,
+      "mrr": 0.5354172906059698
+    },
+    "medium": {
+      "total": 344,
+      "recall_at_1": 0.15988372093023256,
+      "recall_at_5": 0.4273255813953488,
+      "mrr": 0.274297480620155
+    },
+    "hard": {
+      "total": 376,
+      "recall_at_1": 0.1595744680851064,
+      "recall_at_5": 0.43617021276595747,
+      "mrr": 0.285221420128335
+    }
+  },
+  "results_by_memory_category": {
+    "ARCHITECTURE": {
+      "total": 212,
+      "recall_at_1": 0.23113207547169812,
+      "recall_at_5": 0.6132075471698113,
+      "mrr": 0.3979746930218629
+    },
+    "TESTING": {
+      "total": 90,
+      "recall_at_1": 0.18888888888888888,
+      "recall_at_5": 0.5,
+      "mrr": 0.324210758377425
+    },
+    "CODE_STYLE": {
+      "total": 65,
+      "recall_at_1": 0.24615384615384617,
+      "recall_at_5": 0.5846153846153846,
+      "mrr": 0.3958974358974359
+    },
+    "WORKFLOW_PATTERN": {
+      "total": 65,
+      "recall_at_1": 0.16923076923076924,
+      "recall_at_5": 0.35384615384615387,
+      "mrr": 0.25153846153846154
+    },
+    "SECURITY": {
+      "total": 71,
+      "recall_at_1": 0.04225352112676056,
+      "recall_at_5": 0.323943661971831,
+      "mrr": 0.15149787614576346
+    },
+    "ERROR_HANDLING": {
+      "total": 121,
+      "recall_at_1": 0.2975206611570248,
+      "recall_at_5": 0.6033057851239669,
+      "mrr": 0.43189689098780004
+    },
+    "DATA_VALIDATION": {
+      "total": 163,
+      "recall_at_1": 0.19631901840490798,
+      "recall_at_5": 0.44785276073619634,
+      "mrr": 0.31096260590125624
+    },
+    "TOOL_USAGE": {
+      "total": 72,
+      "recall_at_1": 0.2777777777777778,
+      "recall_at_5": 0.6666666666666666,
+      "mrr": 0.4321759259259259
+    },
+    "GENERAL": {
+      "total": 61,
+      "recall_at_1": 0.26229508196721313,
+      "recall_at_5": 0.5573770491803278,
+      "mrr": 0.404664324746292
+    },
+    "API_DESIGN": {
+      "total": 67,
+      "recall_at_1": 0.2835820895522388,
+      "recall_at_5": 0.582089552238806,
+      "mrr": 0.43532338308457713
+    },
+    "MEMORY_BEHAVIOR": {
+      "total": 51,
+      "recall_at_1": 0.19607843137254902,
+      "recall_at_5": 0.5294117647058824,
+      "mrr": 0.344327731092437
+    }
+  },
+  "complete_misses": 424,
+  "low_rank": 61,
+  "false_positive_dominant": 385,
+  "memory_results": [
+    {
+      "memory_id": 3215809140,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.5333333333333333,
+      "mrr": 0.29333333333333333,
+      "avg_latency_ms": 76.99089334346354
+    },
+    {
+      "memory_id": 671755070,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.14285714285714285,
+      "recall_at_5": 0.5,
+      "recall_at_10": 0.5714285714285714,
+      "mrr": 0.33035714285714285,
+      "avg_latency_ms": 88.49214999437598
+    },
+    {
+      "memory_id": 165806837,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.2,
+      "recall_at_10": 0.26666666666666666,
+      "mrr": 0.06666666666666667,
+      "avg_latency_ms": 59.90527999432137
+    },
+    {
+      "memory_id": 3764961838,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.8,
+      "mrr": 0.3395238095238095,
+      "avg_latency_ms": 63.2381400015826
+    },
+    {
+      "memory_id": 1512418815,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.35714285714285715,
+      "recall_at_5": 0.7142857142857143,
+      "recall_at_10": 0.7142857142857143,
+      "mrr": 0.5178571428571429,
+      "avg_latency_ms": 66.34099285916558
+    },
+    {
+      "memory_id": 1367021958,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.35714285714285715,
+      "recall_at_5": 0.9285714285714286,
+      "recall_at_10": 0.9285714285714286,
+      "mrr": 0.6428571428571429,
+      "avg_latency_ms": 60.668371418224915
+    },
+    {
+      "memory_id": 1226965354,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.26666666666666666,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.4228571428571428,
+      "avg_latency_ms": 60.52861333203813
+    },
+    {
+      "memory_id": 820920720,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.07142857142857142,
+      "recall_at_5": 0.7142857142857143,
+      "recall_at_10": 0.8571428571428571,
+      "mrr": 0.31802721088435376,
+      "avg_latency_ms": 59.889592862288865
+    },
+    {
+      "memory_id": 3730624438,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.35714285714285715,
+      "recall_at_5": 0.7142857142857143,
+      "recall_at_10": 0.8571428571428571,
+      "mrr": 0.5227891156462585,
+      "avg_latency_ms": 64.91137858081076
+    },
+    {
+      "memory_id": 636212104,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.4,
+      "recall_at_5": 0.8,
+      "recall_at_10": 0.8666666666666667,
+      "mrr": 0.5866666666666667,
+      "avg_latency_ms": 59.907146682962775
+    },
+    {
+      "memory_id": 3371941243,
+      "category": "ARCHITECTURE",
+      "total_queries": 14,
+      "recall_at_1": 0.21428571428571427,
+      "recall_at_5": 0.6428571428571429,
+      "recall_at_10": 0.7857142857142857,
+      "mrr": 0.35901360544217686,
+      "avg_latency_ms": 87.74832856475508
+    },
+    {
+      "memory_id": 2776493040,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.7333333333333333,
+      "mrr": 0.37851851851851853,
+      "avg_latency_ms": 66.56213997242351
+    },
+    {
+      "memory_id": 540525373,
+      "category": "ARCHITECTURE",
+      "total_queries": 12,
+      "recall_at_1": 0.4166666666666667,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.5416666666666666,
+      "avg_latency_ms": 72.35649998377387
+    },
+    {
+      "memory_id": 3023034130,
+      "category": "ARCHITECTURE",
+      "total_queries": 11,
+      "recall_at_1": 0.36363636363636365,
+      "recall_at_5": 0.6363636363636364,
+      "recall_at_10": 0.8181818181818182,
+      "mrr": 0.4651515151515151,
+      "avg_latency_ms": 60.795363642021336
+    },
+    {
+      "memory_id": 2171692893,
+      "category": "ARCHITECTURE",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "recall_at_10": 0.4666666666666667,
+      "mrr": 0.2511904761904762,
+      "avg_latency_ms": 66.56858666489522
+    },
+    {
+      "memory_id": 130180843,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.3206349206349206,
+      "avg_latency_ms": 75.95520667576541
+    },
+    {
+      "memory_id": 118189256,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.2,
+      "recall_at_10": 0.2,
+      "mrr": 0.14666666666666667,
+      "avg_latency_ms": 76.53577997504424
+    },
+    {
+      "memory_id": 466036473,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.4666666666666667,
+      "recall_at_10": 0.4666666666666667,
+      "mrr": 0.3222222222222222,
+      "avg_latency_ms": 60.538940030770995
+    },
+    {
+      "memory_id": 1421994680,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.7333333333333333,
+      "mrr": 0.44166666666666665,
+      "avg_latency_ms": 66.57669334672391
+    },
+    {
+      "memory_id": 1574266022,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.4,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6,
+      "mrr": 0.48333333333333334,
+      "avg_latency_ms": 70.56486666357766
+    },
+    {
+      "memory_id": 2948500694,
+      "category": "TESTING",
+      "total_queries": 15,
+      "recall_at_1": 0.06666666666666667,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.23074074074074075,
+      "avg_latency_ms": 66.54044000897557
+    },
+    {
+      "memory_id": 3981180525,
+      "category": "CODE_STYLE",
+      "total_queries": 15,
+      "recall_at_1": 0.26666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.44666666666666666,
+      "avg_latency_ms": 63.900413333127894
+    },
+    {
+      "memory_id": 3685255,
+      "category": "CODE_STYLE",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.4166666666666667,
+      "avg_latency_ms": 74.56782668208082
+    },
+    {
+      "memory_id": 3807198313,
+      "category": "CODE_STYLE",
+      "total_queries": 10,
+      "recall_at_1": 0.5,
+      "recall_at_5": 0.8,
+      "recall_at_10": 0.8,
+      "mrr": 0.6333333333333333,
+      "avg_latency_ms": 59.86445000162348
+    },
+    {
+      "memory_id": 789202804,
+      "category": "CODE_STYLE",
+      "total_queries": 11,
+      "recall_at_1": 0.18181818181818182,
+      "recall_at_5": 0.5454545454545454,
+      "recall_at_10": 0.5454545454545454,
+      "mrr": 0.3409090909090909,
+      "avg_latency_ms": 63.51032727186314
+    },
+    {
+      "memory_id": 4063403028,
+      "category": "CODE_STYLE",
+      "total_queries": 14,
+      "recall_at_1": 0.14285714285714285,
+      "recall_at_5": 0.2857142857142857,
+      "recall_at_10": 0.2857142857142857,
+      "mrr": 0.19285714285714287,
+      "avg_latency_ms": 69.17720713785717
+    },
+    {
+      "memory_id": 3312052440,
+      "category": "WORKFLOW_PATTERN",
+      "total_queries": 12,
+      "recall_at_1": 0.4166666666666667,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.5416666666666666,
+      "avg_latency_ms": 64.05275835034747
+    },
+    {
+      "memory_id": 3642086447,
+      "category": "WORKFLOW_PATTERN",
+      "total_queries": 14,
+      "recall_at_1": 0.2857142857142857,
+      "recall_at_5": 0.42857142857142855,
+      "recall_at_10": 0.5714285714285714,
+      "mrr": 0.37142857142857144,
+      "avg_latency_ms": 67.73458571738696
+    },
+    {
+      "memory_id": 2915007855,
+      "category": "WORKFLOW_PATTERN",
+      "total_queries": 12,
+      "recall_at_1": 0.16666666666666666,
+      "recall_at_5": 0.5833333333333334,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.3541666666666667,
+      "avg_latency_ms": 59.87179166792581
+    },
+    {
+      "memory_id": 1987060472,
+      "category": "WORKFLOW_PATTERN",
+      "total_queries": 12,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr": 0.0,
+      "avg_latency_ms": 64.07239163915317
+    },
+    {
+      "memory_id": 971585452,
+      "category": "WORKFLOW_PATTERN",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.13333333333333333,
+      "recall_at_10": 0.13333333333333333,
+      "mrr": 0.02666666666666667,
+      "avg_latency_ms": 59.88236001382271
+    },
+    {
+      "memory_id": 3119702489,
+      "category": "SECURITY",
+      "total_queries": 11,
+      "recall_at_1": 0.18181818181818182,
+      "recall_at_5": 0.9090909090909091,
+      "recall_at_10": 0.9090909090909091,
+      "mrr": 0.5227272727272727,
+      "avg_latency_ms": 60.799881826493554
+    },
+    {
+      "memory_id": 3869130094,
+      "category": "SECURITY",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6,
+      "mrr": 0.14222222222222222,
+      "avg_latency_ms": 67.23340665921569
+    },
+    {
+      "memory_id": 1801641265,
+      "category": "SECURITY",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.06666666666666667,
+      "recall_at_10": 0.2,
+      "mrr": 0.05119047619047619,
+      "avg_latency_ms": 65.22706665564328
+    },
+    {
+      "memory_id": 50800331,
+      "category": "SECURITY",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.13333333333333333,
+      "recall_at_10": 0.2,
+      "mrr": 0.048412698412698414,
+      "avg_latency_ms": 59.91080001307031
+    },
+    {
+      "memory_id": 1191905579,
+      "category": "SECURITY",
+      "total_queries": 15,
+      "recall_at_1": 0.06666666666666667,
+      "recall_at_5": 0.06666666666666667,
+      "recall_at_10": 0.26666666666666666,
+      "mrr": 0.09193121693121693,
+      "avg_latency_ms": 65.19283331775416
+    },
+    {
+      "memory_id": 3519684455,
+      "category": "ERROR_HANDLING",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.3288888888888889,
+      "avg_latency_ms": 63.78236003220081
+    },
+    {
+      "memory_id": 2766763614,
+      "category": "ERROR_HANDLING",
+      "total_queries": 11,
+      "recall_at_1": 0.2727272727272727,
+      "recall_at_5": 0.7272727272727273,
+      "recall_at_10": 0.8181818181818182,
+      "mrr": 0.42510822510822516,
+      "avg_latency_ms": 61.88221817666834
+    },
+    {
+      "memory_id": 2258496389,
+      "category": "ERROR_HANDLING",
+      "total_queries": 11,
+      "recall_at_1": 0.6363636363636364,
+      "recall_at_5": 0.8181818181818182,
+      "recall_at_10": 1.0,
+      "mrr": 0.7575757575757577,
+      "avg_latency_ms": 64.43125454031609
+    },
+    {
+      "memory_id": 1316445620,
+      "category": "ERROR_HANDLING",
+      "total_queries": 14,
+      "recall_at_1": 0.2857142857142857,
+      "recall_at_5": 0.6428571428571429,
+      "recall_at_10": 0.6428571428571429,
+      "mrr": 0.4642857142857143,
+      "avg_latency_ms": 70.60294286514234
+    },
+    {
+      "memory_id": 1916539101,
+      "category": "ERROR_HANDLING",
+      "total_queries": 15,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_5": 0.7333333333333333,
+      "recall_at_10": 0.7333333333333333,
+      "mrr": 0.5166666666666667,
+      "avg_latency_ms": 63.882813323289156
+    },
+    {
+      "memory_id": 2720976801,
+      "category": "ERROR_HANDLING",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "recall_at_10": 0.3333333333333333,
+      "mrr": 0.20555555555555557,
+      "avg_latency_ms": 60.55671332869679
+    },
+    {
+      "memory_id": 843296126,
+      "category": "ERROR_HANDLING",
+      "total_queries": 11,
+      "recall_at_1": 0.5454545454545454,
+      "recall_at_5": 0.9090909090909091,
+      "recall_at_10": 0.9090909090909091,
+      "mrr": 0.6621212121212121,
+      "avg_latency_ms": 60.77165455049412
+    },
+    {
+      "memory_id": 737487115,
+      "category": "ERROR_HANDLING",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "recall_at_10": 0.3333333333333333,
+      "mrr": 0.23333333333333334,
+      "avg_latency_ms": 61.2615599995479
+    },
+    {
+      "memory_id": 3197320946,
+      "category": "ERROR_HANDLING",
+      "total_queries": 14,
+      "recall_at_1": 0.35714285714285715,
+      "recall_at_5": 0.5714285714285714,
+      "recall_at_10": 0.6428571428571429,
+      "mrr": 0.4428571428571429,
+      "avg_latency_ms": 59.86932142903762
+    },
+    {
+      "memory_id": 723388665,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.26666666666666666,
+      "recall_at_5": 0.4,
+      "recall_at_10": 0.4,
+      "mrr": 0.31666666666666665,
+      "avg_latency_ms": 68.59363332235564
+    },
+    {
+      "memory_id": 2374595933,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.2,
+      "recall_at_10": 0.3333333333333333,
+      "mrr": 0.10555555555555556,
+      "avg_latency_ms": 63.17239333875477
+    },
+    {
+      "memory_id": 2313688912,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.34285714285714286,
+      "avg_latency_ms": 67.9015133374681
+    },
+    {
+      "memory_id": 4252119471,
+      "category": "DATA_VALIDATION",
+      "total_queries": 14,
+      "recall_at_1": 0.35714285714285715,
+      "recall_at_5": 0.6428571428571429,
+      "recall_at_10": 0.7142857142857143,
+      "mrr": 0.4590136054421769,
+      "avg_latency_ms": 84.19456428548854
+    },
+    {
+      "memory_id": 1857660707,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr": 0.0,
+      "avg_latency_ms": 63.245799974538386
+    },
+    {
+      "memory_id": 311884616,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.13333333333333333,
+      "recall_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.24333333333333332,
+      "avg_latency_ms": 63.18736666968713
+    },
+    {
+      "memory_id": 3158585857,
+      "category": "DATA_VALIDATION",
+      "total_queries": 14,
+      "recall_at_1": 0.5,
+      "recall_at_5": 0.7142857142857143,
+      "recall_at_10": 0.7142857142857143,
+      "mrr": 0.5892857142857143,
+      "avg_latency_ms": 65.58273573006902
+    },
+    {
+      "memory_id": 3693042201,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.38833333333333336,
+      "avg_latency_ms": 60.604006703943014
+    },
+    {
+      "memory_id": 852001696,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.4,
+      "recall_at_10": 0.4,
+      "mrr": 0.3,
+      "avg_latency_ms": 59.83937999699265
+    },
+    {
+      "memory_id": 2462209055,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.06666666666666667,
+      "recall_at_5": 0.3333333333333333,
+      "recall_at_10": 0.6,
+      "mrr": 0.2261904761904762,
+      "avg_latency_ms": 65.90028000064194
+    },
+    {
+      "memory_id": 596943340,
+      "category": "DATA_VALIDATION",
+      "total_queries": 15,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.4777777777777778,
+      "avg_latency_ms": 65.22865997782598
+    },
+    {
+      "memory_id": 3480381883,
+      "category": "TOOL_USAGE",
+      "total_queries": 15,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.48333333333333334,
+      "avg_latency_ms": 60.568726675895356
+    },
+    {
+      "memory_id": 2006358528,
+      "category": "TOOL_USAGE",
+      "total_queries": 15,
+      "recall_at_1": 0.26666666666666666,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6,
+      "mrr": 0.43333333333333335,
+      "avg_latency_ms": 61.20045333324621
+    },
+    {
+      "memory_id": 4047306226,
+      "category": "TOOL_USAGE",
+      "total_queries": 15,
+      "recall_at_1": 0.06666666666666667,
+      "recall_at_5": 0.4666666666666667,
+      "recall_at_10": 0.4666666666666667,
+      "mrr": 0.22222222222222224,
+      "avg_latency_ms": 59.85322666820139
+    },
+    {
+      "memory_id": 3969414535,
+      "category": "TOOL_USAGE",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.3722222222222222,
+      "avg_latency_ms": 59.89274667420735
+    },
+    {
+      "memory_id": 2327383598,
+      "category": "TOOL_USAGE",
+      "total_queries": 12,
+      "recall_at_1": 0.5833333333333334,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr": 0.7041666666666666,
+      "avg_latency_ms": 59.89603332515495
+    },
+    {
+      "memory_id": 3376217212,
+      "category": "GENERAL",
+      "total_queries": 12,
+      "recall_at_1": 0.08333333333333333,
+      "recall_at_5": 0.25,
+      "recall_at_10": 0.5833333333333334,
+      "mrr": 0.21676587301587302,
+      "avg_latency_ms": 61.545466674336545
+    },
+    {
+      "memory_id": 1116753210,
+      "category": "GENERAL",
+      "total_queries": 11,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr": 0.0,
+      "avg_latency_ms": 59.86604544291781
+    },
+    {
+      "memory_id": 3750513871,
+      "category": "GENERAL",
+      "total_queries": 15,
+      "recall_at_1": 0.6,
+      "recall_at_5": 0.9333333333333333,
+      "recall_at_10": 1.0,
+      "mrr": 0.7333333333333333,
+      "avg_latency_ms": 57.40402000180135
+    },
+    {
+      "memory_id": 241879075,
+      "category": "GENERAL",
+      "total_queries": 13,
+      "recall_at_1": 0.3076923076923077,
+      "recall_at_5": 0.6923076923076923,
+      "recall_at_10": 0.6923076923076923,
+      "mrr": 0.48717948717948717,
+      "avg_latency_ms": 67.85439232435937
+    },
+    {
+      "memory_id": 111594975,
+      "category": "GENERAL",
+      "total_queries": 10,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.8,
+      "recall_at_10": 0.8,
+      "mrr": 0.475,
+      "avg_latency_ms": 76.33679000427946
+    },
+    {
+      "memory_id": 1842584464,
+      "category": "API_DESIGN",
+      "total_queries": 15,
+      "recall_at_1": 0.2,
+      "recall_at_5": 0.6,
+      "recall_at_10": 0.6666666666666666,
+      "mrr": 0.4066666666666666,
+      "avg_latency_ms": 56.627493320653834
+    },
+    {
+      "memory_id": 2248016383,
+      "category": "API_DESIGN",
+      "total_queries": 15,
+      "recall_at_1": 0.26666666666666666,
+      "recall_at_5": 0.4,
+      "recall_at_10": 0.4666666666666667,
+      "mrr": 0.34444444444444444,
+      "avg_latency_ms": 57.716893327112
+    },
+    {
+      "memory_id": 681976258,
+      "category": "API_DESIGN",
+      "total_queries": 12,
+      "recall_at_1": 0.5833333333333334,
+      "recall_at_5": 0.8333333333333334,
+      "recall_at_10": 0.8333333333333334,
+      "mrr": 0.6833333333333332,
+      "avg_latency_ms": 61.38810834575755
+    },
+    {
+      "memory_id": 1857412080,
+      "category": "API_DESIGN",
+      "total_queries": 11,
+      "recall_at_1": 0.2727272727272727,
+      "recall_at_5": 0.8181818181818182,
+      "recall_at_10": 0.9090909090909091,
+      "mrr": 0.5454545454545454,
+      "avg_latency_ms": 56.96335453963415
+    },
+    {
+      "memory_id": 910953211,
+      "category": "API_DESIGN",
+      "total_queries": 14,
+      "recall_at_1": 0.14285714285714285,
+      "recall_at_5": 0.35714285714285715,
+      "recall_at_10": 0.5714285714285714,
+      "mrr": 0.2642857142857143,
+      "avg_latency_ms": 57.43218570881124
+    },
+    {
+      "memory_id": 1346384506,
+      "category": "MEMORY_BEHAVIOR",
+      "total_queries": 11,
+      "recall_at_1": 0.18181818181818182,
+      "recall_at_5": 0.45454545454545453,
+      "recall_at_10": 0.6363636363636364,
+      "mrr": 0.26525974025974025,
+      "avg_latency_ms": 58.00808183002201
+    },
+    {
+      "memory_id": 1271490760,
+      "category": "MEMORY_BEHAVIOR",
+      "total_queries": 14,
+      "recall_at_1": 0.14285714285714285,
+      "recall_at_5": 0.7142857142857143,
+      "recall_at_10": 0.7857142857142857,
+      "mrr": 0.4209183673469388,
+      "avg_latency_ms": 60.58821429698063
+    },
+    {
+      "memory_id": 2335611528,
+      "category": "MEMORY_BEHAVIOR",
+      "total_queries": 15,
+      "recall_at_1": 0.4,
+      "recall_at_5": 0.4666666666666667,
+      "recall_at_10": 0.4666666666666667,
+      "mrr": 0.43333333333333335,
+      "avg_latency_ms": 59.96203334070742
+    },
+    {
+      "memory_id": 1299074728,
+      "category": "MEMORY_BEHAVIOR",
+      "total_queries": 11,
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.45454545454545453,
+      "recall_at_10": 0.5454545454545454,
+      "mrr": 0.20454545454545456,
+      "avg_latency_ms": 63.40706361119043
+    }
+  ]
+}

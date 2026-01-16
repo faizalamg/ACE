@@ -1,0 +1,71 @@
+{
+  "bullets": {
+    "api-00001": {
+      "id": "api-00001",
+      "section": "API Design",
+      "content": "Use versioned endpoints with /v1/ prefix for backward compatibility",
+      "helpful": 10,
+      "harmful": 1,
+      "neutral": 0,
+      "created_at": "2025-12-13T11:50:32.111616+00:00",
+      "updated_at": "2025-12-13T11:50:32.111624+00:00",
+      "last_validated": "2025-12-13T11:50:32.111629+00:00"
+    },
+    "api-00002": {
+      "id": "api-00002",
+      "section": "API Design",
+      "content": "Always return 200 OK with error details in response body",
+      "helpful": 10,
+      "harmful": 1,
+      "neutral": 0,
+      "created_at": "2025-12-13T11:50:32.111638+00:00",
+      "updated_at": "2025-12-13T11:50:32.111640+00:00",
+      "last_validated": "2025-11-29T11:50:32.111642+00:00"
+    },
+    "api-00003": {
+      "id": "api-00003",
+      "section": "API Design",
+      "content": "Use XML for all API responses for maximum compatibility",
+      "helpful": 10,
+      "harmful": 1,
+      "neutral": 0,
+      "created_at": "2025-12-13T11:50:32.111651+00:00",
+      "updated_at": "2025-12-13T11:50:32.111652+00:00",
+      "last_validated": "2025-12-13T11:50:32.111727+00:00"
+    },
+    "api-00004": {
+      "id": "api-00004",
+      "section": "API Design",
+      "content": "Implement GraphQL for all new APIs",
+      "helpful": 15,
+      "harmful": 3,
+      "neutral": 0,
+      "created_at": "2025-12-13T11:50:32.111659+00:00",
+      "updated_at": "2025-12-13T11:50:32.111660+00:00",
+      "last_validated": null
+    },
+    "test-00005": {
+      "id": "test-00005",
+      "section": "Test",
+      "content": "Test bullet",
+      "helpful": 10,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-12-13T11:50:32.111737+00:00",
+      "updated_at": "2025-12-13T11:50:32.111739+00:00",
+      "last_validated": "2025-11-15T11:50:32.111740+00:00"
+    }
+  },
+  "sections": {
+    "API Design": [
+      "api-00001",
+      "api-00002",
+      "api-00003",
+      "api-00004"
+    ],
+    "Test": [
+      "test-00005"
+    ]
+  },
+  "next_id": 5
+}

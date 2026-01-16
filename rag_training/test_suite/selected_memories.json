@@ -1,0 +1,963 @@
+[
+  {
+    "memory_id": 3215809140,
+    "content": "Define root-level config files to explicitly declare project boundaries.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\mcp2skill-tools\\packages\\mcp2rest-proxy\\tsconfig.json",
+    "sample_queries": [
+      "define root-level",
+      "architecture define",
+      "json define"
+    ]
+  },
+  {
+    "memory_id": 671755070,
+    "content": "Define metadata first to decouple logic and boost rendering performance.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/iconpackgen/frontend/index.html",
+    "sample_queries": [
+      "define metadata",
+      "architecture define",
+      "performance optimization"
+    ]
+  },
+  {
+    "memory_id": 165806837,
+    "content": "Centralize API calls to decouple CLI and service layers.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "C:\\Users\\Erwin\\.claude\\skills\\mcp-confluence\\scripts\\conf_get_page.js",
+    "sample_queries": [
+      "centralize calls",
+      "architecture centralize",
+      "js centralize"
+    ]
+  },
+  {
+    "memory_id": 3764961838,
+    "content": "Isolate UI changes to prevent core disruption.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\ai-ledger-brain\\docs\\StillMissing.md",
+    "sample_queries": [
+      "isolate changes",
+      "architecture isolate",
+      "md isolate"
+    ]
+  },
+  {
+    "memory_id": 1512418815,
+    "content": "Replace boolean flags with state variables holding explicit values for clear logic.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:/ApplicationDevelopment/Tools/Mikos/iconpackgen/backend/tests/services/ai/test_provider_factory.py",
+    "sample_queries": [
+      "replace boolean",
+      "architecture replace",
+      "py replace"
+    ]
+  },
+  {
+    "memory_id": 1367021958,
+    "content": "Generate UUIDs for globally unique resource identifiers.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "unknown",
+    "sample_queries": [
+      "generate uuids",
+      "architecture generate"
+    ]
+  },
+  {
+    "memory_id": 1226965354,
+    "content": "Extract static data to config files for predictable state",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 5,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\components\\files\\upload-button.tsx",
+    "sample_queries": [
+      "extract static",
+      "architecture extract",
+      "tsx extract"
+    ]
+  },
+  {
+    "memory_id": 820920720,
+    "content": "Favor direct library calls over wrappers for greater reliability.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\lib\\previews\\pdf.ts",
+    "sample_queries": [
+      "favor direct",
+      "architecture favor",
+      "ts favor"
+    ]
+  },
+  {
+    "memory_id": 3730624438,
+    "content": "Group tasks by domain and track ownership in a workflow",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:/ApplicationDevelopment/Tools/Mikos/iconpackgen/CHECKLIST.md",
+    "sample_queries": [
+      "group tasks",
+      "architecture group",
+      "md group"
+    ]
+  },
+  {
+    "memory_id": 636212104,
+    "content": "Extract env checks and standardize health endpoints.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\ai-ledger-brain\\docs\\DEPLOYMENT_CHECKLIST.md",
+    "sample_queries": [
+      "extract checks",
+      "architecture extract",
+      "md extract"
+    ]
+  },
+  {
+    "memory_id": 3371941243,
+    "content": "Enforce single-purpose files to boost modularity.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/iconpackgen/frontend/src/components/ui/Select.tsx",
+    "sample_queries": [
+      "enforce single-purpose",
+      "architecture enforce",
+      "tsx enforce"
+    ]
+  },
+  {
+    "memory_id": 2776493040,
+    "content": "Extract side effects into dedicated hooks for testability.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\conductor\\conductor\\docs\\qdrant-implementation.md",
+    "sample_queries": [
+      "extract effects",
+      "architecture extract",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 540525373,
+    "content": "kilocode for GLM integration patterns",
+    "category": "ARCHITECTURE",
+    "feedback_type": "MIGRATION",
+    "severity": 5,
+    "context": "Migrated from Graphiti fact: PROVIDES",
+    "sample_queries": [
+      "kilocode integration",
+      "architecture kilocode"
+    ]
+  },
+  {
+    "memory_id": 3023034130,
+    "content": "Consolidate tool configs in a single file for clarity and maintainability.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 5,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/iconpackgen/frontend/postcss.config.js",
+    "sample_queries": [
+      "consolidate configs",
+      "architecture consolidate",
+      "js consolidate"
+    ]
+  },
+  {
+    "memory_id": 2171692893,
+    "content": "Initialize component data in mount, not props, to prevent stale state and bugs.",
+    "category": "ARCHITECTURE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\app\\(app)\\chat\\components\\chat-interface.tsx",
+    "sample_queries": [
+      "initialize component",
+      "architecture initialize",
+      "tsx initialize"
+    ]
+  },
+  {
+    "memory_id": 130180843,
+    "content": "Load test fixtures with dynamic imports to isolate dependencies",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\tests\\integrations\\test_browser_use.py",
+    "sample_queries": [
+      "fixtures dynamic",
+      "testing fixtures",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 118189256,
+    "content": "Isolate test fixtures to verify state before cleanup operations",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\tests\\test_session_tracking.py",
+    "sample_queries": [
+      "isolate fixtures",
+      "testing isolate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 466036473,
+    "content": "Extract test setup functions to eliminate duplicate initialization logic.",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 5,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/ai-ledger-brain/tests/bank_sync/test_main.py",
+    "sample_queries": [
+      "extract setup",
+      "testing extract",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 1421994680,
+    "content": "Implement YAML-defined test commands per pipeline phase for automated validation.",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "d:\\applicationdevelopment\\tools\\mikos\\ai-ledger-brain\\docs\\conductor-plan.yaml",
+    "sample_queries": [
+      "implement yaml-defined",
+      "testing implement",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 1574266022,
+    "content": "Validate AST parsers against language specs before static analysis",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 9,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\docs\\Fortune100.md",
+    "sample_queries": [
+      "validate parsers",
+      "testing validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2948500694,
+    "content": "Reset or mock dependencies between tests to prevent state leakage",
+    "category": "TESTING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\tests\\test_audit.py",
+    "sample_queries": [
+      "reset dependencies",
+      "testing reset",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 3981180525,
+    "content": "Document all config options with commented examples",
+    "category": "CODE_STYLE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\conductor\\conductor\\docs\\qdrant-implementation.md",
+    "sample_queries": [
+      "document config",
+      "code_style document",
+      "md document"
+    ]
+  },
+  {
+    "memory_id": 3685255,
+    "content": "Append \"Action\" to function names for pure mutations to prevent mis-use.",
+    "category": "CODE_STYLE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\app\\(app)\\reconcile\\page.tsx",
+    "sample_queries": [
+      "append \"action\"",
+      "code_style append",
+      "tsx append"
+    ]
+  },
+  {
+    "memory_id": 3807198313,
+    "content": "Name functions to describe what they do, not how they do it.",
+    "category": "CODE_STYLE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Zen\\tests\\test_consensuslocal.py",
+    "sample_queries": [
+      "functions describe",
+      "code_style functions",
+      "py functions"
+    ]
+  },
+  {
+    "memory_id": 789202804,
+    "content": "Add type hints to functions and context managers for resource handling",
+    "category": "CODE_STYLE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\ai-ledger-brain\\services\\financial-brain\\brain\\main.py",
+    "sample_queries": [
+      "hints functions",
+      "code_style hints",
+      "py hints"
+    ]
+  },
+  {
+    "memory_id": 4063403028,
+    "content": "Configure encoding to UTF-8 for consistent cross-platform console output.",
+    "category": "CODE_STYLE",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "C:\\Users\\Erwin\\.claude\\hooks\\ace_qdrant_memory.py",
+    "sample_queries": [
+      "configure encoding",
+      "code_style configure",
+      "py configure"
+    ]
+  },
+  {
+    "memory_id": 3312052440,
+    "content": "[>] [DIRECTIVE] When unsure of solution quality, suggest verifying with online research",
+    "category": "WORKFLOW_PATTERN",
+    "feedback_type": "DIRECTIVE",
+    "severity": 6,
+    "context": "look online for a better hook solution",
+    "sample_queries": [
+      "[directive] unsure",
+      "workflow_pattern [directive]"
+    ]
+  },
+  {
+    "memory_id": 3642086447,
+    "content": "⚪ [PREFERENCE] Prefer single authoritative sources to avoid info duplication and confusion",
+    "category": "WORKFLOW_PATTERN",
+    "feedback_type": "PREFERENCE",
+    "severity": 7,
+    "context": "yes, and why are there multiple sources for this info? KISS/DRY!",
+    "sample_queries": [
+      "[preference] prefer",
+      "workflow_pattern [preference]"
+    ]
+  },
+  {
+    "memory_id": 2915007855,
+    "content": "⚪ [WORKFLOW] When providing CLI tool instructions, clarify invocation context (within code vs. direct command)",
+    "category": "WORKFLOW_PATTERN",
+    "feedback_type": "WORKFLOW",
+    "severity": 6,
+    "context": "do I invoke it from withing claude code cli or directly from command line?",
+    "sample_queries": [
+      "[workflow] providing",
+      "workflow_pattern [workflow]"
+    ]
+  },
+  {
+    "memory_id": 1987060472,
+    "content": "⚪ [WORKFLOW] When executing a plan, re-read before each task and update after completion",
+    "category": "WORKFLOW_PATTERN",
+    "feedback_type": "WORKFLOW",
+    "severity": 10,
+    "context": "/auto The implementation of the plan in `docs/qdrant-implementation.md` was interrupted due to a network outage. Please resume the implementation by following these steps:\n\n1. **Review the plan file**",
+    "sample_queries": [
+      "[workflow] executing",
+      "workflow_pattern [workflow]",
+      " **Review the plan file** [workflow]"
+    ]
+  },
+  {
+    "memory_id": 971585452,
+    "content": "🟡 [DIRECTIVE] When updating documentation, ensure all references are consistent and current",
+    "category": "WORKFLOW_PATTERN",
+    "feedback_type": "DIRECTIVE",
+    "severity": 10,
+    "context": "update custom slash command and claude.md (user scooe) with correct page number and tool names",
+    "sample_queries": [
+      "[directive] updating",
+      "workflow_pattern [directive]",
+      "md (user scooe) with correct page number and tool names [directive]"
+    ]
+  },
+  {
+    "memory_id": 3119702489,
+    "content": "Audit released binaries for unauthorized changes weekly.",
+    "category": "SECURITY",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "unknown",
+    "sample_queries": [
+      "audit released",
+      "security audit"
+    ]
+  },
+  {
+    "memory_id": 3869130094,
+    "content": "Validate tenant context before any data access operation",
+    "category": "SECURITY",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 9,
+    "context": "unknown",
+    "sample_queries": [
+      "validate tenant",
+      "security validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 1801641265,
+    "content": "Validate input before database queries to prevent injection",
+    "category": "SECURITY",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "unknown",
+    "sample_queries": [
+      "validate input",
+      "security validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 50800331,
+    "content": "Sanitize and validate all inputs before database queries",
+    "category": "SECURITY",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "unknown",
+    "sample_queries": [
+      "sanitize validate",
+      "security sanitize",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 1191905579,
+    "content": "Validate inputs before database queries to prevent injection.",
+    "category": "SECURITY",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "C:\\Users\\Erwin\\.claude\\hooks\\ace_inject_context.py",
+    "sample_queries": [
+      "validate inputs",
+      "security validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 3519684455,
+    "content": "Assert preconditions and validate invariants before processing parameters.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\benchmarks\\phase_effectiveness_benchmark.py",
+    "sample_queries": [
+      "assert preconditions",
+      "error_handling assert",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2766763614,
+    "content": "Track progress in loops to detect infinite iterations early.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "unknown",
+    "sample_queries": [
+      "track progress",
+      "error_handling track"
+    ]
+  },
+  {
+    "memory_id": 2258496389,
+    "content": "Resolve dependencies before delegating tasks.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "C:\\Users\\Erwin\\.claude\\CLAUDE.md",
+    "sample_queries": [
+      "resolve dependencies",
+      "error_handling resolve",
+      "md resolve"
+    ]
+  },
+  {
+    "memory_id": 1316445620,
+    "content": "Use TYPE_CHECKING conditional imports with fallback types for compatibility",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\ace\\unified_memory.py",
+    "sample_queries": [
+      "type_checking conditional",
+      "error_handling type_checking",
+      "py type_checking"
+    ]
+  },
+  {
+    "memory_id": 1916539101,
+    "content": "Assign function return values to variables before use",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\tests\\test_unified_retrieval.py",
+    "sample_queries": [
+      "assign function",
+      "error_handling assign",
+      "py assign"
+    ]
+  },
+  {
+    "memory_id": 2720976801,
+    "content": "Validate file paths exist before performing filesystem operations",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/enhance_models.py",
+    "sample_queries": [
+      "validate paths",
+      "error_handling validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 843296126,
+    "content": "Calling functions that depend on initialization state (like getLog() before initLogger()) causes runtime errors.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "MIGRATION",
+    "severity": 6,
+    "context": "Migrated from Graphiti fact: CAUSES_ERROR_WHEN_CALLED_BEFORE",
+    "sample_queries": [
+      "calling functions",
+      "error_handling calling",
+      "error handling"
+    ]
+  },
+  {
+    "memory_id": 737487115,
+    "content": "Validate inputs strictly before processing to avoid false positives.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\tests\\test_intent_classifier.py",
+    "sample_queries": [
+      "validate inputs",
+      "error_handling validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 3197320946,
+    "content": "Filter non-JSON stdout lines before parsing to prevent unexpected crashes.",
+    "category": "ERROR_HANDLING",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "C:\\Users\\Erwin\\.claude\\hooks\\ace_learn_from_feedback.py",
+    "sample_queries": [
+      "filter non-json",
+      "error_handling filter",
+      "py filter"
+    ]
+  },
+  {
+    "memory_id": 723388665,
+    "content": "Validate all inputs at entry points to stop downstream failures.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "unknown",
+    "sample_queries": [
+      "validate inputs",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2374595933,
+    "content": "Validate embeddings before Qdrant memory search to avoid null failures during Edit ops.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 9,
+    "context": "C:\\Users\\Erwin\\.claude\\hooks\\ace_qdrant_memory.py",
+    "sample_queries": [
+      "validate embeddings",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2313688912,
+    "content": "Normalize text data before processing to prevent rendering issues.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 5,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\app\\(app)\\unsorted\\page.tsx",
+    "sample_queries": [
+      "normalize processing",
+      "data_validation normalize",
+      "tsx normalize"
+    ]
+  },
+  {
+    "memory_id": 4252119471,
+    "content": "Enforce domain-specific models with centralized validation and actionable errors",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 9,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/iconpackgen/backend/app/models/icon_pack.py",
+    "sample_queries": [
+      "enforce domain-specific",
+      "data_validation enforce",
+      "error handling"
+    ]
+  },
+  {
+    "memory_id": 1857660707,
+    "content": "Sanitize all external inputs before processing or storing.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 10,
+    "context": "C:\\Users\\Erwin\\.claude\\CLAUDE.md",
+    "sample_queries": [
+      "sanitize external",
+      "data_validation sanitize",
+      "md sanitize"
+    ]
+  },
+  {
+    "memory_id": 311884616,
+    "content": "Validate payload types before deserializing to prevent runtime errors.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\ace\\playbook.py",
+    "sample_queries": [
+      "validate payload",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 3158585857,
+    "content": "Log session outcomes to quantify generator effectiveness",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 5,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\ace\\adaptation.py",
+    "sample_queries": [
+      "session outcomes",
+      "data_validation session",
+      "py session"
+    ]
+  },
+  {
+    "memory_id": 3693042201,
+    "content": "Atomicly batch schema changes to prevent data inconsistency",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\conductor\\conductor\\internal\\learning\\migration.go",
+    "sample_queries": [
+      "atomicly batch",
+      "data_validation atomicly",
+      "go atomicly"
+    ]
+  },
+  {
+    "memory_id": 852001696,
+    "content": "Always validate enrichment function presence before migration",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\ace\\playbook.py",
+    "sample_queries": [
+      "validate enrichment",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2462209055,
+    "content": "Validate embeddings exist before passing to search functions.",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "unknown",
+    "sample_queries": [
+      "validate embeddings",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 596943340,
+    "content": "Validate metadata types before filtering operations",
+    "category": "DATA_VALIDATION",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\ace\\delta.py",
+    "sample_queries": [
+      "validate metadata",
+      "data_validation validate",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 3480381883,
+    "content": "🔴 [FRUSTRATION] Always validate tool_result blocks against corresponding tool_use blocks to avoid API errors",
+    "category": "TOOL_USAGE",
+    "feedback_type": "FRUSTRATION",
+    "severity": 10,
+    "context": "getting the following error after \"ACE Learned\" : API Error: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"messages.48.content.4: unexpected `tool_use_id` found in `tool_resul",
+    "sample_queries": [
+      "[frustration] validate",
+      "tool_usage [frustration]",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 2006358528,
+    "content": "⚪ [WORKFLOW] When security tools flag files, investigate rather than ignore",
+    "category": "TOOL_USAGE",
+    "feedback_type": "WORKFLOW",
+    "severity": 6,
+    "context": "norton keeps flagging cmd.test.exe and quarantining it",
+    "sample_queries": [
+      "[workflow] security",
+      "tool_usage [workflow]",
+      "exe and quarantining it [workflow]"
+    ]
+  },
+  {
+    "memory_id": 4047306226,
+    "content": "[!] [FRUSTRATION] Always ensure overlay text readability meets high standards (e.g., Fortune 100)",
+    "category": "TOOL_USAGE",
+    "feedback_type": "FRUSTRATION",
+    "severity": 8,
+    "context": "I STILL CANNOT READ TH EPRINT IN TH EOVERLAY! FORTUNE 100 STANDARDS! COME ON! THIS IS FUCKING BULLSHIT! ",
+    "sample_queries": [
+      "[frustration] overlay",
+      "tool_usage [frustration]"
+    ]
+  },
+  {
+    "memory_id": 3969414535,
+    "content": "[!] [CORRECTION] When outputting schemas, always match exact schema type to prevent downstream errors",
+    "category": "TOOL_USAGE",
+    "feedback_type": "CORRECTION",
+    "severity": 8,
+    "context": "The Stop hook needs fixing - it's outputting PreToolUse schema instead of Stop hook schema. investigate and fix the excuse_enforcer_stop.py output format",
+    "sample_queries": [
+      "[correction] outputting",
+      "tool_usage [correction]",
+      "error handling"
+    ]
+  },
+  {
+    "memory_id": 2327383598,
+    "content": "[-] [ERROR_PREVENTION] When tool triggers affect functionality, document side effects clearly",
+    "category": "TOOL_USAGE",
+    "feedback_type": "ERROR_PREVENTION",
+    "severity": 8,
+    "context": "The problem is that ACE hooks trigger on the affected tools. WHen you use bash, ACE isn't triggered!",
+    "sample_queries": [
+      "[error_prevention] triggers",
+      "tool_usage [error_prevention]",
+      "error handling"
+    ]
+  },
+  {
+    "memory_id": 3376217212,
+    "content": "ProviderRegistry.ts (6 logging calls removed)",
+    "category": "GENERAL",
+    "feedback_type": "MIGRATION",
+    "severity": 5,
+    "context": "Migrated from Graphiti fact: AFFECTS",
+    "sample_queries": [
+      "providerregistry.ts logging",
+      "general providerregistry.ts"
+    ]
+  },
+  {
+    "memory_id": 1116753210,
+    "content": "Establish baseline metrics before processing operations to enable meaningful progress tracking and reporting. This observability pattern allows for performance evaluation and helps demonstrate system value through measurable outputs.",
+    "category": "GENERAL",
+    "feedback_type": "PLAYBOOK_MIGRATION",
+    "severity": 9,
+    "context": "",
+    "sample_queries": [
+      "establish baseline",
+      "general establish",
+      "performance optimization"
+    ]
+  },
+  {
+    "memory_id": 3750513871,
+    "content": "SEVERITY 5/10: Always implement a \"no-progress detection\" mechanism when planning iterative operations. Before repeating an operation sequence, check if (a) the target state has been achieved, (b) the last iteration made meaningful changes, or (c) you're just executing the same commands repeatedly. If no progress is detected after 1-2 iterations, pause and seek clarification or try a different approach.",
+    "category": "GENERAL",
+    "feedback_type": "MIGRATION",
+    "severity": 9,
+    "context": "Migrated from Graphiti episode: Debug Loop [THRASH_LOOP]: 2025-12-03 15:14",
+    "sample_queries": [
+      "severity 5/10:",
+      "general severity"
+    ]
+  },
+  {
+    "memory_id": 241879075,
+    "content": "Return empty dicts for optional data queries.",
+    "category": "GENERAL",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "/d/ApplicationDevelopment/Tools/Mikos/iconpackgen/backend/app/core/redis.py",
+    "sample_queries": [
+      "return empty",
+      "general return",
+      "py return"
+    ]
+  },
+  {
+    "memory_id": 111594975,
+    "content": "John works at Microsoft",
+    "category": "GENERAL",
+    "feedback_type": "MIGRATION",
+    "severity": 5,
+    "context": "Migrated from Graphiti fact: WORKS_AT",
+    "sample_queries": [
+      "works microsoft",
+      "general works"
+    ]
+  },
+  {
+    "memory_id": 1842584464,
+    "content": "Extract constants and expose metadata for scalable embeddings and client-side validation.",
+    "category": "API_DESIGN",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 8,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\lib\\rag\\embeddings.ts",
+    "sample_queries": [
+      "extract constants",
+      "api_design extract",
+      "ts extract"
+    ]
+  },
+  {
+    "memory_id": 2248016383,
+    "content": "Instrument PreToolUse hooks to validate and enforce protocol compliance",
+    "category": "API_DESIGN",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\mcp2skill-tools\\.claude\\docs\\ImproveEfficiency.md",
+    "sample_queries": [
+      "instrument pretooluse",
+      "api_design instrument",
+      "how to validate"
+    ]
+  },
+  {
+    "memory_id": 681976258,
+    "content": "Adopt a unified naming convention for all external integrations.",
+    "category": "API_DESIGN",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 6,
+    "context": "C:\\Users\\Erwin\\AppData\\Roaming\\Code - Insiders\\User\\prompts\\mandatoryp0.instructions.md",
+    "sample_queries": [
+      "adopt unified",
+      "api_design adopt",
+      "md adopt"
+    ]
+  },
+  {
+    "memory_id": 1857412080,
+    "content": "Abstract APIs to enable provider flexibility.",
+    "category": "API_DESIGN",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\lib\\rag\\embeddings.ts",
+    "sample_queries": [
+      "abstract enable",
+      "api_design abstract",
+      "design patterns"
+    ]
+  },
+  {
+    "memory_id": 910953211,
+    "content": "Match every API endpoint to an available model capability before implementation",
+    "category": "API_DESIGN",
+    "feedback_type": "ACE_LEARNING",
+    "severity": 7,
+    "context": "D:\\ApplicationDevelopment\\Tools\\Mikos\\TaxHacker\\ai\\providers\\llmProvider.ts",
+    "sample_queries": [
+      "match every",
+      "api_design match",
+      "ts match"
+    ]
+  },
+  {
+    "memory_id": 1346384506,
+    "content": "⚪ [META] Always display system messages like \"ACE Learned\" during active conversation, not just at start",
+    "category": "MEMORY_BEHAVIOR",
+    "feedback_type": "META",
+    "severity": 8,
+    "context": "ACE Learned is appearing mid-chat stream as hooks are completed, NOT JUST AT SESSION START",
+    "sample_queries": [
+      "[meta] display",
+      "memory_behavior [meta]"
+    ]
+  },
+  {
+    "memory_id": 1271490760,
+    "content": "[M] [META] When configuring persistent memory, prioritize locations read at session start over those read dynamically",
+    "category": "MEMORY_BEHAVIOR",
+    "feedback_type": "META",
+    "severity": 8,
+    "context": "should we move p0 memories into ace and out of claude to be sure they are injected on session start or is claude.md read more often throughout the session and thus the better location for them?",
+    "sample_queries": [
+      "[meta] configuring",
+      "memory_behavior [meta]",
+      "md read more often throughout the session and thus the better location for them? [meta]"
+    ]
+  },
+  {
+    "memory_id": 2335611528,
+    "content": "🟡 [DIRECTIVE] When user requests clarity in directives, ensure stored instructions are unambiguous",
+    "category": "MEMORY_BEHAVIOR",
+    "feedback_type": "DIRECTIVE",
+    "severity": 9,
+    "context": "make sure this is crystal clear in your directives (wherever they may be currently stored) in user scope",
+    "sample_queries": [
+      "[directive] requests",
+      "memory_behavior [directive]"
+    ]
+  },
+  {
+    "memory_id": 1299074728,
+    "content": "[M] [META] Always retrieve multiple relevant memories to provide comprehensive context",
+    "category": "MEMORY_BEHAVIOR",
+    "feedback_type": "META",
+    "severity": 9,
+    "context": "why is ace only pulling in 1 relevant memory into context on user submit prompt?",
+    "sample_queries": [
+      "[meta] retrieve",
+      "memory_behavior [meta]"
+    ]
+  }
+]

@@ -1,0 +1,263 @@
+{
+  "baseline": {
+    "phase_name": "baseline",
+    "phase_description": "Baseline: No optimizations, cold start",
+    "num_queries": 10,
+    "top1_accuracy": 0.8,
+    "mrr": 0.8625,
+    "ndcg_at_5": 0.869342640361727,
+    "avg_separation": 0.10533333333333332,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.3333333333333333,
+        "mrr": 0.5416666666666666,
+        "ndcg_at_5": 0.5644754678724236
+      }
+    }
+  },
+  "1a_metadata": {
+    "phase_name": "1a_metadata",
+    "phase_description": "Phase 1A: Query type boost (+0.25)",
+    "num_queries": 10,
+    "top1_accuracy": 0.9,
+    "mrr": 0.95,
+    "ndcg_at_5": 0.969342640361727,
+    "avg_separation": 0.076,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.6666666666666666,
+        "mrr": 0.8333333333333334,
+        "ndcg_at_5": 0.8978088012057569
+      }
+    }
+  },
+  "1b_filter_fix": {
+    "phase_name": "1b_filter_fix",
+    "phase_description": "Phase 1B: Trigger override for low effectiveness",
+    "num_queries": 10,
+    "top1_accuracy": 0.8,
+    "mrr": 0.8625,
+    "ndcg_at_5": 0.869342640361727,
+    "avg_separation": 0.039500000000000014,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.3333333333333333,
+        "mrr": 0.5416666666666666,
+        "ndcg_at_5": 0.5644754678724236
+      }
+    }
+  },
+  "1c_asymmetric": {
+    "phase_name": "1c_asymmetric",
+    "phase_description": "Phase 1C: Asymmetric penalties (2x harmful)",
+    "num_queries": 10,
+    "top1_accuracy": 0.8,
+    "mrr": 0.8625,
+    "ndcg_at_5": 0.869342640361727,
+    "avg_separation": 0.039499999999999966,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.3333333333333333,
+        "mrr": 0.5416666666666666,
+        "ndcg_at_5": 0.5644754678724236
+      }
+    }
+  },
+  "1d_dynamic_weights": {
+    "phase_name": "1d_dynamic_weights",
+    "phase_description": "Phase 1D: Dynamic weight shifting by maturity",
+    "num_queries": 10,
+    "top1_accuracy": 0.8,
+    "mrr": 0.8625,
+    "ndcg_at_5": 0.869342640361727,
+    "avg_separation": 0.03950000000000002,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.3333333333333333,
+        "mrr": 0.5416666666666666,
+        "ndcg_at_5": 0.5644754678724236
+      }
+    }
+  },
+  "2_session": {
+    "phase_name": "2_session",
+    "phase_description": "Phase 2: Session-level context tracking",
+    "num_queries": 10,
+    "top1_accuracy": 0.2,
+    "mrr": 0.4125,
+    "ndcg_at_5": 0.5277485752057629,
+    "avg_separation": 0.04358333333333335,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 0.25,
+        "mrr": 0.4375,
+        "ndcg_at_5": 0.5730074185550448
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 0.3333333333333333,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6204510387155954
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.0,
+        "mrr": 0.2916666666666667,
+        "ndcg_at_5": 0.3747009872302213
+      }
+    }
+  },
+  "all_optimizations": {
+    "phase_name": "all_optimizations",
+    "phase_description": "All optimizations enabled",
+    "num_queries": 10,
+    "top1_accuracy": 0.9,
+    "mrr": 0.95,
+    "ndcg_at_5": 0.969342640361727,
+    "avg_separation": 0.028500000000000015,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.6666666666666666,
+        "mrr": 0.8333333333333334,
+        "ndcg_at_5": 0.8978088012057569
+      }
+    }
+  },
+  "cold_start": {
+    "phase_name": "cold_start",
+    "phase_description": "Cold start: All features enabled, no feedback",
+    "num_queries": 10,
+    "top1_accuracy": 0.9,
+    "mrr": 0.95,
+    "ndcg_at_5": 0.969342640361727,
+    "avg_separation": 0.076,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.6666666666666666,
+        "mrr": 0.8333333333333334,
+        "ndcg_at_5": 0.8978088012057569
+      }
+    }
+  },
+  "mature": {
+    "phase_name": "mature",
+    "phase_description": "Mature: All features, high feedback",
+    "num_queries": 10,
+    "top1_accuracy": 0.9,
+    "mrr": 0.95,
+    "ndcg_at_5": 0.969342640361727,
+    "avg_separation": 0.028500000000000015,
+    "per_difficulty": {
+      "easy": {
+        "count": 4,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "medium": {
+        "count": 3,
+        "top1_accuracy": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0
+      },
+      "adversarial": {
+        "count": 3,
+        "top1_accuracy": 0.6666666666666666,
+        "mrr": 0.8333333333333334,
+        "ndcg_at_5": 0.8978088012057569
+      }
+    }
+  }
+}

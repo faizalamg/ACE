@@ -1,0 +1,21 @@
+{
+  "bullets": {
+    "strategy-00001": {
+      "id": "strategy-00001",
+      "section": "strategy",
+      "content": "Tenant A strategy",
+      "helpful": 7,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2026-01-06T19:02:44.384671+00:00",
+      "updated_at": "2026-01-06T19:02:44.384683+00:00",
+      "last_validated": null
+    }
+  },
+  "sections": {
+    "strategy": [
+      "strategy-00001"
+    ]
+  },
+  "next_id": 1
+}

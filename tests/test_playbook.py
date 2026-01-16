@@ -1,0 +1,357 @@
+"""Tests for Playbook functionality including persistence."""
+
+import json
+import os
+import tempfile
+import unittest
+from pathlib import Path
+
+import pytest
+
+from ace import Playbook, DeltaBatch, DeltaOperation
+
+
+@pytest.mark.unit
+class TestPlaybook(unittest.TestCase):
+    """Test Playbook class functionality."""
+
+    def setUp(self):
+        """Set up test playbook with sample data."""
+        self.playbook = Playbook()
+
+        # Add test bullets
+        self.bullet1 = self.playbook.add_bullet(
+            section="general",
+            content="Always be clear",
+            metadata={"helpful": 5, "harmful": 0},
+        )
+
+        self.bullet2 = self.playbook.add_bullet(
+            section="math",
+            content="Show your work",
+            metadata={"helpful": 3, "harmful": 1},
+        )
+
+    def test_add_bullet(self):
+        """Test adding bullets to playbook."""
+        bullet = self.playbook.add_bullet(section="test", content="Test content")
+
+        self.assertIsNotNone(bullet)
+        self.assertEqual(bullet.section, "test")
+        self.assertEqual(bullet.content, "Test content")
+        self.assertEqual(len(self.playbook.bullets()), 3)
+
+    def test_update_bullet(self):
+        """Test updating existing bullet."""
+        updated = self.playbook.update_bullet(
+            self.bullet1.id, content="Updated content", metadata={"helpful": 10}
+        )
+
+        self.assertIsNotNone(updated)
+        self.assertEqual(updated.content, "Updated content")
+        self.assertEqual(updated.helpful, 10)
+
+    def test_tag_bullet(self):
+        """Test tagging bullets."""
+        self.playbook.tag_bullet(self.bullet1.id, "helpful", 2)
+        bullet = self.playbook.get_bullet(self.bullet1.id)
+
+        self.assertEqual(bullet.helpful, 7)  # 5 + 2
+
+    def test_bullet_to_llm_dict_excludes_timestamps(self):
+        """Test that to_llm_dict filters out created_at and updated_at."""
+        from ace.playbook import Bullet
+
+        bullet = Bullet(
+            id="test-001",
+            section="test_section",
+            content="Test strategy content",
+            helpful=5,
+            harmful=1,
+            neutral=2,
+            created_at="2025-01-01T00:00:00Z",
+            updated_at="2025-01-02T00:00:00Z",
+        )
+
+        llm_dict = bullet.to_llm_dict()
+
+        # Should include LLM-relevant fields (compressed TOON format)
+        self.assertEqual(llm_dict["i"], "test-001")  # id -> i
+        self.assertEqual(llm_dict["s"], "test_section")  # section -> s
+        self.assertEqual(llm_dict["c"], "Test strategy content")  # content -> c
+        self.assertEqual(llm_dict["h"], 5)  # helpful -> h
+        self.assertEqual(llm_dict["x"], 1)  # harmful -> x
+        self.assertEqual(llm_dict["n"], 2)  # neutral -> n (only if non-zero)
+
+        # Should exclude timestamps
+        self.assertNotIn("created_at", llm_dict)
+        self.assertNotIn("updated_at", llm_dict)
+
+        # Should have exactly 6 fields
+        self.assertEqual(len(llm_dict), 6)
+
+    def test_remove_bullet(self):
+        """Test removing bullets."""
+        self.playbook.remove_bullet(self.bullet1.id)
+
+        self.assertIsNone(self.playbook.get_bullet(self.bullet1.id))
+        self.assertEqual(len(self.playbook.bullets()), 1)
+
+    def test_apply_delta(self):
+        """Test applying delta operations."""
+        delta = DeltaBatch(
+            reasoning="Test delta operations",
+            operations=[
+                DeltaOperation(type="ADD", section="new", content="New strategy"),
+                DeltaOperation(
+                    type="UPDATE",
+                    section="",  # Section is required but not used for UPDATE
+                    bullet_id=self.bullet1.id,
+                    content="Modified content",
+                ),
+                DeltaOperation(
+                    type="TAG",
+                    section="",  # Section is required but not used for TAG
+                    bullet_id=self.bullet2.id,
+                    metadata={"harmful": 2},
+                ),
+            ],
+        )
+
+        self.playbook.apply_delta(delta)
+
+        # Check ADD operation
+        self.assertEqual(len(self.playbook.bullets()), 3)
+
+        # Check UPDATE operation
+        bullet1 = self.playbook.get_bullet(self.bullet1.id)
+        self.assertEqual(bullet1.content, "Modified content")
+
+        # Check TAG operation
+        bullet2 = self.playbook.get_bullet(self.bullet2.id)
+        self.assertEqual(bullet2.harmful, 3)  # 1 + 2
+
+    def test_dumps_loads(self):
+        """Test JSON serialization and deserialization."""
+        # Serialize
+        json_str = self.playbook.dumps()
+        self.assertIsInstance(json_str, str)
+
+        # Verify it's valid JSON
+        data = json.loads(json_str)
+        self.assertIn("bullets", data)
+        self.assertIn("sections", data)
+
+        # Deserialize
+        loaded = Playbook.loads(json_str)
+
+        # Verify content matches
+        self.assertEqual(len(loaded.bullets()), len(self.playbook.bullets()))
+
+        for original, loaded_bullet in zip(self.playbook.bullets(), loaded.bullets()):
+            self.assertEqual(original.id, loaded_bullet.id)
+            self.assertEqual(original.content, loaded_bullet.content)
+            self.assertEqual(original.helpful, loaded_bullet.helpful)
+
+    def test_save_to_file(self):
+        """Test saving playbook to file."""
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+            temp_path = f.name
+
+        try:
+            # Save playbook
+            self.playbook.save_to_file(temp_path)
+
+            # Verify file exists
+            self.assertTrue(os.path.exists(temp_path))
+
+            # Verify content is valid JSON
+            with open(temp_path, "r") as f:
+                data = json.load(f)
+
+            self.assertIn("bullets", data)
+            self.assertIn("sections", data)
+            self.assertEqual(len(data["bullets"]), 2)
+
+        finally:
+            # Clean up
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+
+    def test_load_from_file(self):
+        """Test loading playbook from file."""
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+            temp_path = f.name
+
+        try:
+            # Save original
+            self.playbook.save_to_file(temp_path)
+
+            # Load from file
+            loaded = Playbook.load_from_file(temp_path)
+
+            # Verify content matches
+            self.assertEqual(len(loaded.bullets()), 2)
+
+            loaded_bullets = {b.id: b for b in loaded.bullets()}
+            original_bullets = {b.id: b for b in self.playbook.bullets()}
+
+            for bid, original in original_bullets.items():
+                loaded_bullet = loaded_bullets[bid]
+                self.assertEqual(loaded_bullet.content, original.content)
+                self.assertEqual(loaded_bullet.section, original.section)
+                self.assertEqual(loaded_bullet.helpful, original.helpful)
+                self.assertEqual(loaded_bullet.harmful, original.harmful)
+
+        finally:
+            # Clean up
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+
+    def test_save_creates_parent_dirs(self):
+        """Test that save_to_file creates parent directories if needed."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            nested_path = os.path.join(temp_dir, "nested", "dir", "playbook.json")
+
+            # Parent dirs don't exist yet
+            self.assertFalse(os.path.exists(os.path.dirname(nested_path)))
+
+            # Save should create them
+            self.playbook.save_to_file(nested_path)
+
+            # Verify file was created
+            self.assertTrue(os.path.exists(nested_path))
+
+            # Verify we can load it back
+            loaded = Playbook.load_from_file(nested_path)
+            self.assertEqual(len(loaded.bullets()), 2)
+
+    def test_load_nonexistent_file(self):
+        """Test loading from non-existent file raises FileNotFoundError."""
+        with self.assertRaises(FileNotFoundError) as context:
+            Playbook.load_from_file("nonexistent_file.json")
+
+        self.assertIn("not found", str(context.exception))
+
+    def test_load_invalid_json(self):
+        """Test loading invalid JSON raises appropriate error."""
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+            f.write("not valid json {")
+            temp_path = f.name
+
+        try:
+            with self.assertRaises(json.JSONDecodeError):
+                Playbook.load_from_file(temp_path)
+        finally:
+            os.remove(temp_path)
+
+    def test_as_prompt(self):
+        """Test playbook prompt generation in TOON format."""
+        prompt = self.playbook.as_prompt()
+
+        # Check for TOON format with tab-delimited header (compressed field names)
+        self.assertIn("bullets[2", prompt)  # Array length
+        self.assertIn("{i", prompt)  # Field declarations (i=id, s=section, c=content, h=helpful, x=harmful)
+        self.assertIn("general", prompt)
+        self.assertIn("math", prompt)
+        self.assertIn("Always be clear", prompt)
+        self.assertIn("Show your work", prompt)
+
+        # Check tab delimiters are used
+        self.assertIn("\t", prompt)
+
+        # Check helpful/harmful values are present as tab-separated numbers
+        lines = prompt.split("\n")
+        data_lines = [line for line in lines if line and not line.startswith("bullets")]
+        self.assertEqual(len(data_lines), 2)  # Two bullet rows
+
+        # Check first bullet: general-00001\tgeneral\tAlways be clear\t5\t0
+        self.assertIn("general-00001", data_lines[0])
+        self.assertIn("Always be clear", data_lines[0])
+        parts = data_lines[0].split("\t")
+        self.assertEqual(parts[3], "5")  # helpful
+        self.assertEqual(parts[4], "0")  # harmful
+
+        # Check second bullet: math-00002\tmath\tShow your work\t3\t1
+        self.assertIn("math-00002", data_lines[1])
+        self.assertIn("Show your work", data_lines[1])
+        parts = data_lines[1].split("\t")
+        self.assertEqual(parts[3], "3")  # helpful
+        self.assertEqual(parts[4], "1")  # harmful
+
+    def test_stats(self):
+        """Test playbook statistics."""
+        stats = self.playbook.stats()
+
+        self.assertEqual(stats["sections"], 2)
+        self.assertEqual(stats["bullets"], 2)
+        self.assertEqual(stats["tags"]["helpful"], 8)  # 5 + 3
+        self.assertEqual(stats["tags"]["harmful"], 1)
+        self.assertEqual(stats["tags"]["neutral"], 0)
+
+    def test_empty_playbook_serialization(self):
+        """Test that empty playbook can be saved and loaded."""
+        empty = Playbook()
+
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+            temp_path = f.name
+
+        try:
+            # Save empty playbook
+            empty.save_to_file(temp_path)
+
+            # Load it back
+            loaded = Playbook.load_from_file(temp_path)
+
+            # Verify it's empty
+            self.assertEqual(len(loaded.bullets()), 0)
+            self.assertEqual(loaded.stats()["bullets"], 0)
+            self.assertEqual(loaded.stats()["sections"], 0)
+
+        finally:
+            os.remove(temp_path)
+
+    def test_as_prompt_returns_valid_toon(self):
+        """Test that as_prompt() returns valid TOON format."""
+        from toon import decode
+
+        # Get TOON output
+        toon_output = self.playbook.as_prompt()
+
+        # Should be valid TOON - decode it
+        decoded = decode(toon_output)
+
+        # Verify structure
+        self.assertIn("bullets", decoded)
+        self.assertEqual(len(decoded["bullets"]), 2)
+
+        # Verify bullet IDs are preserved (compressed field name: i)
+        bullet_ids = {b["i"] for b in decoded["bullets"]}
+        self.assertIn("general-00001", bullet_ids)
+        self.assertIn("math-00002", bullet_ids)
+
+    def test_as_prompt_empty_playbook(self):
+        """Test that empty playbook is handled gracefully."""
+        empty = Playbook()
+
+        # Should not crash
+        result = empty.as_prompt()
+
+        # Should return valid TOON for empty bullets array
+        self.assertIsInstance(result, str)
+        self.assertGreater(len(result), 0)
+
+    def test_markdown_debug_method(self):
+        """Test that _as_markdown_debug() provides human-readable format."""
+        markdown = self.playbook._as_markdown_debug()
+
+        # Should be markdown format
+        self.assertIn("##", markdown)  # Section headers
+        self.assertIn("- [", markdown)  # Bullet points
+        self.assertIn("general", markdown)  # Section name
+        self.assertIn("Always be clear", markdown)  # Content
+        self.assertIn("helpful=5", markdown)  # Counters
+
+
+if __name__ == "__main__":
+    unittest.main()

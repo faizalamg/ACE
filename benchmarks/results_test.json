@@ -1,0 +1,760 @@
+{
+  "top1_accuracy": 0.0,
+  "mrr": 0.0,
+  "ndcg_at_5": 0.0,
+  "num_samples": 50,
+  "top_k": 10,
+  "per_sample_results": [
+    {
+      "query": "How to debug timeout errors in production?",
+      "query_type": "debugging",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "debug_timeout",
+        "check_logs"
+      ],
+      "irrelevant_ids": [
+        "security_xss",
+        "optimize_query"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What steps should I follow when investigating a security breach?",
+      "query_type": "security",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "incident_response",
+        "forensics"
+      ],
+      "irrelevant_ids": [
+        "debug_memory_leak",
+        "refactor_code"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to approach solving a complex algorithmic problem?",
+      "query_type": "reasoning",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "break_down_problem",
+        "use_examples"
+      ],
+      "irrelevant_ids": [
+        "write_tests",
+        "review_pr"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for preventing SQL injection attacks?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "parameterized_queries",
+        "input_validation"
+      ],
+      "irrelevant_ids": [
+        "debug_performance",
+        "refactor_legacy"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to optimize a slow database query?",
+      "query_type": "optimization",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "add_indexes",
+        "analyze_query_plan"
+      ],
+      "irrelevant_ids": [
+        "security_auth",
+        "debug_crash"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the best way to refactor legacy code safely?",
+      "query_type": "refactoring",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "write_tests_first",
+        "incremental_changes"
+      ],
+      "irrelevant_ids": [
+        "debug_timeout",
+        "security_encryption"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to handle memory leaks in production?",
+      "query_type": "debugging",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "profile_memory",
+        "check_references"
+      ],
+      "irrelevant_ids": [
+        "security_cors",
+        "optimize_frontend"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to implement proper error handling in APIs?",
+      "query_type": "implementation",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "structured_errors",
+        "logging_strategy"
+      ],
+      "irrelevant_ids": [
+        "debug_concurrency",
+        "security_rate_limit"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug race conditions in concurrent code?",
+      "query_type": "debugging",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "use_debugger",
+        "add_logging",
+        "simplify_concurrency"
+      ],
+      "irrelevant_ids": [
+        "security_xss",
+        "optimize_loops"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What testing strategy should I use for microservices?",
+      "query_type": "testing",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "contract_tests",
+        "integration_tests"
+      ],
+      "irrelevant_ids": [
+        "debug_networking",
+        "security_tokens"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to design a scalable API architecture?",
+      "query_type": "architecture",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "stateless_design",
+        "caching_strategy"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_headers"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for handling authentication in web apps?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "use_jwt",
+        "secure_cookies"
+      ],
+      "irrelevant_ids": [
+        "debug_performance",
+        "optimize_images"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to trace errors in distributed systems?",
+      "query_type": "debugging",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "distributed_tracing",
+        "correlation_ids"
+      ],
+      "irrelevant_ids": [
+        "security_encryption",
+        "refactor_monolith"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the correct way to implement caching?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "cache_invalidation",
+        "choose_cache_backend"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_csrf"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to prevent XSS attacks in frontend code?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "sanitize_input",
+        "use_csp_headers"
+      ],
+      "irrelevant_ids": [
+        "debug_backend",
+        "optimize_database"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to optimize frontend performance?",
+      "query_type": "optimization",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "minimize_bundle",
+        "lazy_loading"
+      ],
+      "irrelevant_ids": [
+        "security_injection",
+        "debug_backend"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug network connectivity issues?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "check_firewall",
+        "test_endpoints"
+      ],
+      "irrelevant_ids": [
+        "security_auth",
+        "refactor_api"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What code review practices improve code quality?",
+      "query_type": "process",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "checklist_based",
+        "pair_review"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_tokens"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement proper logging in production systems?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "structured_logging",
+        "log_levels"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_rate_limit"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for database schema design?",
+      "query_type": "architecture",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "normalization",
+        "indexing_strategy"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_headers"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to handle CORS issues in APIs?",
+      "query_type": "debugging",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "configure_cors",
+        "check_headers"
+      ],
+      "irrelevant_ids": [
+        "security_injection",
+        "optimize_query"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the best approach to writing unit tests?",
+      "query_type": "testing",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "test_behavior",
+        "mock_dependencies"
+      ],
+      "irrelevant_ids": [
+        "debug_performance",
+        "security_auth"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug crashes in production without logs?",
+      "query_type": "debugging",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "use_apm",
+        "reproduce_locally"
+      ],
+      "irrelevant_ids": [
+        "security_csrf",
+        "optimize_frontend"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to migrate from monolith to microservices?",
+      "query_type": "architecture",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "strangler_pattern",
+        "identify_boundaries"
+      ],
+      "irrelevant_ids": [
+        "debug_memory",
+        "security_tokens"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement rate limiting for APIs?",
+      "query_type": "security",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "token_bucket",
+        "sliding_window"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "refactor_legacy"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What testing pyramid should I follow?",
+      "query_type": "testing",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "unit_tests_base",
+        "fewer_e2e"
+      ],
+      "irrelevant_ids": [
+        "debug_concurrency",
+        "security_encryption"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug slow API responses?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "profile_requests",
+        "check_database"
+      ],
+      "irrelevant_ids": [
+        "security_xss",
+        "refactor_code"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for handling secrets in code?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "use_vault",
+        "environment_vars"
+      ],
+      "irrelevant_ids": [
+        "debug_timeout",
+        "optimize_loops"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement eventual consistency in distributed systems?",
+      "query_type": "architecture",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "event_sourcing",
+        "saga_pattern"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_headers"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to optimize Docker container size?",
+      "query_type": "optimization",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "multi_stage_build",
+        "minimize_layers"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_injection"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug GraphQL query performance?",
+      "query_type": "debugging",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "query_complexity",
+        "dataloader_pattern"
+      ],
+      "irrelevant_ids": [
+        "security_cors",
+        "refactor_api"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the best way to version APIs?",
+      "query_type": "architecture",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "url_versioning",
+        "header_versioning"
+      ],
+      "irrelevant_ids": [
+        "debug_memory",
+        "security_rate_limit"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement proper input validation?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "whitelist_approach",
+        "sanitize_early"
+      ],
+      "irrelevant_ids": [
+        "debug_concurrency",
+        "optimize_database"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to refactor procedural code to OOP?",
+      "query_type": "refactoring",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "identify_objects",
+        "extract_classes"
+      ],
+      "irrelevant_ids": [
+        "debug_timeout",
+        "security_tokens"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug infinite loops in production?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "check_termination",
+        "add_timeouts"
+      ],
+      "irrelevant_ids": [
+        "security_xss",
+        "refactor_legacy"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for CI/CD pipeline design?",
+      "query_type": "process",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "automated_tests",
+        "staged_deployments"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_encryption"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement OAuth2 authentication?",
+      "query_type": "security",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "auth_code_flow",
+        "secure_tokens"
+      ],
+      "irrelevant_ids": [
+        "debug_performance",
+        "optimize_images"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the correct way to handle database transactions?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "acid_properties",
+        "rollback_strategy"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_headers"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug WebSocket connection issues?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "check_handshake",
+        "proxy_config"
+      ],
+      "irrelevant_ids": [
+        "security_injection",
+        "refactor_code"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to implement server-side rendering?",
+      "query_type": "implementation",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "hydration_strategy",
+        "cache_rendered"
+      ],
+      "irrelevant_ids": [
+        "debug_backend",
+        "security_csrf"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to prevent CSRF attacks?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "csrf_tokens",
+        "samesite_cookies"
+      ],
+      "irrelevant_ids": [
+        "debug_timeout",
+        "optimize_query"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What testing approach works for legacy code?",
+      "query_type": "testing",
+      "difficulty": "hard",
+      "relevant_ids": [
+        "characterization_tests",
+        "seam_based"
+      ],
+      "irrelevant_ids": [
+        "debug_memory",
+        "security_rate_limit"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug environment-specific bugs?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "compare_configs",
+        "reproduce_env"
+      ],
+      "irrelevant_ids": [
+        "security_auth",
+        "refactor_api"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Best practices for API error responses?",
+      "query_type": "implementation",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "standard_format",
+        "meaningful_messages"
+      ],
+      "irrelevant_ids": [
+        "debug_concurrency",
+        "security_tokens"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to implement proper monitoring in production?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "metrics_collection",
+        "alerting_strategy"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_encryption"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the best approach to database migrations?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "version_control",
+        "rollback_plan"
+      ],
+      "irrelevant_ids": [
+        "debug_crash",
+        "security_headers"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to debug performance issues in React apps?",
+      "query_type": "debugging",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "react_profiler",
+        "unnecessary_renders"
+      ],
+      "irrelevant_ids": [
+        "security_xss",
+        "refactor_backend"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "Steps to implement proper session management?",
+      "query_type": "security",
+      "difficulty": "easy",
+      "relevant_ids": [
+        "secure_storage",
+        "timeout_policy"
+      ],
+      "irrelevant_ids": [
+        "debug_performance",
+        "optimize_database"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "How to approach code optimization systematically?",
+      "query_type": "optimization",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "measure_first",
+        "bottleneck_focus"
+      ],
+      "irrelevant_ids": [
+        "debug_timeout",
+        "security_injection"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    },
+    {
+      "query": "What's the correct way to handle async errors?",
+      "query_type": "implementation",
+      "difficulty": "medium",
+      "relevant_ids": [
+        "try_catch_async",
+        "promise_rejection"
+      ],
+      "irrelevant_ids": [
+        "debug_frontend",
+        "security_cors"
+      ],
+      "retrieved_ids": [],
+      "scores": []
+    }
+  ]
+}

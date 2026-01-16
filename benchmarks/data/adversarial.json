@@ -1,0 +1,352 @@
+[
+  {
+    "query": "System is hanging and won't respond",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["debug_timeout", "check_performance"],
+    "irrelevant_bullet_ids": ["syntax_error_fix"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "User input causes application to crash",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["input_validation", "error_handling"],
+    "irrelevant_bullet_ids": ["optimize_database"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to make code run faster",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["profile_first", "cache_results"],
+    "irrelevant_bullet_ids": ["write_documentation"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "App keeps crashing but no error messages",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["use_apm", "add_logging"],
+    "irrelevant_bullet_ids": ["security_headers"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to make database faster?",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["analyze_query_plan", "add_indexes"],
+    "irrelevant_bullet_ids": ["debug_frontend"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Users complaining about slow page loads",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["minimize_bundle", "lazy_loading"],
+    "irrelevant_bullet_ids": ["security_encryption"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Code works locally but fails in production",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["compare_configs", "reproduce_env"],
+    "irrelevant_bullet_ids": ["refactor_code"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "API returns 500 errors intermittently",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["distributed_tracing", "check_logs"],
+    "irrelevant_bullet_ids": ["optimize_query"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to protect against malicious users?",
+    "query_type": "security",
+    "relevant_bullet_ids": ["input_validation", "rate_limiting"],
+    "irrelevant_bullet_ids": ["debug_performance"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Data integrity issues in distributed system",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["event_sourcing", "acid_properties"],
+    "irrelevant_bullet_ids": ["debug_frontend"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Frontend not updating after backend changes",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["cache_invalidation", "check_cors"],
+    "irrelevant_bullet_ids": ["security_tokens"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Tests pass but production breaks",
+    "query_type": "testing",
+    "relevant_bullet_ids": ["integration_tests", "reproduce_env"],
+    "irrelevant_bullet_ids": ["refactor_legacy"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Application consuming too much memory",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["profile_memory", "check_references"],
+    "irrelevant_bullet_ids": ["security_csrf"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to prevent users from breaking the system?",
+    "query_type": "security",
+    "relevant_bullet_ids": ["input_validation", "rate_limiting"],
+    "irrelevant_bullet_ids": ["optimize_loops"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Concurrent requests causing weird behavior",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["debug_concurrency", "simplify_concurrency"],
+    "irrelevant_bullet_ids": ["security_xss"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Old code is difficult to modify",
+    "query_type": "refactoring",
+    "relevant_bullet_ids": ["characterization_tests", "incremental_changes"],
+    "irrelevant_bullet_ids": ["debug_timeout"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Service keeps going down under load",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["stateless_design", "caching_strategy"],
+    "irrelevant_bullet_ids": ["security_headers"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Can't figure out why feature isn't working",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["add_logging", "use_debugger"],
+    "irrelevant_bullet_ids": ["refactor_api"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to update old system without breaking it",
+    "query_type": "refactoring",
+    "relevant_bullet_ids": ["write_tests_first", "strangler_pattern"],
+    "irrelevant_bullet_ids": ["security_injection"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Authentication not working correctly",
+    "query_type": "security",
+    "relevant_bullet_ids": ["use_jwt", "check_headers"],
+    "irrelevant_bullet_ids": ["optimize_database"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Random failures that can't be reproduced",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["debug_concurrency", "add_logging"],
+    "irrelevant_bullet_ids": ["refactor_code"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to handle unpredictable user behavior?",
+    "query_type": "implementation",
+    "relevant_bullet_ids": ["input_validation", "error_handling"],
+    "irrelevant_bullet_ids": ["optimize_frontend"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "System behaves differently for different users",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["compare_configs", "distributed_tracing"],
+    "irrelevant_bullet_ids": ["security_rate_limit"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to improve overall system reliability",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["metrics_collection", "automated_tests"],
+    "irrelevant_bullet_ids": ["debug_crash"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Code changes breaking existing functionality",
+    "query_type": "testing",
+    "relevant_bullet_ids": ["regression_tests", "contract_tests"],
+    "irrelevant_bullet_ids": ["security_encryption"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to prevent unauthorized access?",
+    "query_type": "security",
+    "relevant_bullet_ids": ["secure_cookies", "auth_code_flow"],
+    "irrelevant_bullet_ids": ["debug_performance"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Application freezing periodically",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["check_termination", "profile_requests"],
+    "irrelevant_bullet_ids": ["refactor_legacy"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need better visibility into production issues",
+    "query_type": "implementation",
+    "relevant_bullet_ids": ["structured_logging", "use_apm"],
+    "irrelevant_bullet_ids": ["security_cors"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Data not syncing across services",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["event_sourcing", "correlation_ids"],
+    "irrelevant_bullet_ids": ["debug_frontend"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to ensure data consistency?",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["acid_properties", "saga_pattern"],
+    "irrelevant_bullet_ids": ["optimize_images"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Users experiencing intermittent errors",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["distributed_tracing", "reproduce_env"],
+    "irrelevant_bullet_ids": ["refactor_code"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to secure sensitive information",
+    "query_type": "security",
+    "relevant_bullet_ids": ["use_vault", "secure_storage"],
+    "irrelevant_bullet_ids": ["debug_timeout"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "System becoming harder to maintain",
+    "query_type": "refactoring",
+    "relevant_bullet_ids": ["extract_classes", "identify_boundaries"],
+    "irrelevant_bullet_ids": ["security_headers"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Performance degrading over time",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["measure_first", "bottleneck_focus"],
+    "irrelevant_bullet_ids": ["security_injection"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to handle unexpected user inputs?",
+    "query_type": "implementation",
+    "relevant_bullet_ids": ["whitelist_approach", "sanitize_early"],
+    "irrelevant_bullet_ids": ["debug_crash"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Services can't communicate properly",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["check_firewall", "test_endpoints"],
+    "irrelevant_bullet_ids": ["refactor_api"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to prevent system abuse",
+    "query_type": "security",
+    "relevant_bullet_ids": ["token_bucket", "sliding_window"],
+    "irrelevant_bullet_ids": ["optimize_query"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Code becoming too complex to understand",
+    "query_type": "refactoring",
+    "relevant_bullet_ids": ["break_down_problem", "extract_classes"],
+    "irrelevant_bullet_ids": ["debug_memory"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Deployment causing downtime",
+    "query_type": "process",
+    "relevant_bullet_ids": ["staged_deployments", "rollback_plan"],
+    "irrelevant_bullet_ids": ["security_tokens"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to track down elusive bugs?",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["add_logging", "use_debugger"],
+    "irrelevant_bullet_ids": ["refactor_legacy"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Third-party integrations failing randomly",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["add_timeouts", "correlation_ids"],
+    "irrelevant_bullet_ids": ["security_csrf"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to improve code maintainability",
+    "query_type": "refactoring",
+    "relevant_bullet_ids": ["checklist_based", "pair_review"],
+    "irrelevant_bullet_ids": ["debug_timeout"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Database queries taking forever",
+    "query_type": "optimization",
+    "relevant_bullet_ids": ["analyze_query_plan", "add_indexes"],
+    "irrelevant_bullet_ids": ["security_xss"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to prevent data leaks?",
+    "query_type": "security",
+    "relevant_bullet_ids": ["sanitize_input", "secure_storage"],
+    "irrelevant_bullet_ids": ["optimize_loops"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Real-time features not working reliably",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["check_handshake", "proxy_config"],
+    "irrelevant_bullet_ids": ["refactor_code"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to scale system for growth",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["stateless_design", "identify_boundaries"],
+    "irrelevant_bullet_ids": ["debug_frontend"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Error messages not helpful for users",
+    "query_type": "implementation",
+    "relevant_bullet_ids": ["meaningful_messages", "standard_format"],
+    "irrelevant_bullet_ids": ["security_encryption"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "How to validate changes won't break production?",
+    "query_type": "testing",
+    "relevant_bullet_ids": ["automated_tests", "integration_tests"],
+    "irrelevant_bullet_ids": ["debug_crash"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Browser rendering issues across devices",
+    "query_type": "debugging",
+    "relevant_bullet_ids": ["react_profiler", "unnecessary_renders"],
+    "irrelevant_bullet_ids": ["security_cors"],
+    "difficulty": "adversarial"
+  },
+  {
+    "query": "Need to modernize legacy architecture",
+    "query_type": "architecture",
+    "relevant_bullet_ids": ["strangler_pattern", "incremental_changes"],
+    "irrelevant_bullet_ids": ["debug_performance"],
+    "difficulty": "adversarial"
+  }
+]

@@ -1,0 +1,404 @@
+{
+  "timestamp": "2026-01-03T02:48:57.133634",
+  "metrics": {
+    "total_queries": 24,
+    "recall_at_1": "100.00%",
+    "recall_at_5": "100.00%",
+    "avg_relevance_score": "0.566",
+    "empty_results": 0,
+    "avg_latency_ms": "881.4"
+  },
+  "category_breakdown": {
+    "semantic": {
+      "total": 6,
+      "r1": 6,
+      "r5": 6
+    },
+    "keyword": {
+      "total": 6,
+      "r1": 6,
+      "r5": 6
+    },
+    "vague": {
+      "total": 3,
+      "r1": 3,
+      "r5": 3
+    },
+    "complex": {
+      "total": 4,
+      "r1": 4,
+      "r5": 4
+    },
+    "domain": {
+      "total": 3,
+      "r1": 3,
+      "r5": 3
+    },
+    "ace": {
+      "total": 2,
+      "r1": 2,
+      "r5": 2
+    }
+  },
+  "detailed_results": [
+    {
+      "query": "how do I handle network timeouts gracefully",
+      "category": "semantic",
+      "description": "Semantic understanding of timeout handling",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Configure timeouts to prevent cascading system failures.",
+      "scores": [
+        "0.500",
+        "0.700",
+        "0.350"
+      ],
+      "latency_ms": "1731.6"
+    },
+    {
+      "query": "what's the best way to validate user input",
+      "category": "semantic",
+      "description": "Input validation strategies",
+      "num_results": 4,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Validate all user input to reject malformed and malicious data.",
+      "scores": [
+        "0.367",
+        "0.500",
+        "0.500",
+        "0.667"
+      ],
+      "latency_ms": "566.8"
+    },
+    {
+      "query": "strategies for improving code readability",
+      "category": "semantic",
+      "description": "Code quality improvement",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Replace emojis with semantic markers for better readability",
+      "scores": [
+        "0.500",
+        "0.350",
+        "0.500"
+      ],
+      "latency_ms": "580.4"
+    },
+    {
+      "query": "KISS DRY TDD",
+      "category": "keyword",
+      "description": "Exact coding principle keywords",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "[*] [PREFERENCE] Prefer concise, direct solutions following KISS, DRY, and TDD principles",
+      "scores": [
+        "0.583",
+        "0.583",
+        "1.000"
+      ],
+      "latency_ms": "1806.3"
+    },
+    {
+      "query": "async await promise",
+      "category": "keyword",
+      "description": "Async programming keywords",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Enforce async adapter inheritance to block synchronous code from entering async paths",
+      "scores": [
+        "0.500",
+        "0.562"
+      ],
+      "latency_ms": "1191.4"
+    },
+    {
+      "query": "SQL injection prevention",
+      "category": "keyword",
+      "description": "Security keyword matching",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Use parameterized queries to prevent SQL injection",
+      "scores": [
+        "0.400",
+        "0.583",
+        "0.500"
+      ],
+      "latency_ms": "1387.5"
+    },
+    {
+      "query": "something is broken",
+      "category": "vague",
+      "description": "Ultra-vague debugging query",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "[!] [FRUSTRATION] When making mistakes, acknowledge error concisely and immediately",
+      "scores": [
+        "0.556",
+        "0.500"
+      ],
+      "latency_ms": "497.2"
+    },
+    {
+      "query": "help",
+      "category": "vague",
+      "description": "Minimal query",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "\u26aa [PREFERENCE] When user asks about a tool, provide concise usage guidance",
+      "scores": [
+        "0.500",
+        "0.500"
+      ],
+      "latency_ms": "536.4"
+    },
+    {
+      "query": "fix it",
+      "category": "vague",
+      "description": "Vague action query",
+      "num_results": 5,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "[!] [FRUSTRATION] When making mistakes, acknowledge error concisely and immediately",
+      "scores": [
+        "0.652",
+        "0.655",
+        "0.651",
+        "0.653",
+        "0.664"
+      ],
+      "latency_ms": "579.1"
+    },
+    {
+      "query": "how to implement retry logic with exponential backoff for failed API calls",
+      "category": "complex",
+      "description": "Multi-concept technical query",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Retry failed external API calls with exponential backoff to ensure reliability.",
+      "scores": [
+        "0.833",
+        "0.611",
+        "0.500"
+      ],
+      "latency_ms": "1500.6"
+    },
+    {
+      "query": "best practices for database connection pooling in high-concurrency environments",
+      "category": "complex",
+      "description": "Complex architecture query",
+      "num_results": 3,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Use connection pooling for Qdrant client resilience during high-load operations",
+      "scores": [
+        "1.000",
+        "0.667",
+        "0.361"
+      ],
+      "latency_ms": "573.0"
+    },
+    {
+      "query": "user prefers typescript over javascript",
+      "category": "domain",
+      "description": "User preference query",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "\u26aa [PREFERENCE] When user asks about a tool, provide concise usage guidance",
+      "scores": [
+        "0.553",
+        "0.500"
+      ],
+      "latency_ms": "543.3"
+    },
+    {
+      "query": "debugging memory leaks in python",
+      "category": "domain",
+      "description": "Debugging domain query",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "MEMORY LEAK DETECTION P0 MANDATORY - Always inspect for, detect, and fix memory leaks immediately wh",
+      "scores": [
+        "0.500",
+        "0.833"
+      ],
+      "latency_ms": "579.2"
+    },
+    {
+      "query": "microservices vs monolith architecture decision",
+      "category": "domain",
+      "description": "Architecture domain query",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Consolidate microservices into single-app for simplicity.",
+      "scores": [
+        "0.500",
+        "0.625"
+      ],
+      "latency_ms": "2674.4"
+    },
+    {
+      "query": "ACE memory storage policy",
+      "category": "ace",
+      "description": "ACE-specific retrieval",
+      "num_results": 1,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+      "scores": [
+        "1.000"
+      ],
+      "latency_ms": "534.4"
+    },
+    {
+      "query": "how does hybrid search work in ACE",
+      "category": "ace",
+      "description": "ACE hybrid search query",
+      "num_results": 4,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Implement hybrid search with vector + keyword deduplication",
+      "scores": [
+        "0.583",
+        "0.667",
+        "0.400",
+        "0.500"
+      ],
+      "latency_ms": "489.1"
+    },
+    {
+      "query": "error handling best practices",
+      "category": "semantic",
+      "description": "Error handling patterns",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Always log full error traces for critical systems without fallback mechanisms",
+      "scores": [
+        "0.750",
+        "0.500"
+      ],
+      "latency_ms": "598.2"
+    },
+    {
+      "query": "code review checklist",
+      "category": "semantic",
+      "description": "Code review patterns",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Cross-reference docs with live code during every code review.",
+      "scores": [
+        "0.750",
+        "0.500"
+      ],
+      "latency_ms": "530.3"
+    },
+    {
+      "query": "authentication authorization security",
+      "category": "keyword",
+      "description": "Security auth keywords",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "kilocode for authentication",
+      "scores": [
+        "0.500",
+        "0.500"
+      ],
+      "latency_ms": "540.4"
+    },
+    {
+      "query": "performance optimization latency",
+      "category": "keyword",
+      "description": "Performance keywords",
+      "num_results": 4,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Add performance monitoring for vector search operations to track query latency and optimize database",
+      "scores": [
+        "0.500",
+        "0.444",
+        "0.444",
+        "0.500"
+      ],
+      "latency_ms": "521.1"
+    },
+    {
+      "query": "how to properly log errors and debug issues in production",
+      "category": "complex",
+      "description": "Logging and debugging",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Always log full error traces for critical systems without fallback mechanisms",
+      "scores": [
+        "0.700",
+        "0.500"
+      ],
+      "latency_ms": "537.4"
+    },
+    {
+      "query": "what are the conventions for naming variables and functions",
+      "category": "semantic",
+      "description": "Naming conventions",
+      "num_results": 4,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Enforce consistent naming conventions for all data collections.",
+      "scores": [
+        "0.424",
+        "0.375",
+        "0.500",
+        "0.700"
+      ],
+      "latency_ms": "533.4"
+    },
+    {
+      "query": "caching strategy for frequently accessed data",
+      "category": "complex",
+      "description": "Caching patterns",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Apply separation of concerns by distinguishing between runtime data checks and explicit variable man",
+      "scores": [
+        "0.500",
+        "0.500"
+      ],
+      "latency_ms": "525.9"
+    },
+    {
+      "query": "test coverage unit integration e2e",
+      "category": "keyword",
+      "description": "Testing keywords",
+      "num_results": 2,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "Comprehensive ACE E2E testing completed 2025-12-06. Results: 174 unit tests PASSED (0 failures), all",
+      "scores": [
+        "0.500",
+        "0.543"
+      ],
+      "latency_ms": "1596.8"
+    }
+  ],
+  "quality_gate": {
+    "r1_target": 0.7,
+    "r5_target": 0.95,
+    "r1_pass": true,
+    "r5_pass": true,
+    "overall": "PASS"
+  }
+}

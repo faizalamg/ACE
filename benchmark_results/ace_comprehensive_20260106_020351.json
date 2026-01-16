@@ -1,0 +1,1406 @@
+{
+  "timestamp": "2026-01-06T02:03:51.728061",
+  "total_queries": 280,
+  "results": [
+    {
+      "query": "CodeRetrieval class definition",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.7659819999999999
+    },
+    {
+      "query": "UnifiedMemoryIndex class",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.8040755500000001
+    },
+    {
+      "query": "Playbook class",
+      "top_file": "ace/playbook.py",
+      "top_score": 0.59918457
+    },
+    {
+      "query": "Generator class",
+      "top_file": "ace/roles.py",
+      "top_score": 0.7696181
+    },
+    {
+      "query": "Reflector class",
+      "top_file": "ace/roles.py",
+      "top_score": 0.73942215
+    },
+    {
+      "query": "Curator class",
+      "top_file": "ace/roles.py",
+      "top_score": 0.7286151000000001
+    },
+    {
+      "query": "ASTChunker class",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.8310963600000001
+    },
+    {
+      "query": "CodeIndexer class",
+      "top_file": "ace/code_indexer.py",
+      "top_score": 0.7775786
+    },
+    {
+      "query": "QdrantRetrieval class",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.6750847
+    },
+    {
+      "query": "HyDE class",
+      "top_file": "ace/hyde.py",
+      "top_score": 0.78613694
+    },
+    {
+      "query": "DeltaOperation class",
+      "top_file": "ace/delta.py",
+      "top_score": 0.76761955
+    },
+    {
+      "query": "Bullet class",
+      "top_file": "ace/playbook.py",
+      "top_score": 0.38874917
+    },
+    {
+      "query": "search method",
+      "top_file": "auggie_query.json",
+      "top_score": 0.5986792
+    },
+    {
+      "query": "retrieve method",
+      "top_file": "auggie_query.json",
+      "top_score": 0.56025046
+    },
+    {
+      "query": "index_bullet method",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.7249865
+    },
+    {
+      "query": "store method",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.52107275
+    },
+    {
+      "query": "expand_query method",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.6004674
+    },
+    {
+      "query": "_apply_filename_boost method",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.7530828
+    },
+    {
+      "query": "create_sparse_vector method",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.56776785
+    },
+    {
+      "query": "embed_batch method",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 0.73925956
+    },
+    {
+      "query": "chunk_file method",
+      "top_file": "ace/code_indexer.py",
+      "top_score": 0.6487799
+    },
+    {
+      "query": "deduplicate_results method",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.63715264
+    },
+    {
+      "query": "format_auggie_style method",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.7054604
+    },
+    {
+      "query": "index_workspace function",
+      "top_file": "ace/code_indexer.py",
+      "top_score": 0.6635778
+    },
+    {
+      "query": "get_embedding function",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.7066978500000001
+    },
+    {
+      "query": "EmbeddingConfig class",
+      "top_file": "ace/config.py",
+      "top_score": 1.03755736
+    },
+    {
+      "query": "QdrantConfig class",
+      "top_file": "ace/config.py",
+      "top_score": 1.11407053
+    },
+    {
+      "query": "LLMConfig class",
+      "top_file": "ace/config.py",
+      "top_score": 0.9161235
+    },
+    {
+      "query": "VoyageCodeEmbeddingConfig class",
+      "top_file": "ace/config.py",
+      "top_score": 1.1340027
+    },
+    {
+      "query": "BM25Config class",
+      "top_file": "ace/config.py",
+      "top_score": 0.9388235
+    },
+    {
+      "query": "environment variables",
+      "top_file": "ace/config.py",
+      "top_score": 1.06950883
+    },
+    {
+      "query": "dotenv loading",
+      "top_file": "ace/config.py",
+      "top_score": 0.5913373
+    },
+    {
+      "query": "API key configuration",
+      "top_file": "ace/security.py",
+      "top_score": 0.52076304
+    },
+    {
+      "query": "model selection",
+      "top_file": "ace/config.py",
+      "top_score": 0.90570984
+    },
+    {
+      "query": "provider configuration",
+      "top_file": "ace/llm_providers/litellm_client.py",
+      "top_score": 0.48982003
+    },
+    {
+      "query": "vector dimension",
+      "top_file": "ace/retrieval_bandit.py",
+      "top_score": 0.8975308
+    },
+    {
+      "query": "batch size",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.5004995
+    },
+    {
+      "query": "timeout settings",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.41467288
+    },
+    {
+      "query": "retry policy",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.5390737
+    },
+    {
+      "query": "cache TTL",
+      "top_file": "ace/caching.py",
+      "top_score": 0.59535694
+    },
+    {
+      "query": "collection name",
+      "top_file": "ace/scaling.py",
+      "top_score": 1.0128550299999999
+    },
+    {
+      "query": "database URL",
+      "top_file": "ace/config.py",
+      "top_score": 0.4521296
+    },
+    {
+      "query": "embedding model",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "reranker path",
+      "top_file": "ace/reranker.py",
+      "top_score": 0.7537076600000001
+    },
+    {
+      "query": "max tokens",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/sentence_bert_config.json",
+      "top_score": 0.40972549999999996
+    },
+    {
+      "query": "rate limiting",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.5210652
+    },
+    {
+      "query": "connection pool",
+      "top_file": "ace/scaling.py",
+      "top_score": 1.0116541
+    },
+    {
+      "query": "chunk size",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.5263965
+    },
+    {
+      "query": "overlap size",
+      "top_file": "ace/deduplication.py",
+      "top_score": 0.42828837
+    },
+    {
+      "query": "top_k results",
+      "top_file": "benchmark_results/quality_comparison_20260103_024738.json",
+      "top_score": 0.6026895
+    },
+    {
+      "query": "exception handling",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.52168083
+    },
+    {
+      "query": "try except pattern",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.48736465
+    },
+    {
+      "query": "error logging",
+      "top_file": "ace/audit.py",
+      "top_score": 0.50872844
+    },
+    {
+      "query": "retry mechanism",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.5485345
+    },
+    {
+      "query": "backoff strategy",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.48232964
+    },
+    {
+      "query": "timeout handling",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.42669323
+    },
+    {
+      "query": "connection error",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.5
+    },
+    {
+      "query": "API error",
+      "top_file": "ace/security.py",
+      "top_score": 0.4752503
+    },
+    {
+      "query": "validation error",
+      "top_file": "email_validator.py",
+      "top_score": 0.96275402
+    },
+    {
+      "query": "graceful degradation",
+      "top_file": "ace/observability/tracing.py",
+      "top_score": 0.946993
+    },
+    {
+      "query": "error recovery",
+      "top_file": "ace/typo_correction.py",
+      "top_score": 0.47467852
+    },
+    {
+      "query": "fallback strategy",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.45502657
+    },
+    {
+      "query": "circuit breaker",
+      "top_file": "ace/resilience.py",
+      "top_score": 1.0990834
+    },
+    {
+      "query": "error propagation",
+      "top_file": "ace/prompts_v2_2.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "exception hierarchy",
+      "top_file": "ace/security.py",
+      "top_score": 0.48687327
+    },
+    {
+      "query": "custom exceptions",
+      "top_file": "rag_training/memory_inventory.json",
+      "top_score": 0.5
+    },
+    {
+      "query": "error context",
+      "top_file": "ace/context_injector.py",
+      "top_score": 0.69265206
+    },
+    {
+      "query": "stack trace",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.53014183
+    },
+    {
+      "query": "debug logging",
+      "top_file": "debug_doc_ranking.py",
+      "top_score": 0.6865961
+    },
+    {
+      "query": "error reporting",
+      "top_file": "analyze_false_positives.py",
+      "top_score": 0.49185723
+    },
+    {
+      "query": "resilience pattern",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.7272281
+    },
+    {
+      "query": "fault tolerance",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.53584146
+    },
+    {
+      "query": "error boundary",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.47286704
+    },
+    {
+      "query": "panic handling",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.47261453
+    },
+    {
+      "query": "cleanup on error",
+      "top_file": "cleanup_and_validate_learned_typos.py",
+      "top_score": 0.5809432400000001
+    },
+    {
+      "query": "from qdrant_client import",
+      "top_file": "ace/deduplication.py",
+      "top_score": 1.0121039
+    },
+    {
+      "query": "import voyageai",
+      "top_file": "ace/config.py",
+      "top_score": 0.5007225
+    },
+    {
+      "query": "from ace import",
+      "top_file": "ace/integrations/litellm.py",
+      "top_score": 1.07530105
+    },
+    {
+      "query": "litellm import",
+      "top_file": "ace/llm_providers/litellm_client.py",
+      "top_score": 1.1425559600000001
+    },
+    {
+      "query": "langchain import",
+      "top_file": "ace/integrations/__init__.py",
+      "top_score": 1.0505182
+    },
+    {
+      "query": "asyncio import",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.6156242
+    },
+    {
+      "query": "typing import",
+      "top_file": "ace/query_preprocessor.py",
+      "top_score": 0.769204
+    },
+    {
+      "query": "dataclasses import",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 1.06865386
+    },
+    {
+      "query": "pathlib import",
+      "top_file": "ace/dependency_graph.py",
+      "top_score": 0.7416152
+    },
+    {
+      "query": "subprocess import",
+      "top_file": "ace/dependency_graph.py",
+      "top_score": 0.5234593
+    },
+    {
+      "query": "threading import",
+      "top_file": "ace/caching.py",
+      "top_score": 0.9927424
+    },
+    {
+      "query": "logging import",
+      "top_file": "ace/audit.py",
+      "top_score": 0.5358304
+    },
+    {
+      "query": "yaml import",
+      "top_file": "tenant_data/learned_typos.json",
+      "top_score": 0.45793048
+    },
+    {
+      "query": "json import",
+      "top_file": "tenant_data/learned_typos.json",
+      "top_score": 0.48168394
+    },
+    {
+      "query": "hashlib import",
+      "top_file": "ace/security.py",
+      "top_score": 0.49506438
+    },
+    {
+      "query": "datetime import",
+      "top_file": "ace/audit.py",
+      "top_score": 0.9570628800000001
+    },
+    {
+      "query": "base64 import",
+      "top_file": "ace/security.py",
+      "top_score": 0.4398691
+    },
+    {
+      "query": "enum import",
+      "top_file": "ace/structured_enhancer.py",
+      "top_score": 0.6298338
+    },
+    {
+      "query": "abc import",
+      "top_file": "ace/llm.py",
+      "top_score": 0.63374313
+    },
+    {
+      "query": "functools import",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 0.965063
+    },
+    {
+      "query": "httpx import",
+      "top_file": "ace/retrieval_optimized.py",
+      "top_score": 0.5643243
+    },
+    {
+      "query": "pydantic import",
+      "top_file": "ace/security.py",
+      "top_score": 0.6245038
+    },
+    {
+      "query": "pytest import",
+      "top_file": "NO RESULTS",
+      "top_score": 0
+    },
+    {
+      "query": "tree_sitter import",
+      "top_file": "ace/code_analysis.py",
+      "top_score": 1.007779
+    },
+    {
+      "query": "numpy import",
+      "top_file": "ace/dependency_graph.py",
+      "top_score": 0.50023544
+    },
+    {
+      "query": "REST API endpoint",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.5794337
+    },
+    {
+      "query": "POST handler",
+      "top_file": "ace/security.py",
+      "top_score": 0.42395103
+    },
+    {
+      "query": "GET handler",
+      "top_file": "auggie_query.json",
+      "top_score": 0.49296832
+    },
+    {
+      "query": "request validation",
+      "top_file": "glm_test.json",
+      "top_score": 0.53643596
+    },
+    {
+      "query": "response formatting",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.48489738
+    },
+    {
+      "query": "dataclass definition",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "TypedDict",
+      "top_file": "ace/delta.py",
+      "top_score": 0.55835676
+    },
+    {
+      "query": "Pydantic model",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.5621556
+    },
+    {
+      "query": "data validation",
+      "top_file": "ace/embedding_finetuning/training_data.json",
+      "top_score": 0.60007894
+    },
+    {
+      "query": "serialization",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.5245669
+    },
+    {
+      "query": "JSON schema",
+      "top_file": "ace/prompts.py",
+      "top_score": 0.51537466
+    },
+    {
+      "query": "API versioning",
+      "top_file": "ace/security.py",
+      "top_score": 0.49010766
+    },
+    {
+      "query": "pagination",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+      "top_score": 0.3616631
+    },
+    {
+      "query": "filtering",
+      "top_file": "rag_training/test_suite/enhanced_test_suite.json",
+      "top_score": 0.4203977
+    },
+    {
+      "query": "sorting",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.48173067
+    },
+    {
+      "query": "endpoint routing",
+      "top_file": "ace/llm_providers/litellm_client.py",
+      "top_score": 0.52666
+    },
+    {
+      "query": "middleware",
+      "top_file": "ace/security.py",
+      "top_score": 0.53511024
+    },
+    {
+      "query": "authentication",
+      "top_file": "ace/security.py",
+      "top_score": 0.5994768
+    },
+    {
+      "query": "authorization",
+      "top_file": "ace/security.py",
+      "top_score": 0.57948816
+    },
+    {
+      "query": "rate limiting",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.5210652
+    },
+    {
+      "query": "request body",
+      "top_file": "auggie_query.json",
+      "top_score": 0.49249503
+    },
+    {
+      "query": "query parameters",
+      "top_file": "ace/query_preprocessor.py",
+      "top_score": 0.5206866
+    },
+    {
+      "query": "path parameters",
+      "top_file": ".ace/.ace.json",
+      "top_score": 0.47306886
+    },
+    {
+      "query": "headers",
+      "top_file": "ace/security.py",
+      "top_score": 0.46050036
+    },
+    {
+      "query": "cookies",
+      "top_file": "ace/security.py",
+      "top_score": 0.4651906
+    },
+    {
+      "query": "status codes",
+      "top_file": "ace/observability/health.py",
+      "top_score": 0.5062496
+    },
+    {
+      "query": "error response",
+      "top_file": "ace/security.py",
+      "top_score": 0.455423
+    },
+    {
+      "query": "success response",
+      "top_file": ".ace/.ace.json",
+      "top_score": 0.43072242
+    },
+    {
+      "query": "response headers",
+      "top_file": "ace/caching.py",
+      "top_score": 0.48353976
+    },
+    {
+      "query": "content negotiation",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.45077148
+    },
+    {
+      "query": "async def",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.8231476
+    },
+    {
+      "query": "await asyncio",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.59440243
+    },
+    {
+      "query": "async context manager",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.67692566
+    },
+    {
+      "query": "async for loop",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.7014562
+    },
+    {
+      "query": "async generator",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.7501492999999999
+    },
+    {
+      "query": "asyncio.gather",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.5790286
+    },
+    {
+      "query": "asyncio.create_task",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.519127
+    },
+    {
+      "query": "asyncio.run",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.576002
+    },
+    {
+      "query": "async with statement",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.7071435399999999
+    },
+    {
+      "query": "awaitable object",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.4515349
+    },
+    {
+      "query": "concurrent execution",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "parallel processing",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 1.0401253499999998
+    },
+    {
+      "query": "async iterator",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.529453
+    },
+    {
+      "query": "async iterable",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.5532642
+    },
+    {
+      "query": "coroutine",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.51670504
+    },
+    {
+      "query": "event loop",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.4786167
+    },
+    {
+      "query": "task scheduling",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.4266597
+    },
+    {
+      "query": "async cancellation",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.46922892
+    },
+    {
+      "query": "timeout in async",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.61562098
+    },
+    {
+      "query": "async semaphore",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.7423425400000001
+    },
+    {
+      "query": "async queue",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.501128
+    },
+    {
+      "query": "async lock",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.6561863
+    },
+    {
+      "query": "async event",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.493159
+    },
+    {
+      "query": "async condition",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.4530769
+    },
+    {
+      "query": "streaming async",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.7720663000000001
+    },
+    {
+      "query": "async HTTP client",
+      "top_file": "ace/llm_providers/litellm_client.py",
+      "top_score": 0.7181454
+    },
+    {
+      "query": "async database",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.7177799499999999
+    },
+    {
+      "query": "async file I/O",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.675851
+    },
+    {
+      "query": "batch async processing",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.6903384
+    },
+    {
+      "query": "async retry",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.50700223
+    },
+    {
+      "query": "pytest fixture",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.40081385
+    },
+    {
+      "query": "unit test",
+      "top_file": "NO RESULTS",
+      "top_score": 0
+    },
+    {
+      "query": "integration test",
+      "top_file": "ace/query_enhancer.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "test case",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.50427336
+    },
+    {
+      "query": "test suite",
+      "top_file": "rag_training/analyze_inventory.py",
+      "top_score": 0.5875806
+    },
+    {
+      "query": "assert statement",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.39494714
+    },
+    {
+      "query": "mock object",
+      "top_file": "rag_training/test_suite/enhanced_test_suite.json",
+      "top_score": 0.34428272000000004
+    },
+    {
+      "query": "test double",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.50044835
+    },
+    {
+      "query": "stub",
+      "top_file": "ace/llm.py",
+      "top_score": 0.51064724
+    },
+    {
+      "query": "spy",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.26668205
+    },
+    {
+      "query": "test setup",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.55655754
+    },
+    {
+      "query": "test teardown",
+      "top_file": "rag_training/optimizations/v3_bge_reranker.py",
+      "top_score": 0.37712709999999994
+    },
+    {
+      "query": "pytest parametrize",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.50153553
+    },
+    {
+      "query": "test discovery",
+      "top_file": "rag_training/test_suite/inspect_samples.py",
+      "top_score": 0.3818842499999999
+    },
+    {
+      "query": "test runner",
+      "top_file": "benchmark_ace_vs_auggie.py",
+      "top_score": 0.5031265
+    },
+    {
+      "query": "coverage report",
+      "top_file": ".github/workflows/test.yml",
+      "top_score": 0.98
+    },
+    {
+      "query": "test mocking",
+      "top_file": "ace/embedding_finetuning/training_data.json",
+      "top_score": 0.39783154
+    },
+    {
+      "query": "patch decorator",
+      "top_file": "ace/observability/tracers.py",
+      "top_score": 0.49705017
+    },
+    {
+      "query": "fixture scope",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.37115219999999993
+    },
+    {
+      "query": "test configuration",
+      "top_file": "rag_training/test_suite/enhanced_test_suite.json",
+      "top_score": 0.5081617
+    },
+    {
+      "query": "assertion error",
+      "top_file": "analyze_false_positives.py",
+      "top_score": 0.44152933
+    },
+    {
+      "query": "test skip",
+      "top_file": "NO RESULTS",
+      "top_score": 0
+    },
+    {
+      "query": "test expected failure",
+      "top_file": "rag_training/analysis/failure_deep_analysis.py",
+      "top_score": 0.47658277
+    },
+    {
+      "query": "async test",
+      "top_file": "examples/langchain/agent_with_tools_example.py",
+      "top_score": 0.35738466
+    },
+    {
+      "query": "property based test",
+      "top_file": "rag_training/test_suite/enhanced_test_suite.json",
+      "top_score": 0.5016942
+    },
+    {
+      "query": "test helpers",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.5156964
+    },
+    {
+      "query": "test utilities",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.53338563
+    },
+    {
+      "query": "fake data",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.35742263999999996
+    },
+    {
+      "query": "test factory",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.4632528
+    },
+    {
+      "query": "test assertions",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.5187702
+    },
+    {
+      "query": "docstring format",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.63181367
+    },
+    {
+      "query": "type hints",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.59207714
+    },
+    {
+      "query": "module documentation",
+      "top_file": "docs/API_REFERENCE.md",
+      "top_score": 0.63432678
+    },
+    {
+      "query": "class documentation",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.61219295
+    },
+    {
+      "query": "function documentation",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.61343255
+    },
+    {
+      "query": "README",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.6555613
+    },
+    {
+      "query": "CHANGELOG",
+      "top_file": "CHANGELOG.md",
+      "top_score": 0.8984169
+    },
+    {
+      "query": "CONTRIBUTING",
+      "top_file": "CONTRIBUTING.md",
+      "top_score": 0.9279025599999999
+    },
+    {
+      "query": "LICENSE",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.6808464000000001
+    },
+    {
+      "query": "API documentation",
+      "top_file": "docs/MCP_INTEGRATION.md",
+      "top_score": 0.6728724500000001
+    },
+    {
+      "query": "installation guide",
+      "top_file": "docs/SETUP_GUIDE.md",
+      "top_score": 0.84566758
+    },
+    {
+      "query": "quickstart tutorial",
+      "top_file": "QUICKSTART_CLAUDE_CODE.md",
+      "top_score": 0.8677149
+    },
+    {
+      "query": "examples",
+      "top_file": "examples/langchain/simple_chain_example.py",
+      "top_score": 0.4981742
+    },
+    {
+      "query": "usage guide",
+      "top_file": "ace/prompts_v2_1.py",
+      "top_score": 0.493967
+    },
+    {
+      "query": "troubleshooting",
+      "top_file": "scripts/diagnose_failed_queries.py",
+      "top_score": 0.4581524
+    },
+    {
+      "query": "design document",
+      "top_file": "tenant_data/tenant-x/playbook_x.json",
+      "top_score": 0.46249318
+    },
+    {
+      "query": "architecture overview",
+      "top_file": "ace/roles.py",
+      "top_score": 0.48431396
+    },
+    {
+      "query": "API reference",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 0.5752783
+    },
+    {
+      "query": "changelog entry",
+      "top_file": "CHANGELOG.md",
+      "top_score": 0.81560234
+    },
+    {
+      "query": "release notes",
+      "top_file": "CHANGELOG.md",
+      "top_score": 0.63716158
+    },
+    {
+      "query": "inline comments",
+      "top_file": "ace/prompts_v2.py",
+      "top_score": 0.98
+    },
+    {
+      "query": "documentation string",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.62747853
+    },
+    {
+      "query": "parameter docs",
+      "top_file": ".serena/memories/lesson-unified-memory-architecture-documentation.md",
+      "top_score": 0.5036249
+    },
+    {
+      "query": "return value docs",
+      "top_file": "docs/GOLDEN_RULES.md",
+      "top_score": 0.7900328
+    },
+    {
+      "query": "exception docs",
+      "top_file": "debug_docs.py",
+      "top_score": 0.67373074
+    },
+    {
+      "query": "example code",
+      "top_file": "examples/langchain/simple_chain_example.py",
+      "top_score": 0.58152384
+    },
+    {
+      "query": "tutorial",
+      "top_file": "ace/integrations/litellm.py",
+      "top_score": 0.4939363
+    },
+    {
+      "query": "how to guide",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.3794938
+    },
+    {
+      "query": "best practices",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.5955497
+    },
+    {
+      "query": "design principles",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.49552873
+    },
+    {
+      "query": "singleton pattern",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.95
+    },
+    {
+      "query": "factory pattern",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.43384498
+    },
+    {
+      "query": "observer pattern",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.41244757
+    },
+    {
+      "query": "strategy pattern",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.45698512
+    },
+    {
+      "query": "adapter pattern",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.5049664
+    },
+    {
+      "query": "dependency injection",
+      "top_file": "ace/context_injector.py",
+      "top_score": 0.5351416
+    },
+    {
+      "query": "service locator",
+      "top_file": "ace/__init__.py",
+      "top_score": 0.4675038
+    },
+    {
+      "query": "repository pattern",
+      "top_file": "ace/audit.py",
+      "top_score": 0.4206732
+    },
+    {
+      "query": "unit of work",
+      "top_file": "ace/embedding_finetuning/training_data.json",
+      "top_score": 0.30509735000000004
+    },
+    {
+      "query": "CQRS",
+      "top_file": "ace/delta.py",
+      "top_score": 0.46652257
+    },
+    {
+      "query": "event sourcing",
+      "top_file": "ace/playbook.py",
+      "top_score": 0.50890964
+    },
+    {
+      "query": "CQRS pattern",
+      "top_file": "ace/prompts.py",
+      "top_score": 0.44074893
+    },
+    {
+      "query": "layered architecture",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.4714216
+    },
+    {
+      "query": "hexagonal architecture",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.46278924
+    },
+    {
+      "query": "clean architecture",
+      "top_file": "ace/query_preprocessor.py",
+      "top_score": 0.4549511
+    },
+    {
+      "query": "microservices",
+      "top_file": "benchmark_results/quality_comparison_20260103_024857.json",
+      "top_score": 0.5203316
+    },
+    {
+      "query": "monolith",
+      "top_file": "ace/scaling.py",
+      "top_score": 0.47235173
+    },
+    {
+      "query": "modular architecture",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.5012152
+    },
+    {
+      "query": "plugin system",
+      "top_file": "ace/__init__.py",
+      "top_score": 0.48529586
+    },
+    {
+      "query": "extension point",
+      "top_file": "ace/context_injector.py",
+      "top_score": 0.51712465
+    },
+    {
+      "query": "pipeline pattern",
+      "top_file": "ace/hyde_retrieval.py",
+      "top_score": 0.43523717
+    },
+    {
+      "query": "middleware pattern",
+      "top_file": "ace/security.py",
+      "top_score": 0.44331777
+    },
+    {
+      "query": "interceptor",
+      "top_file": "ace/observability/tracers.py",
+      "top_score": 0.47116426
+    },
+    {
+      "query": "chain of responsibility",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.4711644
+    },
+    {
+      "query": "template method",
+      "top_file": "ace/prompts_v2_1.py",
+      "top_score": 0.4191767
+    },
+    {
+      "query": "MVC pattern",
+      "top_file": "ace/adaptation.py",
+      "top_score": 0.4188426
+    },
+    {
+      "query": "MVP pattern",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.4058411
+    },
+    {
+      "query": "MVVM pattern",
+      "top_file": "ace/playbook.py",
+      "top_score": 0.39802793
+    },
+    {
+      "query": "component based",
+      "top_file": "ace/roles.py",
+      "top_score": 0.44601148
+    },
+    {
+      "query": "entity component",
+      "top_file": "ace/roles.py",
+      "top_score": 0.41851583
+    },
+    {
+      "query": "empty input handling",
+      "top_file": "glm_test.json",
+      "top_score": 0.42066377
+    },
+    {
+      "query": "null safety",
+      "top_file": "ace/llm.py",
+      "top_score": 0.506288
+    },
+    {
+      "query": "boundary condition",
+      "top_file": "ace/retrieval.py",
+      "top_score": 0.40688068
+    },
+    {
+      "query": "race condition",
+      "top_file": "ace/caching.py",
+      "top_score": 0.48876774
+    },
+    {
+      "query": "deadlock",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.4779985
+    },
+    {
+      "query": "memory leak",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.4931457
+    },
+    {
+      "query": "resource cleanup",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.5
+    },
+    {
+      "query": "file descriptor limit",
+      "top_file": "ace/audit.py",
+      "top_score": 0.4111405
+    },
+    {
+      "query": "stack overflow",
+      "top_file": "ace/retrieval_optimized.py",
+      "top_score": 0.445436
+    },
+    {
+      "query": "heap overflow",
+      "top_file": "analyze_false_positives.py",
+      "top_score": 0.42659163
+    },
+    {
+      "query": "integer overflow",
+      "top_file": "fibonacci.py",
+      "top_score": 0.41691726
+    },
+    {
+      "query": "floating point precision",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.44914013
+    },
+    {
+      "query": "string encoding",
+      "top_file": "ace/self_consistency.py",
+      "top_score": 0.44782007
+    },
+    {
+      "query": "unicode handling",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+      "top_score": 0.4703583499999999
+    },
+    {
+      "query": "time zone",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.28163527
+    },
+    {
+      "query": "concurrent access",
+      "top_file": "ace/caching.py",
+      "top_score": 0.57428
+    },
+    {
+      "query": "thread safety",
+      "top_file": "ace/caching.py",
+      "top_score": 0.54064274
+    },
+    {
+      "query": "atomic operation",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.5
+    },
+    {
+      "query": "memory barrier",
+      "top_file": "analyze_false_positives.py",
+      "top_score": 0.45769525
+    },
+    {
+      "query": "volatile variable",
+      "top_file": "ace/caching.py",
+      "top_score": 0.41910094
+    },
+    {
+      "query": "edge case",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+      "top_score": 0.32862154
+    },
+    {
+      "query": "corner case",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+      "top_score": 0.27888463999999996
+    },
+    {
+      "query": "boundary value",
+      "top_file": "scripts/measure_p7_improvements.py",
+      "top_score": 0.44420767
+    },
+    {
+      "query": "off-by-one error",
+      "top_file": "ace/self_consistency.py",
+      "top_score": 0.46782878
+    },
+    {
+      "query": "divide by zero",
+      "top_file": "rag_training/test_suite/enhanced_test_suite.json",
+      "top_score": 0.28523352999999996
+    },
+    {
+      "query": "NaN handling",
+      "top_file": "ace/self_consistency.py",
+      "top_score": 0.42232955
+    },
+    {
+      "query": "infinity handling",
+      "top_file": "ace/caching.py",
+      "top_score": 0.38620427
+    },
+    {
+      "query": "negative zero",
+      "top_file": "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+      "top_score": 0.29150528
+    },
+    {
+      "query": "rounding error",
+      "top_file": "ace/self_consistency.py",
+      "top_score": 0.4484486
+    },
+    {
+      "query": "precision loss",
+      "top_file": "scripts/tune_threshold.py",
+      "top_score": 0.36083219999999994
+    }
+  ]
+}

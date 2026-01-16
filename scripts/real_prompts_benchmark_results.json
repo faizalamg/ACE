@@ -1,0 +1,407 @@
+{
+  "total_queries": 30,
+  "r1": 53.333333333333336,
+  "r5": 53.333333333333336,
+  "p3": 52.22222222222223,
+  "results": [
+    {
+      "query": "I want to set up the ACE Framework for local development and use it with Claude Code CLI in VS Code.",
+      "keywords": [
+        "want",
+        "set",
+        "ace",
+        "framework",
+        "local"
+      ],
+      "n_results": 4,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 0.6666666666666666
+    },
+    {
+      "query": "where is the .env file",
+      "keywords": [
+        "env",
+        "file"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "whybis ace returning 35 memories on session start? did we lose filtering, reranking, bm25, top-k in ",
+      "keywords": [
+        "whybis",
+        "ace",
+        "returning",
+        "memories",
+        "session"
+      ],
+      "n_results": 1,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "yes! what else did we lose? and how the fuck is our new system BETTER than the previous? did we degr",
+      "keywords": [
+        "else",
+        "lose",
+        "fuck",
+        "our",
+        "new"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "zen consensus on which option is more in line with fortune 100 and most beneficial",
+      "keywords": [
+        "zen",
+        "consensus",
+        "option",
+        "line",
+        "fortune"
+      ],
+      "n_results": 2,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "have we restored all the lost functionality?",
+      "keywords": [
+        "restored",
+        "lost",
+        "functionality"
+      ],
+      "n_results": 2,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "explain this solution and what benefits it provides vs not using it. how does it improve my workflow",
+      "keywords": [
+        "explain",
+        "solution",
+        "benefits",
+        "provides",
+        "using"
+      ],
+      "n_results": 2,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "update readme with this info. and isn't the plsybook stored in qdrsnt?!?!",
+      "keywords": [
+        "update",
+        "readme",
+        "info",
+        "isn't",
+        "playbook"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "how is our system currently wired? qdrant ootion 2 with no local json playbook?",
+      "keywords": [
+        "our",
+        "system",
+        "currently",
+        "wired",
+        "qdrant"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "  Verdict: ~60-70% relevant. Key Qdrant preference retrieved correctly. Some noise from general pref",
+      "keywords": [
+        "verdict:",
+        "~60-70%",
+        "relevant",
+        "key",
+        "qdrant"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "WHY THE FUCK ARE YOU NOT USING GLM 4.6???~",
+      "keywords": [
+        "fuck",
+        "using",
+        "glm",
+        "46~"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "This session is being continued from a previous conversation that ran out of context. The conversati",
+      "keywords": [
+        "session",
+        "continued",
+        "previous",
+        "conversation",
+        "ran"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "how can we speed up the processing of these llm filtering requests?",
+      "keywords": [
+        "speed",
+        "processing",
+        "llm",
+        "filtering",
+        "requests"
+      ],
+      "n_results": 5,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "what were the final results?",
+      "keywords": [
+        "final",
+        "results"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "using expanded sample size and not exact string matches? using semantic matches?",
+      "keywords": [
+        "using",
+        "expanded",
+        "sample",
+        "size",
+        "exact"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "and all of this is currently wired up and fully working in production using the full ACE pipeline, c",
+      "keywords": [
+        "currently",
+        "wired",
+        "fully",
+        "working",
+        "production"
+      ],
+      "n_results": 2,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "what about everything below the top 5? still relevant?",
+      "keywords": [
+        "everything",
+        "top",
+        "relevant"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "THIS:\\\n\\\n  | Position | Relevant    | Not Relevant |\n  |----------|-------------|--------------|\n  |",
+      "keywords": [
+        "this:\\",
+        "position",
+        "relevant",
+        "relevant",
+        "|----------|-------------|--------------|"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "so where do we stand in terms of sccuracy and performance based on real usage samples?",
+      "keywords": [
+        "stand",
+        "terms",
+        "accuracy",
+        "performance",
+        "based"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "what are the Recommendations for further improvement",
+      "keywords": [
+        "recommendations",
+        "improvement"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "how does this fit into the entire ace workflow/pipeline?",
+      "keywords": [
+        "fit",
+        "entire",
+        "ace",
+        "workflow/pipeline"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "so where are we in terms of Recall@5, Recall@1 and P3 using real user prompts? What is our ACTUAL RE",
+      "keywords": [
+        "terms",
+        "recall@5",
+        "recall@1",
+        "using",
+        "recall"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "what does this mean? We need this all to be configured for production (without regressions):\\\n\\\n2. T",
+      "keywords": [
+        "mean",
+        "need",
+        "configured",
+        "production",
+        "(without"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "R@1: 70.0% | R@5: 80.0% | P@3: 58.9% ???? NOT ACCEPTABLE! What is the TRUE passing score?",
+      "keywords": [
+        "r@1:",
+        "700%",
+        "r@5:",
+        "800%",
+        "p@3:"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "how are \"unknown\" handled in production currently? I mean, if there are NO related memories in the b",
+      "keywords": [
+        "\"unknown\"",
+        "handled",
+        "production",
+        "currently",
+        "mean"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "Can you tell me from the docs what the EXACT model IDs are for:\n\nClaude Sonnet 4.5 - what's the full",
+      "keywords": [
+        "tell",
+        "docs",
+        "exact",
+        "model",
+        "ids"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "look online for EXACT model IDs are for:\n\nClaude Sonnet 4.5 - what's the full model ID?\nGemini 3.5 -",
+      "keywords": [
+        "look",
+        "online",
+        "exact",
+        "model",
+        "ids"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "what is the model id for opus 4.5",
+      "keywords": [
+        "model",
+        "opus"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    },
+    {
+      "query": "is D:\\ApplicationDevelopment\\Tools\\agentic-context-engine\\docs\\PROJECT_UNIFIED_MEMORY_ARCHITECTURE.m",
+      "keywords": [
+        "d:\\applicationdevelopment\\tools\\agentic-context-engine\\docs\\project_unified_memory_architecturemd",
+        "updated",
+        "reflector",
+        "current",
+        "status"
+      ],
+      "n_results": 0,
+      "r1": 0.0,
+      "r5": 0.0,
+      "p3": 0.0
+    },
+    {
+      "query": "where are my hooks?? skills?!?",
+      "keywords": [
+        "hooks",
+        "skills!"
+      ],
+      "n_results": 1,
+      "r1": 1.0,
+      "r5": 1.0,
+      "p3": 1.0
+    }
+  ]
+}

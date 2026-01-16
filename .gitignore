@@ -1,0 +1,5 @@
+REDDIT_POST.md
+.readme.md
+
+# Large model files (users regenerate via finetuning pipeline)
+ace/embedding_finetuning/models/ace_finetuned/model.safetensors

@@ -1,0 +1,1284 @@
+{
+  "timestamp": "2026-01-06T03:41:11.185363",
+  "stats": {
+    "ace_wins": 33,
+    "auggie_wins": 0,
+    "ties": 17,
+    "ace_coverage_rate": 64.0,
+    "by_category": {
+      "Definitions": {
+        "ace": 5,
+        "auggie": 0,
+        "tie": 5
+      },
+      "Config": {
+        "ace": 4,
+        "auggie": 0,
+        "tie": 6
+      },
+      "ErrorHandling": {
+        "ace": 7,
+        "auggie": 0,
+        "tie": 3
+      },
+      "Imports": {
+        "ace": 9,
+        "auggie": 0,
+        "tie": 1
+      },
+      "Async": {
+        "ace": 8,
+        "auggie": 0,
+        "tie": 2
+      }
+    },
+    "ace_win_rate": 66.0,
+    "auggie_win_rate": 0.0,
+    "tie_rate": 34.0
+  },
+  "results": [
+    {
+      "query": "CodeRetrieval class definition",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/code_retrieval.py",
+        "auggie_query.json",
+        "compare_auggie_ace.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        0.7659819999999999,
+        0.7132596999999999,
+        0.5407428000000001,
+        0.48096764,
+        0.47284782
+      ],
+      "auggie_files": [
+        "ace/code_retrieval.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "UnifiedMemoryIndex class search method",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/retrieval_optimized.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        0.84321045,
+        0.80837655,
+        0.7859340400000001,
+        0.76964486,
+        0.701899
+      ],
+      "auggie_files": [
+        "ace/unified_memory.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.843)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "ASTChunker class parse method",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/code_analysis.py",
+        "ace/code_chunker.py",
+        "ace/code_analysis.py",
+        "ace/dependency_graph.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6403539,
+        0.58402376,
+        0.4454133,
+        0.39650333,
+        0.3668186
+      ],
+      "auggie_files": [
+        "ace/code_chunker.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.640)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "_apply_filename_boost function",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/code_retrieval.py",
+        "ace/retrieval.py",
+        "debug_docs.py",
+        "debug_doc_ranking.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.7576986,
+        0.41000164,
+        0.4014116,
+        0.39905202,
+        0.38867736
+      ],
+      "auggie_files": [
+        "ace/code_retrieval.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "create_sparse_vector BM25 function",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/unified_memory.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_presets.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_scores": [
+        0.71364614,
+        0.60162824,
+        0.5255808,
+        0.51826346,
+        0.51576316
+      ],
+      "auggie_files": [
+        "rag_training/optimizations/v8_bm25_hybrid.py",
+        "ace/unified_memory.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.714)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "@dataclass class Bullet",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/playbook.py",
+        "ace/playbook.py",
+        "ace/unified_memory.py",
+        "ace/async_retrieval.py",
+        "ace/session_tracking.py"
+      ],
+      "ace_scores": [
+        0.9795448,
+        0.5016769600000001,
+        0.4425534,
+        0.4419827,
+        0.43973473999999996
+      ],
+      "auggie_files": [
+        "ace/playbook.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "QdrantConfig class definition",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/config.py",
+        "ace/code_indexer.py",
+        "ace/scaling.py",
+        "ace/async_retrieval.py",
+        "rag_training/optimization_results/hybrid_weight_tests.json"
+      ],
+      "ace_scores": [
+        1.1258284,
+        0.5541235,
+        0.5484695,
+        0.53171515,
+        0.4499463
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "HyDEGenerator class generate method",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/roles.py",
+        "ace/self_consistency.py",
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "ace/chain_of_verification.py"
+      ],
+      "ace_scores": [
+        0.90275615,
+        0.59485978,
+        0.4621942,
+        0.39137126,
+        0.32798667
+      ],
+      "auggie_files": [
+        "ace/hyde.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.903)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "SmartBulletIndex retrieve method",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/retrieval.py",
+        "ace/retrieval.py",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/scaling.py"
+      ],
+      "ace_scores": [
+        0.8197608999999999,
+        0.6136478,
+        0.5971811,
+        0.5574075,
+        0.54705936
+      ],
+      "auggie_files": [
+        "ace/retrieval.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "CodeIndexer index_workspace batch",
+      "category": "Definitions",
+      "ace_files": [
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_retrieval.py",
+        ".ace/.ace.json"
+      ],
+      "ace_scores": [
+        0.8173967,
+        0.7831034,
+        0.6328814,
+        0.51508296,
+        0.5107707
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "EmbeddingConfig dataclass",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/embedding_finetuning/finetune_embeddings.py",
+        "ace/semantic_scorer.py"
+      ],
+      "ace_scores": [
+        1.12466973,
+        0.5983714,
+        0.59511554,
+        0.4721700999999999,
+        0.44104089999999996
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "VoyageCodeEmbeddingConfig api_key",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/gemini_embeddings.py",
+        "ace/semantic_scorer.py",
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        1.1210621,
+        0.47717609999999994,
+        0.4659751,
+        0.4552666,
+        0.44372739999999994
+      ],
+      "auggie_files": [
+        "docs/CODE_EMBEDDING_CONFIG.md"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (1.121)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BM25Config k1 b constants",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/query_features.py",
+        "ace/retrieval_optimized.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_bandit.py"
+      ],
+      "ace_scores": [
+        0.7576917000000001,
+        0.56076175,
+        0.5204562,
+        0.51830983,
+        0.49715632
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "LLMConfig provider model settings",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/llm.py",
+        "ace/llm_providers/langchain_client.py",
+        "ace/integrations/litellm.py"
+      ],
+      "ace_scores": [
+        0.91325426,
+        0.7899724699999999,
+        0.52569985,
+        0.49361548,
+        0.4913413
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QdrantConfig collection_name url",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/scaling.py",
+        "ace/unified_memory.py",
+        "rag_training/scripts/reindex_with_lmstudio.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_scores": [
+        1.12244916,
+        0.5266553,
+        0.51635305,
+        0.5093778,
+        0.4939494
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "RetrievalConfig limit threshold",
+      "category": "Config",
+      "ace_files": [
+        "ace/retrieval_presets.py",
+        "ace/config.py",
+        "ace/retrieval_bandit.py",
+        "ace/retrieval.py",
+        "ace/retrieval_presets.py"
+      ],
+      "ace_scores": [
+        1.0682626,
+        1.02790225,
+        0.51555145,
+        0.5029619,
+        0.4469671
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 1.068)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "HyDEConfig num_hypotheticals temperature",
+      "category": "Config",
+      "ace_files": [
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_presets.py",
+        "ace/self_consistency.py",
+        "ace/config.py"
+      ],
+      "ace_scores": [
+        0.74252615,
+        0.6236336,
+        0.51887053,
+        0.5151961,
+        0.50337815
+      ],
+      "auggie_files": [
+        "ace/hyde.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "ELFConfig enable_elf",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/retrieval.py",
+        "ace/retrieval.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        0.7129000400000001,
+        0.44854277,
+        0.42032015,
+        0.37261218,
+        0.37021738
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "environment variables dotenv loading",
+      "category": "Config",
+      "ace_files": [
+        "ace/config.py",
+        "ace/config.py",
+        "verify_setup.py",
+        "ace/context_injector.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.7613620699999999,
+        0.6064366299999999,
+        0.59966206,
+        0.57813906,
+        0.5113424
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "logging configuration loguru",
+      "category": "Config",
+      "ace_files": [
+        "ace/audit.py",
+        "ace/typo_correction.py",
+        "ace/observability/opik_integration.py",
+        "ace/code_retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        0.5259656,
+        0.48760352,
+        0.48118833,
+        0.4681515,
+        0.466205
+      ],
+      "auggie_files": [
+        "ace/observability/opik_integration.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.526)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "try except error handling pattern",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/resilience.py",
+        "debug_docs.py",
+        "docs/INTEGRATION_GUIDE.md",
+        "debug_doc_ranking.py",
+        "ace/pattern_detector.py"
+      ],
+      "ace_scores": [
+        0.4990272,
+        0.48460218,
+        0.47873296000000004,
+        0.46781826,
+        0.45865613
+      ],
+      "auggie_files": [
+        "docs/INTEGRATION_GUIDE.md"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.499)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "exception retry backoff resilience",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval.py",
+        "ace/scaling.py",
+        "ace/security.py"
+      ],
+      "ace_scores": [
+        0.7717394399999999,
+        0.4542426,
+        0.44326758,
+        0.4423411,
+        0.43469915
+      ],
+      "auggie_files": [
+        "ace/resilience.py",
+        "docs/API_REFERENCE.md"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Qdrant connection error handling",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/scaling.py",
+        "benchmark_results/quality_comparison_20260103_024857.json",
+        "ace/resilience.py",
+        "ace/observability/health.py"
+      ],
+      "ace_scores": [
+        0.6397683500000001,
+        0.5694466,
+        0.5540345999999999,
+        0.5203287,
+        0.5149709
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "API rate limit retry exponential backoff",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/retrieval_optimized.py",
+        "benchmark_results/quality_comparison_20260103_024645.json",
+        "benchmark_results/quality_comparison_20260103_024857.json",
+        "benchmark_results/quality_comparison_20260103_024738.json"
+      ],
+      "ace_scores": [
+        0.63937026,
+        0.60098683,
+        0.5554778,
+        0.55426674,
+        0.55392032
+      ],
+      "auggie_files": [
+        "ace/retrieval_presets.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 1",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "timeout exception handling httpx",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/observability/health.py",
+        "ace/retrieval_optimized.py",
+        "ace/async_retrieval.py",
+        "ace/security.py"
+      ],
+      "ace_scores": [
+        0.5484237,
+        0.5221695,
+        0.49279323,
+        0.48838794,
+        0.48447797
+      ],
+      "auggie_files": [
+        "ace/scaling.py",
+        "CLAUDE_CODE_INTEGRATION.md"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 2",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "validation error handling ValueError",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "demo_email_validation.py",
+        "email_validator.py",
+        "temperature_converter.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/selected_memories.json"
+      ],
+      "ace_scores": [
+        0.5148391,
+        0.5048568,
+        0.47924992,
+        0.38718184999999994,
+        0.3848669
+      ],
+      "auggie_files": [
+        "temperature_converter.py",
+        "ace/pattern_detector.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 4 unique files vs Auggie's 1",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "file not found error handling",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/code_retrieval.py",
+        "analyze_false_positives.py",
+        "compare_ace_auggie_headtohead.py",
+        "debug_docs.py",
+        "debug_doc_ranking.py"
+      ],
+      "ace_scores": [
+        0.5765734,
+        0.5540293,
+        0.5305769,
+        0.45507273,
+        0.43611795
+      ],
+      "auggie_files": [
+        "ace/code_indexer.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 1",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "embedding error fallback",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/semantic_scorer.py",
+        "ace/code_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/unified_memory.py",
+        "ace/openai_embeddings.py"
+      ],
+      "ace_scores": [
+        0.58714428,
+        0.5587598,
+        0.48236164,
+        0.4718604,
+        0.46859208
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import error optional dependency",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/features.py",
+        "ace/dependency_graph.py",
+        "ace/llm_providers/__init__.py",
+        "ace/__init__.py",
+        "ace/llm_providers/langchain_client.py"
+      ],
+      "ace_scores": [
+        0.7660070999999999,
+        0.69314392,
+        0.6756097,
+        0.49091434,
+        0.48286656
+      ],
+      "auggie_files": [
+        "ace/features.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "graceful degradation circuit breaker",
+      "category": "ErrorHandling",
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/observability/tracing.py",
+        "ace/observability/opik_integration.py",
+        "ace/roles.py",
+        "ace/scaling.py"
+      ],
+      "ace_scores": [
+        0.7410059499999999,
+        0.66314783,
+        0.62958386,
+        0.61463635,
+        0.48103148
+      ],
+      "auggie_files": [
+        "ace/resilience.py",
+        "ace/roles.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from qdrant_client import QdrantClient",
+      "category": "Imports",
+      "ace_files": [
+        "ace/deduplication.py",
+        "ace/unified_memory.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/embedding_finetuning/data_generator.py",
+        "ace/embedding_finetuning/evaluate_finetuned.py"
+      ],
+      "ace_scores": [
+        0.99726154,
+        0.9930557999999999,
+        0.7293917,
+        0.72091675,
+        0.713663
+      ],
+      "auggie_files": [
+        "ace/qdrant_retrieval.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.997)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import httpx async",
+      "category": "Imports",
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/observability/health.py",
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        0.9901997,
+        0.82888973,
+        0.72640543,
+        0.7077184000000001,
+        0.7013266
+      ],
+      "auggie_files": [
+        "debug_httpx_query.py",
+        "ace/async_retrieval.py"
+      ],
+      "winner": "TIE",
+      "reason": "Both systems found relevant files (ACE score: 0.990)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "from dataclasses import dataclass field",
+      "category": "Imports",
+      "ace_files": [
+        "ace/delta.py",
+        "ace/unified_memory.py",
+        "ace/roles.py",
+        "ace/hyde.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.74445706,
+        0.7307433400000001,
+        0.7302974,
+        0.7233746000000001,
+        0.7176313999999999
+      ],
+      "auggie_files": [
+        "tests/test_dependency_graph.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.744)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from typing import Optional List Dict",
+      "category": "Imports",
+      "ace_files": [
+        "ace/features.py",
+        "ace/delta.py",
+        "ace/audit.py",
+        "ace/llm.py",
+        "ace/llm_providers/litellm_client.py"
+      ],
+      "ace_scores": [
+        0.60301044,
+        0.6006765700000001,
+        0.5776599,
+        0.57477674,
+        0.5747570000000001
+      ],
+      "auggie_files": [
+        "ace/pattern_detector.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 1",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import voyageai client",
+      "category": "Imports",
+      "ace_files": [
+        "ace/code_retrieval.py",
+        "ace/code_indexer.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/__init__.py",
+        "ace/config.py"
+      ],
+      "ace_scores": [
+        0.65888616,
+        0.59927916,
+        0.5002033,
+        0.49997234,
+        0.49708262
+      ],
+      "auggie_files": [
+        "ace/integrations/__init__.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 2",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from pathlib import Path",
+      "category": "Imports",
+      "ace_files": [
+        "ace/audit.py",
+        "benchmark_ace_vs_auggie.py",
+        "ace/gpu_reranker.py",
+        "ace/pattern_detector.py",
+        "ace/roles.py"
+      ],
+      "ace_scores": [
+        0.88262876,
+        0.87825056,
+        0.8767073999999999,
+        0.8749233,
+        0.8676709699999999
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import logging logger",
+      "category": "Imports",
+      "ace_files": [
+        "ace/audit.py",
+        "ace/observability/opik_integration.py",
+        "ace/code_retrieval.py",
+        "ace/typo_correction.py",
+        "ace/adaptation.py"
+      ],
+      "ace_scores": [
+        0.57204,
+        0.5409527,
+        0.54080683,
+        0.52545345,
+        0.51880085
+      ],
+      "auggie_files": [
+        "ace/observability/opik_integration.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.572)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from functools import lru_cache",
+      "category": "Imports",
+      "ace_files": [
+        "ace/gemini_embeddings.py",
+        "ace/caching.py",
+        "ace/retrieval_caching.py",
+        "benchmarks/loaders/huggingface.py",
+        "ace/pattern_detector.py"
+      ],
+      "ace_scores": [
+        0.8428852,
+        0.636595,
+        0.62105,
+        0.59466726,
+        0.5800597
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import json os sys",
+      "category": "Imports",
+      "ace_files": [
+        "ace/audit.py",
+        "cleanup_and_validate_learned_typos.py",
+        "compare_ace_auggie_headtohead.py",
+        "ace/self_consistency.py",
+        "ace_vs_auggie_headtohead.py"
+      ],
+      "ace_scores": [
+        0.6747151,
+        0.66672318,
+        0.6528909700000001,
+        0.65012982,
+        0.6424759600000001
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from collections import Counter defaultdict",
+      "category": "Imports",
+      "ace_files": [
+        "ace/self_consistency.py",
+        "rag_training/analysis/failure_deep_analysis.py",
+        "ace/typo_correction.py",
+        "scripts/analyze_memory_duplicates.py",
+        "rag_training/run_baseline_evaluation.py"
+      ],
+      "ace_scores": [
+        0.48437147999999997,
+        0.46470317,
+        0.46042448,
+        0.44954753,
+        0.4458725
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async def retrieve await",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/unified_memory.py",
+        "ace/async_retrieval.py",
+        "ace/retrieval.py",
+        "compare_ace_auggie_headtohead.py"
+      ],
+      "ace_scores": [
+        0.8789177,
+        0.7451644500000001,
+        0.7326466600000001,
+        0.7098165700000001,
+        0.68504375
+      ],
+      "auggie_files": [
+        "ace/retrieval.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.879)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio gather parallel",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_retrieval.py",
+        "compare_ace_auggie_headtohead.py",
+        "ace/hyde.py",
+        "benchmark_ace_vs_auggie.py"
+      ],
+      "ace_scores": [
+        0.5598209,
+        0.53570116,
+        0.4945208,
+        0.470066,
+        0.46050084
+      ],
+      "auggie_files": [
+        "ace/async_retrieval.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE covers all Auggie results + more (scores: 0.560)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async with httpx.AsyncClient",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/hyde.py",
+        "ace/openai_embeddings.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.8641957499999999,
+        0.5643581,
+        0.5642372,
+        0.5543687,
+        0.5408325
+      ],
+      "auggie_files": [
+        "debug_httpx_query.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.864)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async for chunk stream",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/llm_providers/langchain_client.py",
+        "ace/code_chunker.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6782045,
+        0.62707245,
+        0.55214818,
+        0.43977076,
+        0.41645437
+      ],
+      "auggie_files": [
+        "docs/API_REFERENCE.md",
+        "ace/llm_providers/langchain_client.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 4 unique files vs Auggie's 1",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "await embedding generation",
+      "category": "Async",
+      "ace_files": [
+        "ace/hyde_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/async_retrieval.py",
+        "ace/semantic_scorer.py"
+      ],
+      "ace_scores": [
+        0.68219053,
+        0.6485634,
+        0.6329415,
+        0.61324537,
+        0.6120094
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async context manager enter exit",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/multitenancy.py",
+        "ace/observability/tracing.py",
+        "ace/observability/metrics.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.9096567,
+        0.62637975,
+        0.6043103999999999,
+        0.58837067,
+        0.5245117
+      ],
+      "auggie_files": [
+        "ace/context_injector.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.910)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio.create_task background",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_retrieval.py",
+        "ace/integrations/browser_use.py",
+        "ace/hyde.py",
+        "ace/observability/health.py"
+      ],
+      "ace_scores": [
+        0.48672026,
+        0.45241338,
+        0.45082968,
+        0.43947917,
+        0.4385929
+      ],
+      "auggie_files": [
+        "ace/async_adaptation.py"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result and ACE covers all Auggie results",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": true
+    },
+    {
+      "query": "async generator yield",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/llm_providers/langchain_client.py",
+        "ace/async_retrieval.py",
+        "ace/hyde.py",
+        "ace/self_consistency.py"
+      ],
+      "ace_scores": [
+        0.7009227,
+        0.47532836,
+        0.4739495,
+        0.46920586,
+        0.454336
+      ],
+      "auggie_files": [
+        "ace/async_adaptation.py",
+        "docs/API_REFERENCE.md"
+      ],
+      "winner": "TIE",
+      "reason": "Same top result",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "semaphore rate limiting async",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/retrieval_optimized.py",
+        "ace/async_retrieval.py",
+        "ace/resilience.py",
+        "ace/hyde.py"
+      ],
+      "ace_scores": [
+        0.73900784,
+        0.60013395,
+        0.42101544,
+        0.39758074,
+        0.39499238
+      ],
+      "auggie_files": [
+        "docs/INTEGRATION_GUIDE.md",
+        "ace/llm_providers/langchain_client.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE has high confidence top result (0.739)",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio timeout cancel",
+      "category": "Async",
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_retrieval.py",
+        "ace/resilience.py",
+        "ace/observability/health.py",
+        "ace/hyde.py"
+      ],
+      "ace_scores": [
+        0.4495933,
+        0.4349711,
+        0.40924567,
+        0.37775022,
+        0.3759008
+      ],
+      "auggie_files": [
+        "CLAUDE_CODE_INTEGRATION.md",
+        "examples/browser-use/form-filler/ace_browser_use.py"
+      ],
+      "winner": "ACE",
+      "reason": "ACE found 5 unique files vs Auggie's 2",
+      "ace_has_all_auggie": false,
+      "auggie_has_all_ace": false
+    }
+  ]
+}

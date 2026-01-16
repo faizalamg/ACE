@@ -1,0 +1,228 @@
+{
+  "timestamp": "2026-01-03T02:45:06.218700",
+  "metrics": {
+    "total_queries": 16,
+    "recall_at_1": "18.75%",
+    "recall_at_5": "18.75%",
+    "avg_relevance_score": "0.000",
+    "empty_results": 16,
+    "avg_latency_ms": "1630.9"
+  },
+  "category_breakdown": {
+    "semantic": {
+      "total": 3,
+      "r1": 0,
+      "r5": 0
+    },
+    "keyword": {
+      "total": 3,
+      "r1": 0,
+      "r5": 0
+    },
+    "vague": {
+      "total": 3,
+      "r1": 3,
+      "r5": 3
+    },
+    "complex": {
+      "total": 2,
+      "r1": 0,
+      "r5": 0
+    },
+    "domain": {
+      "total": 3,
+      "r1": 0,
+      "r5": 0
+    },
+    "ace": {
+      "total": 2,
+      "r1": 0,
+      "r5": 0
+    }
+  },
+  "detailed_results": [
+    {
+      "query": "how do I handle network timeouts gracefully",
+      "category": "semantic",
+      "description": "Semantic understanding of timeout handling",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "8479.8"
+    },
+    {
+      "query": "what's the best way to validate user input",
+      "category": "semantic",
+      "description": "Input validation strategies",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "532.4"
+    },
+    {
+      "query": "strategies for improving code readability",
+      "category": "semantic",
+      "description": "Code quality improvement",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "526.5"
+    },
+    {
+      "query": "KISS DRY TDD",
+      "category": "keyword",
+      "description": "Exact coding principle keywords",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "7572.6"
+    },
+    {
+      "query": "async await promise",
+      "category": "keyword",
+      "description": "Async programming keywords",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "1182.9"
+    },
+    {
+      "query": "SQL injection prevention",
+      "category": "keyword",
+      "description": "Security keyword matching",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "1344.1"
+    },
+    {
+      "query": "something is broken",
+      "category": "vague",
+      "description": "Ultra-vague debugging query",
+      "num_results": 0,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "489.1"
+    },
+    {
+      "query": "help",
+      "category": "vague",
+      "description": "Minimal query",
+      "num_results": 0,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "474.4"
+    },
+    {
+      "query": "fix it",
+      "category": "vague",
+      "description": "Vague action query",
+      "num_results": 0,
+      "relevant_at_1": true,
+      "relevant_at_5": true,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "464.2"
+    },
+    {
+      "query": "how to implement retry logic with exponential backoff for failed API calls",
+      "category": "complex",
+      "description": "Multi-concept technical query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "1251.0"
+    },
+    {
+      "query": "best practices for database connection pooling in high-concurrency environments",
+      "category": "complex",
+      "description": "Complex architecture query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "525.8"
+    },
+    {
+      "query": "user prefers typescript over javascript",
+      "category": "domain",
+      "description": "User preference query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "475.8"
+    },
+    {
+      "query": "debugging memory leaks in python",
+      "category": "domain",
+      "description": "Debugging domain query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "515.5"
+    },
+    {
+      "query": "microservices vs monolith architecture decision",
+      "category": "domain",
+      "description": "Architecture domain query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "1236.1"
+    },
+    {
+      "query": "ACE memory storage policy",
+      "category": "ace",
+      "description": "ACE-specific retrieval",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "538.4"
+    },
+    {
+      "query": "how does hybrid search work in ACE",
+      "category": "ace",
+      "description": "ACE hybrid search query",
+      "num_results": 0,
+      "relevant_at_1": false,
+      "relevant_at_5": false,
+      "top_result": "N/A",
+      "scores": [],
+      "latency_ms": "484.9"
+    }
+  ],
+  "quality_gate": {
+    "r1_target": 0.7,
+    "r5_target": 0.95,
+    "r1_pass": false,
+    "r5_pass": false,
+    "overall": "FAIL"
+  }
+}

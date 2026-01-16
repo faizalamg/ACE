@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-01-02 14:27:04",
+  "n_queries": 30,
+  "results": [
+    {
+      "config": {
+        "name": "A: Baseline",
+        "description": "Pure vector search, no optimizations",
+        "use_cross_encoder": false,
+        "use_llm_expansion": false,
+        "auto_detect_preset": false
+      },
+      "metrics": {
+        "recall_at_1": 66.66666666666666,
+        "recall_at_5": 83.33333333333334,
+        "precision_at_3": 58.88888888888888,
+        "avg_latency_ms": 565.6736214955648
+      }
+    },
+    {
+      "config": {
+        "name": "B: Cross-Encoder Only",
+        "description": "Vector search + cross-encoder reranking",
+        "use_cross_encoder": true,
+        "use_llm_expansion": false,
+        "auto_detect_preset": false
+      },
+      "metrics": {
+        "recall_at_1": 90.0,
+        "recall_at_5": 90.0,
+        "precision_at_3": 86.66666666666667,
+        "avg_latency_ms": 634.3883911768595
+      }
+    },
+    {
+      "config": {
+        "name": "C: Adaptive Expansion",
+        "description": "Vector search + adaptive query expansion",
+        "use_cross_encoder": false,
+        "use_llm_expansion": false,
+        "auto_detect_preset": true
+      },
+      "metrics": {
+        "recall_at_1": 63.33333333333333,
+        "recall_at_5": 83.33333333333334,
+        "precision_at_3": 58.88888888888888,
+        "avg_latency_ms": 561.215623219808
+      }
+    },
+    {
+      "config": {
+        "name": "D: Combined (Production)",
+        "description": "Adaptive expansion + cross-encoder (recommended)",
+        "use_cross_encoder": true,
+        "use_llm_expansion": false,
+        "auto_detect_preset": true
+      },
+      "metrics": {
+        "recall_at_1": 90.0,
+        "recall_at_5": 90.0,
+        "precision_at_3": 86.66666666666667,
+        "avg_latency_ms": 610.2870861689249
+      }
+    }
+  ]
+}

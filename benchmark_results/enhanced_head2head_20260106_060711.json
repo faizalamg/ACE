@@ -1,0 +1,1683 @@
+{
+  "timestamp": "2026-01-06T06:07:11.655184",
+  "stats": {
+    "total": 30,
+    "ace_wins": 28,
+    "auggie_wins": 1,
+    "ties": 1,
+    "ace_errors": 0,
+    "auggie_errors": 0,
+    "by_category": {
+      "ClassDefinitions": {
+        "ace": 28,
+        "auggie": 1,
+        "tie": 1
+      }
+    },
+    "auggie_wins_detail": [
+      {
+        "query": "exception hierarchy",
+        "category": "ClassDefinitions",
+        "expected": [
+          "ace/resilience.py"
+        ],
+        "ace_files": [
+          "ace/security.py",
+          "ace/retrieval.py",
+          "ace/resilience.py"
+        ],
+        "auggie_files": [
+          "ace/resilience.py"
+        ],
+        "reason": "Auggie wins with 3 advantages vs 1",
+        "ace_advantages": [
+          "More unique files (4 vs 0)"
+        ],
+        "auggie_advantages": [
+          "Higher rank for expected file (1 vs 3)"
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "query": "CodeRetrieval class definition",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/code_retrieval.py",
+        "auggie_query.json",
+        "compare_auggie_ace.py",
+        "debug_blended.py",
+        "analyze_false_positives.py"
+      ],
+      "ace_scores": [
+        1.165982,
+        0.7632597,
+        0.5907428,
+        0.44365430000000006,
+        0.38992062
+      ],
+      "ace_contents": [
+        "\"\"\"\nCode Retrieval - Semantic search for code with Auggie-style output formatting.\n\nThis module provides:\n1. Semantic search over indexed code chunks\n2. Auggie MCP-compatible output formatting\n3. Blended results (code + memory)\n4. Result deduplication and ranking\n\nExample usage:\n    retriever = CodeRetrieval()\n    results = retriever.search(\"unified memory index\")\n    formatted = retriever.format_auggie_style(results)\n\"\"\"\n\nimport os\nimport logging\nfrom typing import List, Dict, Any, Optional, Ca",
+        "{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"codebase-retrieval\",\"arguments\":{\"information_request\":\"CodeRetrieval class search method\"}},\"id\":2}\n",
+        "\"\"\"Compare Auggie vs ACE code retrieval quality.\"\"\"\nimport subprocess\nimport sys\n\nquery = \"CodeRetrieval class search method\"\n\n# Get Auggie results\nprint(\"=== AUGGIE OUTPUT ===\")\nresult = subprocess.run(f'auggie context \"{query}\"', capture_output=True, text=True, timeout=30, shell=True)\nprint(result.stdout[:3000] if result.stdout else f\"Error: {result.stderr}\")\n\n# Get ACE results\nprint(\"\\n=== ACE OUTPUT ===\")\nfrom ace.code_retrieval import CodeRetrieval\nretriever = CodeRetrieval()\nresults = retr",
+        "#!/usr/bin/env python3\n\"\"\"Debug why code retrieval isn't working in MCP server.\"\"\"\n\nimport os\n\nprint(\"=== ENV CHECK ===\")\nprint(f\"ACE_WORKSPACE_PATH: {os.environ.get('ACE_WORKSPACE_PATH', 'NOT SET')}\")\nprint(f\"QDRANT_URL: {os.environ.get('QDRANT_URL', 'NOT SET')}\")\nprint(f\"ACE_CODE_COLLECTION: {os.environ.get('ACE_CODE_COLLECTION', 'NOT SET')}\")\n\nprint(\"\\n=== QDRANT COLLECTIONS ===\")\nfrom qdrant_client import QdrantClient\nclient = QdrantClient(url=\"http://localhost:6333\")\ncollections = [c.name f",
+        "\"\"\"Analyze ACE false positives and memory performance.\"\"\"\n\nfrom ace.code_retrieval import CodeRetrieval\nfrom ace.unified_memory import UnifiedMemoryIndex\n"
+      ],
+      "ace_line_counts": [
+        147,
+        2,
+        19,
+        55,
+        5
+      ],
+      "auggie_files": [
+        "ace/code_retrieval.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"\n     2\tCode Retrieval - Semantic search for code with Auggie-style output formatting.\n     3\t\n     4\tThis module provides:\n     5\t1. Semantic search over indexed code chunks\n     6\t2. Auggie MCP-compatible output formatting\n     7\t3. Blended results (code + memory)\n     8\t4. Result deduplication and ranking\n     9\t\n    10\tExample usage:\n    11\t    retriever = CodeRetrieval()\n    12\t    results = retriever.search(\"unified memory index\")\n    13\t    formatted = retriever.format_auggie_style(results)\n... (452 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 3 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.166)",
+        "Better chunk size (46 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "UnifiedMemoryIndex class search method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "ace/unified_memory.py",
+        "ace/retrieval_optimized.py",
+        "ace/unified_memory.py",
+        "ace/retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        1.18593404,
+        0.64321045,
+        0.60837655,
+        0.5696448599999999,
+        0.501899
+      ],
+      "ace_contents": [
+        "class UnifiedMemoryIndex:\n    \"\"\"\n    Unified memory index using Qdrant with namespace support.\n\n    Provides:\n    - Hybrid search (dense + sparse/BM25)\n    - Namespace filtering\n    - Batch operations\n    - Integration with ACE SmartBulletIndex\n\n    Usage:\n        >>> index = UnifiedMemoryIndex(qdrant_url=\"http://localhost:6333\")\n        >>> index.create_collection()\n        >>> index.index_bullet(bullet)\n        >>> results = index.retrieve(\"query\", namespace=UnifiedNamespace.USER_PREFS)\n    \"",
+        "    def search(\n        self,\n        query: str,\n        limit: int = None,\n        return_metrics: bool = False\n    ) -> List[RetrievalResult] | Tuple[List[RetrievalResult], SearchMetrics]:\n        \"\"\"\n        Search for relevant memories.\n\n        Args:\n            query: Search query\n            limit: Maximum results (default from config)\n            return_metrics: Whether to return search metrics\n\n        Returns:\n            List of RetrievalResult, optionally with SearchMetrics\n        ",
+        "    def retrieve(\n        self,\n        query: str,\n        namespace: Optional[Union[UnifiedNamespace, str, List[Union[UnifiedNamespace, str]]]] = None,\n        limit: int = 10,\n        threshold: float = 0.35,\n        include_superseded: Optional[bool] = None,\n        created_after: Optional[datetime] = None,\n        created_before: Optional[datetime] = None,\n        updated_after: Optional[datetime] = None,\n        preset: Optional[RetrievalPreset] = None,\n        auto_detect_preset: bool = T",
+        "    def retrieve(\n        self,\n        query: Optional[str] = None,\n        task_type: Optional[str] = None,\n        domain: Optional[str] = None,\n        complexity: Optional[str] = None,\n        intent: Optional[IntentType] = None,\n        limit: Optional[int] = None,\n        rank_by_effectiveness: bool = False,\n        min_effectiveness: Optional[float] = None,\n        query_type: Optional[str] = None,\n        trigger_override_threshold: float = 0.3,\n        session_type: Optional[str] = Non",
+        "class RetrievalResult:\n    \"\"\"A single retrieval result with metadata.\"\"\"\n    id: int\n    score: float\n    payload: Dict[str, Any]\n    content: str\n    category: Optional[str] = None\n    reranked: bool = False\n\n\n@dataclass\nclass SearchMetrics:\n    \"\"\"Metrics for a search operation.\"\"\"\n    total_latency_ms: float\n    expansion_latency_ms: float\n    retrieval_latency_ms: float\n    rerank_latency_ms: float\n    num_candidates: int\n    num_results: int\n    expanded_queries: List[str]\n\n\n# ============"
+      ],
+      "ace_line_counts": [
+        114,
+        116,
+        693,
+        393,
+        87
+      ],
+      "auggie_files": [
+        "ace/unified_memory.py"
+      ],
+      "auggie_contents": [
+        "...\n    16\t\n    17\tUsage:\n    18\t    >>> from ace.unified_memory import UnifiedMemoryIndex, UnifiedBullet, UnifiedNamespace\n    19\t    >>> index = UnifiedMemoryIndex(qdrant_url=\"http://localhost:6333\")\n    20\t    >>> bullet = UnifiedBullet(\n    21\t    ...     id=\"test-001\",\n    22\t    ...     namespace=UnifiedNamespace.USER_PREFS,\n    23\t    ...     source=UnifiedSource.USER_FEEDBACK,\n    24\t    ...     content=\"User prefers TypeScript\",\n    25\t    ...     section=\"preferences\"\n    26\t    ... )\n    27\t    >>> index.index_bullet(bullet)\n... (444 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (3 vs 0)",
+        "High confidence top score (1.186)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "ASTChunker class chunk method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "ace/code_chunker.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_analysis.py"
+      ],
+      "ace_scores": [
+        1.1808355,
+        0.41830033,
+        0.34028438000000005,
+        0.33819380000000004,
+        0.2418785
+      ],
+      "ace_contents": [
+        "\"\"\"AST-based semantic code chunking module.\n\nThis module provides intelligent code chunking that respects language syntax\nboundaries (functions, classes, methods) rather than arbitrary line counts.\n\nSupports multiple languages via tree-sitter:\n- Python (via built-in ast module or tree-sitter)\n- JavaScript/TypeScript (via tree-sitter)\n- Go (via tree-sitter)\n\nConfiguration:\n    ACE_ENABLE_AST_CHUNKING: Enable/disable AST chunking (default: false)\n    ACE_AST_MAX_LINES: Maximum lines per chunk (def",
+        "\"\"\"Code indexer module for workspace code indexing.\n\nThis module provides code indexing capabilities that scan a workspace,\nparse code files using ASTChunker, and store indexed chunks in Qdrant\nfor semantic code search.\n\nConfiguration:\n    ACE_CODE_COLLECTION: Qdrant collection name (default: ace_code_context)\n    ACE_CODE_EMBEDDING_DIM: Embedding dimension (default: from EmbeddingConfig)\n    QDRANT_URL: Qdrant server URL (default: http://localhost:6333)\n\nThe indexer supports:\n- Multi-language p",
+        "class CodeIndexer:\n    \"\"\"\n    Index workspace code files for semantic search.\n    \n    Scans workspace directories, parses code using ASTChunker,\n    generates embeddings, and stores in Qdrant for retrieval.\n    \n    Features:\n    - Multi-language support via ASTChunker\n    - Incremental updates on file changes\n    - File watching for auto-updates\n    - Gitignore and exclude pattern support\n    - Relative path storage for portability\n    \n    Example:\n        indexer = CodeIndexer(workspace_pat",
+        "    def chunk_file(self, file_path: str) -> List[CodeChunkIndexed]:\n        \"\"\"\n        Parse and chunk a code file.\n        \n        Args:\n            file_path: Absolute path to code file\n            \n        Returns:\n            List of CodeChunkIndexed instances\n        \"\"\"\n        chunks = []\n        \n        # Check file exists\n        if not os.path.exists(file_path):\n            logger.warning(f\"File not found: {file_path}\")\n            return chunks\n        \n        # Read file content\n",
+        "        def visit_node(node, parent_class=None):\n            \"\"\"Recursively visit AST nodes.\"\"\"\n            # Extract interface definitions\n            if node.type == \"interface_declaration\":\n                name_node = node.child_by_field_name(\"name\")\n                if name_node:\n                    name = code[name_node.start_byte : name_node.end_byte]\n                    symbol = CodeSymbol(\n                        name=name,\n                        kind=\"interface\",\n                       "
+      ],
+      "ace_line_counts": [
+        553,
+        55,
+        101,
+        86,
+        95
+      ],
+      "auggie_files": [
+        "ace/code_chunker.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"AST-based semantic code chunking module.\n     2\t\n     3\tThis module provides intelligent code chunking that respects language syntax\n     4\tboundaries (functions, classes, methods) rather than arbitrary line counts.\n     5\t\n     6\tSupports multiple languages via tree-sitter:\n     7\t- Python (via built-in ast module or tree-sitter)\n     8\t- JavaScript/TypeScript (via tree-sitter)\n     9\t- Go (via tree-sitter)\n    10\t\n    11\tConfiguration:\n    12\t    ACE_ENABLE_AST_CHUNKING: Enable/disable AST chunking (default: false)\n    13\t    ACE_AST_MAX_LINES: Maximum lines per chunk (default: 120)\n... (415 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.181)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "SmartBulletIndex retrieve method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/retrieval.py"
+      ],
+      "ace_files": [
+        "ace/retrieval.py",
+        "ace/qdrant_retrieval.py",
+        "ace/retrieval.py",
+        "ace/unified_memory.py",
+        "ace/scaling.py"
+      ],
+      "ace_scores": [
+        1.2197608999999998,
+        0.4532729,
+        0.41364779999999995,
+        0.3971811,
+        0.34705936
+      ],
+      "ace_contents": [
+        "\"\"\"Smart retrieval system for purpose-aware bullet retrieval.\n\nThis module provides intelligent retrieval of bullets from a playbook\nusing semantic scaffolding metadata for purpose-aware, multi-dimensional filtering.\n\nELF-Inspired Features (when enabled via config):\n- Confidence Decay: Older knowledge scores lower over time\n- Golden Rules: High-performing strategies get score boost\n- Quality Boost: Helpful/harmful feedback affects ranking\n\nARIA Features (when enabled):\n- LinUCB Bandit: Dynamic p",
+        "\"\"\"Vector-based bullet retrieval using Qdrant hybrid search.\n\nThis module provides QdrantBulletIndex for O(1) semantic retrieval of playbook\nbullets using Qdrant vector database with hybrid search (dense + BM25 sparse).\n\nPhase 1: Vector Search Integration for ACE Fortune 100 Production Readiness.\n\nKey features:\n- Dense embeddings via LM Studio (nomic-embed-text-v1.5, 768-dim)\n- BM25 sparse vectors for keyword matching (technical terms)\n- Hybrid search with RRF fusion for best of both approaches\n",
+        "    def retrieve(\n        self,\n        query: Optional[str] = None,\n        task_type: Optional[str] = None,\n        domain: Optional[str] = None,\n        complexity: Optional[str] = None,\n        intent: Optional[IntentType] = None,\n        limit: Optional[int] = None,\n        rank_by_effectiveness: bool = False,\n        min_effectiveness: Optional[float] = None,\n        query_type: Optional[str] = None,\n        trigger_override_threshold: float = 0.3,\n        session_type: Optional[str] = Non",
+        "    def retrieve(\n        self,\n        query: str,\n        namespace: Optional[Union[UnifiedNamespace, str, List[Union[UnifiedNamespace, str]]]] = None,\n        limit: int = 10,\n        threshold: float = 0.35,\n        include_superseded: Optional[bool] = None,\n        created_after: Optional[datetime] = None,\n        created_before: Optional[datetime] = None,\n        updated_after: Optional[datetime] = None,\n        preset: Optional[RetrievalPreset] = None,\n        auto_detect_preset: bool = T",
+        "    def _get_or_create_index(self, collection_name: str) -> QdrantBulletIndex:\n        \"\"\"Get existing index or create new one for collection.\n\n        Args:\n            collection_name: Name of collection\n\n        Returns:\n            QdrantBulletIndex for the collection.\n        \"\"\"\n        if collection_name not in self._indexes:\n            # Production mode - use real QdrantBulletIndex\n            if self._qdrant_client is None:\n                self._indexes[collection_name] = QdrantBulletI"
+      ],
+      "ace_line_counts": [
+        137,
+        165,
+        393,
+        471,
+        103
+      ],
+      "auggie_files": [
+        "ace/retrieval.py"
+      ],
+      "auggie_contents": [
+        "...\n    62\t\n    63\t\n    64\tclass SmartBulletIndex:\n    65\t    \"\"\"Purpose-aware retrieval index for playbook bullets.\n    66\t\n    67\t    SmartBulletIndex enables intelligent retrieval of bullets based on:\n    68\t    - Task type filtering (debugging, reasoning, etc.)\n    69\t    - Domain filtering (math, software, etc.)\n    70\t    - Complexity level filtering\n    71\t    - Trigger pattern matching\n    72\t    - Intent-based routing (analytical/factual/procedural)\n    73\t    - Effectiveness-based ranking\n... (519 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (3 vs 0)",
+        "High confidence top score (1.220)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "Playbook class initialization",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/playbook.py",
+        "ace/integrations/browser_use.py",
+        "ace/playbook.py",
+        "ace/security.py",
+        "ace/audit.py"
+      ],
+      "ace_scores": [
+        1.0087136,
+        0.4900363999999999,
+        0.40482408000000003,
+        0.39303111999999996,
+        0.39143344999999996
+      ],
+      "ace_contents": [
+        "class Playbook:\n    \"\"\"Structured context store as defined by ACE.\"\"\"\n\n    def __init__(self) -> None:\n        self._bullets: Dict[str, Bullet] = {}\n        self._sections: Dict[str, List[str]] = {}\n        self._next_id = 0\n\n    def __repr__(self) -> str:\n        \"\"\"Concise representation for debugging and object inspection.\"\"\"\n        return f\"Playbook(bullets={len(self._bullets)}, sections={list(self._sections.keys())})\"\n\n    def __str__(self) -> str:\n        \"\"\"\n        Human-readable repres",
+        "    def load_playbook(self, path: str):\n        \"\"\"Load playbook from file.\"\"\"\n        self.playbook = Playbook.load_from_file(path)\n\n    def get_strategies(self) -> str:\n        \"\"\"Get current playbook strategies as formatted text.\"\"\"\n        if not self.playbook:\n            return \"\"\n        return wrap_playbook_context(self.playbook)",
+        "\"\"\"Playbook storage and mutation logic for ACE.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom dataclasses import asdict, dataclass, field\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom typing import Any, Callable, Dict, Iterable, List, Optional, Union, cast\n\nfrom .delta import DeltaBatch, DeltaOperation\n\n\n# Phase 1C: Asymmetric penalty weights for bullet tagging\n# Harmful tags penalized 2x to suppress bad strategies faster\nPENALTY_WEIGHTS = {\"helpful\": 1, \"harmf",
+        "class RoleBasedAccessControl:\n    \"\"\"Role-based access control with hierarchical permissions.\"\"\"\n\n    # Default role permissions\n    DEFAULT_PERMISSIONS = {\n        \"admin\": [\n            \"playbook:read\",\n            \"playbook:write\",\n            \"playbook:delete\",\n            \"delta:create\",\n            \"role:assign\"\n        ],\n        \"editor\": [\n            \"playbook:read\",\n            \"playbook:write\",\n            \"delta:create\"\n        ],\n        \"user\": [\n            \"playbook:read\"\n      ",
+        "    def log_playbook(\n        self,\n        playbook_id: str,\n        action: str,\n        bullet_count: int,\n        user_id: Optional[str] = None,\n    ) -> AuditEntry:\n        \"\"\"Log a playbook operation.\n\n        Args:\n            playbook_id: Playbook identifier\n            action: Operation action (e.g., \"load\", \"save\")\n            bullet_count: Number of bullets in playbook\n            user_id: Optional user identifier\n\n        Returns:\n            Created audit entry\n        \"\"\"\n        e"
+      ],
+      "ace_line_counts": [
+        201,
+        9,
+        108,
+        117,
+        104
+      ],
+      "auggie_files": [
+        "ace/playbook.py"
+      ],
+      "auggie_contents": [
+        "...\n    17\t\n    18\t\n    19\t@dataclass\n    20\tclass Bullet:\n    21\t    \"\"\"Single playbook entry.\"\"\"\n    22\t\n    23\t    id: str\n    24\t    section: str\n    25\t    content: str\n    26\t    helpful: int = 0\n    27\t    harmful: int = 0\n    28\t    neutral: int = 0\n... (486 more lines)\n\n\u001b[90m\ud83d\udd27 Tool call: view\u001b[0m\n   path: \"ace/playbook.py\"\n   search_query_regex: \"class Playbook|def __init__\"\n\n\u001b[90m\ud83d\udccb Tool result: view\u001b[0m"
+      ],
+      "auggie_line_counts": [
+        41
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 1",
+      "ace_advantages": [
+        "More unique files (3 vs 0)",
+        "High confidence top score (1.009)"
+      ],
+      "auggie_advantages": [
+        "Better chunk size (41 lines avg)"
+      ],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "EmbeddingConfig dataclass definition",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/semantic_scorer.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        1.1980787,
+        0.4495734,
+        0.36417596,
+        0.36216215999999996,
+        0.31660406999999996
+      ],
+      "ace_contents": [
+        "\"\"\"Centralized ACE configuration.\n\nAll embedding and retrieval settings in one place.\nOverride via environment variables or .env file.\n\"\"\"\n\nimport os\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nfrom pathlib import Path\n\n# Load .env if python-dotenv is available\ntry:\n    from dotenv import load_dotenv\n    env_path = Path(__file__).parent.parent / \".env\"\n    if env_path.exists():\n        load_dotenv(env_path)\nexcept ImportError:\n    pass\n\n\ndef _get_env(key: str, default: s",
+        "#!/usr/bin/env python\n\"\"\"\nSemantic Similarity Scorer for ACE Retrieval Quality Measurement.\n\nUses embedding cosine similarity instead of keyword matching to measure\nhow relevant retrieved results are to the original query.\n\nThis provides a more accurate quality metric than keyword-based precision.\n\"\"\"\n\nimport os\nimport sys\nimport numpy as np\nfrom typing import List, Tuple, Optional\nimport httpx\n\n# Add project root to path\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file_",
+        "\"\"\"Gemini Embedding Client for ACE Framework.\n\nProvides embeddings using Google's gemini-embedding-001 model\nwith proper task type optimization for retrieval (document vs query).\n\nUsage:\n    from ace.gemini_embeddings import GeminiEmbeddingClient\n\n    client = GeminiEmbeddingClient(api_key=\"your-api-key\")\n\n    # For indexing documents\n    doc_embedding = client.embed_document(\"This is a document about...\")\n\n    # For search queries\n    query_embedding = client.embed_query(\"How do I fix...\")\n\"\"\"\n",
+        "\"\"\"OpenAI Embedding Client for ACE Framework.\n\nProvides embeddings using OpenAI's text-embedding-3-large model\nwith configurable dimensions.\n\nUsage:\n    from ace.openai_embeddings import OpenAIEmbeddingClient\n\n    client = OpenAIEmbeddingClient(api_key=\"your-api-key\")\n\n    # Get embedding\n    embedding = client.get_embedding(\"This is a document about...\")\n\"\"\"\n\nimport os\nimport logging\nfrom typing import List, Optional\nimport httpx\n\nlogger = logging.getLogger(__name__)\n\n# OpenAI API Configuration",
+        "def get_gemini_embedding(\n    text: str,\n    task_type: TaskType = \"SEMANTIC_SIMILARITY\",\n    api_key: Optional[str] = None,\n) -> List[float]:\n    \"\"\"Quick embedding without client management.\n\n    Args:\n        text: Text to embed\n        task_type: Embedding task type\n        api_key: Optional API key\n\n    Returns:\n        Embedding vector\n    \"\"\"\n    with GeminiEmbeddingClient(api_key=api_key) as client:\n        return client._embed_single(text, task_type)"
+      ],
+      "ace_line_counts": [
+        117,
+        22,
+        88,
+        113,
+        17
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "auggie_contents": [
+        "...\n    41\t\n    42\t\n    43\t@dataclass\n    44\tclass EmbeddingConfig:\n    45\t    \"\"\"Embedding model configuration for memory/lessons (general-purpose).\"\"\"\n    46\t\n    47\t    # LM Studio server\n    48\t    url: str = field(default_factory=lambda: _get_env(\"ACE_EMBEDDING_URL\", \"http://192.168.10.64:1234\"))\n    49\t\n    50\t    # Model name (Qwen3-Embedding-8B - proper embedding model, 4096 dims)\n    51\t    model: str = field(default_factory=lambda: _get_env(\"ACE_EMBEDDING_MODEL\", \"text-embedding-qwen3-embedding-8b\"))\n    52\t\n... (524 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 3 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.198)",
+        "Better chunk size (71 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "QdrantConfig class definition",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/unified_memory.py",
+        "ace/hyde_retrieval.py"
+      ],
+      "ace_scores": [
+        1.2255213600000001,
+        0.48596766,
+        0.48039546,
+        0.44434640000000003,
+        0.43605740000000004
+      ],
+      "ace_contents": [
+        "class QdrantConfig:\n    \"\"\"Qdrant vector database configuration.\"\"\"\n\n    # Qdrant server URL\n    url: str = field(default_factory=lambda: _get_env(\"ACE_QDRANT_URL\", \"http://localhost:6333\"))\n\n    # Collection names (ace_memories_hybrid is the canonical 4096-dim collection)\n    memories_collection: str = field(default_factory=lambda: _get_env(\"ACE_MEMORIES_COLLECTION\", \"ace_memories_hybrid\"))\n    unified_collection: str = field(default_factory=lambda: _get_env(\"ACE_UNIFIED_COLLECTION\", \"ace_memor",
+        "class UnifiedMemoryIndex:\n    \"\"\"\n    Unified memory index using Qdrant with namespace support.\n\n    Provides:\n    - Hybrid search (dense + sparse/BM25)\n    - Namespace filtering\n    - Batch operations\n    - Integration with ACE SmartBulletIndex\n\n    Usage:\n        >>> index = UnifiedMemoryIndex(qdrant_url=\"http://localhost:6333\")\n        >>> index.create_collection()\n        >>> index.index_bullet(bullet)\n        >>> results = index.retrieve(\"query\", namespace=UnifiedNamespace.USER_PREFS)\n    \"",
+        "\"\"\"Vector-based bullet retrieval using Qdrant hybrid search.\n\nThis module provides QdrantBulletIndex for O(1) semantic retrieval of playbook\nbullets using Qdrant vector database with hybrid search (dense + BM25 sparse).\n\nPhase 1: Vector Search Integration for ACE Fortune 100 Production Readiness.\n\nKey features:\n- Dense embeddings via LM Studio (nomic-embed-text-v1.5, 768-dim)\n- BM25 sparse vectors for keyword matching (technical terms)\n- Hybrid search with RRF fusion for best of both approaches\n",
+        "\"\"\"\nUnified Memory Architecture for ACE Framework\n\nThis module provides a unified storage and retrieval system that merges:\n1. ACE Framework Playbook bullets (task strategies with helpful/harmful counters)\n2. Personal Memory Bank memories (user preferences with severity/reinforcement)\n\nThe unified system uses a single Qdrant collection with namespace separation,\nproviding consistent retrieval logic using ACE Framework's SmartBulletIndex.\n\nArchitecture:\n    Single Qdrant Collection: \"ace_unified\"",
+        "\"\"\"HyDE-enhanced retrieval pipeline for ACE memory system.\n\nIntegrates HyDE (Hypothetical Document Embeddings) with existing hybrid search\ninfrastructure for improved retrieval accuracy on ambiguous/implicit queries.\n\nPipeline:\n1. Query -> HyDE expansion -> Generate hypothetical documents\n2. Embed hypotheticals -> Average embeddings\n3. Search Qdrant with averaged embedding + BM25 sparse\n4. Return results with hybrid RRF fusion\n\nPerformance target: +5-10% for implicit/scenario/template queries\n\"\""
+      ],
+      "ace_line_counts": [
+        101,
+        114,
+        165,
+        118,
+        39
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "auggie_contents": [
+        "...\n    98\t\n    99\t    # API key (required)\n   100\t    api_key: str = field(default_factory=lambda: _get_env(\"VOYAGE_API_KEY\", \"\"))\n   101\t\n   102\t    # Model name (voyage-code-3 - code-optimized)\n   103\t    model: str = field(default_factory=lambda: _get_env(\"ACE_VOYAGE_MODEL\", \"voyage-code-3\"))\n   104\t\n   105\t    # Embedding dimension (1024d default, options: 256, 512, 1024, 2048)\n   106\t    dimension: int = field(default_factory=lambda: _get_env_int(\"ACE_VOYAGE_DIMENSION\", 1024))\n   107\t\n   108\t    # Max input length (tokens) - 32K for voyage-code-3\n   109\t    max_input_tokens: int = field(default_factory=lambda: _get_env_int(\"ACE_VOYAGE_MAX_TOKENS\", 32000))\n... (501 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.226)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "BM25Config k1 b parameters",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/unified_memory.py",
+        "ace/retrieval_presets.py",
+        "benchmark_results/ab_test_results.json",
+        "ace/retrieval_presets.py"
+      ],
+      "ace_scores": [
+        0.808977,
+        0.5387472999999999,
+        0.5190691000000001,
+        0.51102534,
+        0.48792126999999996
+      ],
+      "ace_contents": [
+        "\"\"\"Centralized ACE configuration.\n\nAll embedding and retrieval settings in one place.\nOverride via environment variables or .env file.\n\"\"\"\n\nimport os\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nfrom pathlib import Path\n\n# Load .env if python-dotenv is available\ntry:\n    from dotenv import load_dotenv\n    env_path = Path(__file__).parent.parent / \".env\"\n    if env_path.exists():\n        load_dotenv(env_path)\nexcept ImportError:\n    pass\n\n\ndef _get_env(key: str, default: s",
+        "\"\"\"\nUnified Memory Architecture for ACE Framework\n\nThis module provides a unified storage and retrieval system that merges:\n1. ACE Framework Playbook bullets (task strategies with helpful/harmful counters)\n2. Personal Memory Bank memories (user preferences with severity/reinforcement)\n\nThe unified system uses a single Qdrant collection with namespace separation,\nproviding consistent retrieval logic using ACE Framework's SmartBulletIndex.\n\nArchitecture:\n    Single Qdrant Collection: \"ace_unified\"",
+        "\"\"\"\nRetrieval Presets - Optimized configurations for different query types.\n\nBased on empirical testing:\n- Baseline precision: 75.6%\n- Architecture queries: 33.3% (worst)\n- Target: 95%+ precision across all categories\n\nWinning optimizations:\n1. BM25-heavy weighting (dense=0.3, sparse=0.7) -> +50% P@3\n2. Post-retrieval deduplication (0.90 threshold) -> +2.7%\n3. Query expansion with domain synonyms -> +3% (conditional)\n\"\"\"\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing",
+        "{\n  \"timestamp\": \"2026-01-02 14:27:04\",\n  \"n_queries\": 30,\n  \"results\": [\n    {\n      \"config\": {\n        \"name\": \"A: Baseline\",\n        \"description\": \"Pure vector search, no optimizations\",\n        \"use_cross_encoder\": false,\n        \"use_llm_expansion\": false,\n        \"auto_detect_preset\": false\n      },\n      \"metrics\": {\n        \"recall_at_1\": 66.66666666666666,\n        \"recall_at_5\": 83.33333333333334,\n        \"precision_at_3\": 58.88888888888888,\n        \"avg_latency_ms\": 565.6736214955648",
+        "def get_preset_config(preset: RetrievalPreset) -> RetrievalConfig:\n    \"\"\"Get configuration for a preset.\"\"\"\n    return PRESET_CONFIGS.get(preset, PRESET_CONFIGS[RetrievalPreset.BALANCED])\n\n\ndef cosine_similarity(vec1: List[float], vec2: List[float]) -> float:\n    \"\"\"Calculate cosine similarity between two vectors.\"\"\"\n    if not vec1 or not vec2 or len(vec1) != len(vec2):\n        return 0.0\n\n    dot_product = sum(a * b for a, b in zip(vec1, vec2))\n    norm1 = math.sqrt(sum(a * a for a in vec1))\n"
+      ],
+      "ace_line_counts": [
+        547,
+        222,
+        58,
+        66,
+        87
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"Centralized ACE configuration.\n     2\t\n     3\tAll embedding and retrieval settings in one place.\n     4\tOverride via environment variables or .env file.\n     5\t\"\"\"\n     6\t\n     7\timport os\n     8\tfrom dataclasses import dataclass, field\n     9\tfrom typing import Optional\n    10\tfrom pathlib import Path\n    11\t\n    12\t# Load .env if python-dotenv is available\n    13\ttry:\n... (523 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (0.809)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "CodeIndexer index_workspace method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace_mcp_server.py",
+        "ace/code_indexer.py",
+        "ace/file_watcher_daemon.py"
+      ],
+      "ace_scores": [
+        1.20931265,
+        0.5353975999999999,
+        0.41589817000000007,
+        0.38805644999999994,
+        0.36180576000000003
+      ],
+      "ace_contents": [
+        "class CodeIndexer:\n    \"\"\"\n    Index workspace code files for semantic search.\n    \n    Scans workspace directories, parses code using ASTChunker,\n    generates embeddings, and stores in Qdrant for retrieval.\n    \n    Features:\n    - Multi-language support via ASTChunker\n    - Incremental updates on file changes\n    - File watching for auto-updates\n    - Gitignore and exclude pattern support\n    - Relative path storage for portability\n    \n    Example:\n        indexer = CodeIndexer(workspace_pat",
+        "    def index_workspace(self) -> Dict[str, Any]:\n        \"\"\"\n        Index entire workspace with batch embedding for speed.\n        \n        Uses Voyage batch API to embed up to 128 chunks per request,\n        making indexing ~100x faster than individual API calls.\n        \n        Returns:\n            Statistics dict with files_indexed, chunks_indexed, etc.\n        \"\"\"\n        stats = {\n            \"files_indexed\": 0,\n            \"chunks_indexed\": 0,\n            \"files_skipped\": 0,\n            ",
+        "async def ace_onboard(\n    workspace_name: str = \"\",\n    ctx: Context = None,\n) -> str:\n    \"\"\"Onboard the current workspace to ACE.\n\n    This tool should be called when a workspace is detected but not yet onboarded\n    (no .ace/.ace.json file exists).\n\n    Onboarding will:\n    1. Create .ace/.ace.json configuration file with workspace name\n    2. Index all code in the workspace for semantic search\n    3. Enable workspace-specific code retrieval (isolated from other projects)\n\n    After onboardi",
+        "\"\"\"Code indexer module for workspace code indexing.\n\nThis module provides code indexing capabilities that scan a workspace,\nparse code files using ASTChunker, and store indexed chunks in Qdrant\nfor semantic code search.\n\nConfiguration:\n    ACE_CODE_COLLECTION: Qdrant collection name (default: ace_code_context)\n    ACE_CODE_EMBEDDING_DIM: Embedding dimension (default: from EmbeddingConfig)\n    QDRANT_URL: Qdrant server URL (default: http://localhost:6333)\n\nThe indexer supports:\n- Multi-language p",
+        "#!/usr/bin/env python3\n\"\"\"ACE File Watcher Daemon - Persistent background file watcher.\n\nThis daemon runs as a background process and monitors workspace files\nfor changes, automatically reindexing when code is modified.\n\nUsage:\n    python -m ace.file_watcher_daemon start /path/to/workspace\n    python -m ace.file_watcher_daemon stop /path/to/workspace\n    python -m ace.file_watcher_daemon status /path/to/workspace\n\nThe daemon stores its PID in .ace/.watcher.pid and logs to .ace/.watcher.log\n\"\"\"\n\n"
+      ],
+      "ace_line_counts": [
+        101,
+        224,
+        97,
+        55,
+        114
+      ],
+      "auggie_files": [
+        "ace/code_indexer.py"
+      ],
+      "auggie_contents": [
+        "...\n   193\t\n   194\tclass CodeIndexer:\n   195\t    \"\"\"\n   196\t    Index workspace code files for semantic search.\n   197\t    \n   198\t    Scans workspace directories, parses code using ASTChunker,\n   199\t    generates embeddings, and stores in Qdrant for retrieval.\n   200\t    \n   201\t    Features:\n   202\t    - Multi-language support via ASTChunker\n   203\t    - Incremental updates on file changes\n   204\t    - File watching for auto-updates\n... (446 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (2 vs 0)",
+        "High confidence top score (1.209)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "HyDEGenerator class generate method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/hyde.py"
+      ],
+      "ace_files": [
+        "ace/hyde.py",
+        "ace/roles.py",
+        "ace/hyde_retrieval.py",
+        "ace/self_consistency.py",
+        "examples/hyde_example.py"
+      ],
+      "ace_scores": [
+        0.79866727,
+        0.7027561499999999,
+        0.44137126000000004,
+        0.39485977999999994,
+        0.26493878
+      ],
+      "ace_contents": [
+        "\"\"\"HyDE (Hypothetical Document Embeddings) implementation.\n\nThis module implements HyDE for bridging the semantic gap between short queries\nand detailed memory documents. HyDE transforms queries into hypothetical documents\nthat would answer the query, then uses their embeddings for more accurate retrieval.\n\nKey Features:\n- LLM-based hypothetical document generation (Z.ai GLM-4.6 by default)\n- Configurable number of hypothetical documents (default: 3-5)\n- Caching for repeated queries\n- Async supp",
+        "\"\"\"Generator, Reflector, and Curator components.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom dataclasses import dataclass\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Optional, Sequence\n\nfrom .delta import DeltaBatch\nfrom .llm import LLMClient\nfrom .playbook import Playbook\nfrom .prompts import CURATOR_PROMPT, GENERATOR_PROMPT, REFLECTOR_PROMPT\n\n# Import Opik tracing with graceful degradation\ntry:\n    from .observability.tracers import maybe_track\nexcept ImportError:",
+        "\"\"\"HyDE-enhanced retrieval pipeline for ACE memory system.\n\nIntegrates HyDE (Hypothetical Document Embeddings) with existing hybrid search\ninfrastructure for improved retrieval accuracy on ambiguous/implicit queries.\n\nPipeline:\n1. Query -> HyDE expansion -> Generate hypothetical documents\n2. Embed hypotheticals -> Average embeddings\n3. Search Qdrant with averaged embedding + BM25 sparse\n4. Return results with hybrid RRF fusion\n\nPerformance target: +5-10% for implicit/scenario/template queries\n\"\"",
+        "\"\"\"Self-consistency sampling for improved generation accuracy.\n\nThis module implements self-consistency decoding, which generates multiple\nresponses for the same prompt and selects the most consistent answer via\nmajority voting. This technique improves accuracy for tasks where reasoning\npaths can vary but the final answer should converge.\n\nReference: Wang et al., \"Self-Consistency Improves Chain of Thought Reasoning\"\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom collections import Co",
+        "\"\"\"HyDE (Hypothetical Document Embeddings) Usage Example.\n\nThis example demonstrates how to use HyDE to improve retrieval accuracy\nfor short, ambiguous queries by generating hypothetical answer documents.\n\nRequirements:\n- Qdrant running at http://localhost:6333\n- LM Studio embeddings at http://192.168.10.64:1234\n- ZAI_API_KEY or OPENAI_API_KEY in .env\n\"\"\"\n\nimport os\nimport sys\nfrom pathlib import Path\n\n# Add parent directory to path\nsys.path.insert(0, str(Path(__file__).parent.parent))\n\nfrom ace"
+      ],
+      "ace_line_counts": [
+        242,
+        450,
+        419,
+        189,
+        135
+      ],
+      "auggie_files": [
+        "ace/hyde.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"HyDE (Hypothetical Document Embeddings) implementation.\n     2\t\n     3\tThis module implements HyDE for bridging the semantic gap between short queries\n     4\tand detailed memory documents. HyDE transforms queries into hypothetical documents\n     5\tthat would answer the query, then uses their embeddings for more accurate retrieval.\n     6\t\n     7\tKey Features:\n     8\t- LLM-based hypothetical document generation (Z.ai GLM-4.6 by default)\n     9\t- Configurable number of hypothetical documents (default: 3-5)\n    10\t- Caching for repeated queries\n    11\t- Async support for batch processing\n    12\t- Optimized for memory retrieval domain\n    13\t\n... (472 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (0.799)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "VoyageCodeEmbeddingConfig api_key model",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/code_retrieval.py",
+        "docs/CODE_EMBEDDING_CONFIG.md",
+        "ace/gemini_embeddings.py",
+        "ace/semantic_scorer.py"
+      ],
+      "ace_scores": [
+        1.245946,
+        0.4830078,
+        0.32415869999999997,
+        0.3151724,
+        0.29002182
+      ],
+      "ace_contents": [
+        "\"\"\"Centralized ACE configuration.\n\nAll embedding and retrieval settings in one place.\nOverride via environment variables or .env file.\n\"\"\"\n\nimport os\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nfrom pathlib import Path\n\n# Load .env if python-dotenv is available\ntry:\n    from dotenv import load_dotenv\n    env_path = Path(__file__).parent.parent / \".env\"\n    if env_path.exists():\n        load_dotenv(env_path)\nexcept ImportError:\n    pass\n\n\ndef _get_env(key: str, default: s",
+        "class CodeRetrieval:\n    \"\"\"Semantic code search with Auggie-style output formatting.\n    \n    Queries indexed code chunks and formats results in a way compatible\n    with Auggie MCP output, supporting blended code + memory results.\n    \n    Uses Voyage-code-3 embeddings (1024d) for optimal code semantic \n    understanding compared to general-purpose embeddings.\n    \n    Configuration via environment variables:\n        QDRANT_URL: Qdrant server URL (default: http://localhost:6333)\n        ACE_CO",
+        "# ACE Code Embedding Configuration\n\n## Overview\n\nACE uses a **dual-embedding architecture** for optimal retrieval quality:\n\n1. **Memory Embeddings**: `Qwen3-Embedding-8B` (4096d) for lessons, preferences, corrections\n2. **Code Embeddings**: `Voyage-code-3` (1024d) for code context retrieval\n\nThis separation allows each domain to use embeddings specifically trained for its content type.\n\n## Why Voyage-code-3 for Code?\n\nAfter benchmarking multiple embedding models for code retrieval:\n\n| Model | Di",
+        "\"\"\"Gemini Embedding Client for ACE Framework.\n\nProvides embeddings using Google's gemini-embedding-001 model\nwith proper task type optimization for retrieval (document vs query).\n\nUsage:\n    from ace.gemini_embeddings import GeminiEmbeddingClient\n\n    client = GeminiEmbeddingClient(api_key=\"your-api-key\")\n\n    # For indexing documents\n    doc_embedding = client.embed_document(\"This is a document about...\")\n\n    # For search queries\n    query_embedding = client.embed_query(\"How do I fix...\")\n\"\"\"\n",
+        "#!/usr/bin/env python\n\"\"\"\nSemantic Similarity Scorer for ACE Retrieval Quality Measurement.\n\nUses embedding cosine similarity instead of keyword matching to measure\nhow relevant retrieved results are to the original query.\n\nThis provides a more accurate quality metric than keyword-based precision.\n\"\"\"\n\nimport os\nimport sys\nimport numpy as np\nfrom typing import List, Tuple, Optional\nimport httpx\n\n# Add project root to path\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file_"
+      ],
+      "ace_line_counts": [
+        117,
+        108,
+        126,
+        88,
+        22
+      ],
+      "auggie_files": [
+        "docs/CODE_EMBEDDING_CONFIG.md"
+      ],
+      "auggie_contents": [
+        "     1\t# ACE Code Embedding Configuration\n     2\t\n     3\t## Overview\n     4\t\n     5\tACE uses a **dual-embedding architecture** for optimal retrieval quality:\n     6\t\n     7\t1. **Memory Embeddings**: `Qwen3-Embedding-8B` (4096d) for lessons, preferences, corrections\n     8\t2. **Code Embeddings**: `Voyage-code-3` (1024d) for code context retrieval\n     9\t\n    10\tThis separation allows each domain to use embeddings specifically trained for its content type.\n    11\t\n    12\t## Why Voyage-code-3 for Code?\n    13\t\n... (481 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE found expected file at rank 1, Auggie missed it",
+      "ace_advantages": [
+        "Found expected file at rank 1"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": false,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "LLMConfig provider model settings",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/llm_providers/__init__.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_presets.py"
+      ],
+      "ace_scores": [
+        1.14325426,
+        0.83997247,
+        0.45755014000000005,
+        0.4258807,
+        0.37242814
+      ],
+      "ace_contents": [
+        "\"\"\"Centralized ACE configuration.\n\nAll embedding and retrieval settings in one place.\nOverride via environment variables or .env file.\n\"\"\"\n\nimport os\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nfrom pathlib import Path\n\n# Load .env if python-dotenv is available\ntry:\n    from dotenv import load_dotenv\n    env_path = Path(__file__).parent.parent / \".env\"\n    if env_path.exists():\n        load_dotenv(env_path)\nexcept ImportError:\n    pass\n\n\ndef _get_env(key: str, default: s",
+        "\"\"\"LiteLLM client for unified access to 100+ LLM providers.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport os\nfrom typing import Any, Dict, List, Optional, Union\nfrom dataclasses import dataclass\nimport asyncio\nimport logging\n\nfrom ..llm import LLMClient, LLMResponse\n\nlogger = logging.getLogger(__name__)\n\ntry:\n    import litellm\n    from litellm import completion, acompletion, Router\n\n    LITELLM_AVAILABLE = True\nexcept ImportError:\n    LITELLM_AVAILABLE = False\n    logger.warning(\"L",
+        "\"\"\"Production LLM client implementations for ACE.\"\"\"\n\nfrom typing import Optional\nfrom .litellm_client import LiteLLMClient, LiteLLMConfig\n\nLangChainLiteLLMClient: Optional[type]\n\ntry:\n    from .langchain_client import LangChainLiteLLMClient as _LangChainLiteLLMClient\n\n    LangChainLiteLLMClient = _LangChainLiteLLMClient  # type: ignore[assignment]\nexcept ImportError:\n    LangChainLiteLLMClient = None  # Optional dependency  # type: ignore[assignment]\n\n__all__ = [\n    \"LiteLLMClient\",\n    \"LiteL",
+        "class LLMQueryRewriter:\n    \"\"\"\n    LLM-based query rewriting for short, ambiguous queries.\n    Uses Z.ai GLM to expand short queries into richer semantic variations.\n    \"\"\"\n\n    # Domain context for the ACE memory knowledge base\n    DOMAIN_CONTEXT = \"\"\"The knowledge base contains:\n- User preferences (coding style, tool choices, workflow patterns)\n- Task strategies (debugging approaches, optimization techniques)\n- Error patterns and fixes (common bugs, solutions, root causes)\n- Configuration be",
+        "def expand_query_with_llm(\n    query: str,\n    llm_url: Optional[str] = None,\n    model: Optional[str] = None,\n    timeout: Optional[float] = None,\n) -> List[str]:\n    \"\"\"\n    Use LLM (GLM 4.6) to semantically expand query for better retrieval.\n\n    This generates related terms and rephrased queries that capture\n    the semantic intent beyond simple synonym matching.\n\n    All settings default to values from ace.config.LLMConfig.\n\n    Args:\n        query: Original query string\n        llm_url: Z."
+      ],
+      "ace_line_counts": [
+        611,
+        300,
+        20,
+        67,
+        382
+      ],
+      "auggie_files": [],
+      "auggie_contents": [],
+      "auggie_line_counts": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_advantages": [
+        "Has results"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": false,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "RetrievalConfig limit threshold",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/retrieval_presets.py",
+        "ace/config.py",
+        "ace/retrieval_presets.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_bandit.py"
+      ],
+      "ace_scores": [
+        1.1682625999999998,
+        1.12790225,
+        0.4969671,
+        0.4280176,
+        0.31555145
+      ],
+      "ace_contents": [
+        "\"\"\"\nRetrieval Presets - Optimized configurations for different query types.\n\nBased on empirical testing:\n- Baseline precision: 75.6%\n- Architecture queries: 33.3% (worst)\n- Target: 95%+ precision across all categories\n\nWinning optimizations:\n1. BM25-heavy weighting (dense=0.3, sparse=0.7) -> +50% P@3\n2. Post-retrieval deduplication (0.90 threshold) -> +2.7%\n3. Query expansion with domain synonyms -> +3% (conditional)\n\"\"\"\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing",
+        "class QdrantConfig:\n    \"\"\"Qdrant vector database configuration.\"\"\"\n\n    # Qdrant server URL\n    url: str = field(default_factory=lambda: _get_env(\"ACE_QDRANT_URL\", \"http://localhost:6333\"))\n\n    # Collection names (ace_memories_hybrid is the canonical 4096-dim collection)\n    memories_collection: str = field(default_factory=lambda: _get_env(\"ACE_MEMORIES_COLLECTION\", \"ace_memories_hybrid\"))\n    unified_collection: str = field(default_factory=lambda: _get_env(\"ACE_UNIFIED_COLLECTION\", \"ace_memor",
+        "def get_preset_config(preset: RetrievalPreset) -> RetrievalConfig:\n    \"\"\"Get configuration for a preset.\"\"\"\n    return PRESET_CONFIGS.get(preset, PRESET_CONFIGS[RetrievalPreset.BALANCED])\n\n\ndef cosine_similarity(vec1: List[float], vec2: List[float]) -> float:\n    \"\"\"Calculate cosine similarity between two vectors.\"\"\"\n    if not vec1 or not vec2 or len(vec1) != len(vec2):\n        return 0.0\n\n    dot_product = sum(a * b for a, b in zip(vec1, vec2))\n    norm1 = math.sqrt(sum(a * a for a in vec1))\n",
+        "\"\"\"\nOptimized Retrieval Module for ACE\n\nThis module implements state-of-the-art retrieval techniques based on\nextensive RAG optimization research and testing:\n\nBest Configuration (V2 - 62.52% R@5):\n- Hybrid search (dense + BM25 sparse + RRF)\n- Query expansion (4 variations)\n- Multi-query retrieval with RRF fusion\n- Cross-encoder re-ranking (ms-marco-MiniLM-L-6-v2)\n\nPerformance:\n- Recall@1: 41.71% (vs 22.06% baseline)\n- Recall@5: 62.52% (vs 53.28% baseline)\n- MRR: 0.5077 (vs 0.3583 baseline)\n\nUsa",
+        "\"\"\"\nLinUCB Contextual Bandit for Adaptive Retrieval Strategy Selection\n\nPart of P7 ARIA (Adaptive Retrieval Intelligence Architecture).\n\nImplements P7.3 LinUCB algorithm with 4-arm retrieval strategy:\n- FAST: Low latency, minimal context\n- BALANCED: Moderate speed/quality tradeoff (cold start default)\n- DEEP: Maximum semantic depth\n- DIVERSE: Multi-perspective retrieval\n\nFormula: UCB(arm) = theta^T * x + alpha * sqrt(x^T * A^-1 * x)\nwhere:\n- theta = A^-1 * b (parameter estimate)\n- A = sum of x*x"
+      ],
+      "ace_line_counts": [
+        58,
+        101,
+        87,
+        91,
+        120
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "auggie_contents": [
+        "...\n   184\t\n   185\t\n   186\t@dataclass\n   187\tclass RetrievalConfig:\n   188\t    \"\"\"Retrieval pipeline configuration.\"\"\"\n   189\t\n   190\t    # Number of candidates per query\n   191\t    candidates_per_query: int = field(default_factory=lambda: _get_env_int(\"ACE_CANDIDATES_PER_QUERY\", 20))\n   192\t\n   193\t    # First stage retrieval limit (initial_k - before reranking/filtering)\n   194\t    first_stage_k: int = field(default_factory=lambda: _get_env_int(\"ACE_FIRST_STAGE_K\", 40))\n   195\t    initial_k: int = field(default_factory=lambda: _get_env_int(\"ACE_INITIAL_K\", 100))  # Alias for first_stage_k\n... (424 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "TIE",
+      "reason": "Both systems performed equally",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.168)",
+        "Better chunk size (91 lines avg)"
+      ],
+      "auggie_advantages": [
+        "Higher rank for expected file (1 vs 2)"
+      ],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 2,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "HyDEConfig num_hypotheticals temperature",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py",
+        "ace/hyde.py"
+      ],
+      "ace_files": [
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "examples/hyde_example.py",
+        "rag_training/optimizations/v6_hyde.py",
+        "rag_training/optimizations/v7_fortune100_combined.py"
+      ],
+      "ace_scores": [
+        1.19252615,
+        0.6736336,
+        0.48521559999999997,
+        0.41966254,
+        0.35007439999999995
+      ],
+      "ace_contents": [
+        "\"\"\"HyDE (Hypothetical Document Embeddings) implementation.\n\nThis module implements HyDE for bridging the semantic gap between short queries\nand detailed memory documents. HyDE transforms queries into hypothetical documents\nthat would answer the query, then uses their embeddings for more accurate retrieval.\n\nKey Features:\n- LLM-based hypothetical document generation (Z.ai GLM-4.6 by default)\n- Configurable number of hypothetical documents (default: 3-5)\n- Caching for repeated queries\n- Async supp",
+        "\"\"\"HyDE-enhanced retrieval pipeline for ACE memory system.\n\nIntegrates HyDE (Hypothetical Document Embeddings) with existing hybrid search\ninfrastructure for improved retrieval accuracy on ambiguous/implicit queries.\n\nPipeline:\n1. Query -> HyDE expansion -> Generate hypothetical documents\n2. Embed hypotheticals -> Average embeddings\n3. Search Qdrant with averaged embedding + BM25 sparse\n4. Return results with hybrid RRF fusion\n\nPerformance target: +5-10% for implicit/scenario/template queries\n\"\"",
+        "\"\"\"HyDE (Hypothetical Document Embeddings) Usage Example.\n\nThis example demonstrates how to use HyDE to improve retrieval accuracy\nfor short, ambiguous queries by generating hypothetical answer documents.\n\nRequirements:\n- Qdrant running at http://localhost:6333\n- LM Studio embeddings at http://192.168.10.64:1234\n- ZAI_API_KEY or OPENAI_API_KEY in .env\n\"\"\"\n\nimport os\nimport sys\nfrom pathlib import Path\n\n# Add parent directory to path\nsys.path.insert(0, str(Path(__file__).parent.parent))\n\nfrom ace",
+        "\"\"\"\nV6: HyDE (Hypothetical Document Embeddings) Optimization\n=========================================================\n\n**Technique**: HyDE - Generate hypothetical documents that would answer the query,\nthen use averaged embeddings for semantic search.\n\n**Pipeline**:\n1. Query -> LLM generates 3-5 hypothetical answer documents\n2. Embed each hypothetical document\n3. Average embeddings into single vector\n4. Search Qdrant with averaged embedding + BM25 sparse (RRF fusion)\n\n**Expected Improvement**: ",
+        "\"\"\"\nV7: Fortune 100 Combined Pipeline - Target 95%+ Recall@5\n=========================================================\n\nCombines ALL optimizations for maximum retrieval accuracy:\n1. HyDE (Hypothetical Document Embeddings) for query expansion\n2. Fine-tuned BGE-large embeddings (1024 dims) for domain adaptation\n3. BGE cross-encoder reranker for precision\n\nPipeline:\n  Query -> HyDE hypotheticals -> BGE-large embeddings -> Qdrant hybrid search\n       -> RRF fusion -> BGE reranker -> Final top-K\n\nTar"
+      ],
+      "ace_line_counts": [
+        318,
+        419,
+        135,
+        163,
+        119
+      ],
+      "auggie_files": [
+        "ace/hyde.py"
+      ],
+      "auggie_contents": [
+        "...\n    31\t\n    32\t\n    33\t@dataclass\n    34\tclass HyDEConfig:\n    35\t    \"\"\"Configuration for HyDE hypothetical document generation.\"\"\"\n    36\t\n    37\t    # Generation parameters\n    38\t    num_hypotheticals: int = 3  # Number of hypothetical documents to generate\n    39\t    max_tokens: int = 150  # Max tokens per hypothetical document\n    40\t    temperature: float = 0.7  # Higher temperature for diversity\n    41\t\n    42\t    # LLM configuration\n... (495 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.193)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "SemanticScorer score calculation method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/semantic_scorer.py"
+      ],
+      "ace_files": [
+        "ace/semantic_scorer.py",
+        "ace/retrieval.py",
+        "ace/retrieval_optimized.py",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "rag_training/optimizations/v7_fortune100_combined.py"
+      ],
+      "ace_scores": [
+        0.33538739999999995,
+        0.27225684,
+        0.26500164,
+        0.15964195000000003,
+        0.15312966000000006
+      ],
+      "ace_contents": [
+        "#!/usr/bin/env python\n\"\"\"\nSemantic Similarity Scorer for ACE Retrieval Quality Measurement.\n\nUses embedding cosine similarity instead of keyword matching to measure\nhow relevant retrieved results are to the original query.\n\nThis provides a more accurate quality metric than keyword-based precision.\n\"\"\"\n\nimport os\nimport sys\nimport numpy as np\nfrom typing import List, Tuple, Optional\nimport httpx\n\n# Add project root to path\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file_",
+        "    def semantic_search(\n        self,\n        query: str,\n        threshold: float = 0.0,\n        limit: Optional[int] = None,\n    ) -> List[ScoredBullet]:\n        \"\"\"Search bullets using semantic similarity.\n\n        Note: This is a simplified implementation using keyword overlap.\n        For production use, integrate with an embedding model.\n\n        Args:\n            query: Natural language query\n            threshold: Minimum similarity threshold (0.0 to 1.0)\n            limit: Maximum numb",
+        "    def _score_entities(self, query: str) -> float:\n        \"\"\"Score based on presence of specific entities.\"\"\"\n        score = 0.0\n        \n        # Version numbers are highly specific\n        if self.VERSION_PATTERN.search(query):\n            score += 0.4\n        \n        # File paths are highly specific\n        if self.PATH_PATTERN.search(query):\n            score += 0.3\n        \n        # Error codes are highly specific\n        if self.ERROR_CODE_PATTERN.search(query):\n            score += ",
+        "      \"semantic\": 21641,\n      \"taut\": 21642,\n      \"dune\": 21643,\n      \"inventions\": 21644,\n      \"succeeds\": 21645,\n      \"##iter\": 21646,\n      \"replication\": 21647,\n      \"branched\": 21648,\n      \"##pired\": 21649,\n      \"jul\": 21650,\n      \"prosecuted\": 21651,\n      \"kangaroo\": 21652,\n      \"penetrated\": 21653,\n      \"##avian\": 21654,\n      \"middlesbrough\": 21655,\n      \"doses\": 21656,\n      \"bleak\": 21657,\n      \"madam\": 21658,\n      \"predatory\": 21659,\n      \"relentless\": 21660,\n      \"##",
+        "def calculate_mrr(retrieved_ids: List[str], ground_truth_id: str) -> float:\n    try:\n        rank = retrieved_ids.index(ground_truth_id) + 1\n        return 1.0 / rank\n    except ValueError:\n        return 0.0\n\n\ndef calculate_ndcg_at_k(retrieved_ids: List[str], ground_truth_id: str, k: int) -> float:\n    if ground_truth_id not in retrieved_ids[:k]:\n        return 0.0\n    rank = retrieved_ids[:k].index(ground_truth_id) + 1\n    dcg = 1.0 / math.log2(rank + 1)\n    idcg = 1.0 / math.log2(2)\n    retur"
+      ],
+      "ace_line_counts": [
+        159,
+        120,
+        26,
+        120,
+        71
+      ],
+      "auggie_files": [
+        "ace/semantic_scorer.py"
+      ],
+      "auggie_contents": [
+        "     1\t#!/usr/bin/env python\n     2\t\"\"\"\n     3\tSemantic Similarity Scorer for ACE Retrieval Quality Measurement.\n     4\t\n     5\tUses embedding cosine similarity instead of keyword matching to measure\n     6\thow relevant retrieved results are to the original query.\n     7\t\n     8\tThis provides a more accurate quality metric than keyword-based precision.\n     9\t\"\"\"\n    10\t\n    11\timport os\n    12\timport sys\n    13\timport numpy as np\n... (460 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "Better chunk size (99 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "DependencyGraph build method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/dependency_graph.py"
+      ],
+      "ace_files": [
+        "ace/dependency_graph.py",
+        "ace/dependency_graph.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "docs/Fortune100.md",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        1.02611277,
+        0.26710239999999996,
+        0.07825435000000003,
+        0.062240799999999985,
+        0.060070780000000046
+      ],
+      "ace_contents": [
+        "\"\"\"Dependency graph analysis for code understanding.\n\nExtracts imports, function calls, and dependency relationships from source code\nusing tree-sitter for multiple programming languages.\n\"\"\"\n\nfrom dataclasses import dataclass, field\nfrom pathlib import Path\nfrom typing import Dict, List, Optional\nimport re\n\n\n@dataclass\nclass Import:\n    \"\"\"Represents an import statement in source code.\"\"\"\n\n    module: str\n    names: List[str] = field(default_factory=list)\n    alias: Optional[str] = None\n    lin",
+        "    def build_call_graph(self, code: str, language: str) -> List[CallEdge]:\n        \"\"\"Build function call graph from code.\n\n        Args:\n            code: Source code string\n            language: Programming language\n\n        Returns:\n            List of CallEdge objects representing caller->callee relationships\n        \"\"\"\n        language = language.lower()\n\n        if language == \"python\":\n            return self._build_python_call_graph(code)\n        elif language in (\"javascript\", \"typesc",
+        "solutions\n##ery\npointing\nrequested\nperu\nreed\nchancellor\nknights\nmask\nworker\neldest\nflames\nreduction\n1860\nvolunteers\n##tis\nreporting\n##hl\nwire\nadvisory\nendemic\norigins\nsettlers\npursue\nknock\nconsumer\n1876\neu\ncompound\ncreatures\nmansion\nsentenced\nivan\ndeployed\nguitars\nfrowned\ninvolves\nmechanism\nkilometers\nperspective\nshops\nmaps\nterminus\nduncan\nalien\nfist\nbridges\n##pers\nheroes\nfed\nderby\nswallowed\n##ros\npatent\nsara\nillness\ncharacterized\nadventures\nslide\nhawaii\njurisdiction\n##op\norganised\n##side\nadelai",
+        "\n## Phase 2 Implementation Summary\n\n### Deliverables\n\n| File | Description | Tests |\n|------|-------------|-------|\n| `ace/code_analysis.py` | **NEW** - CodeAnalyzer with tree-sitter multi-language AST parsing | 35 tests |\n| `ace/code_enrichment.py` | **NEW** - CodeAwareEnricher for code-specific bullet enrichment | 20 tests |\n| `ace/dependency_graph.py` | **NEW** - DependencyGraph for import/call analysis | 19 tests |\n| `tests/test_code_analysis.py` | **NEW** - Comprehensive tree-sitter test su",
+        "        \"Update dependencies before building to patch known vulnerabilities.\",\n        \"Create symlinks for local packages instead of npm link to avoid dependency conflicts.\",\n        \"Validate all function return types to prevent type-related bugs early.\"\n      ],\n      \"metadata\": {\n        \"memory_id\": 3215809140,\n        \"category\": \"ARCHITECTURE\",\n        \"difficulty\": \"medium\",\n        \"query_category\": \"template\"\n      }\n    },\n    {\n      \"query\": \"I'm working on a project and need to kn"
+      ],
+      "ace_line_counts": [
+        136,
+        214,
+        120,
+        120,
+        220
+      ],
+      "auggie_files": [
+        "ace/dependency_graph.py"
+      ],
+      "auggie_contents": [
+        "...\n    30\t\n    31\t\n    32\tclass DependencyGraph:\n    33\t    \"\"\"Analyzes code dependencies and call graphs across multiple languages.\"\"\"\n    34\t\n    35\t    def __init__(self, analyzer=None):\n    36\t        \"\"\"Initialize with optional CodeAnalyzer.\n    37\t\n    38\t        Args:\n    39\t            analyzer: Optional CodeAnalyzer instance (lazy-loaded if None)\n    40\t        \"\"\"\n    41\t        self._analyzer = analyzer\n... (498 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (3 vs 0)",
+        "High confidence top score (1.026)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "FileWatcher callback handler",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/file_watcher_daemon.py"
+      ],
+      "ace_files": [
+        "ace/code_indexer.py",
+        "ace/file_watcher_daemon.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        ".serena/memories/ace_file_watcher_daemon.md"
+      ],
+      "ace_scores": [
+        0.32110046,
+        0.32108659999999994,
+        0.27055155,
+        0.2596892,
+        0.2427512
+      ],
+      "ace_contents": [
+        "    def stop_watching(self) -> None:\n        \"\"\"Stop file watcher.\"\"\"\n        self._watcher_stop_event.set()\n        self._watching = False\n        \n        if hasattr(self, \"_observer\"):\n            try:\n                self._observer.stop()\n                self._observer.join(timeout=2)\n            except Exception:\n                pass\n        \n        logger.info(\"Stopped file watcher\")\n\n\n# =============================================================================\n# CONVENIENCE FUNCTIONS\n",
+        "#!/usr/bin/env python3\n\"\"\"ACE File Watcher Daemon - Persistent background file watcher.\n\nThis daemon runs as a background process and monitors workspace files\nfor changes, automatically reindexing when code is modified.\n\nUsage:\n    python -m ace.file_watcher_daemon start /path/to/workspace\n    python -m ace.file_watcher_daemon stop /path/to/workspace\n    python -m ace.file_watcher_daemon status /path/to/workspace\n\nThe daemon stores its PID in .ace/.watcher.pid and logs to .ace/.watcher.log\n\"\"\"\n\n",
+        "    def update_file(self, file_path: str) -> int:\n        \"\"\"\n        Update index for a single file (after modification).\n        \n        Args:\n            file_path: Absolute path to file\n            \n        Returns:\n            Number of chunks indexed\n        \"\"\"\n        # Remove old chunks for this file first\n        rel_path = os.path.relpath(file_path, self.workspace_path)\n        rel_path = rel_path.replace(\"\\\\\", \"/\")\n        \n        if self._client:\n            try:\n                f",
+        "\"\"\"Code indexer module for workspace code indexing.\n\nThis module provides code indexing capabilities that scan a workspace,\nparse code files using ASTChunker, and store indexed chunks in Qdrant\nfor semantic code search.\n\nConfiguration:\n    ACE_CODE_COLLECTION: Qdrant collection name (default: ace_code_context)\n    ACE_CODE_EMBEDDING_DIM: Embedding dimension (default: from EmbeddingConfig)\n    QDRANT_URL: Qdrant server URL (default: http://localhost:6333)\n\nThe indexer supports:\n- Multi-language p",
+        "LESSON LEARNED: ACE File Watcher Daemon Implementation\n\nPROBLEM: File watching in CodeIndexer.start_watching() only works within the same process. Hooks are short-lived processes that exit, so the watcher thread dies.\n\nSOLUTION: Created persistent background daemon (ace/file_watcher_daemon.py) that:\n1. Runs as independent subprocess with its own PID\n2. Stores PID in .ace/.watcher.pid for lifecycle management\n3. Auto-starts from SessionStart hook (ensure_file_watcher_running)\n4. Auto-starts from "
+      ],
+      "ace_line_counts": [
+        32,
+        445,
+        107,
+        55,
+        26
+      ],
+      "auggie_files": [
+        "ace/code_indexer.py"
+      ],
+      "auggie_contents": [
+        "...\n   193\t\n   194\tclass CodeIndexer:\n   195\t    \"\"\"\n   196\t    Index workspace code files for semantic search.\n   197\t    \n   198\t    Scans workspace directories, parses code using ASTChunker,\n   199\t    generates embeddings, and stores in Qdrant for retrieval.\n   200\t    \n   201\t    Features:\n   202\t    - Multi-language support via ASTChunker\n   203\t    - Incremental updates on file changes\n   204\t    - File watching for auto-updates\n... (462 more lines)\n\n\u001b[90m\ud83d\udd27 Tool call: web-search\u001b[0m\n   query: \"Python FileWatcher callback handler pattern best practices 2026\"\n   num_results: 5\n\n\u001b[90m\ud83d\udccb Tool result: web-search\u001b[0m"
+      ],
+      "auggie_line_counts": [
+        39
+      ],
+      "winner": "ACE",
+      "reason": "ACE found expected file at rank 2, Auggie missed it",
+      "ace_advantages": [
+        "Found expected file at rank 2"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": false,
+      "ace_expected_rank": 2,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "CircuitBreaker is_open method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "benchmark_results/quality_comparison_20260103_024506.json",
+        "ace/observability/health.py",
+        "ace/retrieval_bandit.py",
+        "ace/scaling.py"
+      ],
+      "ace_scores": [
+        1.1433221,
+        0.20997094,
+        0.20995657,
+        0.20663551999999996,
+        0.20194446
+      ],
+      "ace_contents": [
+        "\"\"\"Resilience patterns for robust LLM interactions.\n\nThis module provides circuit breaker, retry, and other resilience patterns\nfor handling transient failures in LLM API calls.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport time\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom threading import Lock\nfrom typing import Any, Callable, Dict, Optional, TypeVar\n\nT = TypeVar(\"T\")\n\n\nclass CircuitState(str, Enum):\n    \"\"\"Circuit breaker states.\"\"\"\n\n    CLOSED = \"clos",
+        "      \"category\": \"keyword\",\n      \"description\": \"Security keyword matching\",\n      \"num_results\": 0,\n      \"relevant_at_1\": false,\n      \"relevant_at_5\": false,\n      \"top_result\": \"N/A\",\n      \"scores\": [],\n      \"latency_ms\": \"1344.1\"\n    },\n    {\n      \"query\": \"something is broken\",\n      \"category\": \"vague\",\n      \"description\": \"Ultra-vague debugging query\",\n      \"num_results\": 0,\n      \"relevant_at_1\": true,\n      \"relevant_at_5\": true,\n      \"top_result\": \"N/A\",\n      \"scores\": [],\n  ",
+        "\"\"\"\nHealth Check System for ACE Framework (Phase 3D)\n\nThis module provides health checks for external dependencies (Qdrant, LM Studio).\nTracks component availability, latency, and error states.\n\"\"\"\n\nimport time\nfrom dataclasses import dataclass\nfrom enum import Enum\nfrom typing import Dict, Optional\n\nimport httpx\n\n",
+        "    def _is_cold_start(self) -> bool:\n        \"\"\"Check if bandit is in cold start state (all b vectors are zero).\n\n        Cold start means no arm has received any feedback yet.\n        \"\"\"\n        for arm in self.arms:\n            # If any b vector is non-zero, we have feedback data\n            if not np.allclose(self._b[arm], np.zeros(self.d)):\n                return False\n        return True\n\n    def get_state_snapshot(self) -> str:\n        \"\"\"Return hashable state for comparison.\n\n        Re",
+        "class QdrantCluster:\n    \"\"\"Manage multiple Qdrant nodes with load balancing and failover.\n\n    Provides high-availability Qdrant access with:\n    - Load balancing strategies (round-robin, least-connections, weighted)\n    - Automatic failover on node failure\n    - Health monitoring\n    - Connection pooling\n\n    Example:\n        >>> cluster = QdrantCluster(\n        ...     nodes=[\"http://node1:6333\", \"http://node2:6333\"],\n        ...     strategy=LoadBalancingStrategy.ROUND_ROBIN\n        ...  )\n "
+      ],
+      "ace_line_counts": [
+        348,
+        128,
+        15,
+        70,
+        108
+      ],
+      "auggie_files": [
+        "ace/resilience.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"Resilience patterns for robust LLM interactions.\n     2\t\n     3\tThis module provides circuit breaker, retry, and other resilience patterns\n     4\tfor handling transient failures in LLM API calls.\n     5\t\"\"\"\n     6\t\n     7\tfrom __future__ import annotations\n     8\t\n     9\timport functools\n    10\timport time\n    11\tfrom dataclasses import dataclass, field\n    12\tfrom enum import Enum\n    13\tfrom threading import Lock\n... (477 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "High confidence top score (1.143)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "RetryPolicy execute method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/integrations/langchain.py",
+        "ace/roles.py",
+        "ace/audit.py",
+        "ace/playbook.py"
+      ],
+      "ace_scores": [
+        0.25129483999999996,
+        0.2111812,
+        0.19045482999999996,
+        0.16612904,
+        0.16477340000000001
+      ],
+      "ace_contents": [
+        "\"\"\"Resilience patterns for robust LLM interactions.\n\nThis module provides circuit breaker, retry, and other resilience patterns\nfor handling transient failures in LLM API calls.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport time\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom threading import Lock\nfrom typing import Any, Callable, Dict, Optional, TypeVar\n\nT = TypeVar(\"T\")\n\n\nclass CircuitState(str, Enum):\n    \"\"\"Circuit breaker states.\"\"\"\n\n    CLOSED = \"clos",
+        "    def invoke(self, input: Any, **kwargs) -> Any:\n        \"\"\"\n        Execute runnable with ACE learning (sync).\n\n        Args:\n            input: Input for the runnable (string, dict, etc.)\n            **kwargs: Additional arguments passed to runnable.invoke()\n\n        Returns:\n            Output from the runnable\n\n        Example:\n            # String input\n            result = ace_chain.invoke(\"What is ACE?\")\n\n            # Dict input\n            result = ace_chain.invoke({\"question\": \"What ",
+        "    def _reflect_impl(\n        self,\n        *,\n        question: str,\n        generator_output: GeneratorOutput,\n        playbook: Playbook,\n        ground_truth: Optional[str],\n        feedback: Optional[str],\n        max_refinement_rounds: int = 1,\n        **kwargs: Any,\n    ) -> ReflectorOutput:\n        playbook_excerpt = _make_playbook_excerpt(playbook, generator_output.bullet_ids)\n\n        # Format playbook section based on citation presence\n        if playbook_excerpt:\n            playboo",
+        "\"\"\"Enterprise audit logging for ACE operations.\n\nProvides comprehensive logging of:\n- Retrieval operations (queries, latency, results)\n- Index operations (bullet creation, updates)\n- Playbook operations (loading, saving)\n\nLogs are written to daily JSONL files for efficient storage and analysis.\n\"\"\"\n\nimport csv\nimport json\nimport uuid\nfrom dataclasses import asdict, dataclass\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Dict, List, Optional\n\n\n@dataclass\nclass AuditEnt",
+        "\"\"\"Playbook storage and mutation logic for ACE.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom dataclasses import asdict, dataclass, field\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom typing import Any, Callable, Dict, Iterable, List, Optional, Union, cast\n\nfrom .delta import DeltaBatch, DeltaOperation\n\n\n# Phase 1C: Asymmetric penalty weights for bullet tagging\n# Harmful tags penalized 2x to suppress bad strategies faster\nPENALTY_WEIGHTS = {\"helpful\": 1, \"harmf"
+      ],
+      "ace_line_counts": [
+        348,
+        110,
+        86,
+        37,
+        108
+      ],
+      "auggie_files": [
+        "docs/INTEGRATION_GUIDE.md"
+      ],
+      "auggie_contents": [
+        "...\n   240\t\n   241\t    def save_playbook(self, path: str):\n   242\t        \"\"\"Save learned strategies.\"\"\"\n   243\t        self.playbook.save_to_file(path)\n   244\t\n   245\t    def load_playbook(self, path: str):\n   246\t        \"\"\"Load existing strategies.\"\"\"\n   247\t        self.playbook = Playbook.load_from_file(path)\n   248\t\n   249\t    def enable_learning(self):\n   250\t        \"\"\"Enable learning.\"\"\"\n   251\t        self.is_learning = True\n... (534 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE found expected file at rank 1, Auggie missed it",
+      "ace_advantages": [
+        "Found expected file at rank 1"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": false,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "CacheManager get set methods",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/caching.py"
+      ],
+      "ace_files": [
+        "ace/caching.py",
+        "ace/unified_memory.py",
+        "ace/retrieval.py",
+        "ace/retrieval_caching.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.49164446,
+        0.48730967999999997,
+        0.47756718,
+        0.31772439999999996,
+        0.238344
+      ],
+      "ace_contents": [
+        "\"\"\"Response caching for efficient multi-epoch training.\n\nThis module provides caching mechanisms to avoid redundant LLM calls\nduring multi-epoch training, saving time and costs.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport hashlib\nimport json\nimport time\nfrom collections import OrderedDict\nfrom dataclasses import dataclass, field\nfrom pathlib import Path\nfrom threading import Lock\nfrom typing import Any, Dict, Optional, TYPE_CHECKING\n\nif TYPE_CHECKING:\n    from .llm import LLMClient\n\n\n@datacl",
+        "    def retrieve(\n        self,\n        query: str,\n        namespace: Optional[Union[UnifiedNamespace, str, List[Union[UnifiedNamespace, str]]]] = None,\n        limit: int = 10,\n        threshold: float = 0.35,\n        include_superseded: Optional[bool] = None,\n        created_after: Optional[datetime] = None,\n        created_before: Optional[datetime] = None,\n        updated_after: Optional[datetime] = None,\n        preset: Optional[RetrievalPreset] = None,\n        auto_detect_preset: bool = T",
+        "    def retrieve(\n        self,\n        query: Optional[str] = None,\n        task_type: Optional[str] = None,\n        domain: Optional[str] = None,\n        complexity: Optional[str] = None,\n        intent: Optional[IntentType] = None,\n        limit: Optional[int] = None,\n        rank_by_effectiveness: bool = False,\n        min_effectiveness: Optional[float] = None,\n        query_type: Optional[str] = None,\n        trigger_override_threshold: float = 0.3,\n        session_type: Optional[str] = Non",
+        "\"\"\"\nRetrieval-specific caching layer for ACE Framework (Phase 4B).\n\nThis module caches RETRIEVAL data (embeddings, query results), NOT LLM responses.\nFor LLM response caching, see ace/caching.py.\n\nCaching Strategy:\n- EmbeddingCache: Text -> embedding vector (768-dim floats)\n- QueryResultCache: Query -> List[QdrantScoredResult] with bullet-aware invalidation\n\nBoth caches use LRU eviction with optional TTL expiration.\n\"\"\"\n\nfrom threading import Lock\nfrom collections import OrderedDict\nfrom datacla",
+        "\"\"\"\nCode Retrieval - Semantic search for code with Auggie-style output formatting.\n\nThis module provides:\n1. Semantic search over indexed code chunks\n2. Auggie MCP-compatible output formatting\n3. Blended results (code + memory)\n4. Result deduplication and ranking\n\nExample usage:\n    retriever = CodeRetrieval()\n    results = retriever.search(\"unified memory index\")\n    formatted = retriever.format_auggie_style(results)\n\"\"\"\n\nimport os\nimport logging\nfrom typing import List, Dict, Any, Optional, Ca"
+      ],
+      "ace_line_counts": [
+        346,
+        471,
+        393,
+        27,
+        24
+      ],
+      "auggie_files": [
+        "ace/caching.py"
+      ],
+      "auggie_contents": [
+        "...\n    30\t\n    31\t\n    32\tclass ResponseCache:\n    33\t    \"\"\"LRU cache for LLM responses with TTL support.\n    34\t\n    35\t    Provides efficient caching of LLM responses to avoid redundant calls\n    36\t    during multi-epoch training. Supports:\n    37\t    - TTL (time-to-live) for automatic expiration\n    38\t    - LRU eviction when max size is reached\n    39\t    - Context-aware caching (same prompt, different context = different entry)\n    40\t    - Persistence to disk\n    41\t    - Hit rate metrics\n... (511 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 1 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "@dataclass class Bullet playbook",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/playbook.py",
+        "ace/playbook.py",
+        "scripts/generate_sample_playbook.py",
+        "tenant_data/tenant-x/playbook_x.json",
+        "tenant_data/tenant-create/new_playbook.json"
+      ],
+      "ace_scores": [
+        1.2184921,
+        0.7825373,
+        0.5701469,
+        0.51189146,
+        0.5117335599999999
+      ],
+      "ace_contents": [
+        "\"\"\"Playbook storage and mutation logic for ACE.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom dataclasses import asdict, dataclass, field\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom typing import Any, Callable, Dict, Iterable, List, Optional, Union, cast\n\nfrom .delta import DeltaBatch, DeltaOperation\n\n\n# Phase 1C: Asymmetric penalty weights for bullet tagging\n# Harmful tags penalized 2x to suppress bad strategies faster\nPENALTY_WEIGHTS = {\"helpful\": 1, \"harmf",
+        "class EnrichedBullet(Bullet):\n    \"\"\"\n    Bullet with semantic scaffolding metadata for intelligent retrieval.\n\n    Extends Bullet with dimensional, structural, relational, and usage metadata\n    that enables purpose-aware retrieval and smarter bullet selection.\n\n    The semantic scaffolding approach follows the principle that the bottleneck\n    in retrieval is often not embeddings or rerankers, but lack of metadata\n    that reflects how the data is actually used.\n\n    Attributes:\n        # Effe",
+        "\"\"\"Generate a sample playbook for retrieval benchmarking.\"\"\"\nimport json\nfrom ace.playbook import Playbook, Bullet\n\n# Create bullet content based on ID (realistic examples)\nBULLET_TEMPLATES = {\n    # Debugging\n    \"debug_timeout\": (\"debugging\", \"For timeout errors, check network latency, database query duration, and external API response times. Use distributed tracing to identify bottlenecks.\"),\n    \"check_logs\": (\"debugging\", \"Always start by checking application logs, error logs, and system lo",
+        "{\n  \"bullets\": {\n    \"strategy-00001\": {\n      \"id\": \"strategy-00001\",\n      \"section\": \"strategy\",\n      \"content\": \"Tenant A strategy\",\n      \"helpful\": 7,\n      \"harmful\": 0,\n      \"neutral\": 0,\n      \"created_at\": \"2026-01-04T06:15:39.791847+00:00\",\n      \"updated_at\": \"2026-01-04T06:15:39.791851+00:00\",\n      \"last_validated\": null\n    }\n  },\n  \"sections\": {\n    \"strategy\": [\n      \"strategy-00001\"\n    ]\n  },\n  \"next_id\": 1\n}",
+        "{\n  \"bullets\": {\n    \"strategy-00001\": {\n      \"id\": \"strategy-00001\",\n      \"section\": \"strategy\",\n      \"content\": \"Tenant A strategy\",\n      \"helpful\": 7,\n      \"harmful\": 0,\n      \"neutral\": 0,\n      \"created_at\": \"2026-01-04T06:15:39.786904+00:00\",\n      \"updated_at\": \"2026-01-04T06:15:39.786911+00:00\",\n      \"last_validated\": null\n    }\n  },\n  \"sections\": {\n    \"strategy\": [\n      \"strategy-00001\"\n    ]\n  },\n  \"next_id\": 1\n}"
+      ],
+      "ace_line_counts": [
+        108,
+        925,
+        132,
+        21,
+        21
+      ],
+      "auggie_files": [],
+      "auggie_contents": [],
+      "auggie_line_counts": [],
+      "winner": "ACE",
+      "reason": "Auggie returned no results",
+      "ace_advantages": [
+        "Has results"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": false,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "CodeChunk dataclass file_path start_line",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_chunker.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/code_chunker.py",
+        "ace/code_chunker.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_enrichment.py"
+      ],
+      "ace_scores": [
+        1.2023568,
+        0.5275936999999999,
+        0.49491086000000006,
+        0.49079623000000006,
+        0.3727027
+      ],
+      "ace_contents": [
+        "\"\"\"AST-based semantic code chunking module.\n\nThis module provides intelligent code chunking that respects language syntax\nboundaries (functions, classes, methods) rather than arbitrary line counts.\n\nSupports multiple languages via tree-sitter:\n- Python (via built-in ast module or tree-sitter)\n- JavaScript/TypeScript (via tree-sitter)\n- Go (via tree-sitter)\n\nConfiguration:\n    ACE_ENABLE_AST_CHUNKING: Enable/disable AST chunking (default: false)\n    ACE_AST_MAX_LINES: Maximum lines per chunk (def",
+        "def chunk_code(content: str, language: str = \"python\") -> List[CodeChunk]:\n    \"\"\"Chunk code using the default ASTChunker instance.\n    \n    Args:\n        content: Source code to chunk\n        language: Programming language\n    \n    Returns:\n        List of CodeChunk objects\n    \"\"\"\n    return ASTChunker().chunk(content, language)",
+        "    def chunk_file(self, file_path: str) -> List[CodeChunkIndexed]:\n        \"\"\"\n        Parse and chunk a code file.\n        \n        Args:\n            file_path: Absolute path to code file\n            \n        Returns:\n            List of CodeChunkIndexed instances\n        \"\"\"\n        chunks = []\n        \n        # Check file exists\n        if not os.path.exists(file_path):\n            logger.warning(f\"File not found: {file_path}\")\n            return chunks\n        \n        # Read file content\n",
+        "\"\"\"Code indexer module for workspace code indexing.\n\nThis module provides code indexing capabilities that scan a workspace,\nparse code files using ASTChunker, and store indexed chunks in Qdrant\nfor semantic code search.\n\nConfiguration:\n    ACE_CODE_COLLECTION: Qdrant collection name (default: ace_code_context)\n    ACE_CODE_EMBEDDING_DIM: Embedding dimension (default: from EmbeddingConfig)\n    QDRANT_URL: Qdrant server URL (default: http://localhost:6333)\n\nThe indexer supports:\n- Multi-language p",
+        "\"\"\"Code-aware bullet enrichment for ACE Phase 2B.\n\nThis module provides CodeAwareEnricher which enriches bullets with code-specific\nmetadata extracted from code context:\n\n- Symbol extraction (functions, classes, methods)\n- Auto-generation of trigger patterns from code symbols\n- Programming language detection\n- Code snippet extraction from markdown-style content\n- Optimized embedding text for code search\n\nIntegration with code_analysis.py (when available) is done via lazy import\nto avoid circular"
+      ],
+      "ace_line_counts": [
+        420,
+        11,
+        86,
+        55,
+        69
+      ],
+      "auggie_files": [
+        "ace/code_indexer.py"
+      ],
+      "auggie_contents": [
+        "...\n    38\t\n    39\t@dataclass\n    40\tclass CodeChunkIndexed:\n    41\t    \"\"\"A code chunk ready for indexing with all metadata.\"\"\"\n    42\t    \n    43\t    content: str\n    44\t    file_path: str  # Relative to workspace root\n    45\t    start_line: int\n    46\t    end_line: int\n    47\t    language: str\n    48\t    symbols: List[str] = field(default_factory=list)\n    49\t    chunk_hash: str = \"\"\n... (425 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (3 vs 0)",
+        "High confidence top score (1.202)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "QueryResult dataclass score file_path",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "benchmarks/phase_effectiveness_benchmark.py",
+        "ace/retrieval_optimized.py",
+        "rag_training/run_hybrid_evaluation.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "ace_vs_auggie_headtohead.py"
+      ],
+      "ace_scores": [
+        0.58136797,
+        0.38609252999999993,
+        0.34818810000000006,
+        0.33476750000000005,
+        0.3322356
+      ],
+      "ace_contents": [
+        "class QueryResult:\n    \"\"\"Result for a single benchmark query.\"\"\"\n    query: str\n    query_type: str\n    difficulty: str\n    relevant_ids: List[str]\n    retrieved_ids: List[str]\n    scores: List[float]\n    top1_hit: bool\n    first_relevant_rank: Optional[int]\n    reciprocal_rank: float\n    ndcg_at_5: float\n    separation_score: float  # Gap between relevant and irrelevant scores\n\n\n@dataclass\nclass PhaseMetrics:\n    \"\"\"Aggregate metrics for a phase configuration.\"\"\"\n    phase_name: str\n    phase_",
+        "class RetrievalResult:\n    \"\"\"A single retrieval result with metadata.\"\"\"\n    id: int\n    score: float\n    payload: Dict[str, Any]\n    content: str\n    category: Optional[str] = None\n    reranked: bool = False\n\n\n@dataclass\nclass SearchMetrics:\n    \"\"\"Metrics for a search operation.\"\"\"\n    total_latency_ms: float\n    expansion_latency_ms: float\n    retrieval_latency_ms: float\n    rerank_latency_ms: float\n    num_candidates: int\n    num_results: int\n    expanded_queries: List[str]\n\n\n# ============",
+        "    def evaluate_query(\n        self,\n        query: str,\n        query_category: str,\n        difficulty: str,\n        expected_memory_id: int\n    ) -> QueryResult:\n        \"\"\"Evaluate a single query.\"\"\"\n        results, latency = self.hybrid_search(query)\n\n        retrieved_ids = [r[\"id\"] for r in results]\n        retrieved_scores = [r.get(\"score\", 0) for r in results]\n\n        # Find rank of expected memory\n        rank = None\n        score = None\n        if expected_memory_id in retrieved_id",
+        "    def evaluate_memory(self, test_case: Dict) -> Dict:\n        memory_id = test_case[\"memory_id\"]\n        content = test_case[\"content\"]\n        category = test_case[\"category\"]\n        queries = test_case.get(\"generated_queries\", [])\n\n        query_results = []\n        for q in queries:\n            qr = self.evaluate_query(\n                query=q[\"query\"],\n                query_category=q[\"category\"],\n                difficulty=q[\"difficulty\"],\n                expected_memory_id=memory_id\n   ",
+        "#!/usr/bin/env python3\n\"\"\"\nACE vs Auggie MCP Head-to-Head Benchmark.\n\nThis script directly compares ACE CodeRetrieval against Auggie MCP\nusing real-world queries. For each query:\n1. Call ACE code retrieval\n2. Parse Auggie MCP results (provided manually or via MCP call)\n3. Compare files retrieved, rankings, content relevancy\n4. Determine winner based on code context quality\n\nKey metrics:\n- File coverage: Did both systems find the right file?\n- Ranking: Which system ranked the best file higher?\n- "
+      ],
+      "ace_line_counts": [
+        64,
+        87,
+        102,
+        60,
+        66
+      ],
+      "auggie_files": [
+        "rag_training/optimizations/v2_query_expansion.py"
+      ],
+      "auggie_contents": [
+        "...\n   140\t\n   141\t\n   142\t# ============================================================================\n   143\t# DATA CLASSES\n   144\t# ============================================================================\n   145\t\n   146\t@dataclass\n   147\tclass QueryResult:\n   148\t    \"\"\"Result of a single query evaluation.\"\"\"\n   149\t    query: str\n   150\t    query_category: str\n   151\t    difficulty: str\n... (537 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (5 vs 1)",
+        "Better chunk size (76 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "@property score getter",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/playbook.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/retrieval.py",
+        "ace/retrieval.py",
+        "ace/unified_memory.py",
+        "ace/retrieval_optimized.py",
+        "ace/semantic_scorer.py"
+      ],
+      "ace_scores": [
+        0.5466755,
+        0.53831375,
+        0.50732446,
+        0.4846779,
+        0.48393443
+      ],
+      "ace_contents": [
+        "    def retrieve(\n        self,\n        query: Optional[str] = None,\n        task_type: Optional[str] = None,\n        domain: Optional[str] = None,\n        complexity: Optional[str] = None,\n        intent: Optional[IntentType] = None,\n        limit: Optional[int] = None,\n        rank_by_effectiveness: bool = False,\n        min_effectiveness: Optional[float] = None,\n        query_type: Optional[str] = None,\n        trigger_override_threshold: float = 0.3,\n        session_type: Optional[str] = Non",
+        "\"\"\"Smart retrieval system for purpose-aware bullet retrieval.\n\nThis module provides intelligent retrieval of bullets from a playbook\nusing semantic scaffolding metadata for purpose-aware, multi-dimensional filtering.\n\nELF-Inspired Features (when enabled via config):\n- Confidence Decay: Older knowledge scores lower over time\n- Golden Rules: High-performing strategies get score boost\n- Quality Boost: Helpful/harmful feedback affects ranking\n\nARIA Features (when enabled):\n- LinUCB Bandit: Dynamic p",
+        "    def retrieve(\n        self,\n        query: str,\n        namespace: Optional[Union[UnifiedNamespace, str, List[Union[UnifiedNamespace, str]]]] = None,\n        limit: int = 10,\n        threshold: float = 0.35,\n        include_superseded: Optional[bool] = None,\n        created_after: Optional[datetime] = None,\n        created_before: Optional[datetime] = None,\n        updated_after: Optional[datetime] = None,\n        preset: Optional[RetrievalPreset] = None,\n        auto_detect_preset: bool = T",
+        "class RetrievalResult:\n    \"\"\"A single retrieval result with metadata.\"\"\"\n    id: int\n    score: float\n    payload: Dict[str, Any]\n    content: str\n    category: Optional[str] = None\n    reranked: bool = False\n\n\n@dataclass\nclass SearchMetrics:\n    \"\"\"Metrics for a search operation.\"\"\"\n    total_latency_ms: float\n    expansion_latency_ms: float\n    retrieval_latency_ms: float\n    rerank_latency_ms: float\n    num_candidates: int\n    num_results: int\n    expanded_queries: List[str]\n\n\n# ============",
+        "#!/usr/bin/env python\n\"\"\"\nSemantic Similarity Scorer for ACE Retrieval Quality Measurement.\n\nUses embedding cosine similarity instead of keyword matching to measure\nhow relevant retrieved results are to the original query.\n\nThis provides a more accurate quality metric than keyword-based precision.\n\"\"\"\n\nimport os\nimport sys\nimport numpy as np\nfrom typing import List, Tuple, Optional\nimport httpx\n\n# Add project root to path\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file_"
+      ],
+      "ace_line_counts": [
+        393,
+        137,
+        471,
+        87,
+        104
+      ],
+      "auggie_files": [
+        "ace/retrieval_optimized.py"
+      ],
+      "auggie_contents": [
+        "...\n   499\t    \n   500\t    def score(self, query: str) -> QuerySpecificityScore:\n   501\t        \"\"\"\n   502\t        Score query specificity and determine expansion strategy.\n   503\t        \n   504\t        Returns:\n   505\t            QuerySpecificityScore with all expansion parameters\n   506\t        \"\"\"\n   507\t        words = query.split()\n   508\t        word_count = len(words)\n   509\t        \n   510\t        # Calculate specificity factors (0.0 to 1.0 each)\n... (537 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 1 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "__init__ constructor pattern",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/pattern_detector.py",
+        "ace/integrations/langchain.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.4552456,
+        0.4426541,
+        0.35970674,
+        0.35505173,
+        0.32673467
+      ],
+      "ace_contents": [
+        "\"\"\"\nPattern Detector module for ACE.\n\nProvides pattern detection and caching for common issues,\nwith learned fix templates for recurring problems.\n\nConfiguration:\n    ACE_ENABLE_PATTERN_DETECTION: Enable/disable pattern detection (default: false)\n    ACE_PATTERN_CACHE_SIZE: Maximum cached patterns (default: 100)\n\"\"\"\n\nimport os\nimport re\nimport json\nfrom dataclasses import dataclass, field\nfrom typing import List, Dict, Any, Optional\nfrom datetime import datetime\nfrom pathlib import Path\n\n",
+        "    def __init__(\n        self,\n        runnable: Any,\n        ace_model: str = \"openai/glm-4.6\",\n        ace_api_key: Optional[str] = None,\n        ace_api_base: Optional[str] = None,\n        playbook_path: Optional[str] = None,\n        is_learning: bool = True,\n        output_parser: Optional[Callable[[Any], str]] = None,\n    ):\n        \"\"\"\n        Initialize ACELangChain wrapper.\n\n        IMPORTANT: LLM Configuration\n        =============================\n        The ACE learning components (R",
+        "  },\n  {\n    \"query\": \"what is consolidate\",\n    \"memory\": \"Consolidate tool configs in a single file for clarity and maintainability.\",\n    \"label\": 1\n  },\n  {\n    \"query\": \"what is consolidate\",\n    \"memory\": \"Consolidate microservices into single-app for simplicity.\",\n    \"label\": 0\n  },\n  {\n    \"query\": \"what is consolidate\",\n    \"memory\": \"Centralize imports in __init__.py for consistent module access.\",\n    \"label\": 0\n  },\n  {\n    \"query\": \"what is consolidate\",\n    \"memory\": \"Sanitize all",
+        "          \"query\": \"how do I prevent\",\n          \"category\": \"question_how\",\n          \"difficulty\": \"medium\",\n          \"expected_rank\": 5,\n          \"min_similarity\": 0.3,\n          \"generation_method\": \"rule_based\"\n        },\n        {\n          \"query\": \"what is initialize\",\n          \"category\": \"question_what\",\n          \"difficulty\": \"hard\",\n          \"expected_rank\": 5,\n          \"min_similarity\": 0.3,\n          \"generation_method\": \"rule_based\"\n        },\n        {\n          \"query\": \"w",
+        "  },\n  {\n    \"query\": \"what is adopt\",\n    \"memory\": \"Adopt a unified naming convention for all external integrations.\",\n    \"label\": 1\n  },\n  {\n    \"query\": \"what is adopt\",\n    \"memory\": \"Atomically replace files, then verify writes.\",\n    \"label\": 0\n  },\n  {\n    \"query\": \"what is adopt\",\n    \"memory\": \"Adopt modern module APIs to bypass deprecated workarounds.\",\n    \"label\": 0\n  },\n  {\n    \"query\": \"what is adopt\",\n    \"memory\": \"Centralize imports in __init__.py for consistent module access."
+      ],
+      "ace_line_counts": [
+        20,
+        106,
+        520,
+        120,
+        220
+      ],
+      "auggie_files": [
+        "tests/test_conflict_detection.py"
+      ],
+      "auggie_contents": [
+        "...\n    43\t\n    44\t        # Contradictory bullet\n    45\t        self.contradictory_bullet = UnifiedBullet(\n    46\t            id=\"test-bullet-2\",\n    47\t            content=\"Never use Python, prefer JavaScript for scripting\",\n    48\t            namespace=UnifiedNamespace.TASK_STRATEGIES,\n    49\t            source=UnifiedSource.TASK_EXECUTION,\n    50\t            section=\"task_guidance\",\n    51\t            helpful_count=3,\n    52\t            harmful_count=0,\n    53\t            category=\"language_preference\"\n    54\t        )\n... (537 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 1 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (5 vs 1)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "context manager __enter__ __exit__",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/multitenancy.py",
+        "ace/observability/metrics.py",
+        "ace/async_retrieval.py",
+        ".ace/.ace.json",
+        "ace/observability/tracing.py"
+      ],
+      "ace_scores": [
+        0.6530431999999999,
+        0.5907382299999999,
+        0.5879227,
+        0.42934996,
+        0.42878205
+      ],
+      "ace_contents": [
+        "\"\"\"\nMulti-tenancy support for ACE framework.\n\nThis module provides tenant isolation for playbooks and Qdrant collections,\nensuring that different tenants cannot access each other's data.\n\nFeatures:\n- Thread-local tenant context tracking\n- Tenant-scoped playbook storage\n- Tenant-scoped Qdrant collections\n- Cross-tenant access prevention\n- Path traversal attack protection\n\"\"\"\n\nfrom __future__ import annotations\n\nimport re\nimport threading\nfrom pathlib import Path\nfrom typing import List, Optional\n",
+        "def track_latency(operation: str, tenant_id: str = \"default\") -> Generator[None, None, None]:\n    \"\"\"\n    Context manager for automatic latency tracking.\n\n    Records operation duration to retrieval_latency_histogram.\n\n    Args:\n        operation: Name of the operation being tracked\n        tenant_id: Tenant identifier for multi-tenancy support\n\n    Yields:\n        None\n\n    Example:\n        >>> with track_latency(operation=\"semantic_search\", tenant_id=\"tenant_123\"):\n        ...     perform_sear",
+        "class AsyncQdrantBulletIndex:\n    \"\"\"Async vector-based bullet retrieval using Qdrant hybrid search.\n\n    Provides O(1) semantic retrieval using:\n    - Dense vectors from LM Studio (nomic-embed-text-v1.5)\n    - BM25 sparse vectors for keyword matching\n    - Hybrid search with RRF fusion\n    - Async operations for concurrent execution\n\n    Example:\n        >>> async with AsyncQdrantBulletIndex() as index:\n        ...     results = await index.retrieve(\"how do I debug this error?\")\n        ...    ",
+        "{\n  \"workspace_name\": \"agentic-context-engine\",\n  \"workspace_path\": \"D:\\\\ApplicationDevelopment\\\\Tools\\\\agentic-context-engine\",\n  \"collection_name\": \"agentic-context-engine_code_context\",\n  \"onboarded_at\": \"2026-01-05T14:08:46.446329\"\n}",
+        "\"\"\"\nDistributed Tracing for ACE Framework (Phase 3D)\n\nThis module provides OpenTelemetry integration for distributed tracing.\nWhen OpenTelemetry is not installed, importing TracingManager raises ImportError\nto allow tests to properly skip. The trace_operation decorator gracefully degrades.\n\"\"\"\n\nimport functools\nfrom typing import Optional, Any\n\n# Try to import OpenTelemetry\ntry:\n    from opentelemetry import trace\n    from opentelemetry.trace import Status, StatusCode\n\n    TRACING_AVAILABLE = Tr"
+      ],
+      "ace_line_counts": [
+        128,
+        55,
+        99,
+        6,
+        24
+      ],
+      "auggie_files": [
+        "ace/multitenancy.py"
+      ],
+      "auggie_contents": [
+        "...\n    58\t\n    59\t\n    60\tclass TenantContext:\n    61\t    \"\"\"\n    62\t    Context manager for setting the active tenant in the current thread.\n    63\t\n    64\t    Provides thread-local tenant tracking with proper nesting support.\n    65\t\n    66\t    Example:\n    67\t        with TenantContext(tenant_id=\"tenant-001\"):\n    68\t            # All operations here are scoped to tenant-001\n    69\t            manager.save_playbook(playbook, \"my_playbook\")\n... (549 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)",
+        "Better chunk size (62 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "@staticmethod factory pattern",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/reranker.py",
+        "ace/retrieval.py",
+        "ace/__init__.py",
+        "ace/unified_memory.py",
+        "ace/adaptation.py"
+      ],
+      "ace_scores": [
+        0.41097265,
+        0.4098016,
+        0.40700918,
+        0.3931672,
+        0.39305496
+      ],
+      "ace_contents": [
+        "\"\"\"Cross-encoder reranking for improved retrieval precision.\n\nThis module provides cross-encoder based reranking to improve the precision\nof bullet retrieval. Cross-encoders process query-document pairs together,\nenabling more accurate relevance scoring than bi-encoders.\n\nUsage:\n    from ace.reranker import get_reranker, CrossEncoderReranker\n    \n    # Using singleton (recommended)\n    reranker = get_reranker()\n    scores = reranker.predict(\"query\", [\"doc1\", \"doc2\"])\n    \n    # Custom model\n    ",
+        "\"\"\"Smart retrieval system for purpose-aware bullet retrieval.\n\nThis module provides intelligent retrieval of bullets from a playbook\nusing semantic scaffolding metadata for purpose-aware, multi-dimensional filtering.\n\nELF-Inspired Features (when enabled via config):\n- Confidence Decay: Older knowledge scores lower over time\n- Golden Rules: High-performing strategies get score boost\n- Quality Boost: Helpful/harmful feedback affects ranking\n\nARIA Features (when enabled):\n- LinUCB Bandit: Dynamic p",
+        "\"\"\"Agentic Context Engineering (ACE) reproduction framework.\"\"\"\n\nfrom typing import Optional\nfrom .playbook import Bullet, EnrichedBullet, Playbook, enrich_bullet, migrate_bullet\nfrom .delta import DeltaOperation, DeltaBatch\nfrom .retrieval import SmartBulletIndex, ScoredBullet, IntentClassifier\nfrom .llm import LLMClient, DummyLLMClient, TransformersLLMClient\nfrom .roles import (\n    Generator,\n    ReplayGenerator,\n    Reflector,\n    Curator,\n    GeneratorOutput,\n    ReflectorOutput,\n    Curato",
+        "            class _PointsResult:\n                def __init__(self, points_data):\n                    self.points = []\n                    for p in points_data:\n                        class _Point:\n                            pass",
+        "\"\"\"Adaptation loops for offline and online ACE training.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport logging\nfrom abc import ABC, abstractmethod\nfrom dataclasses import dataclass, field\nfrom typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Sequence\n\nif TYPE_CHECKING:\n    from .observability.opik_integration import OpikIntegration\n    from .session_tracking import SessionOutcomeTracker\n\nfrom .playbook import Playbook\nfrom .roles import (\n    Curator,\n    CuratorOut"
+      ],
+      "ace_line_counts": [
+        100,
+        137,
+        135,
+        6,
+        91
+      ],
+      "auggie_files": [
+        "examples/zai_glm_example.py"
+      ],
+      "auggie_contents": [
+        "...\n    37\t\n    38\t\n    39\tdef create_zai_client(model_name=\"glm-4\"):\n    40\t    \"\"\"Create a LiteLLM client configured for Z.ai GLM.\"\"\"\n    41\t\n    42\t    # Get Z.ai API key from environment\n    43\t    api_key = os.getenv(\"ZAI_API_KEY\")\n    44\t    if not api_key:\n    45\t        raise ValueError(\"Please set ZAI_API_KEY in your .env file\")\n    46\t\n    47\t    # Configure LiteLLM for Z.ai GLM using zhipuai provider (recommended)\n    48\t    client = LiteLLMClient(\n... (591 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 2 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (5 vs 1)",
+        "Better chunk size (94 lines avg)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "@classmethod from_config",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/unified_memory.py"
+      ],
+      "ace_scores": [
+        0.501402,
+        0.48725733,
+        0.47825795,
+        0.46860054,
+        0.46745145
+      ],
+      "ace_contents": [
+        "\"\"\"Centralized ACE configuration.\n\nAll embedding and retrieval settings in one place.\nOverride via environment variables or .env file.\n\"\"\"\n\nimport os\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nfrom pathlib import Path\n\n# Load .env if python-dotenv is available\ntry:\n    from dotenv import load_dotenv\n    env_path = Path(__file__).parent.parent / \".env\"\n    if env_path.exists():\n        load_dotenv(env_path)\nexcept ImportError:\n    pass\n\n\ndef _get_env(key: str, default: s",
+        "\"\"\"\nOptimized Retrieval Module for ACE\n\nThis module implements state-of-the-art retrieval techniques based on\nextensive RAG optimization research and testing:\n\nBest Configuration (V2 - 62.52% R@5):\n- Hybrid search (dense + BM25 sparse + RRF)\n- Query expansion (4 variations)\n- Multi-query retrieval with RRF fusion\n- Cross-encoder re-ranking (ms-marco-MiniLM-L-6-v2)\n\nPerformance:\n- Recall@1: 41.71% (vs 22.06% baseline)\n- Recall@5: 62.52% (vs 53.28% baseline)\n- MRR: 0.5077 (vs 0.3583 baseline)\n\nUsa",
+        "\"\"\"Smart retrieval system for purpose-aware bullet retrieval.\n\nThis module provides intelligent retrieval of bullets from a playbook\nusing semantic scaffolding metadata for purpose-aware, multi-dimensional filtering.\n\nELF-Inspired Features (when enabled via config):\n- Confidence Decay: Older knowledge scores lower over time\n- Golden Rules: High-performing strategies get score boost\n- Quality Boost: Helpful/harmful feedback affects ranking\n\nARIA Features (when enabled):\n- LinUCB Bandit: Dynamic p",
+        "\"\"\"LiteLLM client for unified access to 100+ LLM providers.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport os\nfrom typing import Any, Dict, List, Optional, Union\nfrom dataclasses import dataclass\nimport asyncio\nimport logging\n\nfrom ..llm import LLMClient, LLMResponse\n\nlogger = logging.getLogger(__name__)\n\ntry:\n    import litellm\n    from litellm import completion, acompletion, Router\n\n    LITELLM_AVAILABLE = True\nexcept ImportError:\n    LITELLM_AVAILABLE = False\n    logger.warning(\"L",
+        "\"\"\"\nUnified Memory Architecture for ACE Framework\n\nThis module provides a unified storage and retrieval system that merges:\n1. ACE Framework Playbook bullets (task strategies with helpful/harmful counters)\n2. Personal Memory Bank memories (user preferences with severity/reinforcement)\n\nThe unified system uses a single Qdrant collection with namespace separation,\nproviding consistent retrieval logic using ACE Framework's SmartBulletIndex.\n\nArchitecture:\n    Single Qdrant Collection: \"ace_unified\""
+      ],
+      "ace_line_counts": [
+        611,
+        91,
+        61,
+        300,
+        222
+      ],
+      "auggie_files": [
+        "ace/config.py"
+      ],
+      "auggie_contents": [
+        "...\n    58\t\n    59\t\n    60\t@dataclass\n    61\tclass CodeEmbeddingConfig:\n    62\t    \"\"\"DEPRECATED - Use VoyageCodeEmbeddingConfig instead.\n    63\t    \n    64\t    This configuration was for the old Jina-v2-base-code model (768d).\n    65\t    Code indexing now uses Voyage-code-3 (1024d) exclusively.\n    66\t    \n    67\t    Environment Variables:\n    68\t        ACE_CODE_EMBEDDING_URL: LM Studio server URL (DEPRECATED)\n    69\t        ACE_CODE_EMBEDDING_MODEL: Model name (DEPRECATED)\n... (497 more lines)\n\n\u26a0\ufe0f The conversation has been paused because maximum iterations reached (1).\nYou can continue the conversation by running the cli with -c command.\n\n"
+      ],
+      "auggie_line_counts": [
+        19
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 1 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 1,
+      "auggie_expected_rank": 1
+    },
+    {
+      "query": "custom exception class",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/security.py",
+        "fibonacci.py",
+        "ace/unified_memory.py",
+        "ace/reranker.py",
+        "examples/zai_custom_client.py"
+      ],
+      "ace_scores": [
+        0.6254736000000001,
+        0.5530997,
+        0.4320449,
+        0.41402513,
+        0.40349334
+      ],
+      "ace_contents": [
+        "\"\"\"\nSecurity Module - Enterprise Authentication & Authorization\nImplements API key validation, JWT authentication, RBAC, and security middleware.\n\"\"\"\n\nimport secrets\nfrom datetime import datetime, timedelta\nfrom typing import Dict, List, Optional, Union, Any\n\ntry:\n    import jwt\nexcept ImportError:\n    raise ImportError(\n        \"PyJWT is required for security module. Install with: pip install PyJWT\"\n    )\n\n\n# Exception Classes\nclass AuthenticationError(Exception):\n    \"\"\"Raised when authenticat",
+        "\"\"\"\nFibonacci Number Calculator\n\nA high-performance, production-ready implementation for calculating Fibonacci numbers\nwith comprehensive error handling, multiple algorithm options, and extensive documentation.\n\nAuthor: Elite Software Engineer\nVersion: 1.0.0\n\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nfrom typing import Union, Optional, Callable, Any\nfrom enum import Enum\n\n\nclass FibonacciAlgorithm(Enum):\n    \"\"\"Enumeration of available Fibonacci calculation algorithms.\"\"\"\n    ITER",
+        "            class _PointsResult:\n                def __init__(self, points_data):\n                    self.points = []\n                    for p in points_data:\n                        class _Point:\n                            pass",
+        "\"\"\"Cross-encoder reranking for improved retrieval precision.\n\nThis module provides cross-encoder based reranking to improve the precision\nof bullet retrieval. Cross-encoders process query-document pairs together,\nenabling more accurate relevance scoring than bi-encoders.\n\nUsage:\n    from ace.reranker import get_reranker, CrossEncoderReranker\n    \n    # Using singleton (recommended)\n    reranker = get_reranker()\n    scores = reranker.predict(\"query\", [\"doc1\", \"doc2\"])\n    \n    # Custom model\n    ",
+        "#!/usr/bin/env python3\n\"\"\"\nCustom Z.ai GLM client with automatic API key detection.\n\"\"\"\n\nimport os\nfrom dotenv import load_dotenv\n\nfrom ace.llm_providers.litellm_client import LiteLLMClient, LiteLLMConfig\n\nload_dotenv()\n\n\nclass ZaiGLMClient(LiteLLMClient):\n    \"\"\"Custom LiteLLM client for Z.ai GLM models.\"\"\"\n\n    def __init__(self, model=\"glm-4\", **kwargs):\n        \"\"\"Initialize Z.ai GLM client with automatic configuration.\"\"\"\n\n        api_key = kwargs.get(\"api_key\") or os.getenv(\"ZAI_API_KEY\")\n"
+      ],
+      "ace_line_counts": [
+        89,
+        37,
+        6,
+        100,
+        60
+      ],
+      "auggie_files": [
+        "ace/security.py"
+      ],
+      "auggie_contents": [
+        "     1\t\"\"\"\n     2\tSecurity Module - Enterprise Authentication & Authorization\n     3\tImplements API key validation, JWT authentication, RBAC, and security middleware.\n     4\t\"\"\"\n     5\t\n     6\timport secrets\n     7\tfrom datetime import datetime, timedelta\n     8\tfrom typing import Dict, List, Optional, Union, Any\n     9\t\n    10\ttry:\n    11\t    import jwt\n    12\texcept ImportError:\n    13\t    raise ImportError(\n... (491 more lines)\n\n\u001b[90m\ud83d\udd27 Tool call: view\u001b[0m\n   path: \"ace\"\n   type: \"directory\"\n\n\u001b[90m\ud83d\udccb Tool result: view\u001b[0m"
+      ],
+      "auggie_line_counts": [
+        41
+      ],
+      "winner": "ACE",
+      "reason": "ACE wins with 1 advantages vs 0",
+      "ace_advantages": [
+        "More unique files (4 vs 0)"
+      ],
+      "auggie_advantages": [],
+      "ace_found_expected": false,
+      "auggie_found_expected": false,
+      "ace_expected_rank": -1,
+      "auggie_expected_rank": -1
+    },
+    {
+      "query": "exception hierarchy",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/security.py",
+        "ace/retrieval.py",
+        "ace/resilience.py",
+        "ace/structured_enhancer.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        0.48687327,
+        0.45965385,
+        0.45543402,
+        0.45487148,
+        0.4473536
+      ],
+      "ace_contents": [
+        "\"\"\"\nSecurity Module - Enterprise Authentication & Authorization\nImplements API key validation, JWT authentication, RBAC, and security middleware.\n\"\"\"\n\nimport secrets\nfrom datetime import datetime, timedelta\nfrom typing import Dict, List, Optional, Union, Any\n\ntry:\n    import jwt\nexcept ImportError:\n    raise ImportError(\n        \"PyJWT is required for security module. Install with: pip install PyJWT\"\n    )\n\n\n# Exception Classes\nclass AuthenticationError(Exception):\n    \"\"\"Raised when authenticat",
+        "\"\"\"Smart retrieval system for purpose-aware bullet retrieval.\n\nThis module provides intelligent retrieval of bullets from a playbook\nusing semantic scaffolding metadata for purpose-aware, multi-dimensional filtering.\n\nELF-Inspired Features (when enabled via config):\n- Confidence Decay: Older knowledge scores lower over time\n- Golden Rules: High-performing strategies get score boost\n- Quality Boost: Helpful/harmful feedback affects ranking\n\nARIA Features (when enabled):\n- LinUCB Bandit: Dynamic p",
+        "\"\"\"Resilience patterns for robust LLM interactions.\n\nThis module provides circuit breaker, retry, and other resilience patterns\nfor handling transient failures in LLM API calls.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport time\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom threading import Lock\nfrom typing import Any, Callable, Dict, Optional, TypeVar\n\nT = TypeVar(\"T\")\n\n\nclass CircuitState(str, Enum):\n    \"\"\"Circuit breaker states.\"\"\"\n\n    CLOSED = \"clos",
+        "#!/usr/bin/env python\n\"\"\"\nStructured Query Enhancer based on .enhancedprompt.md methodology.\n\nEXHAUSTIVE IMPLEMENTATION - Covers ALL software engineering domains.\n\nTransforms vague user queries into structured, actionable prompts using:\n1. Intent Classification (ANALYTICAL/IMPLEMENTATION/TROUBLESHOOTING/EXPLORATORY/LEARNING/REFACTORING)\n2. Domain Detection (40+ domains covering all software engineering areas)\n3. Context Expansion with domain-specific terminology (1000+ expansion terms)\n4. Query ",
+        "\"\"\"Gemini Embedding Client for ACE Framework.\n\nProvides embeddings using Google's gemini-embedding-001 model\nwith proper task type optimization for retrieval (document vs query).\n\nUsage:\n    from ace.gemini_embeddings import GeminiEmbeddingClient\n\n    client = GeminiEmbeddingClient(api_key=\"your-api-key\")\n\n    # For indexing documents\n    doc_embedding = client.embed_document(\"This is a document about...\")\n\n    # For search queries\n    query_embedding = client.embed_query(\"How do I fix...\")\n\"\"\"\n"
+      ],
+      "ace_line_counts": [
+        89,
+        137,
+        149,
+        35,
+        88
+      ],
+      "auggie_files": [
+        "ace/resilience.py"
+      ],
+      "auggie_contents": [
+        "...\n    25\t\n    26\t\n    27\tclass CircuitOpenError(Exception):\n    28\t    \"\"\"Exception raised when circuit breaker is open.\"\"\"\n    29\t\n    30\t    def __init__(self, message: str = \"Circuit breaker is open\"):\n    31\t        self.message = message\n    32\t        super().__init__(self.message)\n    33\t\n    34\t\n    35\t@dataclass\n    36\tclass CircuitBreaker:\n... (509 more lines)\n\n\u001b[90m\ud83d\udd27 Tool call: view\u001b[0m\n   path: \"ace\"\n   type: \"directory\"\n\n\u001b[90m\ud83d\udccb Tool result: view\u001b[0m"
+      ],
+      "auggie_line_counts": [
+        41
+      ],
+      "winner": "AUGGIE",
+      "reason": "Auggie wins with 3 advantages vs 1",
+      "ace_advantages": [
+        "More unique files (4 vs 0)"
+      ],
+      "auggie_advantages": [
+        "Higher rank for expected file (1 vs 3)"
+      ],
+      "ace_found_expected": true,
+      "auggie_found_expected": true,
+      "ace_expected_rank": 3,
+      "auggie_expected_rank": 1
+    }
+  ]
+}

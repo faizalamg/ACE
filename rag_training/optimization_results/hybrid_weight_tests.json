@@ -1,0 +1,997 @@
+{
+  "query": "how is our system currently wired? qdrant option 2 with no local json playbook?",
+  "expected_keywords": [
+    "qdrant",
+    "vector",
+    "storage",
+    "memory",
+    "json",
+    "playbook",
+    "unified",
+    "collection"
+  ],
+  "results": {
+    "default_rrf": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Default RRF (3x prefetch)",
+        "latency_ms": 282.5802000006661,
+        "dense_prefetch": 30,
+        "sparse_prefetch": 30
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30555555,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "bm25_heavy": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "BM25-heavy (dense 2x, sparse 5x)",
+        "latency_ms": 341.0296000074595,
+        "dense_prefetch": 20,
+        "sparse_prefetch": 50
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 3,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30882353,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "dense_heavy": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Dense-heavy (dense 5x, sparse 2x)",
+        "latency_ms": 328.5728999180719,
+        "dense_prefetch": 50,
+        "sparse_prefetch": 20
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30882353,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "custom_weighted_0.1": {
+      "precision@1": 1.0,
+      "precision@3": 1.0,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Custom weighted (dense=0.10, sparse=0.90)",
+        "latency_ms": 362.6658999128267,
+        "dense_weight": 0.1,
+        "sparse_weight": 0.9
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 4.525392704,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 3.4787988,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 2.77761906,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "3de64180-0299-5669-8303-01eb221f9e22",
+          "score": 2.6388666,
+          "content_preview": "Comprehensive ACE E2E testing completed 2025-12-06. Results: 174 unit tests PASSED (0 failures), all 4 Claude Code hooks PASS (SessionStart, UserPromptSubmit, PostToolUse, Stop). Hooks use user-level ",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 5,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 2.494888566,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        }
+      ]
+    },
+    "custom_weighted_0.2": {
+      "precision@1": 1.0,
+      "precision@3": 1.0,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Custom weighted (dense=0.20, sparse=0.80)",
+        "latency_ms": 354.2654999764636,
+        "dense_weight": 0.2,
+        "sparse_weight": 0.8
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 4.098328908,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 3.0922656,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 2.46899472,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "3de64180-0299-5669-8303-01eb221f9e22",
+          "score": 2.3456592,
+          "content_preview": "Comprehensive ACE E2E testing completed 2025-12-06. Results: 174 unit tests PASSED (0 failures), all 4 Claude Code hooks PASS (SessionStart, UserPromptSubmit, PostToolUse, Stop). Hooks use user-level ",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 5,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 2.285363932,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        }
+      ]
+    },
+    "custom_weighted_0.3": {
+      "precision@1": 1.0,
+      "precision@3": 1.0,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Custom weighted (dense=0.30, sparse=0.70)",
+        "latency_ms": 320.39639994036406,
+        "dense_weight": 0.3,
+        "sparse_weight": 0.7
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 3.671265112,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 2.7057324,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 2.16037038,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 2.0758392979999996,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 5,
+          "id": "3de64180-0299-5669-8303-01eb221f9e22",
+          "score": 2.0524518,
+          "content_preview": "Comprehensive ACE E2E testing completed 2025-12-06. Results: 174 unit tests PASSED (0 failures), all 4 Claude Code hooks PASS (SessionStart, UserPromptSubmit, PostToolUse, Stop). Hooks use user-level ",
+          "matched_keywords": [],
+          "keyword_count": 0
+        }
+      ]
+    },
+    "custom_weighted_0.5": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Custom weighted (dense=0.50, sparse=0.50)",
+        "latency_ms": 358.9389000553638,
+        "dense_weight": 0.5,
+        "sparse_weight": 0.5
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 2.81713752,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 1.932666,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 1.6567900299999998,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 1.6199331,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 1.5431217,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "custom_weighted_0.7": {
+      "precision@1": 1.0,
+      "precision@3": 0.3333333333333333,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "Custom weighted (dense=0.70, sparse=0.30)",
+        "latency_ms": 366.41150002833456,
+        "dense_weight": 0.7,
+        "sparse_weight": 0.30000000000000004
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.9630099280000004,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 1.237740762,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 3,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 1.23378826,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 4,
+          "id": "91376020000",
+          "score": 1.1595996000000002,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.92587302,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "custom_weighted_0.9": {
+      "precision@1": 1.0,
+      "precision@3": 0.3333333333333333,
+      "precision@5": 0.2,
+      "precision@10": 0.1,
+      "metadata": {
+        "config": "Custom weighted (dense=0.90, sparse=0.10)",
+        "latency_ms": 383.4210999775678,
+        "dense_weight": 0.9,
+        "sparse_weight": 0.09999999999999998
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.108882336,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.84764342,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 3,
+          "id": "e5570446-eb96-51c5-b001-9512ef9be826",
+          "score": 0.8186914939999999,
+          "content_preview": "The system supports OpenRouter",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 4,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.59015205,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 5,
+          "id": "35e71605-ca83-58a4-b227-00259f622147",
+          "score": 0.586896894,
+          "content_preview": "[>] [DIRECTIVE] Always reuse existing infrastructure unless explicitly instructed otherwise",
+          "matched_keywords": [],
+          "keyword_count": 0
+        }
+      ]
+    },
+    "bm25_boosted_1.5": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "BM25 boosted (boost=1.5x)",
+        "latency_ms": 316.29340001381934,
+        "boost_factor": 1.5
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 3,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30555555,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "bm25_boosted_2.0": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "BM25 boosted (boost=2.0x)",
+        "latency_ms": 343.61370000988245,
+        "boost_factor": 2.0
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30555555,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "bm25_boosted_3.0": {
+      "precision@1": 1.0,
+      "precision@3": 0.6666666666666666,
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "metadata": {
+        "config": "BM25 boosted (boost=3.0x)",
+        "latency_ms": 351.89699998591095,
+        "boost_factor": 3.0
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 1.0,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "91376020000",
+          "score": 0.33333334,
+          "content_preview": "ELF features (confidence decay, golden rules) should be implemented Qdrant-native using payload fields (last_validated, is_golden) rather than JSON section-based storage. All features must be config-g",
+          "matched_keywords": [
+            "qdrant",
+            "storage",
+            "json"
+          ],
+          "keyword_count": 3
+        },
+        {
+          "rank": 3,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 4,
+          "id": "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+          "score": 0.30555555,
+          "content_preview": "Normalize API responses to abstract Qdrant version differences",
+          "matched_keywords": [
+            "qdrant"
+          ],
+          "keyword_count": 1
+        },
+        {
+          "rank": 5,
+          "id": "d7e26298-37ac-5fe1-9df6-a57254be46b7",
+          "score": 0.25,
+          "content_preview": "P0 MANDATORY: When encountering an ACE memory proven INCORRECT, you MUST:\n1. STOP current task immediately\n2. VERIFY the memory is wrong (evidence required)\n3. DELETE via Qdrant API: httpx.post(\"http:",
+          "matched_keywords": [
+            "qdrant",
+            "memory"
+          ],
+          "keyword_count": 2
+        }
+      ]
+    },
+    "query_expansion": {
+      "precision@1": 1.0,
+      "precision@3": 0.3333333333333333,
+      "precision@5": 0.2,
+      "precision@10": 0.1,
+      "metadata": {
+        "config": "Query expansion (related terms added)",
+        "latency_ms": 358.87320002075285,
+        "expanded_query": "how is our system currently wired? qdrant option 2 with no local json playbook? architecture design system wiring configuration setup"
+      },
+      "top_results": [
+        {
+          "rank": 1,
+          "id": "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+          "score": 0.6,
+          "content_preview": "Use Qdrant vector database for semantic memory storage instead of JSON files",
+          "matched_keywords": [
+            "qdrant",
+            "vector",
+            "storage",
+            "memory",
+            "json"
+          ],
+          "keyword_count": 5
+        },
+        {
+          "rank": 2,
+          "id": "840129008453",
+          "score": 0.5,
+          "content_preview": "Isolate configuration changes to prevent system-wide failures",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 3,
+          "id": "1d9ffb82-4411-5901-a3fa-193800f7986b",
+          "score": 0.33333334,
+          "content_preview": "Standardize config keys with kebab-case for consistent design system integration.",
+          "matched_keywords": [],
+          "keyword_count": 0
+        },
+        {
+          "rank": 4,
+          "id": "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+          "score": 0.33333334,
+          "content_preview": "SymbolIndexService infrastructure is WORKING CORRECTLY with Qdrant collection creation",
+          "matched_keywords": [
+            "qdrant",
+            "collection"
+          ],
+          "keyword_count": 2
+        },
+        {
+          "rank": 5,
+          "id": "2946272c-69f5-5adf-926d-b117f97c1e21",
+          "score": 0.25,
+          "content_preview": "[!] [FRUSTRATION] Always verify system configuration assumptions to prevent user confusion",
+          "matched_keywords": [],
+          "keyword_count": 0
+        }
+      ]
+    }
+  },
+  "summary": [
+    {
+      "config": "Default RRF (3x prefetch)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 282.5802000006661
+    },
+    {
+      "config": "BM25-heavy (dense 2x, sparse 5x)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 341.0296000074595
+    },
+    {
+      "config": "Dense-heavy (dense 5x, sparse 2x)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 328.5728999180719
+    },
+    {
+      "config": "Custom weighted (dense=0.10, sparse=0.90)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 362.6658999128267
+    },
+    {
+      "config": "Custom weighted (dense=0.20, sparse=0.80)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 354.2654999764636
+    },
+    {
+      "config": "Custom weighted (dense=0.30, sparse=0.70)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 320.39639994036406
+    },
+    {
+      "config": "Custom weighted (dense=0.50, sparse=0.50)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 358.9389000553638
+    },
+    {
+      "config": "Custom weighted (dense=0.70, sparse=0.30)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 366.41150002833456
+    },
+    {
+      "config": "BM25 boosted (boost=1.5x)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 316.29340001381934
+    },
+    {
+      "config": "BM25 boosted (boost=2.0x)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 343.61370000988245
+    },
+    {
+      "config": "BM25 boosted (boost=3.0x)",
+      "precision@5": 0.6,
+      "precision@10": 0.3,
+      "latency_ms": 351.89699998591095
+    },
+    {
+      "config": "Custom weighted (dense=0.90, sparse=0.10)",
+      "precision@5": 0.2,
+      "precision@10": 0.1,
+      "latency_ms": 383.4210999775678
+    },
+    {
+      "config": "Query expansion (related terms added)",
+      "precision@5": 0.2,
+      "precision@10": 0.1,
+      "latency_ms": 358.87320002075285
+    }
+  ],
+  "best_config": {
+    "config": "Default RRF (3x prefetch)",
+    "precision@5": 0.6,
+    "precision@10": 0.3,
+    "latency_ms": 282.5802000006661
+  },
+  "timestamp": "2025-12-15 09:12:15"
+}

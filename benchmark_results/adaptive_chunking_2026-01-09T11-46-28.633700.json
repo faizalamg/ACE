@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-01-09T11:46:28.633700",
+  "passed": true,
+  "verdict": "PASSED - Adaptive chunking provides +0.0% more semantic units without degradation",
+  "per_type_results": {
+    ".py": {
+      "files": 50,
+      "baseline_chunks": 135,
+      "adaptive_chunks": 135,
+      "baseline_semantic": 86,
+      "adaptive_semantic": 86
+    }
+  },
+  "degradations": []
+}

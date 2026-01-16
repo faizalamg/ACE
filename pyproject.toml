@@ -1,0 +1,176 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ace-framework"
+version = "0.8.0"
+description = "Build self-improving AI agents that learn from experience"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Kayba.ai", email = "hello@kayba.ai"},
+]
+maintainers = [
+    {name = "Kayba.ai", email = "hello@kayba.ai"},
+]
+keywords = [
+    "ai",
+    "llm",
+    "agents",
+    "machine-learning",
+    "self-improvement",
+    "context-engineering",
+    "ace",
+    "openai",
+    "anthropic",
+    "claude",
+    "gpt",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "browser-use>=0.9.1",
+    "langchain-core>=0.3.79",
+    "langchain-openai>=0.3.35",
+    "litellm>=1.78.0",
+    "onnxruntime-directml>=1.23.0",
+    "optimum[onnxruntime]>=2.0.0",
+    "pydantic>=2.0.0",
+    "pyjwt>=2.10.1",
+    "python-dotenv>=1.0.0",
+    "python-toon>=0.1.0",
+    "qdrant-client>=1.16.1",
+    "sentence-transformers>=5.2.0",
+    "tenacity>=8.0.0",
+    "voyageai>=0.3.0",
+]
+
+[project.optional-dependencies]
+browser-use = [
+    "browser-use>=0.9.0",
+]
+observability = [
+    "httpx>=0.27.0,<0.29.0",
+    "opik>=1.8.0",
+    "prometheus-client>=0.23.1",
+]
+langchain = [
+    "langchain-openai>=0.3.35",
+    "langchain-litellm>=0.2.0",
+]
+transformers = [
+    "transformers>=4.30.0",
+    "torch>=2.0.0",
+    "accelerate>=0.20.0",
+]
+code-analysis = [
+    "tree-sitter>=0.23.0",
+    "tree-sitter-python>=0.23.0",
+    "tree-sitter-typescript>=0.23.0",
+    "tree-sitter-go>=0.23.0",
+    "tree-sitter-javascript>=0.23.0",
+]
+all = [
+    "browser-use>=0.9.0",
+    "opik>=1.8.0",
+    "langchain-openai>=0.3.35",
+    "langchain-litellm>=0.2.0",
+    "transformers>=4.30.0",
+    "torch>=2.0.0",
+    "accelerate>=0.20.0",
+    "tree-sitter>=0.23.0",
+    "tree-sitter-python>=0.23.0",
+    "tree-sitter-typescript>=0.23.0",
+    "tree-sitter-go>=0.23.0",
+    "tree-sitter-javascript>=0.23.0",
+]
+
+[project.urls]
+Homepage = "https://kayba.ai"
+Documentation = "https://github.com/Kayba-ai/agentic-context-engine#readme"
+Repository = "https://github.com/Kayba-ai/agentic-context-engine"
+Issues = "https://github.com/Kayba-ai/agentic-context-engine/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "git-changelog>=2.5.0",
+]
+demos = [
+    "browser-use>=0.9.0",
+    "rich>=13.0.0",
+    "datasets>=2.0.0",
+    "pyyaml>=6.0.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.0.0",
+    "playwright>=1.40.0",
+]
+
+[tool.setuptools]
+packages = ["ace", "ace.llm_providers", "ace.observability"]
+
+[tool.setuptools.package-data]
+ace = ["py.typed"]
+
+[tool.black]
+line-length = 88
+target-version = ['py311', 'py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+files = ["ace"]
+exclude = [
+    "^tests/",
+    "^examples/",
+    "^scripts/",
+    "^benchmarks/",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "--cov=ace",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-fail-under=25",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]

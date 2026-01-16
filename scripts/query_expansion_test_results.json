@@ -1,0 +1,58 @@
+{
+  "query": "how is our system currently wired? qdrant option 2 with no local json playbook?",
+  "expanded_queries": [
+    "how is our system currently wired? qdrant option 2 with no local json playbook?",
+    "how is our architecture currently configured vector database configuration 2 with no on-disk json context",
+    "what is the approach to is our system currently wired? qdrant option 2 with no local json playbook?",
+    "how is our system currently wired? qdrant option 2 with no local JSON javascript object notation playbook?"
+  ],
+  "expected_keywords": [
+    "qdrant",
+    "vector",
+    "storage",
+    "memory",
+    "json",
+    "playbook",
+    "unified",
+    "collection",
+    "architecture",
+    "config",
+    "setup"
+  ],
+  "baseline": {
+    "retrieved_count": 10,
+    "avg_keyword_score": 0.1181818181818182,
+    "top3_keyword_score": 0.1818181818181818,
+    "latency_ms": 56.54579994734377,
+    "top_5_ids": [
+      "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+      "a839da26-d5f4-5a37-9ca5-5867f8b922ab",
+      "35e71605-ca83-58a4-b227-00259f622147",
+      "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+      "c73e0460-ca0b-5cb3-abf6-9df1146d4a17"
+    ]
+  },
+  "expanded": {
+    "retrieved_count": 10,
+    "avg_keyword_score": 0.13636363636363638,
+    "top3_keyword_score": 0.21212121212121213,
+    "latency_ms": 544.194900081493,
+    "expansion_latency_ms": 0.03720005042850971,
+    "retrieval_latency_ms": 436.34260003454983,
+    "rerank_latency_ms": 107.81509999651462,
+    "top_5_ids": [
+      "fcc3ccd6-d20d-591c-853e-7ae2def944c2",
+      "6d3baf48-6014-5ecd-aa2b-212b2c141d5f",
+      "bdac194e-2367-57a8-a746-6a9491f49a2e",
+      "b3f74f14-d49a-501d-a6f7-d54fd524b588",
+      "66305a86-d86f-5624-af8a-dfa9b602368d"
+    ]
+  },
+  "improvement": {
+    "avg_keyword_score_delta": 0.018181818181818188,
+    "top3_keyword_score_delta": 0.03030303030303033,
+    "latency_overhead_ms": 487.6491001341492,
+    "new_docs_count": 5,
+    "lost_docs_count": 5
+  }
+}

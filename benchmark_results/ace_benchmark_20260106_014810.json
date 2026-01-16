@@ -1,0 +1,4018 @@
+{
+  "timestamp": "2026-01-06T01:48:10.542826",
+  "total_queries": 100,
+  "results": [
+    {
+      "category": "Code",
+      "query": "CodeRetrieval class search method implementation",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 1.03807054,
+      "all_files": [
+        "ace/code_retrieval.py",
+        "ace/retrieval_optimized.py",
+        "auggie_query.json",
+        "ace/unified_memory.py",
+        "ace/retrieval.py"
+      ],
+      "all_scores": [
+        1.03807054,
+        0.7964823400000001,
+        0.7920233,
+        0.76322955,
+        0.74034172
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "exception error handling retry resilience pattern",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.9306854,
+      "all_files": [
+        "ace/resilience.py",
+        "docs/INTEGRATION_GUIDE.md",
+        "ace/security.py",
+        ".claude/settings.json",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.9306854,
+        0.5286814,
+        0.47080892,
+        0.45925403,
+        0.4534469
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "embedding vector generation voyage-code-3 model",
+      "top_file": "ace/openai_embeddings.py",
+      "top_score": 0.9141784000000001,
+      "all_files": [
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/qdrant_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        0.9141784000000001,
+        0.9098264,
+        0.7172262599999999,
+        0.68713694,
+        0.6834267
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "ASTChunker code chunking tree-sitter parsing",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 1.1466338,
+      "all_files": [
+        "ace/code_chunker.py",
+        "ace/code_analysis.py",
+        "ace/dependency_graph.py",
+        "ace/code_indexer.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        1.1466338,
+        0.8300997999999999,
+        0.58789146,
+        0.5485379,
+        0.54389614
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "deduplicate overlapping results similarity threshold",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.796951,
+      "all_files": [
+        "ace/retrieval_presets.py",
+        "ace/retrieval.py",
+        "ace/code_retrieval.py",
+        "scripts/deduplicate_memories.py",
+        "ace/deduplication.py"
+      ],
+      "all_scores": [
+        0.796951,
+        0.7151292,
+        0.69428914,
+        0.5695342,
+        0.5658371
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "cross encoder reranker BGE ranking score",
+      "top_file": "ace/gpu_reranker.py",
+      "top_score": 1.0367359600000001,
+      "all_files": [
+        "ace/gpu_reranker.py",
+        "ace/reranker.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "debug_doc_ranking.py",
+        "rag_training/optimizations/v1_cross_encoder_rerank.py"
+      ],
+      "all_scores": [
+        1.0367359600000001,
+        0.88347913,
+        0.7278099,
+        0.7169407999999999,
+        0.67913175
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "CodeIndexer index_workspace batch embedding",
+      "top_file": "ace/code_indexer.py",
+      "top_score": 1.01835795,
+      "all_files": [
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/gemini_embeddings.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        1.01835795,
+        0.8429487499999999,
+        0.6374085,
+        0.5524371,
+        0.5481899
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "dense vector search cosine similarity Qdrant",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.83555977,
+      "all_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/semantic_scorer.py",
+        "ace/qdrant_retrieval.py",
+        "scripts/debug_dense_vs_hybrid.py",
+        "ace/async_retrieval.py"
+      ],
+      "all_scores": [
+        0.83555977,
+        0.7328822500000001,
+        0.6411547,
+        0.6275005,
+        0.61680826
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "sparse vector BM25 term frequency hashing",
+      "top_file": "ace/hyde_retrieval.py",
+      "top_score": 0.8202765000000001,
+      "all_files": [
+        "ace/hyde_retrieval.py",
+        "ace/unified_memory.py",
+        "ace/retrieval_optimized.py",
+        "ace/qdrant_retrieval.py",
+        "ace/retrieval_presets.py"
+      ],
+      "all_scores": [
+        0.8202765000000001,
+        0.7770184,
+        0.7444430499999999,
+        0.7243364999999999,
+        0.67052674
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "file watcher daemon monitor changes filesystem",
+      "top_file": "ace/file_watcher_daemon.py",
+      "top_score": 1.1354367,
+      "all_files": [
+        "ace/file_watcher_daemon.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        1.1354367,
+        0.6991262,
+        0.60023143,
+        0.56330185,
+        0.46681637
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "UnifiedMemoryIndex store method implementation",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.81817555,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/qdrant_retrieval.py",
+        "ace/retrieval.py"
+      ],
+      "all_scores": [
+        0.81817555,
+        0.79644794,
+        0.53014195,
+        0.5173484,
+        0.40042994
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "_apply_filename_boost function scoring",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.7739749,
+      "all_files": [
+        "ace/code_retrieval.py",
+        "ace/retrieval.py",
+        "debug_doc_ranking.py",
+        "debug_docs.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        0.7739749,
+        0.4584673,
+        0.40820736,
+        0.40268373,
+        0.39870557
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "expand_query method synonyms expansion",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.6686734,
+      "all_files": [
+        "ace/code_retrieval.py",
+        "ace/retrieval_presets.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "ace/retrieval_optimized.py",
+        "rag_training/optimizations/v2_query_expansion.py"
+      ],
+      "all_scores": [
+        0.6686734,
+        0.659151,
+        0.6329316,
+        0.60840344,
+        0.5931578
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "create_sparse_vector BM25 implementation",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.68841114,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_presets.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "all_scores": [
+        0.68841114,
+        0.5809853,
+        0.50260735,
+        0.50144005,
+        0.5005955
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "AsyncCodeRetrieval async search method",
+      "top_file": "auggie_query.json",
+      "top_score": 0.8223285,
+      "all_files": [
+        "auggie_query.json",
+        "ace/unified_memory.py",
+        "compare_auggie_ace.py",
+        "ace/code_retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.8223285,
+        0.7835243,
+        0.7329102999999999,
+        0.59787625,
+        0.549533
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "normalize_scores method score normalization",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.40321988,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/gpu_reranker.py",
+        "ace_vs_auggie_headtohead.py",
+        "ace/retrieval_presets.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.40321988,
+        0.37619203,
+        0.37442273,
+        0.37102696,
+        0.36951602
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "parse_code method AST parsing Python",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.6905311000000001,
+      "all_files": [
+        "ace/code_chunker.py",
+        "ace/code_analysis.py",
+        "ace/code_indexer.py",
+        "ace/dependency_graph.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        0.6905311000000001,
+        0.5502946,
+        0.5115533,
+        0.50131714,
+        0.46521157
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "embed_text method embedding generation",
+      "top_file": "ace/hyde_retrieval.py",
+      "top_score": 0.6486045,
+      "all_files": [
+        "ace/hyde_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/qdrant_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "all_scores": [
+        0.6486045,
+        0.6314223,
+        0.58359206,
+        0.5288092,
+        0.52616453
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "index_bullet method unified memory storage",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 1.0607337000000001,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/retrieval.py"
+      ],
+      "all_scores": [
+        1.0607337000000001,
+        0.98646224,
+        0.9339600800000001,
+        0.7190609,
+        0.6814474399999999
+      ]
+    },
+    {
+      "category": "Code",
+      "query": "retrieve method Qdrant vector search",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.8904885,
+      "all_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/code_retrieval.py",
+        "ace/config.py",
+        "ace/qdrant_retrieval.py",
+        "benchmark_results/quality_comparison_20260103_024738.json"
+      ],
+      "all_scores": [
+        0.8904885,
+        0.8714377,
+        0.7237044,
+        0.71390175,
+        0.7128582
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "EmbeddingConfig class voyage openai model settings",
+      "top_file": "ace/config.py",
+      "top_score": 1.1593681999999998,
+      "all_files": [
+        "ace/config.py",
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/embedding_finetuning/models/ace_finetuned/1_Pooling/config.json",
+        "rag_training/scripts/reindex_with_openai.py"
+      ],
+      "all_scores": [
+        1.1593681999999998,
+        0.61224043,
+        0.5617629,
+        0.41914359999999995,
+        0.38105199999999995
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "QdrantConfig collection vector database settings",
+      "top_file": "ace/config.py",
+      "top_score": 1.1329414,
+      "all_files": [
+        "ace/config.py",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "ace/qdrant_retrieval.py",
+        "ace/code_indexer.py",
+        "ace/scaling.py"
+      ],
+      "all_scores": [
+        1.1329414,
+        0.65057874,
+        0.6151123000000001,
+        0.6116059,
+        0.56408435
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "LLMConfig provider API key model configuration",
+      "top_file": "ace/config.py",
+      "top_score": 0.87127923,
+      "all_files": [
+        "ace/config.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/config.py",
+        "ace/llm.py",
+        "ace/llm_providers/langchain_client.py"
+      ],
+      "all_scores": [
+        0.87127923,
+        0.7775759,
+        0.58503448,
+        0.51143783,
+        0.48081145
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "BM25_K1 BM25_B constants sparse vector tuning",
+      "top_file": "ace/retrieval_optimized.py",
+      "top_score": 0.75168835,
+      "all_files": [
+        "ace/retrieval_optimized.py",
+        "ace/hyde_retrieval.py",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "all_scores": [
+        0.75168835,
+        0.72284076,
+        0.72256265,
+        0.70059644,
+        0.6953954
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "environment variable dotenv configuration loading",
+      "top_file": "ace/config.py",
+      "top_score": 0.777507,
+      "all_files": [
+        "ace/config.py",
+        "ace/config.py",
+        "verify_setup.py",
+        "ace/pattern_detector.py",
+        "ace/context_injector.py"
+      ],
+      "all_scores": [
+        0.777507,
+        0.6345986,
+        0.5551990499999999,
+        0.54864495,
+        0.5483785800000001
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "rate limit API throttling requests per second",
+      "top_file": "ace/retrieval_optimized.py",
+      "top_score": 0.61293017,
+      "all_files": [
+        "ace/retrieval_optimized.py",
+        "benchmarks/benchmark_reranking.py",
+        "ace/resilience.py",
+        ".claude/settings.json",
+        "ace/caching.py"
+      ],
+      "all_scores": [
+        0.61293017,
+        0.4770067,
+        0.46763378,
+        0.46279377,
+        0.46177813
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "vector dimension size 1024 768 embedding model",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 0.7822490500000001,
+      "all_files": [
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/config.py",
+        "ace/code_retrieval.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "all_scores": [
+        0.7822490500000001,
+        0.7755662000000001,
+        0.7122938999999999,
+        0.6486670299999999,
+        0.64267268
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "batch size chunk processing embedding queue",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 0.7188504499999999,
+      "all_files": [
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/async_adaptation.py",
+        "scripts/reembed_unified_memories.py",
+        "ace/embedding_finetuning/finetune_embeddings.py"
+      ],
+      "all_scores": [
+        0.7188504499999999,
+        0.7042686,
+        0.5866006500000001,
+        0.52671957,
+        0.5093948
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "collection name workspace code context identifier",
+      "top_file": ".ace/.ace.json",
+      "top_score": 0.698287,
+      "all_files": [
+        ".ace/.ace.json",
+        "ace_mcp_server.py",
+        "ace_mcp_server.py",
+        "ace/code_indexer.py",
+        "debug_blended.py"
+      ],
+      "all_scores": [
+        0.698287,
+        0.68858647,
+        0.6859702000000001,
+        0.67390858,
+        0.6662309399999999
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "reranker model BGE cross encoder path",
+      "top_file": "ace/reranker.py",
+      "top_score": 0.85634334,
+      "all_files": [
+        "ace/reranker.py",
+        "ace/gpu_reranker.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "rag_training/training_data/finetune_crossencoder.py",
+        "rag_training/optimizations/v3_bge_reranker.py"
+      ],
+      "all_scores": [
+        0.85634334,
+        0.85051126,
+        0.6929742,
+        0.67054623,
+        0.6262219
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "VOYAGE_API_KEY environment variable setup",
+      "top_file": "ace/config.py",
+      "top_score": 0.61301407,
+      "all_files": [
+        "ace/config.py",
+        "ace/llm_providers/litellm_client.py",
+        "verify_setup.py",
+        "ace/integrations/litellm.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        0.61301407,
+        0.59015458,
+        0.5477022,
+        0.53349214,
+        0.4966361
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "Qdrant localhost port 6333 connection",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.6123656500000001,
+      "all_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/scaling.py",
+        "ace/config.py",
+        "ace/observability/health.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        0.6123656500000001,
+        0.5005620000000001,
+        0.4713394,
+        0.46549139999999994,
+        0.44574722999999994
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "top_k limit search results maximum",
+      "top_file": "benchmark_results/quality_comparison_20260103_024857.json",
+      "top_score": 0.55992246,
+      "all_files": [
+        "benchmark_results/quality_comparison_20260103_024857.json",
+        "benchmark_results/quality_comparison_20260103_024738.json",
+        "benchmark_results/quality_comparison_20260103_024645.json",
+        "benchmark_results/quality_comparison_20260103_024506.json",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.55992246,
+        0.5543831,
+        0.54125607,
+        0.52519304,
+        0.50783074
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "cache TTL expiration time seconds",
+      "top_file": "ace/retrieval_caching.py",
+      "top_score": 0.71650546,
+      "all_files": [
+        "ace/retrieval_caching.py",
+        "ace/caching.py",
+        "ace/session_tracking.py",
+        ".claude/settings.json",
+        "ace/resilience.py"
+      ],
+      "all_scores": [
+        0.71650546,
+        0.5602335,
+        0.48457715,
+        0.47743654,
+        0.43045688
+      ]
+    },
+    {
+      "category": "Config",
+      "query": "chunk_size max_tokens code splitting",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.64079154,
+      "all_files": [
+        "ace/code_chunker.py",
+        "ace/code_indexer.py",
+        "ace/code_retrieval.py",
+        "ace/code_chunker.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "all_scores": [
+        0.64079154,
+        0.5604218,
+        0.54558253,
+        0.541819,
+        0.5144609
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "Generator Reflector Curator architecture pattern",
+      "top_file": "ace/roles.py",
+      "top_score": 0.6928064300000001,
+      "all_files": [
+        "ace/roles.py",
+        "ace/roles.py",
+        "ace/prompts.py",
+        "ace/chain_of_verification.py",
+        "ace/structured_enhancer.py"
+      ],
+      "all_scores": [
+        0.6928064300000001,
+        0.6703298799999999,
+        0.39814881999999996,
+        0.394621,
+        0.38988978
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "unified memory retrieval storage architecture",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 1.1023829,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        1.1023829,
+        1.05986124,
+        1.0187104,
+        0.96056533,
+        0.9356898
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "playbook bullet strategy learning system",
+      "top_file": "ace/playbook.py",
+      "top_score": 0.7348598,
+      "all_files": [
+        "ace/playbook.py",
+        "tenant_data/tenant-x/playbook_x.json",
+        "tenant_data/tenant-create/new_playbook.json",
+        "tenant_data/tenant-secure/secure_playbook.json",
+        "ace/prompts_v2_1.py"
+      ],
+      "all_scores": [
+        0.7348598,
+        0.7052411999999999,
+        0.70473666,
+        0.7043010999999999,
+        0.6909924999999999
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "tenant isolation namespace collection multitenancy",
+      "top_file": "ace/multitenancy.py",
+      "top_score": 1.0185588,
+      "all_files": [
+        "ace/multitenancy.py",
+        "ace/scaling.py",
+        "ace/unified_memory.py",
+        "ace/observability/metrics.py",
+        ".ace/.ace.json"
+      ],
+      "all_scores": [
+        1.0185588,
+        0.70172923,
+        0.49910456,
+        0.49546656,
+        0.46628287
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "caching layer retrieval performance TTL",
+      "top_file": "ace/retrieval_caching.py",
+      "top_score": 1.0842615,
+      "all_files": [
+        "ace/retrieval_caching.py",
+        "ace/retrieval_optimized.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_presets.py",
+        "ace/caching.py"
+      ],
+      "all_scores": [
+        1.0842615,
+        0.62520577,
+        0.58964218,
+        0.5791257000000001,
+        0.5466331
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "HyDE hypothetical document embeddings expansion",
+      "top_file": "ace/hyde.py",
+      "top_score": 1.08468736,
+      "all_files": [
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "rag_training/optimizations/v6_hyde.py"
+      ],
+      "all_scores": [
+        1.08468736,
+        1.0752544,
+        0.7526971,
+        0.74264694,
+        0.66287804
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "observability tracing metrics opik monitoring",
+      "top_file": "ace/observability/opik_integration.py",
+      "top_score": 0.9643104,
+      "all_files": [
+        "ace/observability/opik_integration.py",
+        "ace/observability/__init__.py",
+        "ace/observability/tracers.py",
+        "ace/observability/tracing.py",
+        "ace/observability/metrics.py"
+      ],
+      "all_scores": [
+        0.9643104,
+        0.7034473000000001,
+        0.6457029000000001,
+        0.5982627,
+        0.5979505
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "bullet enrichment LLM context enhancement",
+      "top_file": "ace/enrichment.py",
+      "top_score": 1.1208577,
+      "all_files": [
+        "ace/enrichment.py",
+        "ace/code_enrichment.py",
+        "ace/playbook.py",
+        "ace/retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "all_scores": [
+        1.1208577,
+        0.9788672,
+        0.66923296,
+        0.6005285,
+        0.58670604
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "delta operation batch update playbook system",
+      "top_file": "ace/delta.py",
+      "top_score": 0.8809191,
+      "all_files": [
+        "ace/delta.py",
+        "ace/playbook.py",
+        "ace/roles.py",
+        "ace/playbook.py",
+        "ace/playbook.py"
+      ],
+      "all_scores": [
+        0.8809191,
+        0.6972691,
+        0.6055701,
+        0.5897348600000001,
+        0.5411270699999999
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "intent classification query routing semantic",
+      "top_file": "ace/query_enhancer.py",
+      "top_score": 0.9318087,
+      "all_files": [
+        "ace/query_enhancer.py",
+        "ace/structured_enhancer.py",
+        "ace/query_features.py",
+        "ace/semantic_scorer.py",
+        "ace/query_preprocessor.py"
+      ],
+      "all_scores": [
+        0.9318087,
+        0.7453486,
+        0.7342717999999999,
+        0.67591338,
+        0.66079254
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "hybrid search dense sparse fusion ranking",
+      "top_file": "ace/qdrant_retrieval.py",
+      "top_score": 0.768346,
+      "all_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/unified_memory.py",
+        "ace/retrieval_optimized.py",
+        "ace/hyde_retrieval.py",
+        "benchmark_results/quality_comparison_20260103_024738.json"
+      ],
+      "all_scores": [
+        0.768346,
+        0.75918245,
+        0.75784224,
+        0.7413631,
+        0.7404027499999999
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "code analysis dependency graph import tree",
+      "top_file": "ace/dependency_graph.py",
+      "top_score": 1.2350286000000001,
+      "all_files": [
+        "ace/dependency_graph.py",
+        "ace/code_analysis.py",
+        "ace/code_chunker.py",
+        "ace/code_enrichment.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        1.2350286000000001,
+        0.9300026,
+        0.6919378599999999,
+        0.5151876,
+        0.49377993
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "chunk context expansion surrounding lines",
+      "top_file": "ace/code_chunker.py",
+      "top_score": 0.6706539499999999,
+      "all_files": [
+        "ace/code_chunker.py",
+        "check_chunks.py",
+        "ace/code_retrieval.py",
+        "ace/structured_enhancer.py",
+        "check_playbook.py"
+      ],
+      "all_scores": [
+        0.6706539499999999,
+        0.64881192,
+        0.57425237,
+        0.5696781799999999,
+        0.5027158
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "pattern detection code smell antipattern",
+      "top_file": "ace/pattern_detector.py",
+      "top_score": 0.7122467,
+      "all_files": [
+        "ace/pattern_detector.py",
+        "rag_training/memory_inventory.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "all_scores": [
+        0.7122467,
+        0.39790245999999996,
+        0.39431443999999993,
+        0.3939245,
+        0.3930663999999999
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "quality feedback loop learning adaptation",
+      "top_file": "ace/quality_feedback.py",
+      "top_score": 1.12085855,
+      "all_files": [
+        "ace/quality_feedback.py",
+        "ace/adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/retrieval_bandit.py",
+        "ace/unified_memory.py"
+      ],
+      "all_scores": [
+        1.12085855,
+        0.7566513500000001,
+        0.7294695,
+        0.7058112999999999,
+        0.67696386
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "semantic deduplication similarity threshold",
+      "top_file": "ace/semantic_scorer.py",
+      "top_score": 0.7930419,
+      "all_files": [
+        "ace/semantic_scorer.py",
+        "ace/retrieval.py",
+        "ace/retrieval_presets.py",
+        "ace/deduplication.py",
+        "scripts/optimize_threshold.py"
+      ],
+      "all_scores": [
+        0.7930419,
+        0.7249604999999999,
+        0.7083893299999999,
+        0.5621992,
+        0.549011
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "async retrieval concurrent embedding calls",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 1.0901683599999998,
+      "all_files": [
+        "ace/async_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/retrieval_caching.py",
+        "ace/hyde_retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        1.0901683599999998,
+        0.8059997999999999,
+        0.7569094999999999,
+        0.7465192,
+        0.7286106000000001
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "GPU reranker batch processing CUDA",
+      "top_file": "ace/hyde.py",
+      "top_score": 0.56889498,
+      "all_files": [
+        "ace/hyde.py",
+        "ace/gpu_reranker.py",
+        "ace/reranker.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_bandit.py"
+      ],
+      "all_scores": [
+        0.56889498,
+        0.5567204,
+        0.47718984,
+        0.46056604,
+        0.45514143
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "query enhancement reformulation expansion",
+      "top_file": "ace/query_enhancer.py",
+      "top_score": 0.8378912000000001,
+      "all_files": [
+        "ace/query_enhancer.py",
+        "ace/structured_enhancer.py",
+        "ace/config.py",
+        "ace/structured_enhancer.py",
+        "rag_training/optimizations/v2_query_expansion.py"
+      ],
+      "all_scores": [
+        0.8378912000000001,
+        0.71943574,
+        0.6663256200000001,
+        0.66288321,
+        0.6402937
+      ]
+    },
+    {
+      "category": "Arch",
+      "query": "file change delta incremental indexing",
+      "top_file": "ace/code_indexer.py",
+      "top_score": 0.7271767,
+      "all_files": [
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/file_watcher_daemon.py",
+        "ace/delta.py"
+      ],
+      "all_scores": [
+        0.7271767,
+        0.6707091599999999,
+        0.4988483,
+        0.49635887,
+        0.48908383
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "quick start guide installation setup tutorial",
+      "top_file": "docs/SETUP_GUIDE.md",
+      "top_score": 0.89305756,
+      "all_files": [
+        "docs/SETUP_GUIDE.md",
+        "docs/COMPLETE_GUIDE_TO_ACE.md",
+        "docs/QUICK_START.md",
+        "QUICKSTART_CLAUDE_CODE.md",
+        "examples/browser-use/form-filler/task2_form.txt"
+      ],
+      "all_scores": [
+        0.89305756,
+        0.7802218599999999,
+        0.6826183,
+        0.6615024,
+        0.6574316
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "API reference documentation endpoints methods",
+      "top_file": "docs/MCP_INTEGRATION.md",
+      "top_score": 0.61774507,
+      "all_files": [
+        "docs/MCP_INTEGRATION.md",
+        "ace/code_retrieval.py",
+        "docs/API_REFERENCE.md",
+        "docs/CLAUDE_CODE_ACE_INTEGRATION.md",
+        "rag_training/MEMORY_ANALYSIS.md"
+      ],
+      "all_scores": [
+        0.61774507,
+        0.57187804,
+        0.56025674,
+        0.55477222,
+        0.5497652
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "MCP server integration copilot claude setup",
+      "top_file": "ace_mcp_server.py",
+      "top_score": 1.0286077,
+      "all_files": [
+        "ace_mcp_server.py",
+        "ace_mcp_server.py",
+        "debug_blended.py",
+        "claude_with_ace.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "all_scores": [
+        1.0286077,
+        0.8388135999999999,
+        0.59721225,
+        0.44603223,
+        0.4005261
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "architecture design system overview diagram",
+      "top_file": "benchmark_results/quality_comparison_20260103_024645.json",
+      "top_score": 0.41807663,
+      "all_files": [
+        "benchmark_results/quality_comparison_20260103_024645.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "ace/unified_memory.py",
+        ".claude/settings.json",
+        "benchmark_results/quality_comparison_20260103_024738.json"
+      ],
+      "all_scores": [
+        0.41807663,
+        0.4166038,
+        0.4163608,
+        0.41486853,
+        0.41348493
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "configuration guide environment variables",
+      "top_file": "ace/config.py",
+      "top_score": 0.69363227,
+      "all_files": [
+        "ace/config.py",
+        "verify_setup.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "all_scores": [
+        0.69363227,
+        0.5854306,
+        0.54956496,
+        0.51745456,
+        0.5078335
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "prompts generator reflector curator templates",
+      "top_file": "ace/prompts.py",
+      "top_score": 0.8891374599999999,
+      "all_files": [
+        "ace/prompts.py",
+        "ace/prompts_v2_2.py",
+        "ace/prompts_v2.py",
+        "ace/prompts_v2_1.py",
+        "ace/chain_of_verification.py"
+      ],
+      "all_scores": [
+        0.8891374599999999,
+        0.8466948400000001,
+        0.8185762000000001,
+        0.7842197500000001,
+        0.6354096
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "retrieval precision optimization tuning guide",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.8867797399999999,
+      "all_files": [
+        "ace/retrieval_presets.py",
+        "benchmark_results/precision_baseline_20251215_092237.json",
+        "benchmark_results/precision_baseline_20251215_091430.json",
+        "benchmark_results/precision_baseline_20251215_092040.json",
+        "benchmark_results/precision_baseline_20251215_090907.json"
+      ],
+      "all_scores": [
+        0.8867797399999999,
+        0.84913327,
+        0.8480003600000001,
+        0.8466289,
+        0.8464264400000001
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "integration guide framework agent workflow",
+      "top_file": "ace/integrations/base.py",
+      "top_score": 0.6714088,
+      "all_files": [
+        "ace/integrations/base.py",
+        "ace/observability/opik_integration.py",
+        "tests/integrations/__init__.py",
+        "examples/custom_integration_example.py",
+        "ace/integrations/browser_use.py"
+      ],
+      "all_scores": [
+        0.6714088,
+        0.64387168,
+        0.5865329,
+        0.54430115,
+        0.5194335
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "golden rules best practices guidelines",
+      "top_file": "benchmarks/data/sample_playbook.json",
+      "top_score": 0.5659951,
+      "all_files": [
+        "benchmarks/data/sample_playbook.json",
+        "benchmarks/data/sample_playbook.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "all_scores": [
+        0.5659951,
+        0.5592687,
+        0.55625,
+        0.5540943,
+        0.552738
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "changelog version history release notes",
+      "top_file": "CHANGELOG.md",
+      "top_score": 0.8753634499999999,
+      "all_files": [
+        "CHANGELOG.md",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/unified_memory.py",
+        "docs/PROMPTS.md",
+        "rag_training/OPTIMIZATION_LOG.md"
+      ],
+      "all_scores": [
+        0.8753634499999999,
+        0.59736612,
+        0.59337675,
+        0.58596536,
+        0.5844073
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "contributing guidelines pull request workflow",
+      "top_file": "CONTRIBUTING.md",
+      "top_score": 0.89114556,
+      "all_files": [
+        "CONTRIBUTING.md",
+        "docs/PROMPT_ENGINEERING.md",
+        "benchmarks/ACE_RETRIEVAL_BENCHMARK.md",
+        "ace/prompts.py",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "all_scores": [
+        0.89114556,
+        0.6852335,
+        0.63247802,
+        0.46544763,
+        0.38297377
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "Claude Code integration MCP setup instructions",
+      "top_file": "claude_with_ace.py",
+      "top_score": 0.5317066,
+      "all_files": [
+        "claude_with_ace.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "all_scores": [
+        0.5317066,
+        0.4659533,
+        0.41370822,
+        0.41186053,
+        0.39012097
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "VSCode integration tasks launch json",
+      "top_file": "examples/custom_integration_example.py",
+      "top_score": 0.4266829,
+      "all_files": [
+        "examples/custom_integration_example.py",
+        "auggie_query.json",
+        ".ace/.ace.json",
+        "claude_with_ace.py",
+        "benchmarks/tasks/appworld.yaml"
+      ],
+      "all_scores": [
+        0.4266829,
+        0.35953577,
+        0.3585098,
+        0.33486274000000005,
+        0.33013382999999996
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "deduplication strategy overlapping results",
+      "top_file": "ace/deduplication.py",
+      "top_score": 0.74327977,
+      "all_files": [
+        "ace/deduplication.py",
+        "ace/code_retrieval.py",
+        "ace/deduplication.py",
+        "ace/code_retrieval.py",
+        "ace/deduplication.py"
+      ],
+      "all_scores": [
+        0.74327977,
+        0.65100163,
+        0.6452742300000001,
+        0.5209143,
+        0.518381
+      ]
+    },
+    {
+      "category": "Docs",
+      "query": "typo correction system learned patterns",
+      "top_file": "ace/typo_correction.py",
+      "top_score": 1.1072552,
+      "all_files": [
+        "ace/typo_correction.py",
+        "tenant_data/learned_typos.json",
+        "cleanup_and_validate_learned_typos.py",
+        "ace/query_preprocessor.py",
+        "TYPO_CORRECTION_FIXES_SUMMARY.md"
+      ],
+      "all_scores": [
+        1.1072552,
+        1.087203,
+        1.06376215,
+        0.5351722,
+        0.43463584999999993
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "async await asyncio concurrent retrieval gather",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 1.04079267,
+      "all_files": [
+        "ace/async_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/async_adaptation.py",
+        "ace/qdrant_retrieval.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        1.04079267,
+        0.97075876,
+        0.87106702,
+        0.67912917,
+        0.65758852
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "typing Optional List Dict Tuple dataclass",
+      "top_file": ".claude/settings.json",
+      "top_score": 0.43161458,
+      "all_files": [
+        ".claude/settings.json",
+        "ace/__init__.py",
+        "ace/unified_memory.py",
+        ".pre-commit-config.yaml",
+        "tenant_data/learned_typos.json"
+      ],
+      "all_scores": [
+        0.43161458,
+        0.4255487,
+        0.41774163,
+        0.4154238,
+        0.4135189
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "from qdrant_client import QdrantClient models",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.6652135,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/deduplication.py",
+        "ace/hyde_retrieval.py",
+        "rag_training/training_data/generate_finetuning_pairs.py"
+      ],
+      "all_scores": [
+        0.6652135,
+        0.65950325,
+        0.6573878000000001,
+        0.6453209,
+        0.6423267
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "UnifiedMemoryIndex namespace hybrid search",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 1.0000250400000001,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "benchmark_results/quality_comparison_20260103_024738.json",
+        "scripts/debug_dense_vs_hybrid.py",
+        "scripts/diagnose_failed_queries.py"
+      ],
+      "all_scores": [
+        1.0000250400000001,
+        0.7823513,
+        0.7456889,
+        0.61035275,
+        0.60826063
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "Qdrant client not available error exception",
+      "top_file": "ace/llm_providers/litellm_client.py",
+      "top_score": 0.6633818300000001,
+      "all_files": [
+        "ace/llm_providers/litellm_client.py",
+        "ace/llm_providers/langchain_client.py",
+        "ace/code_indexer.py",
+        "ace/gpu_reranker.py",
+        "ace/scaling.py"
+      ],
+      "all_scores": [
+        0.6633818300000001,
+        0.64309598,
+        0.6164711,
+        0.6063849299999999,
+        0.59999177
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "dataclass field default_factory frozen slots",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.5118669,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/hyde.py",
+        "ace/retrieval_optimized.py",
+        "ace/caching.py",
+        "ace/code_retrieval.py"
+      ],
+      "all_scores": [
+        0.5118669,
+        0.51136523,
+        0.5020932,
+        0.49808767,
+        0.49670535
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "decorator functools wraps retry backoff",
+      "top_file": "ace/resilience.py",
+      "top_score": 0.5566344,
+      "all_files": [
+        "ace/resilience.py",
+        "ace/observability/tracers.py",
+        "ace/observability/metrics.py",
+        "ace/observability/opik_integration.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.5566344,
+        0.49153093,
+        0.46945998,
+        0.4594625,
+        0.45349848
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "context manager with statement async generator",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.84021032,
+      "all_files": [
+        "ace/async_retrieval.py",
+        "ace/async_adaptation.py",
+        "ace/multitenancy.py",
+        "ace/observability/metrics.py",
+        "ace/observability/tracing.py"
+      ],
+      "all_scores": [
+        0.84021032,
+        0.70032663,
+        0.59297013,
+        0.57632165,
+        0.56899314
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "lambda filter map list comprehension generator",
+      "top_file": ".claude/settings.json",
+      "top_score": 0.49389553,
+      "all_files": [
+        ".claude/settings.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "all_scores": [
+        0.49389553,
+        0.32966012,
+        0.31396732000000005,
+        0.30925733,
+        0.30319735999999997
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "regex pattern re compile match search findall",
+      "top_file": "ace/unified_memory.py",
+      "top_score": 0.58617877,
+      "all_files": [
+        "ace/unified_memory.py",
+        "ace/query_features.py",
+        "debug_doc_ranking.py",
+        ".claude/settings.json",
+        "ace/query_enhancer.py"
+      ],
+      "all_scores": [
+        0.58617877,
+        0.5120428,
+        0.51155424,
+        0.49596214,
+        0.4819967
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "fibonacci.py error handling example",
+      "top_file": "fibonacci.py",
+      "top_score": 0.7013668,
+      "all_files": [
+        "fibonacci.py",
+        "analyze_false_positives.py",
+        "ace/prompts_v2.py",
+        "ace/resilience.py",
+        "ace/typo_correction.py"
+      ],
+      "all_scores": [
+        0.7013668,
+        0.59946033,
+        0.55343416,
+        0.44000322,
+        0.43089986
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "test_ace.py unit test pytest fixtures",
+      "top_file": "tests/integrations/__init__.py",
+      "top_score": 0.6110352,
+      "all_files": [
+        "tests/integrations/__init__.py",
+        "ace/__init__.py",
+        "ace/playbook.py",
+        "ace/audit.py",
+        "benchmark_ace_vs_auggie.py"
+      ],
+      "all_scores": [
+        0.6110352,
+        0.51511,
+        0.50701046,
+        0.5039971,
+        0.5030023
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "openai_embeddings.py API client wrapper",
+      "top_file": "ace/openai_embeddings.py",
+      "top_score": 0.98823204,
+      "all_files": [
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/semantic_scorer.py",
+        "ace/qdrant_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "all_scores": [
+        0.98823204,
+        0.61609805,
+        0.56072223,
+        0.5476699,
+        0.53107667
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "gemini_embeddings.py Google AI integration",
+      "top_file": "ace/gemini_embeddings.py",
+      "top_score": 1.0165351999999999,
+      "all_files": [
+        "ace/gemini_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/semantic_scorer.py",
+        "ace/openai_embeddings.py",
+        "ace/config.py"
+      ],
+      "all_scores": [
+        1.0165351999999999,
+        0.58182,
+        0.58043855,
+        0.578895,
+        0.55225307
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "httpx async HTTP client requests timeout",
+      "top_file": "ace/async_retrieval.py",
+      "top_score": 0.7373004999999999,
+      "all_files": [
+        "ace/async_retrieval.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/llm_providers/langchain_client.py"
+      ],
+      "all_scores": [
+        0.7373004999999999,
+        0.7141985,
+        0.6885405,
+        0.6879621,
+        0.6641171
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "json loads dumps serialization deserialization",
+      "top_file": "ace/delta.py",
+      "top_score": 0.49505118,
+      "all_files": [
+        "ace/delta.py",
+        "ace/audit.py",
+        "ace/unified_memory.py",
+        ".claude/settings.json",
+        "ace/playbook.py"
+      ],
+      "all_scores": [
+        0.49505118,
+        0.4911114,
+        0.48744503,
+        0.4807374,
+        0.4786012
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "pathlib Path resolve absolute path handling",
+      "top_file": "tests/compare_ace_auggie_dynamic.py",
+      "top_score": 0.42396632,
+      "all_files": [
+        "tests/compare_ace_auggie_dynamic.py",
+        "ace_vs_auggie_headtohead.py",
+        "ace/retrieval.py",
+        "ace/code_retrieval.py",
+        "ace/code_chunker.py"
+      ],
+      "all_scores": [
+        0.42396632,
+        0.41610573,
+        0.38731843,
+        0.3808893,
+        0.37952274
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "logging logger info debug warning error",
+      "top_file": "ace/audit.py",
+      "top_score": 0.529134,
+      "all_files": [
+        "ace/audit.py",
+        ".claude/settings.json",
+        "ace/observability/opik_integration.py",
+        "ace/observability/opik_integration.py",
+        "ace/typo_correction.py"
+      ],
+      "all_scores": [
+        0.529134,
+        0.4819575,
+        0.47324157,
+        0.4619533,
+        0.42829293
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "subprocess run Popen communicate shell",
+      "top_file": "verify_setup.py",
+      "top_score": 0.4058699,
+      "all_files": [
+        "verify_setup.py",
+        "benchmark_ace_vs_auggie.py",
+        "claude_with_ace.py",
+        "benchmark_ace_vs_auggie.py",
+        "compare_ace_auggie_headtohead.py"
+      ],
+      "all_scores": [
+        0.4058699,
+        0.39540327,
+        0.38312402,
+        0.37276623,
+        0.36776325
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "threading Thread Lock concurrent execution",
+      "top_file": "ace/async_adaptation.py",
+      "top_score": 0.44285756,
+      "all_files": [
+        "ace/async_adaptation.py",
+        ".claude/settings.json",
+        "ace/self_consistency.py",
+        "ace/async_adaptation.py",
+        "ace/llm.py"
+      ],
+      "all_scores": [
+        0.44285756,
+        0.43142295,
+        0.40829498,
+        0.40562326,
+        0.39887992
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "abc ABC abstractmethod interface pattern",
+      "top_file": "ace/llm.py",
+      "top_score": 0.5075216,
+      "all_files": [
+        "ace/llm.py",
+        "ace/adaptation.py",
+        "ace/adaptation.py",
+        ".claude/settings.json",
+        "ace/integrations/base.py"
+      ],
+      "all_scores": [
+        0.5075216,
+        0.47162467,
+        0.45468467,
+        0.4484144,
+        0.43364045
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "enum Enum IntEnum auto choices",
+      "top_file": "ace/retrieval_presets.py",
+      "top_score": 0.45452988,
+      "all_files": [
+        "ace/retrieval_presets.py",
+        "ace/structured_enhancer.py",
+        "ace/unified_memory.py",
+        "ace/retrieval.py",
+        "ace/__init__.py"
+      ],
+      "all_scores": [
+        0.45452988,
+        0.44169068,
+        0.44109172,
+        0.41824472,
+        0.41144264
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "hashlib sha256 md5 digest hexdigest",
+      "top_file": ".claude/settings.json",
+      "top_score": 0.47552872,
+      "all_files": [
+        ".claude/settings.json",
+        "ace/security.py",
+        "ace/hyde.py",
+        "ace/caching.py",
+        "ace/code_indexer.py"
+      ],
+      "all_scores": [
+        0.47552872,
+        0.4411252,
+        0.41303694,
+        0.41275102,
+        0.3982435
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "base64 encode decode b64encode urlsafe",
+      "top_file": ".claude/settings.json",
+      "top_score": 0.49090344,
+      "all_files": [
+        ".claude/settings.json",
+        "ace/security.py",
+        "ace/self_consistency.py",
+        "ace/hyde.py",
+        "tenant_data/learned_typos.json"
+      ],
+      "all_scores": [
+        0.49090344,
+        0.4820518,
+        0.4236827,
+        0.42239586,
+        0.41681325
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "datetime now strftime strptime timezone",
+      "top_file": ".claude/settings.json",
+      "top_score": 0.46418303,
+      "all_files": [
+        ".claude/settings.json",
+        "ace/audit.py",
+        "ace/security.py",
+        "ace/observability/health.py",
+        "ace/caching.py"
+      ],
+      "all_scores": [
+        0.46418303,
+        0.40541267,
+        0.4013325,
+        0.38877645,
+        0.38858026
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "pickle dump load serialization security",
+      "top_file": "ace/security.py",
+      "top_score": 0.46377808,
+      "all_files": [
+        "ace/security.py",
+        "ace/multitenancy.py",
+        "ace/playbook.py",
+        ".claude/settings.json",
+        "ace/typo_correction.py"
+      ],
+      "all_scores": [
+        0.46377808,
+        0.44014233,
+        0.43684655,
+        0.41156733,
+        0.41088492
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "sqlite3 connect cursor execute fetchall",
+      "top_file": "auggie_query.json",
+      "top_score": 0.4609771,
+      "all_files": [
+        "auggie_query.json",
+        "ace/code_retrieval.py",
+        "ace/retrieval.py",
+        ".claude/settings.json",
+        "ace/retrieval_optimized.py"
+      ],
+      "all_scores": [
+        0.4609771,
+        0.4574865,
+        0.45631492,
+        0.45396945,
+        0.43890795
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "yaml safe_load dump configuration file",
+      "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+      "top_score": 0.39531973,
+      "all_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/config.py",
+        "ace/playbook.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "all_scores": [
+        0.39531973,
+        0.3941698,
+        0.39282832,
+        0.37495986,
+        0.3697104
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "os.environ environment variable access",
+      "top_file": "ace/config.py",
+      "top_score": 0.6899506,
+      "all_files": [
+        "ace/config.py",
+        "verify_setup.py",
+        "ace/context_injector.py",
+        "ace/pattern_detector.py",
+        "ace_mcp_server.py"
+      ],
+      "all_scores": [
+        0.6899506,
+        0.61697047,
+        0.60597294,
+        0.5898732,
+        0.58334752
+      ]
+    },
+    {
+      "category": "Edge",
+      "query": "sys.path module import resolution",
+      "top_file": "ace/code_retrieval.py",
+      "top_score": 0.43816516,
+      "all_files": [
+        "ace/code_retrieval.py",
+        "ace/dependency_graph.py",
+        "ace/code_retrieval.py",
+        "debug_docs.py",
+        "ace_vs_auggie_headtohead.py"
+      ],
+      "all_scores": [
+        0.43816516,
+        0.43780407,
+        0.3975891,
+        0.3974477,
+        0.39313817
+      ]
+    }
+  ],
+  "by_category": {
+    "Code": [
+      {
+        "category": "Code",
+        "query": "CodeRetrieval class search method implementation",
+        "top_file": "ace/code_retrieval.py",
+        "top_score": 1.03807054,
+        "all_files": [
+          "ace/code_retrieval.py",
+          "ace/retrieval_optimized.py",
+          "auggie_query.json",
+          "ace/unified_memory.py",
+          "ace/retrieval.py"
+        ],
+        "all_scores": [
+          1.03807054,
+          0.7964823400000001,
+          0.7920233,
+          0.76322955,
+          0.74034172
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "exception error handling retry resilience pattern",
+        "top_file": "ace/resilience.py",
+        "top_score": 0.9306854,
+        "all_files": [
+          "ace/resilience.py",
+          "docs/INTEGRATION_GUIDE.md",
+          "ace/security.py",
+          ".claude/settings.json",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.9306854,
+          0.5286814,
+          0.47080892,
+          0.45925403,
+          0.4534469
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "embedding vector generation voyage-code-3 model",
+        "top_file": "ace/openai_embeddings.py",
+        "top_score": 0.9141784000000001,
+        "all_files": [
+          "ace/openai_embeddings.py",
+          "ace/gemini_embeddings.py",
+          "ace/qdrant_retrieval.py",
+          "ace/async_retrieval.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          0.9141784000000001,
+          0.9098264,
+          0.7172262599999999,
+          0.68713694,
+          0.6834267
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "ASTChunker code chunking tree-sitter parsing",
+        "top_file": "ace/code_chunker.py",
+        "top_score": 1.1466338,
+        "all_files": [
+          "ace/code_chunker.py",
+          "ace/code_analysis.py",
+          "ace/dependency_graph.py",
+          "ace/code_indexer.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          1.1466338,
+          0.8300997999999999,
+          0.58789146,
+          0.5485379,
+          0.54389614
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "deduplicate overlapping results similarity threshold",
+        "top_file": "ace/retrieval_presets.py",
+        "top_score": 0.796951,
+        "all_files": [
+          "ace/retrieval_presets.py",
+          "ace/retrieval.py",
+          "ace/code_retrieval.py",
+          "scripts/deduplicate_memories.py",
+          "ace/deduplication.py"
+        ],
+        "all_scores": [
+          0.796951,
+          0.7151292,
+          0.69428914,
+          0.5695342,
+          0.5658371
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "cross encoder reranker BGE ranking score",
+        "top_file": "ace/gpu_reranker.py",
+        "top_score": 1.0367359600000001,
+        "all_files": [
+          "ace/gpu_reranker.py",
+          "ace/reranker.py",
+          "rag_training/optimizations/v3_bge_reranker.py",
+          "debug_doc_ranking.py",
+          "rag_training/optimizations/v1_cross_encoder_rerank.py"
+        ],
+        "all_scores": [
+          1.0367359600000001,
+          0.88347913,
+          0.7278099,
+          0.7169407999999999,
+          0.67913175
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "CodeIndexer index_workspace batch embedding",
+        "top_file": "ace/code_indexer.py",
+        "top_score": 1.01835795,
+        "all_files": [
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/gemini_embeddings.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          1.01835795,
+          0.8429487499999999,
+          0.6374085,
+          0.5524371,
+          0.5481899
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "dense vector search cosine similarity Qdrant",
+        "top_file": "ace/qdrant_retrieval.py",
+        "top_score": 0.83555977,
+        "all_files": [
+          "ace/qdrant_retrieval.py",
+          "ace/semantic_scorer.py",
+          "ace/qdrant_retrieval.py",
+          "scripts/debug_dense_vs_hybrid.py",
+          "ace/async_retrieval.py"
+        ],
+        "all_scores": [
+          0.83555977,
+          0.7328822500000001,
+          0.6411547,
+          0.6275005,
+          0.61680826
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "sparse vector BM25 term frequency hashing",
+        "top_file": "ace/hyde_retrieval.py",
+        "top_score": 0.8202765000000001,
+        "all_files": [
+          "ace/hyde_retrieval.py",
+          "ace/unified_memory.py",
+          "ace/retrieval_optimized.py",
+          "ace/qdrant_retrieval.py",
+          "ace/retrieval_presets.py"
+        ],
+        "all_scores": [
+          0.8202765000000001,
+          0.7770184,
+          0.7444430499999999,
+          0.7243364999999999,
+          0.67052674
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "file watcher daemon monitor changes filesystem",
+        "top_file": "ace/file_watcher_daemon.py",
+        "top_score": 1.1354367,
+        "all_files": [
+          "ace/file_watcher_daemon.py",
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          1.1354367,
+          0.6991262,
+          0.60023143,
+          0.56330185,
+          0.46681637
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "UnifiedMemoryIndex store method implementation",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.81817555,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/qdrant_retrieval.py",
+          "ace/qdrant_retrieval.py",
+          "ace/retrieval.py"
+        ],
+        "all_scores": [
+          0.81817555,
+          0.79644794,
+          0.53014195,
+          0.5173484,
+          0.40042994
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "_apply_filename_boost function scoring",
+        "top_file": "ace/code_retrieval.py",
+        "top_score": 0.7739749,
+        "all_files": [
+          "ace/code_retrieval.py",
+          "ace/retrieval.py",
+          "debug_doc_ranking.py",
+          "debug_docs.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          0.7739749,
+          0.4584673,
+          0.40820736,
+          0.40268373,
+          0.39870557
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "expand_query method synonyms expansion",
+        "top_file": "ace/code_retrieval.py",
+        "top_score": 0.6686734,
+        "all_files": [
+          "ace/code_retrieval.py",
+          "ace/retrieval_presets.py",
+          "rag_training/optimizations/v3_bge_reranker.py",
+          "ace/retrieval_optimized.py",
+          "rag_training/optimizations/v2_query_expansion.py"
+        ],
+        "all_scores": [
+          0.6686734,
+          0.659151,
+          0.6329316,
+          0.60840344,
+          0.5931578
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "create_sparse_vector BM25 implementation",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.68841114,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/hyde_retrieval.py",
+          "ace/retrieval_optimized.py",
+          "ace/retrieval_presets.py",
+          "ace/qdrant_retrieval.py"
+        ],
+        "all_scores": [
+          0.68841114,
+          0.5809853,
+          0.50260735,
+          0.50144005,
+          0.5005955
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "AsyncCodeRetrieval async search method",
+        "top_file": "auggie_query.json",
+        "top_score": 0.8223285,
+        "all_files": [
+          "auggie_query.json",
+          "ace/unified_memory.py",
+          "compare_auggie_ace.py",
+          "ace/code_retrieval.py",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.8223285,
+          0.7835243,
+          0.7329102999999999,
+          0.59787625,
+          0.549533
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "normalize_scores method score normalization",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.40321988,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/gpu_reranker.py",
+          "ace_vs_auggie_headtohead.py",
+          "ace/retrieval_presets.py",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.40321988,
+          0.37619203,
+          0.37442273,
+          0.37102696,
+          0.36951602
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "parse_code method AST parsing Python",
+        "top_file": "ace/code_chunker.py",
+        "top_score": 0.6905311000000001,
+        "all_files": [
+          "ace/code_chunker.py",
+          "ace/code_analysis.py",
+          "ace/code_indexer.py",
+          "ace/dependency_graph.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          0.6905311000000001,
+          0.5502946,
+          0.5115533,
+          0.50131714,
+          0.46521157
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "embed_text method embedding generation",
+        "top_file": "ace/hyde_retrieval.py",
+        "top_score": 0.6486045,
+        "all_files": [
+          "ace/hyde_retrieval.py",
+          "ace/gemini_embeddings.py",
+          "ace/openai_embeddings.py",
+          "ace/qdrant_retrieval.py",
+          "ace/async_retrieval.py"
+        ],
+        "all_scores": [
+          0.6486045,
+          0.6314223,
+          0.58359206,
+          0.5288092,
+          0.52616453
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "index_bullet method unified memory storage",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 1.0607337000000001,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/qdrant_retrieval.py",
+          "ace/retrieval.py"
+        ],
+        "all_scores": [
+          1.0607337000000001,
+          0.98646224,
+          0.9339600800000001,
+          0.7190609,
+          0.6814474399999999
+        ]
+      },
+      {
+        "category": "Code",
+        "query": "retrieve method Qdrant vector search",
+        "top_file": "ace/qdrant_retrieval.py",
+        "top_score": 0.8904885,
+        "all_files": [
+          "ace/qdrant_retrieval.py",
+          "ace/code_retrieval.py",
+          "ace/config.py",
+          "ace/qdrant_retrieval.py",
+          "benchmark_results/quality_comparison_20260103_024738.json"
+        ],
+        "all_scores": [
+          0.8904885,
+          0.8714377,
+          0.7237044,
+          0.71390175,
+          0.7128582
+        ]
+      }
+    ],
+    "Config": [
+      {
+        "category": "Config",
+        "query": "EmbeddingConfig class voyage openai model settings",
+        "top_file": "ace/config.py",
+        "top_score": 1.1593681999999998,
+        "all_files": [
+          "ace/config.py",
+          "ace/openai_embeddings.py",
+          "ace/gemini_embeddings.py",
+          "ace/embedding_finetuning/models/ace_finetuned/1_Pooling/config.json",
+          "rag_training/scripts/reindex_with_openai.py"
+        ],
+        "all_scores": [
+          1.1593681999999998,
+          0.61224043,
+          0.5617629,
+          0.41914359999999995,
+          0.38105199999999995
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "QdrantConfig collection vector database settings",
+        "top_file": "ace/config.py",
+        "top_score": 1.1329414,
+        "all_files": [
+          "ace/config.py",
+          "rag_training/optimization_results/hybrid_weight_tests.json",
+          "ace/qdrant_retrieval.py",
+          "ace/code_indexer.py",
+          "ace/scaling.py"
+        ],
+        "all_scores": [
+          1.1329414,
+          0.65057874,
+          0.6151123000000001,
+          0.6116059,
+          0.56408435
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "LLMConfig provider API key model configuration",
+        "top_file": "ace/config.py",
+        "top_score": 0.87127923,
+        "all_files": [
+          "ace/config.py",
+          "ace/llm_providers/litellm_client.py",
+          "ace/config.py",
+          "ace/llm.py",
+          "ace/llm_providers/langchain_client.py"
+        ],
+        "all_scores": [
+          0.87127923,
+          0.7775759,
+          0.58503448,
+          0.51143783,
+          0.48081145
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "BM25_K1 BM25_B constants sparse vector tuning",
+        "top_file": "ace/retrieval_optimized.py",
+        "top_score": 0.75168835,
+        "all_files": [
+          "ace/retrieval_optimized.py",
+          "ace/hyde_retrieval.py",
+          "ace/unified_memory.py",
+          "ace/qdrant_retrieval.py",
+          "ace/async_retrieval.py"
+        ],
+        "all_scores": [
+          0.75168835,
+          0.72284076,
+          0.72256265,
+          0.70059644,
+          0.6953954
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "environment variable dotenv configuration loading",
+        "top_file": "ace/config.py",
+        "top_score": 0.777507,
+        "all_files": [
+          "ace/config.py",
+          "ace/config.py",
+          "verify_setup.py",
+          "ace/pattern_detector.py",
+          "ace/context_injector.py"
+        ],
+        "all_scores": [
+          0.777507,
+          0.6345986,
+          0.5551990499999999,
+          0.54864495,
+          0.5483785800000001
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "rate limit API throttling requests per second",
+        "top_file": "ace/retrieval_optimized.py",
+        "top_score": 0.61293017,
+        "all_files": [
+          "ace/retrieval_optimized.py",
+          "benchmarks/benchmark_reranking.py",
+          "ace/resilience.py",
+          ".claude/settings.json",
+          "ace/caching.py"
+        ],
+        "all_scores": [
+          0.61293017,
+          0.4770067,
+          0.46763378,
+          0.46279377,
+          0.46177813
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "vector dimension size 1024 768 embedding model",
+        "top_file": "ace/gemini_embeddings.py",
+        "top_score": 0.7822490500000001,
+        "all_files": [
+          "ace/gemini_embeddings.py",
+          "ace/openai_embeddings.py",
+          "ace/config.py",
+          "ace/code_retrieval.py",
+          "ace/qdrant_retrieval.py"
+        ],
+        "all_scores": [
+          0.7822490500000001,
+          0.7755662000000001,
+          0.7122938999999999,
+          0.6486670299999999,
+          0.64267268
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "batch size chunk processing embedding queue",
+        "top_file": "ace/gemini_embeddings.py",
+        "top_score": 0.7188504499999999,
+        "all_files": [
+          "ace/gemini_embeddings.py",
+          "ace/openai_embeddings.py",
+          "ace/async_adaptation.py",
+          "scripts/reembed_unified_memories.py",
+          "ace/embedding_finetuning/finetune_embeddings.py"
+        ],
+        "all_scores": [
+          0.7188504499999999,
+          0.7042686,
+          0.5866006500000001,
+          0.52671957,
+          0.5093948
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "collection name workspace code context identifier",
+        "top_file": ".ace/.ace.json",
+        "top_score": 0.698287,
+        "all_files": [
+          ".ace/.ace.json",
+          "ace_mcp_server.py",
+          "ace_mcp_server.py",
+          "ace/code_indexer.py",
+          "debug_blended.py"
+        ],
+        "all_scores": [
+          0.698287,
+          0.68858647,
+          0.6859702000000001,
+          0.67390858,
+          0.6662309399999999
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "reranker model BGE cross encoder path",
+        "top_file": "ace/reranker.py",
+        "top_score": 0.85634334,
+        "all_files": [
+          "ace/reranker.py",
+          "ace/gpu_reranker.py",
+          "rag_training/optimizations/v3_bge_reranker.py",
+          "rag_training/training_data/finetune_crossencoder.py",
+          "rag_training/optimizations/v3_bge_reranker.py"
+        ],
+        "all_scores": [
+          0.85634334,
+          0.85051126,
+          0.6929742,
+          0.67054623,
+          0.6262219
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "VOYAGE_API_KEY environment variable setup",
+        "top_file": "ace/config.py",
+        "top_score": 0.61301407,
+        "all_files": [
+          "ace/config.py",
+          "ace/llm_providers/litellm_client.py",
+          "verify_setup.py",
+          "ace/integrations/litellm.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          0.61301407,
+          0.59015458,
+          0.5477022,
+          0.53349214,
+          0.4966361
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "Qdrant localhost port 6333 connection",
+        "top_file": "ace/qdrant_retrieval.py",
+        "top_score": 0.6123656500000001,
+        "all_files": [
+          "ace/qdrant_retrieval.py",
+          "ace/scaling.py",
+          "ace/config.py",
+          "ace/observability/health.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          0.6123656500000001,
+          0.5005620000000001,
+          0.4713394,
+          0.46549139999999994,
+          0.44574722999999994
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "top_k limit search results maximum",
+        "top_file": "benchmark_results/quality_comparison_20260103_024857.json",
+        "top_score": 0.55992246,
+        "all_files": [
+          "benchmark_results/quality_comparison_20260103_024857.json",
+          "benchmark_results/quality_comparison_20260103_024738.json",
+          "benchmark_results/quality_comparison_20260103_024645.json",
+          "benchmark_results/quality_comparison_20260103_024506.json",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.55992246,
+          0.5543831,
+          0.54125607,
+          0.52519304,
+          0.50783074
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "cache TTL expiration time seconds",
+        "top_file": "ace/retrieval_caching.py",
+        "top_score": 0.71650546,
+        "all_files": [
+          "ace/retrieval_caching.py",
+          "ace/caching.py",
+          "ace/session_tracking.py",
+          ".claude/settings.json",
+          "ace/resilience.py"
+        ],
+        "all_scores": [
+          0.71650546,
+          0.5602335,
+          0.48457715,
+          0.47743654,
+          0.43045688
+        ]
+      },
+      {
+        "category": "Config",
+        "query": "chunk_size max_tokens code splitting",
+        "top_file": "ace/code_chunker.py",
+        "top_score": 0.64079154,
+        "all_files": [
+          "ace/code_chunker.py",
+          "ace/code_indexer.py",
+          "ace/code_retrieval.py",
+          "ace/code_chunker.py",
+          "ace/gemini_embeddings.py"
+        ],
+        "all_scores": [
+          0.64079154,
+          0.5604218,
+          0.54558253,
+          0.541819,
+          0.5144609
+        ]
+      }
+    ],
+    "Arch": [
+      {
+        "category": "Arch",
+        "query": "Generator Reflector Curator architecture pattern",
+        "top_file": "ace/roles.py",
+        "top_score": 0.6928064300000001,
+        "all_files": [
+          "ace/roles.py",
+          "ace/roles.py",
+          "ace/prompts.py",
+          "ace/chain_of_verification.py",
+          "ace/structured_enhancer.py"
+        ],
+        "all_scores": [
+          0.6928064300000001,
+          0.6703298799999999,
+          0.39814881999999996,
+          0.394621,
+          0.38988978
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "unified memory retrieval storage architecture",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 1.1023829,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          1.1023829,
+          1.05986124,
+          1.0187104,
+          0.96056533,
+          0.9356898
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "playbook bullet strategy learning system",
+        "top_file": "ace/playbook.py",
+        "top_score": 0.7348598,
+        "all_files": [
+          "ace/playbook.py",
+          "tenant_data/tenant-x/playbook_x.json",
+          "tenant_data/tenant-create/new_playbook.json",
+          "tenant_data/tenant-secure/secure_playbook.json",
+          "ace/prompts_v2_1.py"
+        ],
+        "all_scores": [
+          0.7348598,
+          0.7052411999999999,
+          0.70473666,
+          0.7043010999999999,
+          0.6909924999999999
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "tenant isolation namespace collection multitenancy",
+        "top_file": "ace/multitenancy.py",
+        "top_score": 1.0185588,
+        "all_files": [
+          "ace/multitenancy.py",
+          "ace/scaling.py",
+          "ace/unified_memory.py",
+          "ace/observability/metrics.py",
+          ".ace/.ace.json"
+        ],
+        "all_scores": [
+          1.0185588,
+          0.70172923,
+          0.49910456,
+          0.49546656,
+          0.46628287
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "caching layer retrieval performance TTL",
+        "top_file": "ace/retrieval_caching.py",
+        "top_score": 1.0842615,
+        "all_files": [
+          "ace/retrieval_caching.py",
+          "ace/retrieval_optimized.py",
+          "ace/hyde_retrieval.py",
+          "ace/retrieval_presets.py",
+          "ace/caching.py"
+        ],
+        "all_scores": [
+          1.0842615,
+          0.62520577,
+          0.58964218,
+          0.5791257000000001,
+          0.5466331
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "HyDE hypothetical document embeddings expansion",
+        "top_file": "ace/hyde.py",
+        "top_score": 1.08468736,
+        "all_files": [
+          "ace/hyde.py",
+          "ace/hyde_retrieval.py",
+          "ace/gemini_embeddings.py",
+          "ace/openai_embeddings.py",
+          "rag_training/optimizations/v6_hyde.py"
+        ],
+        "all_scores": [
+          1.08468736,
+          1.0752544,
+          0.7526971,
+          0.74264694,
+          0.66287804
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "observability tracing metrics opik monitoring",
+        "top_file": "ace/observability/opik_integration.py",
+        "top_score": 0.9643104,
+        "all_files": [
+          "ace/observability/opik_integration.py",
+          "ace/observability/__init__.py",
+          "ace/observability/tracers.py",
+          "ace/observability/tracing.py",
+          "ace/observability/metrics.py"
+        ],
+        "all_scores": [
+          0.9643104,
+          0.7034473000000001,
+          0.6457029000000001,
+          0.5982627,
+          0.5979505
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "bullet enrichment LLM context enhancement",
+        "top_file": "ace/enrichment.py",
+        "top_score": 1.1208577,
+        "all_files": [
+          "ace/enrichment.py",
+          "ace/code_enrichment.py",
+          "ace/playbook.py",
+          "ace/retrieval.py",
+          "ace/async_retrieval.py"
+        ],
+        "all_scores": [
+          1.1208577,
+          0.9788672,
+          0.66923296,
+          0.6005285,
+          0.58670604
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "delta operation batch update playbook system",
+        "top_file": "ace/delta.py",
+        "top_score": 0.8809191,
+        "all_files": [
+          "ace/delta.py",
+          "ace/playbook.py",
+          "ace/roles.py",
+          "ace/playbook.py",
+          "ace/playbook.py"
+        ],
+        "all_scores": [
+          0.8809191,
+          0.6972691,
+          0.6055701,
+          0.5897348600000001,
+          0.5411270699999999
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "intent classification query routing semantic",
+        "top_file": "ace/query_enhancer.py",
+        "top_score": 0.9318087,
+        "all_files": [
+          "ace/query_enhancer.py",
+          "ace/structured_enhancer.py",
+          "ace/query_features.py",
+          "ace/semantic_scorer.py",
+          "ace/query_preprocessor.py"
+        ],
+        "all_scores": [
+          0.9318087,
+          0.7453486,
+          0.7342717999999999,
+          0.67591338,
+          0.66079254
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "hybrid search dense sparse fusion ranking",
+        "top_file": "ace/qdrant_retrieval.py",
+        "top_score": 0.768346,
+        "all_files": [
+          "ace/qdrant_retrieval.py",
+          "ace/unified_memory.py",
+          "ace/retrieval_optimized.py",
+          "ace/hyde_retrieval.py",
+          "benchmark_results/quality_comparison_20260103_024738.json"
+        ],
+        "all_scores": [
+          0.768346,
+          0.75918245,
+          0.75784224,
+          0.7413631,
+          0.7404027499999999
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "code analysis dependency graph import tree",
+        "top_file": "ace/dependency_graph.py",
+        "top_score": 1.2350286000000001,
+        "all_files": [
+          "ace/dependency_graph.py",
+          "ace/code_analysis.py",
+          "ace/code_chunker.py",
+          "ace/code_enrichment.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          1.2350286000000001,
+          0.9300026,
+          0.6919378599999999,
+          0.5151876,
+          0.49377993
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "chunk context expansion surrounding lines",
+        "top_file": "ace/code_chunker.py",
+        "top_score": 0.6706539499999999,
+        "all_files": [
+          "ace/code_chunker.py",
+          "check_chunks.py",
+          "ace/code_retrieval.py",
+          "ace/structured_enhancer.py",
+          "check_playbook.py"
+        ],
+        "all_scores": [
+          0.6706539499999999,
+          0.64881192,
+          0.57425237,
+          0.5696781799999999,
+          0.5027158
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "pattern detection code smell antipattern",
+        "top_file": "ace/pattern_detector.py",
+        "top_score": 0.7122467,
+        "all_files": [
+          "ace/pattern_detector.py",
+          "rag_training/memory_inventory.json",
+          "ace/embedding_finetuning/training_data.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "ace/embedding_finetuning/training_data.json"
+        ],
+        "all_scores": [
+          0.7122467,
+          0.39790245999999996,
+          0.39431443999999993,
+          0.3939245,
+          0.3930663999999999
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "quality feedback loop learning adaptation",
+        "top_file": "ace/quality_feedback.py",
+        "top_score": 1.12085855,
+        "all_files": [
+          "ace/quality_feedback.py",
+          "ace/adaptation.py",
+          "ace/async_adaptation.py",
+          "ace/retrieval_bandit.py",
+          "ace/unified_memory.py"
+        ],
+        "all_scores": [
+          1.12085855,
+          0.7566513500000001,
+          0.7294695,
+          0.7058112999999999,
+          0.67696386
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "semantic deduplication similarity threshold",
+        "top_file": "ace/semantic_scorer.py",
+        "top_score": 0.7930419,
+        "all_files": [
+          "ace/semantic_scorer.py",
+          "ace/retrieval.py",
+          "ace/retrieval_presets.py",
+          "ace/deduplication.py",
+          "scripts/optimize_threshold.py"
+        ],
+        "all_scores": [
+          0.7930419,
+          0.7249604999999999,
+          0.7083893299999999,
+          0.5621992,
+          0.549011
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "async retrieval concurrent embedding calls",
+        "top_file": "ace/async_retrieval.py",
+        "top_score": 1.0901683599999998,
+        "all_files": [
+          "ace/async_retrieval.py",
+          "ace/gemini_embeddings.py",
+          "ace/retrieval_caching.py",
+          "ace/hyde_retrieval.py",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          1.0901683599999998,
+          0.8059997999999999,
+          0.7569094999999999,
+          0.7465192,
+          0.7286106000000001
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "GPU reranker batch processing CUDA",
+        "top_file": "ace/hyde.py",
+        "top_score": 0.56889498,
+        "all_files": [
+          "ace/hyde.py",
+          "ace/gpu_reranker.py",
+          "ace/reranker.py",
+          "ace/retrieval_optimized.py",
+          "ace/retrieval_bandit.py"
+        ],
+        "all_scores": [
+          0.56889498,
+          0.5567204,
+          0.47718984,
+          0.46056604,
+          0.45514143
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "query enhancement reformulation expansion",
+        "top_file": "ace/query_enhancer.py",
+        "top_score": 0.8378912000000001,
+        "all_files": [
+          "ace/query_enhancer.py",
+          "ace/structured_enhancer.py",
+          "ace/config.py",
+          "ace/structured_enhancer.py",
+          "rag_training/optimizations/v2_query_expansion.py"
+        ],
+        "all_scores": [
+          0.8378912000000001,
+          0.71943574,
+          0.6663256200000001,
+          0.66288321,
+          0.6402937
+        ]
+      },
+      {
+        "category": "Arch",
+        "query": "file change delta incremental indexing",
+        "top_file": "ace/code_indexer.py",
+        "top_score": 0.7271767,
+        "all_files": [
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/code_indexer.py",
+          "ace/file_watcher_daemon.py",
+          "ace/delta.py"
+        ],
+        "all_scores": [
+          0.7271767,
+          0.6707091599999999,
+          0.4988483,
+          0.49635887,
+          0.48908383
+        ]
+      }
+    ],
+    "Docs": [
+      {
+        "category": "Docs",
+        "query": "quick start guide installation setup tutorial",
+        "top_file": "docs/SETUP_GUIDE.md",
+        "top_score": 0.89305756,
+        "all_files": [
+          "docs/SETUP_GUIDE.md",
+          "docs/COMPLETE_GUIDE_TO_ACE.md",
+          "docs/QUICK_START.md",
+          "QUICKSTART_CLAUDE_CODE.md",
+          "examples/browser-use/form-filler/task2_form.txt"
+        ],
+        "all_scores": [
+          0.89305756,
+          0.7802218599999999,
+          0.6826183,
+          0.6615024,
+          0.6574316
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "API reference documentation endpoints methods",
+        "top_file": "docs/MCP_INTEGRATION.md",
+        "top_score": 0.61774507,
+        "all_files": [
+          "docs/MCP_INTEGRATION.md",
+          "ace/code_retrieval.py",
+          "docs/API_REFERENCE.md",
+          "docs/CLAUDE_CODE_ACE_INTEGRATION.md",
+          "rag_training/MEMORY_ANALYSIS.md"
+        ],
+        "all_scores": [
+          0.61774507,
+          0.57187804,
+          0.56025674,
+          0.55477222,
+          0.5497652
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "MCP server integration copilot claude setup",
+        "top_file": "ace_mcp_server.py",
+        "top_score": 1.0286077,
+        "all_files": [
+          "ace_mcp_server.py",
+          "ace_mcp_server.py",
+          "debug_blended.py",
+          "claude_with_ace.py",
+          "rag_training/training_data/crossencoder_training_pairs.json"
+        ],
+        "all_scores": [
+          1.0286077,
+          0.8388135999999999,
+          0.59721225,
+          0.44603223,
+          0.4005261
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "architecture design system overview diagram",
+        "top_file": "benchmark_results/quality_comparison_20260103_024645.json",
+        "top_score": 0.41807663,
+        "all_files": [
+          "benchmark_results/quality_comparison_20260103_024645.json",
+          "rag_training/optimization_results/hybrid_weight_tests.json",
+          "ace/unified_memory.py",
+          ".claude/settings.json",
+          "benchmark_results/quality_comparison_20260103_024738.json"
+        ],
+        "all_scores": [
+          0.41807663,
+          0.4166038,
+          0.4163608,
+          0.41486853,
+          0.41348493
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "configuration guide environment variables",
+        "top_file": "ace/config.py",
+        "top_score": 0.69363227,
+        "all_files": [
+          "ace/config.py",
+          "verify_setup.py",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json"
+        ],
+        "all_scores": [
+          0.69363227,
+          0.5854306,
+          0.54956496,
+          0.51745456,
+          0.5078335
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "prompts generator reflector curator templates",
+        "top_file": "ace/prompts.py",
+        "top_score": 0.8891374599999999,
+        "all_files": [
+          "ace/prompts.py",
+          "ace/prompts_v2_2.py",
+          "ace/prompts_v2.py",
+          "ace/prompts_v2_1.py",
+          "ace/chain_of_verification.py"
+        ],
+        "all_scores": [
+          0.8891374599999999,
+          0.8466948400000001,
+          0.8185762000000001,
+          0.7842197500000001,
+          0.6354096
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "retrieval precision optimization tuning guide",
+        "top_file": "ace/retrieval_presets.py",
+        "top_score": 0.8867797399999999,
+        "all_files": [
+          "ace/retrieval_presets.py",
+          "benchmark_results/precision_baseline_20251215_092237.json",
+          "benchmark_results/precision_baseline_20251215_091430.json",
+          "benchmark_results/precision_baseline_20251215_092040.json",
+          "benchmark_results/precision_baseline_20251215_090907.json"
+        ],
+        "all_scores": [
+          0.8867797399999999,
+          0.84913327,
+          0.8480003600000001,
+          0.8466289,
+          0.8464264400000001
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "integration guide framework agent workflow",
+        "top_file": "ace/integrations/base.py",
+        "top_score": 0.6714088,
+        "all_files": [
+          "ace/integrations/base.py",
+          "ace/observability/opik_integration.py",
+          "tests/integrations/__init__.py",
+          "examples/custom_integration_example.py",
+          "ace/integrations/browser_use.py"
+        ],
+        "all_scores": [
+          0.6714088,
+          0.64387168,
+          0.5865329,
+          0.54430115,
+          0.5194335
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "golden rules best practices guidelines",
+        "top_file": "benchmarks/data/sample_playbook.json",
+        "top_score": 0.5659951,
+        "all_files": [
+          "benchmarks/data/sample_playbook.json",
+          "benchmarks/data/sample_playbook.json",
+          "ace/embedding_finetuning/training_data.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json"
+        ],
+        "all_scores": [
+          0.5659951,
+          0.5592687,
+          0.55625,
+          0.5540943,
+          0.552738
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "changelog version history release notes",
+        "top_file": "CHANGELOG.md",
+        "top_score": 0.8753634499999999,
+        "all_files": [
+          "CHANGELOG.md",
+          "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+          "ace/unified_memory.py",
+          "docs/PROMPTS.md",
+          "rag_training/OPTIMIZATION_LOG.md"
+        ],
+        "all_scores": [
+          0.8753634499999999,
+          0.59736612,
+          0.59337675,
+          0.58596536,
+          0.5844073
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "contributing guidelines pull request workflow",
+        "top_file": "CONTRIBUTING.md",
+        "top_score": 0.89114556,
+        "all_files": [
+          "CONTRIBUTING.md",
+          "docs/PROMPT_ENGINEERING.md",
+          "benchmarks/ACE_RETRIEVAL_BENCHMARK.md",
+          "ace/prompts.py",
+          "ace/embedding_finetuning/training_data.json"
+        ],
+        "all_scores": [
+          0.89114556,
+          0.6852335,
+          0.63247802,
+          0.46544763,
+          0.38297377
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "Claude Code integration MCP setup instructions",
+        "top_file": "claude_with_ace.py",
+        "top_score": 0.5317066,
+        "all_files": [
+          "claude_with_ace.py",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json"
+        ],
+        "all_scores": [
+          0.5317066,
+          0.4659533,
+          0.41370822,
+          0.41186053,
+          0.39012097
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "VSCode integration tasks launch json",
+        "top_file": "examples/custom_integration_example.py",
+        "top_score": 0.4266829,
+        "all_files": [
+          "examples/custom_integration_example.py",
+          "auggie_query.json",
+          ".ace/.ace.json",
+          "claude_with_ace.py",
+          "benchmarks/tasks/appworld.yaml"
+        ],
+        "all_scores": [
+          0.4266829,
+          0.35953577,
+          0.3585098,
+          0.33486274000000005,
+          0.33013382999999996
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "deduplication strategy overlapping results",
+        "top_file": "ace/deduplication.py",
+        "top_score": 0.74327977,
+        "all_files": [
+          "ace/deduplication.py",
+          "ace/code_retrieval.py",
+          "ace/deduplication.py",
+          "ace/code_retrieval.py",
+          "ace/deduplication.py"
+        ],
+        "all_scores": [
+          0.74327977,
+          0.65100163,
+          0.6452742300000001,
+          0.5209143,
+          0.518381
+        ]
+      },
+      {
+        "category": "Docs",
+        "query": "typo correction system learned patterns",
+        "top_file": "ace/typo_correction.py",
+        "top_score": 1.1072552,
+        "all_files": [
+          "ace/typo_correction.py",
+          "tenant_data/learned_typos.json",
+          "cleanup_and_validate_learned_typos.py",
+          "ace/query_preprocessor.py",
+          "TYPO_CORRECTION_FIXES_SUMMARY.md"
+        ],
+        "all_scores": [
+          1.1072552,
+          1.087203,
+          1.06376215,
+          0.5351722,
+          0.43463584999999993
+        ]
+      }
+    ],
+    "Edge": [
+      {
+        "category": "Edge",
+        "query": "async await asyncio concurrent retrieval gather",
+        "top_file": "ace/async_retrieval.py",
+        "top_score": 1.04079267,
+        "all_files": [
+          "ace/async_retrieval.py",
+          "ace/async_retrieval.py",
+          "ace/async_adaptation.py",
+          "ace/qdrant_retrieval.py",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          1.04079267,
+          0.97075876,
+          0.87106702,
+          0.67912917,
+          0.65758852
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "typing Optional List Dict Tuple dataclass",
+        "top_file": ".claude/settings.json",
+        "top_score": 0.43161458,
+        "all_files": [
+          ".claude/settings.json",
+          "ace/__init__.py",
+          "ace/unified_memory.py",
+          ".pre-commit-config.yaml",
+          "tenant_data/learned_typos.json"
+        ],
+        "all_scores": [
+          0.43161458,
+          0.4255487,
+          0.41774163,
+          0.4154238,
+          0.4135189
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "from qdrant_client import QdrantClient models",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.6652135,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "ace/deduplication.py",
+          "ace/hyde_retrieval.py",
+          "rag_training/training_data/generate_finetuning_pairs.py"
+        ],
+        "all_scores": [
+          0.6652135,
+          0.65950325,
+          0.6573878000000001,
+          0.6453209,
+          0.6423267
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "UnifiedMemoryIndex namespace hybrid search",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 1.0000250400000001,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/unified_memory.py",
+          "benchmark_results/quality_comparison_20260103_024738.json",
+          "scripts/debug_dense_vs_hybrid.py",
+          "scripts/diagnose_failed_queries.py"
+        ],
+        "all_scores": [
+          1.0000250400000001,
+          0.7823513,
+          0.7456889,
+          0.61035275,
+          0.60826063
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "Qdrant client not available error exception",
+        "top_file": "ace/llm_providers/litellm_client.py",
+        "top_score": 0.6633818300000001,
+        "all_files": [
+          "ace/llm_providers/litellm_client.py",
+          "ace/llm_providers/langchain_client.py",
+          "ace/code_indexer.py",
+          "ace/gpu_reranker.py",
+          "ace/scaling.py"
+        ],
+        "all_scores": [
+          0.6633818300000001,
+          0.64309598,
+          0.6164711,
+          0.6063849299999999,
+          0.59999177
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "dataclass field default_factory frozen slots",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.5118669,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/hyde.py",
+          "ace/retrieval_optimized.py",
+          "ace/caching.py",
+          "ace/code_retrieval.py"
+        ],
+        "all_scores": [
+          0.5118669,
+          0.51136523,
+          0.5020932,
+          0.49808767,
+          0.49670535
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "decorator functools wraps retry backoff",
+        "top_file": "ace/resilience.py",
+        "top_score": 0.5566344,
+        "all_files": [
+          "ace/resilience.py",
+          "ace/observability/tracers.py",
+          "ace/observability/metrics.py",
+          "ace/observability/opik_integration.py",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.5566344,
+          0.49153093,
+          0.46945998,
+          0.4594625,
+          0.45349848
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "context manager with statement async generator",
+        "top_file": "ace/async_retrieval.py",
+        "top_score": 0.84021032,
+        "all_files": [
+          "ace/async_retrieval.py",
+          "ace/async_adaptation.py",
+          "ace/multitenancy.py",
+          "ace/observability/metrics.py",
+          "ace/observability/tracing.py"
+        ],
+        "all_scores": [
+          0.84021032,
+          0.70032663,
+          0.59297013,
+          0.57632165,
+          0.56899314
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "lambda filter map list comprehension generator",
+        "top_file": ".claude/settings.json",
+        "top_score": 0.49389553,
+        "all_files": [
+          ".claude/settings.json",
+          "rag_training/test_suite/enhanced_test_suite.json",
+          "rag_training/test_suite/enhanced_test_suite.json",
+          "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+          "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+        ],
+        "all_scores": [
+          0.49389553,
+          0.32966012,
+          0.31396732000000005,
+          0.30925733,
+          0.30319735999999997
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "regex pattern re compile match search findall",
+        "top_file": "ace/unified_memory.py",
+        "top_score": 0.58617877,
+        "all_files": [
+          "ace/unified_memory.py",
+          "ace/query_features.py",
+          "debug_doc_ranking.py",
+          ".claude/settings.json",
+          "ace/query_enhancer.py"
+        ],
+        "all_scores": [
+          0.58617877,
+          0.5120428,
+          0.51155424,
+          0.49596214,
+          0.4819967
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "fibonacci.py error handling example",
+        "top_file": "fibonacci.py",
+        "top_score": 0.7013668,
+        "all_files": [
+          "fibonacci.py",
+          "analyze_false_positives.py",
+          "ace/prompts_v2.py",
+          "ace/resilience.py",
+          "ace/typo_correction.py"
+        ],
+        "all_scores": [
+          0.7013668,
+          0.59946033,
+          0.55343416,
+          0.44000322,
+          0.43089986
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "test_ace.py unit test pytest fixtures",
+        "top_file": "tests/integrations/__init__.py",
+        "top_score": 0.6110352,
+        "all_files": [
+          "tests/integrations/__init__.py",
+          "ace/__init__.py",
+          "ace/playbook.py",
+          "ace/audit.py",
+          "benchmark_ace_vs_auggie.py"
+        ],
+        "all_scores": [
+          0.6110352,
+          0.51511,
+          0.50701046,
+          0.5039971,
+          0.5030023
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "openai_embeddings.py API client wrapper",
+        "top_file": "ace/openai_embeddings.py",
+        "top_score": 0.98823204,
+        "all_files": [
+          "ace/openai_embeddings.py",
+          "ace/gemini_embeddings.py",
+          "ace/semantic_scorer.py",
+          "ace/qdrant_retrieval.py",
+          "ace/async_retrieval.py"
+        ],
+        "all_scores": [
+          0.98823204,
+          0.61609805,
+          0.56072223,
+          0.5476699,
+          0.53107667
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "gemini_embeddings.py Google AI integration",
+        "top_file": "ace/gemini_embeddings.py",
+        "top_score": 1.0165351999999999,
+        "all_files": [
+          "ace/gemini_embeddings.py",
+          "ace/gemini_embeddings.py",
+          "ace/semantic_scorer.py",
+          "ace/openai_embeddings.py",
+          "ace/config.py"
+        ],
+        "all_scores": [
+          1.0165351999999999,
+          0.58182,
+          0.58043855,
+          0.578895,
+          0.55225307
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "httpx async HTTP client requests timeout",
+        "top_file": "ace/async_retrieval.py",
+        "top_score": 0.7373004999999999,
+        "all_files": [
+          "ace/async_retrieval.py",
+          "ace/llm_providers/litellm_client.py",
+          "ace/gemini_embeddings.py",
+          "ace/openai_embeddings.py",
+          "ace/llm_providers/langchain_client.py"
+        ],
+        "all_scores": [
+          0.7373004999999999,
+          0.7141985,
+          0.6885405,
+          0.6879621,
+          0.6641171
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "json loads dumps serialization deserialization",
+        "top_file": "ace/delta.py",
+        "top_score": 0.49505118,
+        "all_files": [
+          "ace/delta.py",
+          "ace/audit.py",
+          "ace/unified_memory.py",
+          ".claude/settings.json",
+          "ace/playbook.py"
+        ],
+        "all_scores": [
+          0.49505118,
+          0.4911114,
+          0.48744503,
+          0.4807374,
+          0.4786012
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "pathlib Path resolve absolute path handling",
+        "top_file": "tests/compare_ace_auggie_dynamic.py",
+        "top_score": 0.42396632,
+        "all_files": [
+          "tests/compare_ace_auggie_dynamic.py",
+          "ace_vs_auggie_headtohead.py",
+          "ace/retrieval.py",
+          "ace/code_retrieval.py",
+          "ace/code_chunker.py"
+        ],
+        "all_scores": [
+          0.42396632,
+          0.41610573,
+          0.38731843,
+          0.3808893,
+          0.37952274
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "logging logger info debug warning error",
+        "top_file": "ace/audit.py",
+        "top_score": 0.529134,
+        "all_files": [
+          "ace/audit.py",
+          ".claude/settings.json",
+          "ace/observability/opik_integration.py",
+          "ace/observability/opik_integration.py",
+          "ace/typo_correction.py"
+        ],
+        "all_scores": [
+          0.529134,
+          0.4819575,
+          0.47324157,
+          0.4619533,
+          0.42829293
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "subprocess run Popen communicate shell",
+        "top_file": "verify_setup.py",
+        "top_score": 0.4058699,
+        "all_files": [
+          "verify_setup.py",
+          "benchmark_ace_vs_auggie.py",
+          "claude_with_ace.py",
+          "benchmark_ace_vs_auggie.py",
+          "compare_ace_auggie_headtohead.py"
+        ],
+        "all_scores": [
+          0.4058699,
+          0.39540327,
+          0.38312402,
+          0.37276623,
+          0.36776325
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "threading Thread Lock concurrent execution",
+        "top_file": "ace/async_adaptation.py",
+        "top_score": 0.44285756,
+        "all_files": [
+          "ace/async_adaptation.py",
+          ".claude/settings.json",
+          "ace/self_consistency.py",
+          "ace/async_adaptation.py",
+          "ace/llm.py"
+        ],
+        "all_scores": [
+          0.44285756,
+          0.43142295,
+          0.40829498,
+          0.40562326,
+          0.39887992
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "abc ABC abstractmethod interface pattern",
+        "top_file": "ace/llm.py",
+        "top_score": 0.5075216,
+        "all_files": [
+          "ace/llm.py",
+          "ace/adaptation.py",
+          "ace/adaptation.py",
+          ".claude/settings.json",
+          "ace/integrations/base.py"
+        ],
+        "all_scores": [
+          0.5075216,
+          0.47162467,
+          0.45468467,
+          0.4484144,
+          0.43364045
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "enum Enum IntEnum auto choices",
+        "top_file": "ace/retrieval_presets.py",
+        "top_score": 0.45452988,
+        "all_files": [
+          "ace/retrieval_presets.py",
+          "ace/structured_enhancer.py",
+          "ace/unified_memory.py",
+          "ace/retrieval.py",
+          "ace/__init__.py"
+        ],
+        "all_scores": [
+          0.45452988,
+          0.44169068,
+          0.44109172,
+          0.41824472,
+          0.41144264
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "hashlib sha256 md5 digest hexdigest",
+        "top_file": ".claude/settings.json",
+        "top_score": 0.47552872,
+        "all_files": [
+          ".claude/settings.json",
+          "ace/security.py",
+          "ace/hyde.py",
+          "ace/caching.py",
+          "ace/code_indexer.py"
+        ],
+        "all_scores": [
+          0.47552872,
+          0.4411252,
+          0.41303694,
+          0.41275102,
+          0.3982435
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "base64 encode decode b64encode urlsafe",
+        "top_file": ".claude/settings.json",
+        "top_score": 0.49090344,
+        "all_files": [
+          ".claude/settings.json",
+          "ace/security.py",
+          "ace/self_consistency.py",
+          "ace/hyde.py",
+          "tenant_data/learned_typos.json"
+        ],
+        "all_scores": [
+          0.49090344,
+          0.4820518,
+          0.4236827,
+          0.42239586,
+          0.41681325
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "datetime now strftime strptime timezone",
+        "top_file": ".claude/settings.json",
+        "top_score": 0.46418303,
+        "all_files": [
+          ".claude/settings.json",
+          "ace/audit.py",
+          "ace/security.py",
+          "ace/observability/health.py",
+          "ace/caching.py"
+        ],
+        "all_scores": [
+          0.46418303,
+          0.40541267,
+          0.4013325,
+          0.38877645,
+          0.38858026
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "pickle dump load serialization security",
+        "top_file": "ace/security.py",
+        "top_score": 0.46377808,
+        "all_files": [
+          "ace/security.py",
+          "ace/multitenancy.py",
+          "ace/playbook.py",
+          ".claude/settings.json",
+          "ace/typo_correction.py"
+        ],
+        "all_scores": [
+          0.46377808,
+          0.44014233,
+          0.43684655,
+          0.41156733,
+          0.41088492
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "sqlite3 connect cursor execute fetchall",
+        "top_file": "auggie_query.json",
+        "top_score": 0.4609771,
+        "all_files": [
+          "auggie_query.json",
+          "ace/code_retrieval.py",
+          "ace/retrieval.py",
+          ".claude/settings.json",
+          "ace/retrieval_optimized.py"
+        ],
+        "all_scores": [
+          0.4609771,
+          0.4574865,
+          0.45631492,
+          0.45396945,
+          0.43890795
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "yaml safe_load dump configuration file",
+        "top_file": "rag_training/training_data/crossencoder_training_pairs.json",
+        "top_score": 0.39531973,
+        "all_files": [
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "rag_training/training_data/crossencoder_training_pairs.json",
+          "ace/config.py",
+          "ace/playbook.py",
+          "rag_training/training_data/crossencoder_training_pairs.json"
+        ],
+        "all_scores": [
+          0.39531973,
+          0.3941698,
+          0.39282832,
+          0.37495986,
+          0.3697104
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "os.environ environment variable access",
+        "top_file": "ace/config.py",
+        "top_score": 0.6899506,
+        "all_files": [
+          "ace/config.py",
+          "verify_setup.py",
+          "ace/context_injector.py",
+          "ace/pattern_detector.py",
+          "ace_mcp_server.py"
+        ],
+        "all_scores": [
+          0.6899506,
+          0.61697047,
+          0.60597294,
+          0.5898732,
+          0.58334752
+        ]
+      },
+      {
+        "category": "Edge",
+        "query": "sys.path module import resolution",
+        "top_file": "ace/code_retrieval.py",
+        "top_score": 0.43816516,
+        "all_files": [
+          "ace/code_retrieval.py",
+          "ace/dependency_graph.py",
+          "ace/code_retrieval.py",
+          "debug_docs.py",
+          "ace_vs_auggie_headtohead.py"
+        ],
+        "all_scores": [
+          0.43816516,
+          0.43780407,
+          0.3975891,
+          0.3974477,
+          0.39313817
+        ]
+      }
+    ]
+  }
+}

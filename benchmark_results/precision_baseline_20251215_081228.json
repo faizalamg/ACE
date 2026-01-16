@@ -1,0 +1,120 @@
+{
+  "timestamp": "2025-12-15T08:12:28.695646",
+  "total_queries": 12,
+  "avg_precision": 0.7444444444444445,
+  "avg_latency_ms": 251.1944833289211,
+  "precision_by_category": {
+    "meta": 0.6,
+    "performance": 0.5333333333333333,
+    "architecture": 0.3333333333333333,
+    "preferences": 0.7333333333333333,
+    "error_handling": 0.9333333333333333,
+    "workflow": 1.0,
+    "debugging": 0.7333333333333333,
+    "integration": 0.8666666666666667,
+    "security": 0.4,
+    "strategy": 0.8,
+    "configuration": 1.0,
+    "testing": 1.0
+  },
+  "per_query_results": [
+    {
+      "query": "how is our system currently wired? qdrant option 2 with no l...",
+      "category": "architecture",
+      "precision": 0.3333333333333333,
+      "relevant": 5,
+      "retrieved": 15,
+      "latency_ms": 301.0383000364527
+    },
+    {
+      "query": "what are the default configuration settings for ACE?",
+      "category": "configuration",
+      "precision": 1.0,
+      "relevant": 15,
+      "retrieved": 15,
+      "latency_ms": 267.6742000039667
+    },
+    {
+      "query": "how should I handle errors in the retrieval system?",
+      "category": "error_handling",
+      "precision": 0.9333333333333333,
+      "relevant": 14,
+      "retrieved": 15,
+      "latency_ms": 251.03440007660538
+    },
+    {
+      "query": "what is the recommended workflow for updating documentation?",
+      "category": "workflow",
+      "precision": 1.0,
+      "relevant": 15,
+      "retrieved": 15,
+      "latency_ms": 243.71870001778007
+    },
+    {
+      "query": "how do the Claude Code hooks integrate with ACE memory?",
+      "category": "integration",
+      "precision": 0.8666666666666667,
+      "relevant": 13,
+      "retrieved": 15,
+      "latency_ms": 243.72559995390475
+    },
+    {
+      "query": "what tests should I run before deploying changes?",
+      "category": "testing",
+      "precision": 1.0,
+      "relevant": 15,
+      "retrieved": 15,
+      "latency_ms": 244.2647999851033
+    },
+    {
+      "query": "how can I improve retrieval performance and speed?",
+      "category": "performance",
+      "precision": 0.5333333333333333,
+      "relevant": 8,
+      "retrieved": 15,
+      "latency_ms": 237.38199996296316
+    },
+    {
+      "query": "what are my stored preferences for code style?",
+      "category": "preferences",
+      "precision": 0.7333333333333333,
+      "relevant": 11,
+      "retrieved": 15,
+      "latency_ms": 249.95930003933609
+    },
+    {
+      "query": "how do I debug issues with the embedding service?",
+      "category": "debugging",
+      "precision": 0.7333333333333333,
+      "relevant": 11,
+      "retrieved": 15,
+      "latency_ms": 239.908599993214
+    },
+    {
+      "query": "what security practices should I follow?",
+      "category": "security",
+      "precision": 0.4,
+      "relevant": 6,
+      "retrieved": 15,
+      "latency_ms": 243.52319992613047
+    },
+    {
+      "query": "what lessons have I learned from past mistakes?",
+      "category": "meta",
+      "precision": 0.6,
+      "relevant": 9,
+      "retrieved": 15,
+      "latency_ms": 238.0917000118643
+    },
+    {
+      "query": "what strategies work best for complex refactoring?",
+      "category": "strategy",
+      "precision": 0.8,
+      "relevant": 12,
+      "retrieved": 15,
+      "latency_ms": 254.01299993973225
+    }
+  ],
+  "improvement_name": "baseline",
+  "notes": ""
+}

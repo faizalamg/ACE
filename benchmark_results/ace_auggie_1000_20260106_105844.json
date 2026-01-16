@@ -1,0 +1,6582 @@
+{
+  "timestamp": "2026-01-06T10:58:44.385223",
+  "iterations": 1,
+  "total_queries": 250,
+  "stats": {
+    "ace_wins": 250,
+    "auggie_wins": 0,
+    "ties": 0,
+    "by_category": {
+      "ClassDefinitions": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "Configuration": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "ErrorHandling": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "ImportPatterns": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "DataStructures": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "AsyncPatterns": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "TestingPatterns": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "DocumentationPatterns": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "ArchitecturePatterns": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      },
+      "EdgeCases": {
+        "ace": 25,
+        "auggie": 0,
+        "tie": 0
+      }
+    },
+    "ace_win_rate": 100.0,
+    "auggie_win_rate": 0.0,
+    "tie_rate": 0.0,
+    "ace_superiority": 100.0
+  },
+  "results": [
+    {
+      "query": "CodeRetrieval class search method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "auggie_query.json",
+        "final_test.py",
+        "test_code_direct.py",
+        "test_blended.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6616688,
+        0.64921606,
+        0.58904207,
+        0.5659646,
+        0.56261814
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "UnifiedMemoryIndex class implementation",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "ace/unified_memory.py",
+        "tests/test_unified_memory.py",
+        "tests/test_search_qdrant_unified.py",
+        "tests/test_unified_only.py",
+        "tests/test_unified_memory.py"
+      ],
+      "ace_scores": [
+        0.6284302,
+        0.5959666,
+        0.5897053,
+        0.57545507,
+        0.57426465
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "ASTChunker class chunk method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "tests/test_code_chunker.py",
+        "ace/code_chunker.py",
+        "ace/code_chunker.py",
+        "tests/test_code_chunker.py",
+        "ace/code_chunker.py"
+      ],
+      "ace_scores": [
+        0.6254465,
+        0.5908313,
+        0.5875163,
+        0.58326507,
+        0.58083224
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "SmartBulletIndex retrieve method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_smart_bullet_index.py",
+        "tests/test_smart_bullet_index.py",
+        "ace/retrieval.py",
+        "tests/test_unified_retrieval.py",
+        "tests/test_retrieval_session.py"
+      ],
+      "ace_scores": [
+        0.6632627,
+        0.617241,
+        0.59030044,
+        0.56931895,
+        0.5691149
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Playbook class initialization",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/integrations/browser_use.py",
+        "tests/test_playbook.py",
+        "tests/test_replay_generator.py",
+        "tests/test_bullet_migration.py",
+        "tests/integrations/test_base.py"
+      ],
+      "ace_scores": [
+        0.5643716,
+        0.549021,
+        0.5222162,
+        0.52199674,
+        0.5203643
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "EmbeddingConfig dataclass definition",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "tests/test_embed_config.py",
+        "ace/config.py",
+        "ace/config.py",
+        "ace/embedding_finetuning/finetune_embeddings.py",
+        "ace/embedding_finetuning/finetune_embeddings.py"
+      ],
+      "ace_scores": [
+        0.60274744,
+        0.6018463,
+        0.5980787,
+        0.58156425,
+        0.5797892
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QdrantConfig class definition",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "ace/unified_memory.py",
+        "ace/qdrant_retrieval.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6137687,
+        0.57753134,
+        0.5742591,
+        0.56881595,
+        0.5655514
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BM25Config k1 b parameters",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "ace/retrieval_presets.py",
+        "ace/retrieval_presets.py",
+        "rag_training/optimizations/v3_bge_reranker.py"
+      ],
+      "ace_scores": [
+        0.6262362,
+        0.625469,
+        0.6190691,
+        0.6029177,
+        0.6016052
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "LLMConfig provider model settings",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/llm_providers/litellm_client.py",
+        "docs/SETUP_GUIDE.md",
+        "ace/llm_providers/litellm_client.py",
+        "ace/integrations/litellm.py",
+        "ace/llm_providers/litellm_client.py"
+      ],
+      "ace_scores": [
+        0.61997247,
+        0.59144795,
+        0.58782977,
+        0.56827796,
+        0.56382096
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "VoyageCodeEmbeddingConfig api_key",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "docs/CODE_EMBEDDING_CONFIG.md",
+        "ace/config.py",
+        "tests/test_embed_config.py",
+        "docs/CODE_EMBEDDING_CONFIG.md",
+        "test_voyage_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6366582,
+        0.6210621,
+        0.6034131,
+        0.60235095,
+        0.59273374
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CodeIndexer index_workspace method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/code_indexer.py",
+        "tests/test_code_indexer.py",
+        "tests/test_code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_scores": [
+        0.6102913,
+        0.6078445,
+        0.6022888,
+        0.59791327,
+        0.5959858
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "HyDEGenerator class generate",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/hyde.py"
+      ],
+      "ace_files": [
+        "tests/test_hyde.py",
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "tests/test_hyde.py",
+        "ace/hyde.py"
+      ],
+      "ace_scores": [
+        0.594826,
+        0.55465204,
+        0.52825606,
+        0.52682257,
+        0.52202266
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "SemanticScorer score method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/semantic_scorer.py"
+      ],
+      "ace_files": [
+        "ace/semantic_scorer.py",
+        "ace/semantic_scorer.py",
+        "tests/test_semantic_scoring.py",
+        "tests/test_semantic_scoring.py",
+        "tests/test_semantic_scoring.py"
+      ],
+      "ace_scores": [
+        0.6296104,
+        0.5722638,
+        0.5606957,
+        0.55735624,
+        0.5510583
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "FileWatcher callback handler",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/file_watcher_daemon.py"
+      ],
+      "ace_files": [
+        ".serena/memories/ace_file_watcher_daemon.md",
+        "tests/test_code_indexer.py",
+        "ace/code_indexer.py",
+        "ace/file_watcher_daemon.py",
+        "docs/MCP_INTEGRATION.md"
+      ],
+      "ace_scores": [
+        0.5427512,
+        0.52593434,
+        0.52110046,
+        0.5210866,
+        0.5121593
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CircuitBreaker is_open method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "tests/test_circuit_breaker.py",
+        "tests/test_circuit_breaker.py",
+        "ace/resilience.py"
+      ],
+      "ace_scores": [
+        0.57570523,
+        0.5653106,
+        0.5609126,
+        0.544376,
+        0.52222383
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "RetryPolicy execute method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "examples/browser-use/domain-checker/ace_domain_checker.py"
+      ],
+      "ace_scores": [
+        0.44686267,
+        0.43955743,
+        0.42679766,
+        0.4217596,
+        0.41513807
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CacheManager get set methods",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/caching.py"
+      ],
+      "ace_files": [
+        "tests/test_response_cache.py",
+        "tests/test_caching.py",
+        "tests/test_response_cache.py",
+        "ace/caching.py",
+        "tests/test_caching.py"
+      ],
+      "ace_scores": [
+        0.50997984,
+        0.5053446,
+        0.48526955,
+        0.4825826,
+        0.48239592
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "DependencyGraph build method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/dependency_graph.py"
+      ],
+      "ace_files": [
+        "tests/test_dependency_graph.py",
+        "ace/dependency_graph.py",
+        "tests/test_dependency_graph.py",
+        "ace/dependency_graph.py",
+        "ace/dependency_graph.py"
+      ],
+      "ace_scores": [
+        0.5113377,
+        0.49868715,
+        0.49594924,
+        0.48586726,
+        0.46609658
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QueryEnhancer expand method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/query_enhancer.py"
+      ],
+      "ace_files": [
+        "ace/query_enhancer.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "ace/query_enhancer.py",
+        "ace/structured_enhancer.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_scores": [
+        0.5555699,
+        0.53973734,
+        0.5313386,
+        0.52506053,
+        0.524086
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "GPUReranker rerank method",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/gpu_reranker.py",
+        "ace/reranker.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "rag_training/optimizations/v2_query_expansion.py",
+        "ace/gpu_reranker.py",
+        "tests/test_extended_quality.py",
+        "rag_training/optimizations/v1_cross_encoder_rerank.py"
+      ],
+      "ace_scores": [
+        0.57798076,
+        0.54549825,
+        0.5356347,
+        0.53152835,
+        0.5280981
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "@dataclass class Bullet",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/unified_memory.py",
+        "tests/test_enriched_bullet.py",
+        "ace/playbook.py",
+        "tests/test_confidence_decay.py",
+        "ace/enrichment.py"
+      ],
+      "ace_scores": [
+        0.5796615,
+        0.5792935,
+        0.57787305,
+        0.57665306,
+        0.5681175
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CodeChunk dataclass file_path",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_chunker.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/code_indexer.py",
+        "tests/test_code_indexer.py",
+        "tests/test_code_chunker.py",
+        "tests/test_code_indexer.py",
+        "ace/code_chunker.py"
+      ],
+      "ace_scores": [
+        0.60802096,
+        0.5901601,
+        0.5675189,
+        0.56157947,
+        0.56071085
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 2 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QueryResult score file_path",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "boosted_score_test.py",
+        "raw_score_test.py",
+        "ace/code_retrieval.py",
+        "ace_vs_auggie_headtohead.py",
+        "tests/test_cross_encoder.py"
+      ],
+      "ace_scores": [
+        0.560878,
+        0.55846465,
+        0.5283259,
+        0.52825725,
+        0.5184474
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "UnifiedBullet namespace content",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "tests/test_unified_retrieval.py",
+        "tests/test_unified_memory.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "tests/test_learn_feedback_hook.py"
+      ],
+      "ace_scores": [
+        0.58378744,
+        0.5528054,
+        0.5516494,
+        0.5513948,
+        0.54940367
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "RetrievalResult dataclass",
+      "category": "ClassDefinitions",
+      "expected_files": [
+        "ace/retrieval.py"
+      ],
+      "ace_files": [
+        "ace/retrieval_optimized.py",
+        "ace/retrieval.py",
+        "rag_training/test_framework.py",
+        "ace/code_retrieval.py",
+        "ace/retrieval.py"
+      ],
+      "ace_scores": [
+        0.69878703,
+        0.6490835,
+        0.6490459,
+        0.6431298,
+        0.6406847
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "environment variable dotenv",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/config.py"
+      ],
+      "ace_scores": [
+        0.5714666,
+        0.5292492,
+        0.5216185,
+        0.51193094,
+        0.5046259
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "API_KEY environment variable",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "examples/zai_custom_client.py",
+        "test_zai_corrected.py",
+        "ace/security.py",
+        "tests/test_roles.py",
+        "scripts/benchmark_real_prompts.py"
+      ],
+      "ace_scores": [
+        0.5821656,
+        0.52797,
+        0.5085575,
+        0.50793326,
+        0.5072323
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QDRANT_URL connection string",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/baseline_test.py",
+        "test_code_retrieval_direct.py",
+        "rag_training/baseline_test.py",
+        "rag_training/test_framework.py",
+        "rag_training/run_baseline_evaluation.py"
+      ],
+      "ace_scores": [
+        0.71258396,
+        0.67661095,
+        0.6725679,
+        0.6691996,
+        0.66633296
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "VOYAGE_API_KEY config",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "docs/CODE_EMBEDDING_CONFIG.md",
+        "ace/config.py",
+        "test_voyage_retrieval.py",
+        "tests/test_embed_config.py",
+        "docs/CODE_EMBEDDING_CONFIG.md"
+      ],
+      "ace_scores": [
+        0.5347693,
+        0.5269848,
+        0.50936407,
+        0.45848098,
+        0.45148653
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "OPENAI_API_KEY config",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "examples/zai_custom_client.py",
+        "ace/openai_embeddings.py",
+        ".serena/memories/zai_glm_api_config.md",
+        "test_zai_corrected.py",
+        "ace/config.py"
+      ],
+      "ace_scores": [
+        0.62494755,
+        0.59706306,
+        0.5940084,
+        0.5845897,
+        0.5721381
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "MODEL_NAME configuration",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".serena/memories/ccproxy_matchmodelrule_substring.md",
+        "ace/llm_providers/litellm_client.py",
+        "tests/test_embed_config.py",
+        "test_zai_working.py",
+        "ace/embedding_finetuning/models/ace_finetuned/modules.json"
+      ],
+      "ace_scores": [
+        0.49397978,
+        0.4844703,
+        0.47927815,
+        0.4784684,
+        0.47828832
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "EMBEDDING_DIMENSION size",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/embedding_finetuning/models/ace_finetuned/1_Pooling/config.json",
+        "ace/embedding_finetuning/finetune_embeddings.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        0.5946801,
+        0.58597505,
+        0.579954,
+        0.56703997,
+        0.56505376
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "MAX_TOKENS limit",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/FAILURE_ANALYSIS.md",
+        "docs/CLAUDE_CODE_ACE_INTEGRATION.md",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "rag_training/scripts/diagnose_first_words_v2.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.528769,
+        0.51752543,
+        0.50989836,
+        0.505241,
+        0.5045469
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BATCH_SIZE setting",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "rag_training/fast_semantic_test.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_delta.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/fast_semantic_test.py"
+      ],
+      "ace_scores": [
+        0.4807821,
+        0.47446132,
+        0.4531593,
+        0.45302504,
+        0.45177805
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "TIMEOUT_SECONDS value",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "examples/browser-use/domain-checker/ace_domain_checker.py",
+        "tests/test_circuit_breaker.py",
+        "examples/browser-use/domain-checker/baseline_domain_checker.py",
+        "rag_training/baseline_test.py"
+      ],
+      "ace_scores": [
+        0.43473667,
+        0.4266128,
+        0.42606422,
+        0.4244575,
+        0.4197262
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "log level logging configuration",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/audit.py",
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/audit.py"
+      ],
+      "ace_scores": [
+        0.50185436,
+        0.49752453,
+        0.47661245,
+        0.46505845,
+        0.4566446
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "debug logging verbose",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/audit.py"
+      ],
+      "ace_files": [
+        "scripts/debug_dense_vs_hybrid.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "test_zai_final.py"
+      ],
+      "ace_scores": [
+        0.477177,
+        0.46976447,
+        0.4689563,
+        0.46592057,
+        0.46468288
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "config validation pydantic",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "tests/test_hyde.py",
+        "rag_training/memory_inventory.json",
+        "ace/config.py",
+        "ace/security.py",
+        "benchmarks/manager.py"
+      ],
+      "ace_scores": [
+        0.5923241,
+        0.5384959,
+        0.5297762,
+        0.5265227,
+        0.52550495
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "defaults dict configuration",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "tests/test_hyde.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/retrieval_presets.py",
+        "ace/config.py",
+        "ace/config.py"
+      ],
+      "ace_scores": [
+        0.5194092,
+        0.46361607,
+        0.46251523,
+        0.4555466,
+        0.45413488
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "nested config structure",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.51497555,
+        0.51308966,
+        0.5116065,
+        0.50829995,
+        0.48188022
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BM25_K1 constant value",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "rag_training/optimizations/v7_fortune100_combined.py",
+        "ace/query_features.py",
+        "ace/retrieval_presets.py",
+        "rag_training/optimizations/v8_bm25_hybrid.py"
+      ],
+      "ace_scores": [
+        0.552553,
+        0.54536176,
+        0.5406335,
+        0.5362919,
+        0.53569627
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BM25_B constant value",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py",
+        "ace/retrieval_optimized.py"
+      ],
+      "ace_files": [
+        "ace/retrieval_presets.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "ace/query_features.py",
+        "rag_training/optimizations/v8_bm25_hybrid.py",
+        "rag_training/optimizations/v8_bm25_hybrid.py"
+      ],
+      "ace_scores": [
+        0.5269208,
+        0.52018076,
+        0.5175297,
+        0.504942,
+        0.50493217
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "cache TTL expiration",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/caching.py",
+        "ace/retrieval_caching.py"
+      ],
+      "ace_files": [
+        "tests/test_response_cache.py",
+        "tests/test_session_tracking.py",
+        "ace/retrieval_caching.py",
+        "ace/retrieval_caching.py",
+        "ace/caching.py"
+      ],
+      "ace_scores": [
+        0.61884433,
+        0.60838425,
+        0.575134,
+        0.57213485,
+        0.5714364
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 2 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "vector dimension 1024",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/1_Pooling/config.json",
+        "ace/query_features.py",
+        "tests/test_query_features.py",
+        "scripts/tune_threshold.py",
+        "rag_training/scripts/diagnose_first_words_v2.py"
+      ],
+      "ace_scores": [
+        0.5577024,
+        0.5546919,
+        0.5400531,
+        0.53473186,
+        0.5272381
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "chunk size max tokens",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "docs/CLAUDE_CODE_ACE_INTEGRATION.md",
+        "ace/code_chunker.py",
+        "ace/embedding_finetuning/models/ace_finetuned/sentence_bert_config.json",
+        "ace/code_chunker.py"
+      ],
+      "ace_scores": [
+        0.53149146,
+        0.52848625,
+        0.52799094,
+        0.5272566,
+        0.50576615
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "top_k limit search",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/scripts/diagnose_first_words_v2.py",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json"
+      ],
+      "ace_scores": [
+        0.53708494,
+        0.5324807,
+        0.5321294,
+        0.5315327,
+        0.52628475
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "collection name workspace",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/config.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        ".ace/.ace.json",
+        "ace_mcp_server.py",
+        "ace_mcp_server.py",
+        "tests/test_qdrant_retrieval.py",
+        "ace_mcp_server.py"
+      ],
+      "ace_scores": [
+        0.6685828,
+        0.52791125,
+        0.5129396,
+        0.49976408,
+        0.4980176
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "reranker model path",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/reranker.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "tests/test_extended_quality.py",
+        "rag_training/training_data/finetune_crossencoder.py",
+        "ace/reranker.py",
+        "ace/reranker.py"
+      ],
+      "ace_scores": [
+        0.63455224,
+        0.6201656,
+        0.60551596,
+        0.60321796,
+        0.5840199
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "rate limit throttling",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "ace/caching.py",
+        "ace/resilience.py",
+        "ace/caching.py"
+      ],
+      "ace_scores": [
+        0.51726407,
+        0.49436468,
+        0.4905796,
+        0.4863934,
+        0.48567057
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "concurrent requests limit",
+      "category": "Configuration",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "ace/async_adaptation.py",
+        "ace/retrieval_optimized.py",
+        "ace/caching.py",
+        ".claude/settings.json"
+      ],
+      "ace_scores": [
+        0.56195617,
+        0.46080935,
+        0.4578654,
+        0.44846004,
+        0.44835308
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "try except error handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "docs/INTEGRATION_GUIDE.md",
+        "tests/test_self_consistency.py",
+        "ace/resilience.py",
+        "rag_training/memory_inventory.json",
+        "rag_training/test_suite/enhanced_test_suite.json"
+      ],
+      "ace_scores": [
+        0.48914957,
+        0.47737157,
+        0.47717696,
+        0.47632468,
+        0.47077602
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "exception retry backoff",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "ace/resilience.py"
+      ],
+      "ace_scores": [
+        0.51244783,
+        0.50170445,
+        0.48918885,
+        0.465774,
+        0.4427288
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "API rate limit retry",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "benchmarks/benchmark_reranking.py",
+        "tests/test_reranking.py"
+      ],
+      "ace_scores": [
+        0.49488518,
+        0.4798084,
+        0.45734486,
+        0.43013096,
+        0.40878794
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "timeout exception handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        ".claude/settings.json",
+        "tests/test_circuit_breaker.py",
+        "ace/resilience.py",
+        "ace/resilience.py"
+      ],
+      "ace_scores": [
+        0.48023874,
+        0.46465313,
+        0.46182328,
+        0.46037725,
+        0.4354788
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "connection error handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "tests/test_chain_of_verification.py",
+        "ace/scaling.py",
+        "tests/test_code_indexer.py",
+        "ace/embedding_finetuning/training_data.json",
+        ".claude/settings.json"
+      ],
+      "ace_scores": [
+        0.48086706,
+        0.4577062,
+        0.4543743,
+        0.45365196,
+        0.45315218
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "validation error ValueError",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "demo_email_validation.py",
+        "tests/test_prompts_v2_1.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/selected_memories.json",
+        "email_validator.py"
+      ],
+      "ace_scores": [
+        0.51418954,
+        0.49618652,
+        0.49330238,
+        0.49184018,
+        0.4916502
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "file not found error",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_code_indexer.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.4802017,
+        0.44657135,
+        0.44186884,
+        0.44151115,
+        0.4380198
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "embedding error fallback",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/semantic_scorer.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_embed_config.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/gemini_embeddings.py",
+        "ace/unified_memory.py",
+        "ace/openai_embeddings.py"
+      ],
+      "ace_scores": [
+        0.48686665,
+        0.48237807,
+        0.48236164,
+        0.4718604,
+        0.46859208
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import error optional dependency",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/features.py"
+      ],
+      "ace_files": [
+        "ace/features.py",
+        "ace/features.py",
+        ".claude/settings.json",
+        "ace/llm_providers/__init__.py",
+        "ace/dependency_graph.py"
+      ],
+      "ace_scores": [
+        0.5860071,
+        0.55371976,
+        0.51900923,
+        0.49560973,
+        0.49314392
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "graceful degradation",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_unified_retrieval.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/retrieval_optimized.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5492867,
+        0.5051805,
+        0.4749884,
+        0.4696141,
+        0.4665568
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "finally cleanup block",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v3_bge_reranker.py",
+        ".claude/settings.json",
+        "rag_training/scripts/final_exhaustive_test.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.47718984,
+        0.42640886,
+        0.41978014,
+        0.3804884,
+        0.37702286
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "exception chaining from",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/integrations/langchain.py",
+        "tests/integrations/test_langchain.py",
+        "tests/test_security.py",
+        "ace/security.py"
+      ],
+      "ace_scores": [
+        0.48521823,
+        0.4535383,
+        0.44800267,
+        0.4367018,
+        0.43657175
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "logging error stack trace",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/audit.py"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/audit.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        ".claude/settings.json",
+        "ace/audit.py"
+      ],
+      "ace_scores": [
+        0.4495644,
+        0.4436965,
+        0.43852147,
+        0.43834716,
+        0.43704414
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "error recovery strategy",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "tests/test_integration.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "docs/INTEGRATION_GUIDE.md",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/typo_correction.py"
+      ],
+      "ace_scores": [
+        0.505422,
+        0.48124063,
+        0.4789019,
+        0.46662903,
+        0.46609855
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "circuit breaker pattern",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "tests/test_circuit_breaker.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "ace/resilience.py",
+        "ace/resilience.py"
+      ],
+      "ace_scores": [
+        0.6375949,
+        0.5924103,
+        0.58139396,
+        0.5789998,
+        0.57657474
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "custom exception class",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "tests/test_security.py",
+        ".claude/settings.json",
+        "ace/security.py",
+        "ace/unified_memory.py",
+        "ace/reranker.py"
+      ],
+      "ace_scores": [
+        0.4837843,
+        0.46150082,
+        0.4454736,
+        0.4320449,
+        0.41402513
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "exception hierarchy",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "tests/test_security.py",
+        ".claude/settings.json",
+        "ace/security.py",
+        "rag_training/analysis/failure_deep_analysis.py",
+        "tests/test_enriched_bullet.py"
+      ],
+      "ace_scores": [
+        0.55670804,
+        0.53763366,
+        0.48687327,
+        0.4721437,
+        0.46126106
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "raise ValueError message",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "email_validator.py",
+        "temperature_converter.py",
+        "ace/security.py",
+        "test_fibonacci.py"
+      ],
+      "ace_scores": [
+        0.43658626,
+        0.42926472,
+        0.41974318,
+        0.41652223,
+        0.40795457
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "HTTPStatusError handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/observability/health.py",
+        "tests/test_code_indexer.py",
+        "tests/test_observability.py",
+        "tests/test_self_consistency.py",
+        "tests/test_observability.py"
+      ],
+      "ace_scores": [
+        0.47961175,
+        0.44797456,
+        0.44757038,
+        0.44659153,
+        0.43706888
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Qdrant error handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_files": [
+        "rag_training/test_framework.py",
+        "ace/scaling.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "rag_training/run_baseline_evaluation.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.64297855,
+        0.6339885,
+        0.6290673,
+        0.6289969,
+        0.62502587
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async error handling",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "docs/INTEGRATION_GUIDE.md",
+        "examples/langchain/agent_with_tools_example.py",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.50134194,
+        0.48327613,
+        0.48144913,
+        0.4801687,
+        0.47290462
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "retry decorator tenacity",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py"
+      ],
+      "ace_scores": [
+        0.60039043,
+        0.59156966,
+        0.5780363,
+        0.56748873,
+        0.53489053
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "timeout decorator",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "tests/test_circuit_breaker.py",
+        "tests/test_circuit_breaker.py"
+      ],
+      "ace_scores": [
+        0.49856147,
+        0.48692045,
+        0.45386523,
+        0.4521428,
+        0.44858176
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "error logging format",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/audit.py"
+      ],
+      "ace_files": [
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/memory_inventory.json",
+        "ace/audit.py",
+        "ace/audit.py",
+        "rag_training/test_suite/enhanced_test_suite.json"
+      ],
+      "ace_scores": [
+        0.5069587,
+        0.49314648,
+        0.48898602,
+        0.48669484,
+        0.48131198
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "fallback default value",
+      "category": "ErrorHandling",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_replay_generator.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.53753996,
+        0.45671263,
+        0.45398968,
+        0.44709736,
+        0.44285873
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from qdrant_client import",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/unified_memory.py",
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "test_code_retrieval_direct.py",
+        "ace/embedding_finetuning/data_generator.py",
+        "rag_training/baseline_test.py",
+        "ace/embedding_finetuning/evaluate_finetuned.py"
+      ],
+      "ace_scores": [
+        0.7366977,
+        0.73648405,
+        0.7315347,
+        0.7295931,
+        0.7185161
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import httpx async client",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/llm_providers/litellm_client.py",
+        "ace/async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "rag_training/generate_queries.py"
+      ],
+      "ace_scores": [
+        0.5926976,
+        0.5889814,
+        0.5840847,
+        0.5835209,
+        0.5740638
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from typing import List Dict",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "examples/browser-use/domain-checker/domain_utils.py",
+        "examples/browser-use/form-filler/form_utils.py",
+        "ace/delta.py",
+        "ace/delta.py",
+        "rag_training/analysis/failure_deep_analysis.py"
+      ],
+      "ace_scores": [
+        0.63981235,
+        0.6197796,
+        0.56746507,
+        0.55757177,
+        0.55246234
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import asyncio gather",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "test_blended_retrieve.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.5999954,
+        0.5944139,
+        0.5880531,
+        0.5504851,
+        0.5500252
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from pathlib import Path",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_bullet_migration.py",
+        "test_vscode_setup.py",
+        "benchmarks/manager.py",
+        "tests/test_code_indexer.py",
+        "ace/audit.py"
+      ],
+      "ace_scores": [
+        0.56020045,
+        0.55561876,
+        0.5553384,
+        0.5545813,
+        0.55262876
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import logging logger",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/audit.py",
+        "ace/audit.py",
+        "tests/test_audit.py",
+        "tests/test_audit.py",
+        "benchmarks/manager.py"
+      ],
+      "ace_scores": [
+        0.57204,
+        0.5631051,
+        0.5612961,
+        0.5519576,
+        0.54401416
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from dataclasses import dataclass",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/data_generator.py",
+        "ace/code_retrieval.py",
+        "ace/delta.py",
+        "ace/code_retrieval.py",
+        "ace/delta.py"
+      ],
+      "ace_scores": [
+        0.5882319,
+        0.58628327,
+        0.5858234,
+        0.58531666,
+        0.5808829
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import os environ",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "test_zai_working.py"
+      ],
+      "ace_scores": [
+        0.5248524,
+        0.51533675,
+        0.5027798,
+        0.49963835,
+        0.49184352
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import json loads dumps",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/delta.py"
+      ],
+      "ace_files": [
+        "scripts/migrate_playbook_to_unified.py",
+        ".claude/settings.json",
+        "rag_training/analysis/failure_deep_analysis.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "scripts/migrate_playbook_to_unified.py"
+      ],
+      "ace_scores": [
+        0.50303155,
+        0.49597105,
+        0.48807856,
+        0.4877322,
+        0.48499283
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from datetime import datetime",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/audit.py"
+      ],
+      "ace_files": [
+        "examples/confidence_decay_demo.py",
+        "ace/audit.py",
+        "tests/test_temporal_filtering.py",
+        "scripts/run_questions_direct.py",
+        "ace/audit.py"
+      ],
+      "ace_scores": [
+        0.49932095,
+        0.4983583,
+        0.49268022,
+        0.49217558,
+        0.49043825
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import re regex pattern",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/pattern_detector.py",
+        "ace/pattern_detector.py",
+        "tests/test_pattern_detector.py",
+        "ace/query_features.py"
+      ],
+      "ace_scores": [
+        0.54819846,
+        0.5298798,
+        0.5283445,
+        0.52747554,
+        0.5151334
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from functools import lru_cache",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/caching.py"
+      ],
+      "ace_files": [
+        "ace/caching.py",
+        "ace/caching.py",
+        "ace/retrieval_caching.py",
+        "ace/retrieval_caching.py",
+        "ace/caching.py"
+      ],
+      "ace_scores": [
+        0.636595,
+        0.6270336,
+        0.62105,
+        0.61115265,
+        0.6038502
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import numpy as np",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "rag_training/test_framework.py",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/retrieval_bandit.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5180708,
+        0.51283365,
+        0.5062984,
+        0.5047443,
+        0.50467825
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from collections import defaultdict",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.5295557,
+        0.5244248,
+        0.52220726,
+        0.51846623,
+        0.51661325
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import hashlib sha256",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/security.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/security.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.512655,
+        0.48481196,
+        0.47953653,
+        0.47364092,
+        0.46514744
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from abc import ABC abstractmethod",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/llm.py"
+      ],
+      "ace_files": [
+        "ace/llm.py",
+        "benchmarks/base.py",
+        "ace/llm.py",
+        "ace/adaptation.py",
+        "ace/adaptation.py"
+      ],
+      "ace_scores": [
+        0.6247393,
+        0.6141571,
+        0.58007765,
+        0.5676639,
+        0.55946505
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import enum Enum",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/retrieval_presets.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/structured_enhancer.py",
+        "ace/structured_enhancer.py",
+        "ace/retrieval_presets.py",
+        "ace/structured_enhancer.py"
+      ],
+      "ace_scores": [
+        0.5325489,
+        0.5171146,
+        0.51580834,
+        0.49031523,
+        0.48321724
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from tenacity import retry",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/retrieval_optimized.py",
+        "ace/retrieval_optimized.py",
+        "tests/test_circuit_breaker.py"
+      ],
+      "ace_scores": [
+        0.65883446,
+        0.63401526,
+        0.58046734,
+        0.5797899,
+        0.5774255
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import sentence_transformers",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/reranker.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/README.md",
+        "ace/embedding_finetuning/finetune_embeddings.py",
+        "ace/embedding_finetuning/models/ace_finetuned/README.md",
+        "ace/embedding_finetuning/models/ace_finetuned/modules.json",
+        "ace/embedding_finetuning/finetune_embeddings.py"
+      ],
+      "ace_scores": [
+        0.73363364,
+        0.7119585,
+        0.69148815,
+        0.68994415,
+        0.6859845
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from pydantic import BaseModel",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "benchmarks/base.py",
+        "rag_training/test_framework.py",
+        "rag_training/generate_queries.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/embedding_finetuning/finetune_embeddings.py"
+      ],
+      "ace_scores": [
+        0.5282123,
+        0.5269328,
+        0.5198625,
+        0.5194245,
+        0.5190417
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from ace.config import",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/config.py",
+        "tests/test_quality_assessment.py",
+        "check_playbook.py",
+        "tests/test_extended_quality.py"
+      ],
+      "ace_scores": [
+        0.60909796,
+        0.6042172,
+        0.5949546,
+        0.5677229,
+        0.56167257
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from ace.unified_memory import",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "tests/test_unified_only.py",
+        "analyze_false_positives.py",
+        "tests/test_unified_memory.py",
+        "tests/test_unified_memory.py",
+        "ace/unified_memory.py"
+      ],
+      "ace_scores": [
+        0.6903005,
+        0.6879819,
+        0.6861253,
+        0.6748065,
+        0.6529214
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from ace.retrieval import",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_quality_assessment.py",
+        "tests/test_extended_quality.py",
+        "scripts/ab_test_retrieval.py",
+        "ace/retrieval_optimized.py",
+        "benchmarks/ace_retrieval_benchmark.py"
+      ],
+      "ace_scores": [
+        0.74550426,
+        0.7215618,
+        0.7141521,
+        0.685882,
+        0.6819848
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "import ace module",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/__init__.py"
+      ],
+      "ace_files": [
+        "ace/__init__.py",
+        "ace/__init__.py",
+        "ace/integrations/__init__.py",
+        "ace/integrations/litellm.py",
+        "ace/integrations/browser_use.py"
+      ],
+      "ace_scores": [
+        0.5207416,
+        0.5022973,
+        0.501891,
+        0.4921857,
+        0.4910056
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "from . import relative",
+      "category": "ImportPatterns",
+      "expected_files": [
+        "ace/__init__.py"
+      ],
+      "ace_files": [
+        "ace/dependency_graph.py",
+        "ace/dependency_graph.py",
+        "ace/multitenancy.py",
+        "tests/test_dependency_graph.py",
+        "benchmarks/manager.py"
+      ],
+      "ace_scores": [
+        0.52960074,
+        0.5033159,
+        0.5017215,
+        0.48655215,
+        0.476682
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "List[Dict] type annotation",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/delta.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/delta.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json"
+      ],
+      "ace_scores": [
+        0.5253785,
+        0.5253486,
+        0.52521574,
+        0.522575,
+        0.5160963
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Optional[str] parameter",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/chain_of_verification.py",
+        "ace/features.py",
+        ".claude/settings.json",
+        "ace/caching.py",
+        "ace/observability/tracers.py"
+      ],
+      "ace_scores": [
+        0.48467952,
+        0.46026218,
+        0.45704645,
+        0.451218,
+        0.44727537
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Tuple return type",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/data_generator.py"
+      ],
+      "ace_scores": [
+        0.5420746,
+        0.46930516,
+        0.45751184,
+        0.45161474,
+        0.45091805
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Dict comprehension",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.54997265,
+        0.540781,
+        0.53556806,
+        0.53503704,
+        0.53246605
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Set operations unique",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/deduplication.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5212053,
+        0.48360205,
+        0.4796061,
+        0.47806963,
+        0.47692448
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "defaultdict factory",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.486713,
+        0.47949424,
+        0.46920437,
+        0.46862614,
+        0.46618515
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "dataclass frozen",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/data_generator.py",
+        "ace/embedding_finetuning/data_generator.py",
+        "ace/unified_memory.py",
+        "ace/hyde.py",
+        "ace/unified_memory.py"
+      ],
+      "ace_scores": [
+        0.58409894,
+        0.58107585,
+        0.5653064,
+        0.5651657,
+        0.56365013
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Enum class values",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/retrieval_presets.py"
+      ],
+      "ace_files": [
+        "ace/structured_enhancer.py",
+        "ace/retrieval_presets.py",
+        ".claude/settings.json",
+        "ace/structured_enhancer.py",
+        "ace/structured_enhancer.py"
+      ],
+      "ace_scores": [
+        0.47783983,
+        0.45567155,
+        0.45208687,
+        0.44798866,
+        0.4479309
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "namedtuple pattern",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "ace/unified_memory.py",
+        ".claude/settings.json",
+        "ace/query_features.py",
+        "examples/browser-use/form-filler/form_utils.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5372436,
+        0.50305766,
+        0.46614504,
+        0.45932472,
+        0.45738873
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "TypedDict definition",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/delta.py",
+        "ace/delta.py",
+        "examples/browser-use/form-filler/form_utils.py",
+        "ace/playbook.py",
+        "ace/unified_memory.py"
+      ],
+      "ace_scores": [
+        0.51401985,
+        0.47981894,
+        0.47170717,
+        0.46805742,
+        0.46709907
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "list comprehension filter",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.4970139,
+        0.48834008,
+        0.48491943,
+        0.48163825,
+        0.4805697
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "generator expression yield",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_self_consistency.py",
+        "ace/roles.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.4514647,
+        0.44960445,
+        0.44349718,
+        0.44287443,
+        0.44016147
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "dict keys values items",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.53752494,
+        0.53525096,
+        0.535002,
+        0.5345322,
+        0.52933276
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "set intersection union",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/deduplication.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5444884,
+        0.5201319,
+        0.47833058,
+        0.47819585,
+        0.47724164
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "tuple unpacking",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.52154905,
+        0.49931416,
+        0.48877764,
+        0.48494726,
+        0.48068255
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "nested dict structure",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.51372427,
+        0.49160796,
+        0.48979226,
+        0.48862246,
+        0.48797855
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "array slice index",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.47520506,
+        0.462651,
+        0.4594837,
+        0.45914066,
+        0.4556409
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "sorted key lambda",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.41648492,
+        0.40731972,
+        0.39602858,
+        0.39139208,
+        0.38678023
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "filter map reduce",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.49664536,
+        0.48259106,
+        0.46789843,
+        0.455048,
+        0.4534679
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "zip enumerate iterate",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.50989056,
+        0.45332122,
+        0.44862804,
+        0.44541302,
+        0.44292837
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "JSON serializable",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/delta.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_delta.py",
+        "ace/delta.py",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.5761429,
+        0.5079149,
+        0.50449866,
+        0.49911836,
+        0.49401587
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "pickle serialize",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/security.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/unified_memory.py",
+        "ace/playbook.py",
+        "ace/embedding_finetuning/finetune_embeddings.py",
+        "tests/integrations/test_langchain.py"
+      ],
+      "ace_scores": [
+        0.4947557,
+        0.46826342,
+        0.45183286,
+        0.4500739,
+        0.4485951
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "bytes encoding",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/security.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.49081224,
+        0.48474056,
+        0.45411432,
+        0.45362812,
+        0.44965106
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "string format f-string",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/chain_of_verification.py",
+        "benchmarks/processors.py",
+        "tests/test_inject_context_hook.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.51439893,
+        0.48679864,
+        0.48537105,
+        0.48021263,
+        0.4791362
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "regex match groups",
+      "category": "DataStructures",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "tenant_data/learned_typos.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5182941,
+        0.46852222,
+        0.46039158,
+        0.4568426,
+        0.45561707
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async def await",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.53345764,
+        0.5219536,
+        0.5124947,
+        0.5117075,
+        0.50577307
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio gather parallel",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6322347,
+        0.60613155,
+        0.5681823,
+        0.56413436,
+        0.5631026
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async with httpx",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "ace/async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "rag_training/generate_queries.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.59310824,
+        0.5911126,
+        0.5907603,
+        0.58704066,
+        0.58028346
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async for stream",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/llm_providers/langchain_client.py",
+        "ace/async_adaptation.py",
+        ".claude/settings.json"
+      ],
+      "ace_scores": [
+        0.5212683,
+        0.51834846,
+        0.47975838,
+        0.47112903,
+        0.46899164
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "await embedding generation",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/gemini_embeddings.py",
+        "ace/openai_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/embedding_finetuning/test_pipeline.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        0.6485634,
+        0.6329415,
+        0.63291156,
+        0.6308361,
+        0.61442626
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async context manager",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/async_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5718601,
+        0.5567218,
+        0.5546059,
+        0.55255455,
+        0.54692566
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio.create_task",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6150712,
+        0.60116965,
+        0.59887373,
+        0.576659,
+        0.5687811
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async generator yield",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "examples/langchain/agent_with_tools_example.py",
+        "ace/async_adaptation.py",
+        "docs/API_REFERENCE.md",
+        "ace/async_adaptation.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.50685227,
+        0.50108045,
+        0.50058645,
+        0.49641636,
+        0.48566705
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "semaphore rate limiting",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "scripts/benchmark_semantic.py",
+        "rag_training/fast_semantic_test.py",
+        "ace/retrieval_optimized.py",
+        "ace/resilience.py"
+      ],
+      "ace_scores": [
+        0.5101031,
+        0.45217222,
+        0.4480344,
+        0.4433409,
+        0.44233975
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio timeout cancel",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.45551682,
+        0.4495933,
+        0.44818023,
+        0.4431268,
+        0.43797782
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio.run main",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "scripts/run_questions_direct.py",
+        "scripts/run_local_adapter.py",
+        "scripts/run_questions.py",
+        "scripts/migrate_memories_to_unified.py",
+        "examples/ollama/ollama_starter_template.py"
+      ],
+      "ace_scores": [
+        0.5810223,
+        0.5598579,
+        0.5550449,
+        0.5495572,
+        0.5438453
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "event loop run_until_complete",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "test_blended_retrieve.py",
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.49973476,
+        0.49478006,
+        0.47358322,
+        0.4718361,
+        0.46284324
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "asyncio.Queue producer",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5269015,
+        0.5121274,
+        0.5087727,
+        0.5011158,
+        0.5000491
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async sleep delay",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "examples/langchain/agent_with_tools_example.py",
+        "tests/test_async_adaptation.py",
+        ".claude/settings.json",
+        "tests/test_observability.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.4667223,
+        0.41603357,
+        0.41493535,
+        0.41132605,
+        0.4095199
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async lock mutex",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "examples/langchain/agent_with_tools_example.py",
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.45836493,
+        0.45055678,
+        0.4485991,
+        0.44703543,
+        0.44038945
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "concurrent futures",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_retrieval.py",
+        ".claude/settings.json",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.5495945,
+        0.5269146,
+        0.52218676,
+        0.51066333,
+        0.50167143
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "ThreadPoolExecutor async",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.5454058,
+        0.5393818,
+        0.5263951,
+        0.514158,
+        0.5118278
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "ProcessPoolExecutor parallel",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_adaptation.py",
+        "tests/test_async_adaptation.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py",
+        "tests/test_async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.62330365,
+        0.60103786,
+        0.5982984,
+        0.58934426,
+        0.57038486
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async batch processing",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_adaptation.py",
+        "ace/hyde.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.59602857,
+        0.56037974,
+        0.5396174,
+        0.53601056,
+        0.52912235
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async retry backoff",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "ace/resilience.py",
+        "examples/browser-use/domain-checker/baseline_domain_checker.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.4829251,
+        0.4616617,
+        0.45200527,
+        0.4460487,
+        0.4382565
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "httpx AsyncClient",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/hyde.py",
+        "ace/llm_providers/litellm_client.py"
+      ],
+      "ace_scores": [
+        0.61628145,
+        0.61593324,
+        0.60840213,
+        0.60288596,
+        0.60064894
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "aiohttp session",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/async_retrieval.py",
+        "examples/browser-use/simple_ace_agent.py",
+        "ace/async_retrieval.py",
+        "ace/async_adaptation.py",
+        "ace/async_adaptation.py"
+      ],
+      "ace_scores": [
+        0.4930848,
+        0.49106407,
+        0.49013448,
+        0.4782119,
+        0.47803932
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async embedding batch",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "ace/async_retrieval.py",
+        "ace/gemini_embeddings.py"
+      ],
+      "ace_scores": [
+        0.6623262,
+        0.6040375,
+        0.5961736,
+        0.5855674,
+        0.5775926
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "parallel vector search",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/qdrant_retrieval.py",
+        "ace/qdrant_retrieval.py",
+        "rag_training/scripts/diagnose_first_words_v2.py",
+        "rag_training/fast_semantic_test.py",
+        "rag_training/fast_semantic_test.py"
+      ],
+      "ace_scores": [
+        0.5106838,
+        0.5075418,
+        0.50723124,
+        0.50528365,
+        0.5040939
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async callback handler",
+      "category": "AsyncPatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "examples/langchain/agent_with_tools_example.py",
+        "test_blended_retrieve.py",
+        "ace/async_adaptation.py",
+        "ace/async_retrieval.py",
+        "tests/test_async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.44741252,
+        0.44328824,
+        0.4416361,
+        0.4411174,
+        0.43805495
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "pytest fixture setup",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/conftest.py",
+        "tests/conftest.py",
+        "tests/test_context_injector.py",
+        "tests/test_multistage_retrieval.py",
+        "tests/integrations/test_browser_use.py"
+      ],
+      "ace_scores": [
+        0.6669344,
+        0.5932022,
+        0.5919007,
+        0.57310975,
+        0.5654855
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "unittest TestCase class",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_replay_generator.py",
+        "tests/test_adaptation.py",
+        "tests/test_litellm_client.py",
+        "tests/test_audit.py",
+        "tests/test_query_features.py"
+      ],
+      "ace_scores": [
+        0.5823638,
+        0.5441873,
+        0.5212792,
+        0.51910377,
+        0.51233804
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "mock patch decorator",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_context_injector.py",
+        "tests/test_pattern_detector.py",
+        "tests/test_litellm_client.py",
+        "tests/test_integration.py",
+        "tests/test_ace_mcp_server.py"
+      ],
+      "ace_scores": [
+        0.53047234,
+        0.5166287,
+        0.48117808,
+        0.47644123,
+        0.4744489
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "assert statement equal",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "tests/test_session_mismatch_fix.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.41720927,
+        0.37711048,
+        0.37578586,
+        0.37321794,
+        0.36945587
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test function def test_",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "test_zai_simple.py",
+        "test_zai_final.py",
+        "scripts/generate_sample_playbook.py",
+        "test_blended_retrieve.py",
+        "tests/integrations/test_langchain.py"
+      ],
+      "ace_scores": [
+        0.58970714,
+        0.51216406,
+        0.5023647,
+        0.49647248,
+        0.49414423
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "parametrize test cases",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.52686024,
+        0.5257062,
+        0.52142644,
+        0.5056249,
+        0.5031194
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "conftest.py fixtures",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/conftest.py",
+        "tests/conftest.py",
+        "tests/test_multistage_retrieval.py",
+        "tests/test_context_injector.py",
+        "tests/integrations/test_browser_use.py"
+      ],
+      "ace_scores": [
+        0.72891057,
+        0.6654539,
+        0.6380288,
+        0.62409234,
+        0.6207623
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "setup teardown method",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/test_suite/enhanced_test_suite.json"
+      ],
+      "ace_scores": [
+        0.5416341,
+        0.5254763,
+        0.5073718,
+        0.49977255,
+        0.4884716
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async test aioclient",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "test_blended_retrieve.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_langchain_client.py",
+        "tests/test_litellm_client.py"
+      ],
+      "ace_scores": [
+        0.49599236,
+        0.49203935,
+        0.4864533,
+        0.4666884,
+        0.46658888
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "integration test end-to-end",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_integration.py",
+        "tests/test_integration.py",
+        "tests/test_langchain_client.py",
+        "tests/test_litellm_client.py",
+        "tests/test_benchmarks.py"
+      ],
+      "ace_scores": [
+        0.60088503,
+        0.59126806,
+        0.5539779,
+        0.54241717,
+        0.5400444
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test coverage report",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "rag_training/test_suite/inspect_samples.py",
+        "benchmark_ace_vs_auggie.py",
+        "scripts/run_questions.py",
+        "tests/test_quality_comparison.py",
+        "rag_training/analyze_inventory.py"
+      ],
+      "ace_scores": [
+        0.50939614,
+        0.504163,
+        0.5003088,
+        0.48417073,
+        0.46308982
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "benchmark performance test",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/",
+        "benchmarks/"
+      ],
+      "ace_files": [
+        "scripts/benchmark_multistage.py",
+        "scripts/benchmark_semantic.py",
+        "scripts/benchmark_optimizations.py",
+        "test_head2head.py",
+        "benchmarks/benchmark_reranking.py"
+      ],
+      "ace_scores": [
+        0.59054935,
+        0.5873848,
+        0.5824804,
+        0.5748358,
+        0.5673898
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "snapshot testing",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/test_pipeline.py",
+        "tests/integrations/test_langchain.py",
+        "tests/test_bullet_migration.py",
+        "tests/test_enriched_bullet.py",
+        "scripts/run_questions.py"
+      ],
+      "ace_scores": [
+        0.5357636,
+        0.53356016,
+        0.5249958,
+        0.5192363,
+        0.5160948
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "property based hypothesis",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_hyde.py",
+        "tests/test_integration.py",
+        "tests/test_chain_of_verification.py",
+        "tests/test_hyde.py",
+        "tests/test_integration.py"
+      ],
+      "ace_scores": [
+        0.49573717,
+        0.48700672,
+        0.48516464,
+        0.4844129,
+        0.48038024
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test isolation scope",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_multitenancy.py",
+        "tests/test_multitenancy.py",
+        "tests/test_multitenancy.py",
+        "tests/test_multitenancy.py",
+        "tests/test_context_injector.py"
+      ],
+      "ace_scores": [
+        0.5776042,
+        0.54643977,
+        0.539601,
+        0.5268771,
+        0.5013248
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "mock return_value",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_context_injector.py",
+        "tests/test_multistage_retrieval.py",
+        "tests/test_ace_mcp_server.py",
+        "tests/test_audit.py",
+        "tests/test_circuit_breaker.py"
+      ],
+      "ace_scores": [
+        0.5667262,
+        0.5483849,
+        0.5370867,
+        0.52196014,
+        0.51979685
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "side_effect exception",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/retrieval.py",
+        "ace/security.py",
+        "ace/gemini_embeddings.py",
+        "ace/retrieval.py"
+      ],
+      "ace_scores": [
+        0.50086975,
+        0.45886335,
+        0.45826763,
+        0.45045948,
+        0.44993326
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "capture stdout stderr",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "benchmark_ace_vs_auggie.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "tests/test_adaptation.py",
+        "tests/test_audit.py"
+      ],
+      "ace_scores": [
+        0.4493804,
+        0.4301947,
+        0.42885444,
+        0.4246016,
+        0.42097473
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "temporary directory tmpdir",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_response_cache.py",
+        "ace/embedding_finetuning/test_pipeline.py",
+        "tests/test_playbook.py",
+        "scripts/run_questions_direct.py"
+      ],
+      "ace_scores": [
+        0.43030024,
+        0.40855056,
+        0.40018773,
+        0.39829737,
+        0.39232248
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test data factory",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/conftest.py",
+        "tests/conftest.py",
+        "examples/browser-use/form-filler/form_utils.py",
+        "benchmarks/ACE_RETRIEVAL_BENCHMARK.md",
+        "scripts/generate_sample_playbook.py"
+      ],
+      "ace_scores": [
+        0.53609776,
+        0.5011664,
+        0.48965105,
+        0.4866553,
+        0.48411417
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test_ace.py unit test",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/test_ace.py"
+      ],
+      "ace_files": [
+        "tests/test_replay_generator.py",
+        "tests/integrations/__init__.py",
+        "tests/test_audit.py",
+        "tests/test_ace_retrieval_benchmark.py",
+        "tests/test_adaptation.py"
+      ],
+      "ace_scores": [
+        0.6759058,
+        0.6611955,
+        0.63255715,
+        0.62378645,
+        0.60495716
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test_retrieval.py search",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_multistage_retrieval.py",
+        "final_test.py",
+        "test_code_direct.py",
+        "tests/test_retrieval_metadata.py",
+        "test_blended_retrieve.py"
+      ],
+      "ace_scores": [
+        0.66457057,
+        0.6525315,
+        0.64242303,
+        0.6321507,
+        0.6306093
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test_config.py validation",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_hyde.py",
+        "tests/test_golden_rules.py",
+        "tests/test_benchmarks.py",
+        "tests/test_multistage_retrieval.py",
+        "ace/embedding_finetuning/test_pipeline.py"
+      ],
+      "ace_scores": [
+        0.6274272,
+        0.5297012,
+        0.51974386,
+        0.5138064,
+        0.50790864
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test_memory.py storage",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_unified_only.py",
+        "tests/test_ace_mcp_server.py",
+        "tests/test_adapter_unified.py",
+        "test_blended_retrieve.py",
+        "tests/test_qdrant_memory_unified.py"
+      ],
+      "ace_scores": [
+        0.55263317,
+        0.54073703,
+        0.5375288,
+        0.52009344,
+        0.5141307
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "test_integration.py e2e",
+      "category": "TestingPatterns",
+      "expected_files": [
+        "tests/"
+      ],
+      "ace_files": [
+        "tests/test_integration.py",
+        "tests/test_integration.py",
+        "tests/test_benchmarks.py",
+        "tests/test_langchain_client.py",
+        "tests/test_litellm_client.py"
+      ],
+      "ace_scores": [
+        0.6267938,
+        0.6214334,
+        0.59467757,
+        0.58062285,
+        0.5776168
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "docstring triple quotes",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/self_consistency.py",
+        "ace/query_preprocessor.py",
+        "ace/code_enrichment.py",
+        "ace/self_consistency.py"
+      ],
+      "ace_scores": [
+        0.5265146,
+        0.5003829,
+        0.4837969,
+        0.4757721,
+        0.4744874
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Args Returns Raises",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/security.py",
+        "ace/gemini_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.60537946,
+        0.5048752,
+        0.50022256,
+        0.49956676,
+        0.49414062
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "type hints annotation",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/test_suite/enhanced_test_suite.json"
+      ],
+      "ace_scores": [
+        0.56543016,
+        0.54671556,
+        0.5352436,
+        0.5222467,
+        0.5114221
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "TODO FIXME comment",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5998834,
+        0.4805144,
+        0.4801553,
+        0.4758525,
+        0.47279972
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "module docstring file",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/__init__.py"
+      ],
+      "ace_files": [
+        ".serena/memories/lesson-unified-memory-architecture-documentation.md",
+        "ace/code_retrieval.py",
+        "debug_doc_ranking.py",
+        "ace/code_retrieval.py",
+        ".serena/memories/lesson-doc-protocol-consolidation-over-proliferation.md"
+      ],
+      "ace_scores": [
+        0.48053533,
+        0.45524997,
+        0.4513139,
+        0.42795646,
+        0.42753547
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "README.md setup install",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "README.md"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/training_data.json",
+        "docs/SETUP_GUIDE.md",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.53766614,
+        0.4667755,
+        0.4596562,
+        0.45567542,
+        0.44729608
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CHANGELOG version notes",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "CHANGELOG.md"
+      ],
+      "ace_files": [
+        "boosted_score_test.py",
+        "CHANGELOG.md",
+        "CHANGELOG.md",
+        "CHANGELOG.md",
+        "ace/delta.py"
+      ],
+      "ace_scores": [
+        0.5517522,
+        0.51780295,
+        0.5041835,
+        0.49910986,
+        0.48113263
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "CONTRIBUTING guide",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "CONTRIBUTING.md"
+      ],
+      "ace_files": [
+        "docs/PROMPT_ENGINEERING.md",
+        "CONTRIBUTING.md",
+        "benchmarks/ACE_RETRIEVAL_BENCHMARK.md",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.6146055,
+        0.5739292,
+        0.54574883,
+        0.5271885,
+        0.526634
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "API_REFERENCE docs",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/API_REFERENCE.md"
+      ],
+      "ace_files": [
+        ".serena/memories/lesson-unified-memory-architecture-documentation.md",
+        ".claude/settings.json",
+        "ace/gemini_embeddings.py",
+        "ace/gemini_embeddings.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.6006957,
+        0.5580161,
+        0.55692893,
+        0.55343723,
+        0.533021
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "QUICK_START tutorial",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/QUICK_START.md"
+      ],
+      "ace_files": [
+        "docs/QUICK_START.md",
+        "examples/custom_integration_example.py",
+        "examples/litellm/README.md",
+        "examples/ollama/ollama_starter_template.py",
+        "QUICKSTART_CLAUDE_CODE.md"
+      ],
+      "ace_scores": [
+        0.5956949,
+        0.5632408,
+        0.55442405,
+        0.5539638,
+        0.5508541
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "example usage code",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "examples/"
+      ],
+      "ace_files": [
+        "examples/custom_integration_example.py",
+        "examples/langchain/simple_chain_example.py",
+        "examples/langchain/agent_with_tools_example.py",
+        "examples/browser-use/simple_ace_agent.py",
+        "examples/zai_coding_plan_example.py"
+      ],
+      "ace_scores": [
+        0.5650674,
+        0.56274676,
+        0.5364879,
+        0.53060776,
+        0.52554506
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "inline comment explain",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5278518,
+        0.47107047,
+        0.46796772,
+        0.46687227,
+        0.46685773
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "type alias definition",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/retrieval_presets.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.4620707,
+        0.44630775,
+        0.4374554,
+        0.42290574,
+        0.4203059
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "deprecated warning",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/prompts_v2.py",
+        "ace/prompts_v2.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.48740128,
+        0.4873662,
+        0.47454935,
+        0.45883667,
+        0.45530963
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "version __version__",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "ace/__init__.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/config_sentence_transformers.json",
+        "ace/code_retrieval.py",
+        "ace/code_retrieval.py",
+        "ace/prompts_v2.py"
+      ],
+      "ace_scores": [
+        0.5617159,
+        0.5329088,
+        0.5209859,
+        0.51823723,
+        0.51465046
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "sphinx autodoc",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/code_retrieval.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/code_retrieval.py",
+        "ace/roles.py"
+      ],
+      "ace_scores": [
+        0.5824542,
+        0.58213335,
+        0.5805242,
+        0.5753885,
+        0.56656194
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "markdown format",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "scripts/run_questions.py",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "tests/integrations/test_base.py"
+      ],
+      "ace_scores": [
+        0.5316727,
+        0.52154875,
+        0.5096139,
+        0.50349593,
+        0.4995429
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "code example block",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "test_blended.py",
+        "examples/langchain/simple_chain_example.py",
+        "examples/langchain/agent_with_tools_example.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.5377886,
+        0.53617585,
+        0.53042835,
+        0.51512086,
+        0.5055437
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "configuration reference",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/"
+      ],
+      "ace_files": [
+        "ace/config.py",
+        "ace/config.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "docs/API_REFERENCE.md"
+      ],
+      "ace_scores": [
+        0.54708606,
+        0.53983945,
+        0.5354833,
+        0.53495526,
+        0.52662635
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "architecture diagram",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/"
+      ],
+      "ace_files": [
+        "rag_training/test_suite/selected_memories.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        ".claude/settings.json"
+      ],
+      "ace_scores": [
+        0.523205,
+        0.5223252,
+        0.50922346,
+        0.50415957,
+        0.50269353
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Fortune100 enterprise",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/Fortune100.md"
+      ],
+      "ace_files": [
+        "rag_training/fortune100_gpu_exhaustive_test.py",
+        "rag_training/semantic_similarity_test.py",
+        "rag_training/fortune100_gpu_exhaustive_test.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "rag_training/fortune100_self_retrieval_test.py"
+      ],
+      "ace_scores": [
+        0.5461105,
+        0.513916,
+        0.5123843,
+        0.5117773,
+        0.51041913
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "MCP integration guide",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/MCP_INTEGRATION.md"
+      ],
+      "ace_files": [
+        "docs/MCP_INTEGRATION.md",
+        "tests/test_code_retrieval.py",
+        "VSCODE_INTEGRATION.md",
+        "VSCODE_INTEGRATION.md",
+        "ace_mcp_server.py"
+      ],
+      "ace_scores": [
+        0.6185925,
+        0.6153741,
+        0.58677816,
+        0.55492795,
+        0.5240263
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Claude Code setup",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "CLAUDE_CODE_README.md",
+        "CLAUDE_CODE_INTEGRATION.md"
+      ],
+      "ace_files": [
+        "claude_with_ace.py",
+        "QUICKSTART_CLAUDE_CODE.md",
+        "CLAUDE_CODE_README.md",
+        "test_claude_code_hooks.py",
+        "CLAUDE_CODE_INTEGRATION.md"
+      ],
+      "ace_scores": [
+        0.56905305,
+        0.56737655,
+        0.5632279,
+        0.55838555,
+        0.55255413
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 2 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "golden rules guide",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/GOLDEN_RULES.md"
+      ],
+      "ace_files": [
+        "examples/golden_rules_demo.py",
+        "docs/GOLDEN_RULES_QUICKSTART.md",
+        "docs/GOLDEN_RULES.md",
+        "examples/golden_rules_demo.py",
+        "tests/test_golden_rules.py"
+      ],
+      "ace_scores": [
+        0.5533779,
+        0.5368936,
+        0.5357578,
+        0.53511965,
+        0.5273291
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "retrieval precision",
+      "category": "DocumentationPatterns",
+      "expected_files": [
+        "docs/RETRIEVAL_PRECISION_OPTIMIZATION.md"
+      ],
+      "ace_files": [
+        "tests/test_quality_assessment.py",
+        "tests/test_quality_assessment.py",
+        "benchmark_results/precision_baseline_20251215_091430.json",
+        "benchmark_results/precision_baseline_20251215_091710.json",
+        "benchmark_results/precision_baseline_20251215_081228.json"
+      ],
+      "ace_scores": [
+        0.6271347,
+        0.6189177,
+        0.6133419,
+        0.61271906,
+        0.6111547
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "Generator Reflector Curator",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/roles.py"
+      ],
+      "ace_files": [
+        "ace/roles.py",
+        "docs/API_REFERENCE.md",
+        "ace/roles.py",
+        "ace/roles.py",
+        "tests/test_adaptation.py"
+      ],
+      "ace_scores": [
+        0.6414062,
+        0.5746646,
+        0.5652602,
+        0.5510295,
+        0.5457051
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "unified memory architecture",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "tests/test_unified_only.py",
+        "ace/unified_memory.py",
+        "ace/unified_memory.py",
+        "tests/test_relevancy_exhaustive.py",
+        ".serena/memories/lesson-unified-memory-architecture-documentation.md"
+      ],
+      "ace_scores": [
+        0.5381699,
+        0.5313889,
+        0.5298984,
+        0.50381976,
+        0.498977
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "playbook bullet strategy",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/playbook.py"
+      ],
+      "ace_files": [
+        "tests/integrations/test_base.py",
+        "tests/test_playbook.py",
+        "tenant_data/tenant-b/test_playbook.json",
+        "tests/test_qdrant_retrieval.py",
+        "ace/playbook.py"
+      ],
+      "ace_scores": [
+        0.5540148,
+        0.5449203,
+        0.5254164,
+        0.52509725,
+        0.524661
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "tenant isolation namespace",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/multitenancy.py"
+      ],
+      "ace_files": [
+        "ace/multitenancy.py",
+        "tests/test_multitenancy.py",
+        "tests/test_multitenancy.py",
+        "ace/multitenancy.py",
+        "tests/test_multitenancy.py"
+      ],
+      "ace_scores": [
+        0.62766683,
+        0.6271417,
+        0.6263409,
+        0.6193425,
+        0.6081498
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "caching layer TTL",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/retrieval_caching.py"
+      ],
+      "ace_files": [
+        "tests/test_response_cache.py",
+        "ace/retrieval_caching.py",
+        "ace/retrieval_caching.py",
+        "ace/caching.py",
+        "ace/caching.py"
+      ],
+      "ace_scores": [
+        0.5804137,
+        0.55870986,
+        0.5576885,
+        0.5525025,
+        0.54210055
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "HyDE hypothetical expansion",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/hyde.py"
+      ],
+      "ace_files": [
+        "ace/hyde.py",
+        "ace/hyde_retrieval.py",
+        "examples/hyde_example.py",
+        "ace/hyde.py",
+        "rag_training/optimizations/v6_hyde_README.md"
+      ],
+      "ace_scores": [
+        0.56508267,
+        0.5407809,
+        0.53437734,
+        0.52456903,
+        0.52136153
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "observability tracing",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/observability/"
+      ],
+      "ace_files": [
+        "ace/observability/__init__.py",
+        "ace/observability/tracing.py",
+        "ace/observability/opik_integration.py",
+        "ace/observability/opik_integration.py",
+        "ace/observability/tracing.py"
+      ],
+      "ace_scores": [
+        0.66704965,
+        0.6423912,
+        0.63485396,
+        0.6321724,
+        0.6315375
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "bullet enrichment LLM",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/enrichment.py"
+      ],
+      "ace_files": [
+        "ace/enrichment.py",
+        "tests/test_llm_enrichment.py",
+        "tests/test_llm_enrichment.py",
+        "ace/enrichment.py",
+        "ace/enrichment.py"
+      ],
+      "ace_scores": [
+        0.75783825,
+        0.7553514,
+        0.73091054,
+        0.7290773,
+        0.7054597
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "delta operation batch",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/delta.py"
+      ],
+      "ace_files": [
+        "tests/test_delta.py",
+        "tests/test_delta.py",
+        "tests/test_delta.py",
+        "ace/delta.py",
+        "tests/test_playbook.py"
+      ],
+      "ace_scores": [
+        0.6511891,
+        0.64223015,
+        0.6132629,
+        0.5945978,
+        0.5723245
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "intent classification",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/query_enhancer.py"
+      ],
+      "ace_files": [
+        "tests/test_intent_classifier.py",
+        "tests/test_intent_classifier.py",
+        "ace/retrieval.py",
+        "tests/test_intent_classifier.py",
+        "tests/test_intent_classifier.py"
+      ],
+      "ace_scores": [
+        0.69139445,
+        0.6549177,
+        0.6507017,
+        0.6450375,
+        0.64463145
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "hybrid search fusion",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "ace/qdrant_retrieval.py",
+        "docs/CONTEXT_ENGINE_INTEGRATION.md",
+        "scripts/test_reranker_improvement.py",
+        "ace/embedding_finetuning/finetuned_retrieval.py"
+      ],
+      "ace_scores": [
+        0.65224385,
+        0.60867316,
+        0.60444,
+        0.5908272,
+        0.57541955
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "dependency graph",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/dependency_graph.py"
+      ],
+      "ace_files": [
+        "ace/dependency_graph.py",
+        "ace/dependency_graph.py",
+        "tests/test_dependency_graph.py",
+        "tests/test_dependency_graph.py",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.6390103,
+        0.61798006,
+        0.61710536,
+        0.6141499,
+        0.5457424
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "chunk context expansion",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "check_playbook.py",
+        "ace/code_chunker.py",
+        "ace/code_chunker.py",
+        "tests/test_code_chunker.py"
+      ],
+      "ace_scores": [
+        0.4722363,
+        0.45061454,
+        0.45058933,
+        0.4471561,
+        0.44223568
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "pattern detection",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/pattern_detector.py"
+      ],
+      "ace_files": [
+        "tests/test_pattern_detector.py",
+        "ace/pattern_detector.py",
+        "ace/pattern_detector.py",
+        "tests/test_pattern_detector.py",
+        "ace/pattern_detector.py"
+      ],
+      "ace_scores": [
+        0.619374,
+        0.61231005,
+        0.60145235,
+        0.5856205,
+        0.574486
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "quality feedback loop",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/quality_feedback.py"
+      ],
+      "ace_files": [
+        "ace/quality_feedback.py",
+        "ace/quality_feedback.py",
+        "scripts/measure_p7_improvements.py",
+        "tests/test_quality_feedback.py",
+        "docs/TUNINGPROJECT.md"
+      ],
+      "ace_scores": [
+        0.6241541,
+        0.6032399,
+        0.58651316,
+        0.5669554,
+        0.5652882
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "semantic deduplication",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/deduplication.py",
+        "ace/semantic_scorer.py"
+      ],
+      "ace_files": [
+        "scripts/analyze_memory_duplicates.py",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/deduplication.py",
+        "ace/deduplication.py",
+        "tests/test_deduplication.py"
+      ],
+      "ace_scores": [
+        0.58958626,
+        0.5863512,
+        0.5854917,
+        0.58507323,
+        0.58318377
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "async retrieval concurrent",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "tests/test_async_retrieval.py",
+        "docs/Fortune100.md",
+        "ace/async_retrieval.py"
+      ],
+      "ace_scores": [
+        0.65084076,
+        0.6356653,
+        0.60340476,
+        0.5663842,
+        0.56564176
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "GPU reranker batch",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/gpu_reranker.py"
+      ],
+      "ace_files": [
+        "ace/gpu_reranker.py",
+        "rag_training/fast_semantic_test.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "tests/test_extended_quality.py"
+      ],
+      "ace_scores": [
+        0.57704735,
+        0.5733479,
+        0.5700961,
+        0.55732465,
+        0.5573045
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "query enhancement",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/query_enhancer.py"
+      ],
+      "ace_files": [
+        "tests/test_query_enhancement.py",
+        "ace/query_enhancer.py",
+        "tests/test_query_enhancement.py",
+        "ace/structured_enhancer.py",
+        "ace/structured_enhancer.py"
+      ],
+      "ace_scores": [
+        0.62216914,
+        0.57966626,
+        0.56935775,
+        0.56341535,
+        0.5595083
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "file change delta",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/delta.py"
+      ],
+      "ace_files": [
+        "ace/delta.py",
+        "tests/test_playbook.py",
+        "ace/playbook.py",
+        "ace/delta.py",
+        "tests/test_delta.py"
+      ],
+      "ace_scores": [
+        0.5442838,
+        0.49431777,
+        0.48880285,
+        0.47650322,
+        0.46211892
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "embeddings voyage-code-3",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "test_voyage_retrieval.py",
+        "tests/test_embed_config.py",
+        "docs/CODE_EMBEDDING_CONFIG.md",
+        "ace/config.py",
+        "ace/code_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6606908,
+        0.6000232,
+        0.5992462,
+        0.59469694,
+        0.5925709
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "vector storage Qdrant",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "rag_training/optimization_results/hybrid_weight_tests.json",
+        "ace/qdrant_retrieval.py",
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_scores": [
+        0.6979047,
+        0.67371356,
+        0.67023253,
+        0.66293114,
+        0.6592698
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "BM25 sparse vector",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/unified_memory.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v8_baseline_revert.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "ace/hyde_retrieval.py",
+        "rag_training/optimizations/v8_bm25_hybrid.py",
+        "ace/unified_memory.py"
+      ],
+      "ace_scores": [
+        0.7343613,
+        0.71349984,
+        0.6987746,
+        0.6823544,
+        0.6458021
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "cross-encoder reranker",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/reranker.py"
+      ],
+      "ace_files": [
+        "rag_training/optimizations/v2_query_expansion.py",
+        "rag_training/optimizations/v1_cross_encoder_rerank.py",
+        "tests/test_cross_encoder.py",
+        "ace/reranker.py",
+        "rag_training/optimizations/v1_cross_encoder_rerank.py"
+      ],
+      "ace_scores": [
+        0.772758,
+        0.7592538,
+        0.75533354,
+        0.7489598,
+        0.7333296
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE found 1 expected files vs Auggie's 0",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "RRF reciprocal fusion",
+      "category": "ArchitecturePatterns",
+      "expected_files": [
+        "ace/qdrant_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/finetuned_retrieval.py",
+        "rag_training/optimizations/v3_bge_reranker.py",
+        "docs/CONTEXT_ENGINE_INTEGRATION.md",
+        "rag_training/optimizations/v7_fortune100_combined.py",
+        "docs/CONTEXT_ENGINE_INTEGRATION.md"
+      ],
+      "ace_scores": [
+        0.49060798,
+        0.46428406,
+        0.45948055,
+        0.4565425,
+        0.44952357
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "empty result handling",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json",
+        "tests/test_code_retrieval.py",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.56336504,
+        0.49913102,
+        0.49831232,
+        0.4935835,
+        0.4919508
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "null None check",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_enriched_bullet.py",
+        "tests/test_roles.py",
+        "examples/browser-use/domain-checker/domain_utils.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.589187,
+        0.45825857,
+        0.45344394,
+        0.43557954,
+        0.43377218
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "boundary condition",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.52755725,
+        0.4422766,
+        0.43577436,
+        0.43437976,
+        0.43370914
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "unicode string encoding",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.55380845,
+        0.55294955,
+        0.5479491,
+        0.53183657,
+        0.5300652
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "large file handling",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "benchmarks/loaders/huggingface.py",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.4644723,
+        0.453344,
+        0.4507624,
+        0.4503295,
+        0.450215
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "timeout exceeded",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5193452,
+        0.4583243,
+        0.44554496,
+        0.44016764,
+        0.43562013
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "memory limit",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        ".claude/settings.json",
+        "rag_training/scripts/diagnose_first_words_v2.py",
+        "rag_training/generate_queries_standalone.py",
+        "rag_training/scripts/diagnose_first_words_v2.py"
+      ],
+      "ace_scores": [
+        0.53072023,
+        0.5132834,
+        0.5120261,
+        0.5116875,
+        0.501822
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "concurrent access",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/caching.py",
+        "tests/test_caching.py",
+        "ace/caching.py",
+        "tests/test_caching.py"
+      ],
+      "ace_scores": [
+        0.58958125,
+        0.57428,
+        0.5610483,
+        0.55700415,
+        0.54122114
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "race condition",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/async_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/caching.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.56358504,
+        0.49146757,
+        0.48876774,
+        0.4853517,
+        0.48277617
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "deadlock prevention",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/caching.py",
+        "ace/caching.py",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.47586673,
+        0.46500543,
+        0.45647418,
+        0.45142257,
+        0.4450401
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "special characters escape",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.5332356,
+        0.53103745,
+        0.52309376,
+        0.5190487,
+        0.51770353
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "path separator windows",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        "ace_vs_auggie_headtohead.py",
+        ".claude/settings.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.47846034,
+        0.4741158,
+        0.42935282,
+        0.42010444,
+        0.4195988
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "relative absolute path",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace_vs_auggie_headtohead.py",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.49443433,
+        0.43945506,
+        0.43309408,
+        0.43034437,
+        0.42215988
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "symlink handling",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.48199058,
+        0.4707747,
+        0.46190345,
+        0.46021086,
+        0.4524027
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "binary file skip",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_indexer.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.45870796,
+        0.4215058,
+        0.42122257,
+        0.41847992,
+        0.41501844
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "nested dictionary deep",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.51028556,
+        0.49327302,
+        0.49041232,
+        0.48862392,
+        0.4873644
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "circular reference",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/dependency_graph.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5954766,
+        0.49707288,
+        0.49598396,
+        0.48882708,
+        0.4877425
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "recursive function",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/self_consistency.py",
+        "rag_training/scripts/diagnose_first_words_v2.py",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5066937,
+        0.47132546,
+        0.46581003,
+        0.46511602,
+        0.46361318
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "infinite loop guard",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/resilience.py"
+      ],
+      "ace_files": [
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.49704847,
+        0.47879034,
+        0.47790086,
+        0.47376263,
+        0.47061765
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "stack overflow",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_chunker.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.5533981,
+        0.46412587,
+        0.46224505,
+        0.4622089,
+        0.45974457
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "malformed input",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json"
+      ],
+      "ace_scores": [
+        0.5506697,
+        0.50640434,
+        0.4963416,
+        0.4954817,
+        0.4950087
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "invalid JSON",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/delta.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_roles.py",
+        "rag_training/training_data/crossencoder_training_pairs.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/training_data/crossencoder_training_pairs.json"
+      ],
+      "ace_scores": [
+        0.5903395,
+        0.53951126,
+        0.51910484,
+        0.51614785,
+        0.50623894
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "missing key KeyError",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "tests/test_entity_key_lookup.py",
+        "tests/test_entity_key_lookup.py",
+        "ace/embedding_finetuning/models/ace_finetuned/tokenizer.json",
+        "tests/test_ace_auggie_direct.py"
+      ],
+      "ace_scores": [
+        0.5322745,
+        0.50363123,
+        0.50209635,
+        0.49963206,
+        0.4796512
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "index out of bounds",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/code_retrieval.py"
+      ],
+      "ace_files": [
+        ".claude/settings.json",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt",
+        "ace/embedding_finetuning/models/ace_finetuned/vocab.txt"
+      ],
+      "ace_scores": [
+        0.55888295,
+        0.5081224,
+        0.49069113,
+        0.49046028,
+        0.489161
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    },
+    {
+      "query": "type mismatch error",
+      "category": "EdgeCases",
+      "expected_files": [
+        "ace/config.py"
+      ],
+      "ace_files": [
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/training_data.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "rag_training/test_suite/enhanced_test_suite.json",
+        "ace/embedding_finetuning/training_data.json"
+      ],
+      "ace_scores": [
+        0.46811628,
+        0.46177548,
+        0.46067953,
+        0.4425321,
+        0.43624112
+      ],
+      "auggie_files": [],
+      "winner": "ACE",
+      "reason": "ACE returned more results (5 vs 0)",
+      "ace_has_all_auggie": true,
+      "auggie_has_all_ace": false
+    }
+  ]
+}
