@@ -28,6 +28,121 @@ from ace.code_retrieval import CodeRetrieval
 
 
 # =============================================================================
+# AUGGIE RESULTS CACHE - Avoid consuming credits on reruns
+# =============================================================================
+
+AUGGIE_CACHE_FILE = Path(__file__).parent.parent.parent / "benchmark_results" / "auggie_results_cache.json"
+_auggie_cache: Dict[str, Dict] = None  # Lazy loaded
+_cache_hits: int = 0
+_cache_misses: int = 0
+
+
+def load_auggie_cache() -> Dict[str, Dict]:
+    """Load or initialize Auggie results cache."""
+    global _auggie_cache
+    if _auggie_cache is not None:
+        return _auggie_cache
+    
+    if AUGGIE_CACHE_FILE.exists():
+        try:
+            with open(AUGGIE_CACHE_FILE, "r") as f:
+                _auggie_cache = json.load(f)
+            print(f"[Cache] Loaded {len(_auggie_cache)} cached Auggie results")
+        except Exception as e:
+            print(f"[Cache] Error loading cache: {e}")
+            _auggie_cache = {}
+    else:
+        _auggie_cache = {}
+        # Try to build cache from existing benchmark results
+        build_cache_from_existing_results()
+    
+    return _auggie_cache
+
+
+def save_auggie_cache():
+    """Save Auggie results cache to disk."""
+    global _auggie_cache
+    if _auggie_cache is None:
+        return
+    
+    AUGGIE_CACHE_FILE.parent.mkdir(exist_ok=True)
+    with open(AUGGIE_CACHE_FILE, "w") as f:
+        json.dump(_auggie_cache, f, indent=2)
+    print(f"[Cache] Saved {len(_auggie_cache)} Auggie results to cache")
+
+
+def build_cache_from_existing_results():
+    """Build cache from existing benchmark result files."""
+    global _auggie_cache
+    if _auggie_cache is None:
+        _auggie_cache = {}
+    
+    results_dir = Path(__file__).parent.parent.parent / "benchmark_results"
+    if not results_dir.exists():
+        return
+    
+    # Find most recent benchmark file with Auggie data
+    for result_file in sorted(results_dir.glob("enhanced_head2head_*.json"), reverse=True):
+        try:
+            with open(result_file, "r") as f:
+                data = json.load(f)
+            
+            results = data.get("results", [])
+            added = 0
+            for r in results:
+                query = r.get("query", "")
+                auggie_files = r.get("ThatOtherContextEngine_files", [])
+                auggie_contents = r.get("ThatOtherContextEngine_contents", [])
+                auggie_lines = r.get("ThatOtherContextEngine_line_counts", [])
+                
+                # Only cache if Auggie actually returned results
+                if query and auggie_files:
+                    _auggie_cache[query] = {
+                        "files": auggie_files,
+                        "contents": auggie_contents,
+                        "line_counts": auggie_lines,
+                        "source": str(result_file.name),
+                    }
+                    added += 1
+            
+            if added > 0:
+                print(f"[Cache] Built cache with {added} entries from {result_file.name}")
+                save_auggie_cache()
+                return
+        except Exception as e:
+            continue
+    
+    print("[Cache] No existing benchmark results with Auggie data found")
+
+
+def get_cached_auggie_result(query: str) -> Optional[Tuple[List[str], List[str], List[int]]]:
+    """Get cached Auggie result for a query, if available."""
+    global _cache_hits
+    cache = load_auggie_cache()
+    if query in cache:
+        _cache_hits += 1
+        entry = cache[query]
+        return entry["files"], entry["contents"], entry["line_counts"]
+    return None
+
+
+def cache_auggie_result(query: str, files: List[str], contents: List[str], line_counts: List[int]):
+    """Cache an Auggie result for future use."""
+    global _auggie_cache, _cache_misses
+    if _auggie_cache is None:
+        _auggie_cache = {}
+    
+    _cache_misses += 1  # Track that we had to make a live query
+    if files:  # Only cache non-empty results
+        _auggie_cache[query] = {
+            "files": files,
+            "contents": contents,
+            "line_counts": line_counts,
+            "source": "live_query",
+        }
+
+
+# =============================================================================
 # REAL-WORLD QUERIES FROM CHAT HISTORIES
 # =============================================================================
 
@@ -306,14 +421,24 @@ def get_ace_detailed_results(query: str, limit: int = 5) -> Tuple[List[str], Lis
 
 
 def get_ThatOtherContextEngine_detailed_results(query: str, limit: int = 5) -> Tuple[List[str], List[str], List[int]]:
-    """Get detailed ThatOtherContextEngine results including content."""
+    """Get detailed ThatOtherContextEngine results including content.
+    
+    Uses cached results if available to avoid consuming Auggie credits.
+    """
+    # Check cache first
+    cached = get_cached_auggie_result(query)
+    if cached is not None:
+        files, contents, line_counts = cached
+        return files[:limit], contents[:limit], line_counts[:limit]
+    
+    # No cache - make live query
     try:
         import platform
         if platform.system() == "Windows":
-            cmd = f'ThatOtherContextEngine -p "{query}" --max-turns 1'
+            cmd = f'auggie -p "{query}" --max-turns 1'
             use_shell = True
         else:
-            cmd = ["ThatOtherContextEngine", "-p", query, "--max-turns", "1"]
+            cmd = ["auggie", "-p", query, "--max-turns", "1"]
             use_shell = False
         
         result = subprocess.run(
@@ -357,6 +482,9 @@ def get_ThatOtherContextEngine_detailed_results(query: str, limit: int = 5) -> T
             files.append(current_file)
             contents.append("\n".join(current_content[:20]))
             line_counts.append(line_count)
+        
+        # Cache the result for future runs
+        cache_auggie_result(query, files[:limit], contents[:limit], line_counts[:limit])
         
         return files[:limit], contents[:limit], line_counts[:limit]
     except Exception as e:
@@ -482,6 +610,11 @@ def run_comprehensive_comparison(categories: List[str] = None, verbose: bool = F
     if categories is None:
         categories = list(REAL_WORLD_QUERIES.keys())
     
+    # Load Auggie cache to save credits
+    cache = load_auggie_cache()
+    cache_hits = 0
+    cache_misses = 0
+    
     results = []
     stats = {
         "total": 0,
@@ -587,6 +720,9 @@ def run_comprehensive_comparison(categories: List[str] = None, verbose: bool = F
     print(f"Ties: {stats['ties']} ({stats['ties']/stats['total']*100:.1f}%)")
     print(f"ACE Non-Loss Rate: {(stats['ace_wins'] + stats['ties'])/stats['total']*100:.2f}%")
     
+    # Cache statistics
+    print(f"\n[Auggie Cache] Hits: {_cache_hits} | Misses: {_cache_misses} | Credits saved: {_cache_hits}")
+    
     # ThatOtherContextEngine wins analysis
     if stats["ThatOtherContextEngine_wins_detail"]:
         print("\n" + "=" * 80)
@@ -615,6 +751,9 @@ def run_comprehensive_comparison(categories: List[str] = None, verbose: bool = F
     with open(output_file, "w") as f:
         json.dump(output, f, indent=2, default=str)
     print(f"\nResults saved to: {output_file}")
+    
+    # Save Auggie cache for future runs (saves credits!)
+    save_auggie_cache()
     
     return stats
 

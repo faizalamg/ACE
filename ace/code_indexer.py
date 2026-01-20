@@ -187,6 +187,22 @@ DEFAULT_EXCLUDE_PATTERNS = [
     # Jupyter checkpoints
     "**/.ipynb_checkpoints/**",
     ".ipynb_checkpoints/**",
+    # Benchmark and test result data
+    "**/benchmark_results/**",
+    "benchmark_results/**",
+    "**/tenant_data/**",
+    "tenant_data/**",
+    "**/logs/**",
+    "logs/**",
+    # Training/ML data
+    "**/rag_training/**",
+    "rag_training/**",
+    # Planning files (if user tracks separately)
+    "**/.planning/**",
+    ".planning/**",
+    # Serena memories (indexed separately)
+    "**/.serena/**",
+    ".serena/**",
 ]
 
 
@@ -234,28 +250,39 @@ class CodeIndexer:
             workspace_path: Root directory of the workspace to index
             qdrant_url: Qdrant server URL (default: from env or localhost:6333)
             collection_name: Qdrant collection name (default: from env or ace_code_context)
-            embedding_dim: Embedding dimension (default: 1024d for Voyage-code-3)
-            embed_fn: Custom embedding function (default: None, uses Voyage code embedder)
+            embedding_dim: Embedding dimension (auto-detected based on provider)
+            embed_fn: Custom embedding function (default: None, uses configured provider)
             exclude_patterns: Additional patterns to exclude from scanning
             respect_gitignore: Whether to respect .gitignore files
         """
-        # Load Voyage code embedding config (REQUIRED)
-        from ace.config import VoyageCodeEmbeddingConfig
+        # Check provider config
+        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        provider_config = get_embedding_provider_config()
         
-        _voyage_config = VoyageCodeEmbeddingConfig()
-        
-        if not _voyage_config.is_configured():
-            raise RuntimeError(
-                "VOYAGE_API_KEY environment variable is required for code indexing. "
-                "Set VOYAGE_API_KEY to use voyage-code-3."
-            )
-        
-        default_dim = _voyage_config.dimension  # 1024d for Voyage
-        logger.info(f"Using Voyage config: {_voyage_config.model} ({default_dim}d)")
+        if provider_config.is_code_local():
+            # Use local LM Studio embeddings
+            local_config = LocalEmbeddingConfig()
+            default_dim = local_config.code_dimension  # 768d for Jina
+            default_collection = "ace_code_context_local"  # Separate collection for different dimension
+            logger.info(f"Using local config: {local_config.code_model} ({default_dim}d)")
+        else:
+            # Use Voyage API
+            voyage_config = VoyageCodeEmbeddingConfig()
+            
+            if not voyage_config.is_configured():
+                raise RuntimeError(
+                    "VOYAGE_API_KEY environment variable is required for code indexing. "
+                    "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
+                    "to use LM Studio instead."
+                )
+            
+            default_dim = voyage_config.dimension  # 1024d for Voyage
+            default_collection = "ace_code_context"
+            logger.info(f"Using Voyage config: {voyage_config.model} ({default_dim}d)")
         
         self.workspace_path = os.path.abspath(workspace_path)
         self.qdrant_url = qdrant_url or os.environ.get("QDRANT_URL", "http://localhost:6333")
-        self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", "ace_code_context")
+        self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
         self.embedding_dim = embedding_dim or int(os.environ.get("ACE_CODE_EMBEDDING_DIM", str(default_dim)))
         self._embed_fn = embed_fn
         self.respect_gitignore = respect_gitignore
@@ -332,24 +359,64 @@ class CodeIndexer:
     def _get_embedder(self) -> Callable[[str], List[float]]:
         """Get or create code-specific embedding function.
         
-        REQUIRES Voyage API (voyage-code-3, 1024d).
-        Voyage-code-3 is specifically trained for code retrieval.
+        Supports both Voyage API (voyage-code-3, 1024d) and local LM Studio
+        (jina-embeddings-v2-base-code, 768d) based on ACE_CODE_EMBEDDING_PROVIDER.
         
+        Environment Variables:
+            ACE_CODE_EMBEDDING_PROVIDER: "local" or "voyage" (default: voyage)
+        
+        Returns:
+            Embedding function that accepts text and returns vector.
+            
         Raises:
-            RuntimeError: If VOYAGE_API_KEY is not configured
+            RuntimeError: If required API keys/services are not configured
         """
         if self._embed_fn:
             return self._embed_fn
         
-        # Voyage API is REQUIRED for code embeddings
-        from ace.config import VoyageCodeEmbeddingConfig
+        # Check provider config
+        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        provider_config = get_embedding_provider_config()
+        
+        if provider_config.is_code_local():
+            # Use LM Studio local embeddings
+            local_config = LocalEmbeddingConfig()
+            logger.info(f"Using local {local_config.code_model} for code indexing ({local_config.code_dimension}d)")
+            
+            # Update dimension for collection creation
+            self.embedding_dim = local_config.code_dimension
+            
+            import httpx
+            http_client = httpx.Client(timeout=60.0)  # Longer timeout for batch ops
+            
+            def local_embed(text: str) -> List[float]:
+                """Embed text using local LM Studio model for documents."""
+                try:
+                    resp = http_client.post(
+                        f"{local_config.url}/v1/embeddings",
+                        json={
+                            "model": local_config.code_model,
+                            "input": text[:local_config.code_max_length]
+                        }
+                    )
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["data"][0]["embedding"]
+                except Exception as e:
+                    logger.error(f"Local embedding error: {e}")
+                    return [0.0] * local_config.code_dimension
+            
+            self._embed_fn = local_embed
+            return local_embed
+        
+        # Default: Use Voyage API
         voyage_config = VoyageCodeEmbeddingConfig()
         
         if not voyage_config.is_configured():
             raise RuntimeError(
                 "VOYAGE_API_KEY environment variable is required for code embeddings. "
-                "Voyage-code-3 is the only supported code embedding model. "
-                "Get your API key from https://www.voyageai.com/"
+                "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
+                "to use LM Studio instead."
             )
         
         try:

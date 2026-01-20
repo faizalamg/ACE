@@ -64,21 +64,36 @@ class CodeRetrieval:
         
         Args:
             qdrant_url: Qdrant server URL (default: from env or localhost:6333)
-            collection_name: Qdrant collection name (default: from env or ace_code_context)
-            embed_fn: Custom embedding function (default: None, uses Voyage code embedder)
+            collection_name: Qdrant collection name (default: from env or auto-detected by provider)
+            embed_fn: Custom embedding function (default: None, uses configured provider)
         """
-        # Load Voyage code embedding config (required)
-        from ace.config import VoyageCodeEmbeddingConfig
-        self._voyage_config = VoyageCodeEmbeddingConfig()
+        # Check provider config
+        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        provider_config = get_embedding_provider_config()
         
-        if not self._voyage_config.is_configured():
-            raise RuntimeError(
-                "VOYAGE_API_KEY environment variable is required for code embeddings. "
-                "Set VOYAGE_API_KEY to use voyage-code-3."
-            )
+        if provider_config.is_code_local():
+            # Use local LM Studio embeddings
+            local_config = LocalEmbeddingConfig()
+            default_collection = "ace_code_context_local"  # Separate collection for 768d vectors
+            self._embedding_dim = local_config.code_dimension
+            logger.info(f"Code retrieval using local provider ({local_config.code_dimension}d)")
+        else:
+            # Use Voyage API
+            voyage_config = VoyageCodeEmbeddingConfig()
+            
+            if not voyage_config.is_configured():
+                raise RuntimeError(
+                    "VOYAGE_API_KEY environment variable is required for code embeddings. "
+                    "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
+                    "to use LM Studio instead."
+                )
+            
+            default_collection = "ace_code_context"
+            self._embedding_dim = voyage_config.dimension
+            logger.info(f"Code retrieval using Voyage provider ({voyage_config.dimension}d)")
         
         self.qdrant_url = qdrant_url or os.environ.get("QDRANT_URL", "http://localhost:6333")
-        self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", "ace_code_context")
+        self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
         self._embed_fn = embed_fn
         self._client = None
         
@@ -101,24 +116,60 @@ class CodeRetrieval:
     def _get_embedder(self) -> Optional[Callable[[str], List[float]]]:
         """Get or create code-specific embedding function.
         
-        REQUIRES Voyage API (voyage-code-3, 1024d).
-        Voyage-code-3 is specifically trained for code retrieval.
+        Supports both Voyage API (voyage-code-3, 1024d) and local LM Studio
+        (jina-embeddings-v2-base-code, 768d) based on ACE_CODE_EMBEDDING_PROVIDER.
         
+        Environment Variables:
+            ACE_CODE_EMBEDDING_PROVIDER: "local" or "voyage" (default: voyage)
+        
+        Returns:
+            Embedding function that accepts text and returns vector.
+            
         Raises:
-            RuntimeError: If VOYAGE_API_KEY is not configured
+            RuntimeError: If required API keys/services are not configured
         """
         if self._embed_fn:
             return self._embed_fn
         
-        # Voyage API is REQUIRED for code embeddings
-        from ace.config import VoyageCodeEmbeddingConfig
+        # Check provider config
+        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        provider_config = get_embedding_provider_config()
+        
+        if provider_config.is_code_local():
+            # Use LM Studio local embeddings
+            local_config = LocalEmbeddingConfig()
+            logger.info(f"Using local {local_config.code_model} for code embeddings ({local_config.code_dimension}d)")
+            
+            import httpx
+            http_client = httpx.Client(timeout=30.0)
+            
+            def local_embed(text: str) -> List[float]:
+                """Embed text using local LM Studio model."""
+                try:
+                    resp = http_client.post(
+                        f"{local_config.url}/v1/embeddings",
+                        json={
+                            "model": local_config.code_model,
+                            "input": text[:local_config.code_max_length]
+                        }
+                    )
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["data"][0]["embedding"]
+                except Exception as e:
+                    logger.error(f"Local embedding error: {e}")
+                    return [0.0] * local_config.code_dimension
+            
+            return local_embed
+        
+        # Default: Use Voyage API
         voyage_config = VoyageCodeEmbeddingConfig()
         
         if not voyage_config.is_configured():
             raise RuntimeError(
                 "VOYAGE_API_KEY environment variable is required for code embeddings. "
-                "Voyage-code-3 is the only supported code embedding model. "
-                "Get your API key from https://www.voyageai.com/"
+                "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
+                "to use LM Studio instead."
             )
         
         try:
@@ -1159,30 +1210,61 @@ class CodeRetrieval:
 
 
     def _is_test_file(self, file_path: str) -> bool:
-        """Check if a file path is a test file.
+        """Check if a file path is a test, script, debug, benchmark, or example file.
+
+        These files should be excluded from results when exclude_tests=True
+        to prioritize core implementation files over auxiliary/tooling files.
 
         Args:
             file_path: Relative file path
 
         Returns:
-            True if file is a test file
+            True if file should be excluded (test/script/debug/benchmark/example)
         """
         path_lower = file_path.lower()
-
-        # Test directory patterns
-        if '/tests/' in path_lower or '\\tests\\' in path_lower:
-            return True
-        if '/test/' in path_lower or '\\test\\' in path_lower:
-            return True
-
-        # Test file name patterns
         import os
         filename = os.path.basename(path_lower)
+
+        # Test directory patterns
+        test_dirs = ['tests/', 'test/']
+        for td in test_dirs:
+            if td in path_lower or td.replace('/', '\\') in path_lower:
+                return True
+            if path_lower.startswith(td) or path_lower.startswith(td.replace('/', '\\')):
+                return True
+
+        # Test file name patterns
         if filename.startswith('test_'):
             return True
         if filename.endswith('_test.py'):
             return True
         if filename == 'conftest.py':
+            return True
+
+        # Script/tooling directories - exclude non-core implementation files
+        tooling_dirs = ['scripts/', 'dev_scripts/', 'examples/', 'benchmarks/']
+        for td in tooling_dirs:
+            if td in path_lower or td.replace('/', '\\') in path_lower:
+                return True
+            if path_lower.startswith(td) or path_lower.startswith(td.replace('/', '\\')):
+                return True
+
+        # Debug file patterns
+        if filename.startswith('debug_'):
+            return True
+
+        # Benchmark file patterns
+        if filename.startswith('benchmark_') or 'benchmark' in filename:
+            return True
+        if filename.startswith('run_') and 'benchmark' in filename:
+            return True
+
+        # Example file patterns
+        if filename.startswith('example_') or filename.startswith('example.'):
+            return True
+
+        # Compare/analyze scripts (typically tooling, not implementation)
+        if filename.startswith('compare_') or filename.startswith('analyze_'):
             return True
 
         return False
