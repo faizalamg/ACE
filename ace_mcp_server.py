@@ -634,6 +634,7 @@ async def ace_retrieve(
     query: str,
     namespace: str = "all",
     limit: int = 5,
+    precision: bool = True,
     ctx: Context = None,
 ) -> str:
     """Retrieve relevant context from ACE unified memory based on a query.
@@ -650,10 +651,11 @@ async def ace_retrieve(
         query: Natural language query describing what context you need
         namespace: Filter by namespace: user_prefs, task_strategies, project_specific, or all
         limit: Maximum number of results to return (1-20)
+        precision: Enable precision mode for focused results (fewer, higher-quality). Default True. Set False for balanced mode with more context.
     """
     _log_startup_info()
     
-    logger.info(f"ace_retrieve called: query='{query}', namespace={namespace}, limit={limit}")
+    logger.info(f"ace_retrieve called: query='{query}', namespace={namespace}, limit={limit}, precision={precision}")
     results_parts = []
 
     # Get workspace via list_roots() or fallback
@@ -683,11 +685,27 @@ async def ace_retrieve(
         logger.info(f"Workspace changed - resetting code_retrieval (was {_code_retrieval.collection_name}, need {expected_collection})")
         _code_retrieval = None
     
+    # Precision mode: parameter takes precedence, then fall back to env var
+    precision_mode = precision  # Direct parameter value (defaults to True)
+    if precision_mode:
+        logger.info("Precision mode active - using focused retrieval")
+    else:
+        logger.info("Balanced mode active - using broader retrieval")
+    
     code_retrieval = get_code_retrieval()
     logger.info(f"code_retrieval instance: {code_retrieval is not None}, collection: {code_retrieval.collection_name if code_retrieval else 'N/A'}")
     if code_retrieval:
         try:
-            code_results = await asyncio.to_thread(code_retrieval.search, query, limit)
+            code_results = await asyncio.to_thread(
+                code_retrieval.search, 
+                query, 
+                limit,
+                deduplicate=True,
+                min_score=0.0,
+                use_reranker=False,
+                exclude_tests=True,
+                precision_mode=precision_mode
+            )
             logger.info(f"Code search returned {len(code_results)} results")
             if code_results:
                 # Use Auggie-compatible format directly (no wrapper header)

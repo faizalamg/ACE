@@ -58,6 +58,36 @@ results = retriever.retrieve("your query")
 
 ---
 
+## Precision Mode
+
+Need fewer, more focused results? Set `ACE_PRESET=precision`:
+
+```bash
+# Environment variable
+export ACE_PRESET=precision
+
+# Or in .env
+ACE_PRESET=precision
+```
+
+### Presets Comparison
+
+| Preset | Results | Query Expansion | Use Case |
+|--------|---------|-----------------|----------|
+| **precision** | ~5 | None | Focused lookup, symbol search |
+| **fast** | ~40 | None | Quick checks, no reranking |
+| **balanced** | ~64 | 4 queries | Default - balanced recall/precision |
+| **deep** | ~96 | 6 queries | Comprehensive analysis |
+| **diverse** | ~80 | 4 queries | Multiple perspectives |
+
+**Precision mode** gives Auggie-like focused results:
+- Conservative fetch limits (fewer candidates)
+- Higher min_score threshold (0.3 vs 0.0)
+- No phrase text search fallback (trust embeddings)
+- Ideal for: exact symbol lookup, specific file location, targeted searches
+
+---
+
 ## Recommended Setup
 
 | Component | Recommendation | Notes |

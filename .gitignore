@@ -3,3 +3,48 @@ REDDIT_POST.md
 
 # Large model files (users regenerate via finetuning pipeline)
 ace/embedding_finetuning/models/ace_finetuned/model.safetensors
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Temp/debug/analysis scripts (one-off scripts, not core code)
+debug_*.py
+check_*.py
+verify_*.py
+analyze_*.py
+analysis_*.py
+show_*.py
+display_*.py
+temp_*.py
+tmp_*.py
+scratch_*.py
+benchmark_*.py
+fix_*.py
+patch_*.py
+reindex_*.py
+migrate_*.py
+demo_*.py
+example_*.py
+quick_*.py
+try_*.py
+run_*.py
+extract_*.py
+rebuild_*.py
+strict_*.py
+
+# Benchmark data and results
+benchmark_chunks/
+benchmark_results/*.json
+
+# Coverage and test artifacts
+.coverage
+htmlcov/
+*.coverage
+
+# Other generated files
+all_152_queries.txt

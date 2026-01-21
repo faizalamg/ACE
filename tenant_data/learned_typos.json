@@ -249,8 +249,18 @@
     "ouput": "output",
     "claude": "cloud",
     "neeed": "need",
-    "docs": "dogs"
+    "docs": "dogs",
+    "claudedir": "includedir",
+    "registr": "register",
+    "proces": "process",
+    "ncreating": "creating",
+    "continuation": "configuration",
+    "nomic": "gnomic",
+    "jina": "gina",
+    "batches": "batch",
+    "udnerstanding": "understanding",
+    "challenge": "challenge\u5df4\u8fbe"
   },
-  "updated_at": "2026-01-10T03:12:22Z",
-  "count": 250
+  "updated_at": "2026-01-21T03:47:31Z",
+  "count": 260
 }

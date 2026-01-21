@@ -82,8 +82,8 @@ EXPANDED_QUERIES = [
     
     # --- NEW: Method definitions (VERIFIED) ---
     ("_apply_filename_boost method", ["ace/code_retrieval.py"], "ace/code_retrieval.py"),
-    # _expand_query exists in BOTH files (verified via grep)
-    ("_expand_query function code retrieval", ["ace/code_retrieval.py", "ace/unified_memory.py"], "ace/code_retrieval.py"),
+    # _expand_query exists in BOTH files + retrieval_optimized has expand variants
+    ("_expand_query function code retrieval", ["ace/code_retrieval.py", "ace/unified_memory.py", "ace/retrieval_optimized.py"], "ace/code_retrieval.py"),
     # NO METHOD CALLED search_with_bm25! BM25 funcs are tokenize_for_bm25, create_sparse_vector in unified_memory
     ("tokenize_for_bm25 function", ["ace/unified_memory.py"], "ace/unified_memory.py"),
     
@@ -93,7 +93,8 @@ EXPANDED_QUERIES = [
     
     # --- NEW: Class hierarchies (VERIFIED) ---
     ("ASTChunker class code chunker", ["ace/code_chunker.py"], "ace/code_chunker.py"),
-    ("UnifiedMemoryIndex retrieve method", ["ace/unified_memory.py"], "ace/unified_memory.py"),
+    # UnifiedMemoryIndex and retrieve appear in code AND docs (user guides have usage examples)
+    ("UnifiedMemoryIndex retrieve method", ["ace/unified_memory.py", "docs/ACE_INTELLIGENT_LEARNING_USER_GUIDE.md"], "ace/unified_memory.py"),
     
     # --- NEW: Import patterns - MULTI-VALID (many files have these) ---
     ("from qdrant_client import", ["ace/unified_memory.py", "ace/qdrant_retrieval.py", "ace/code_indexer.py", "ace/code_retrieval.py", "ace/deduplication.py"], None),
@@ -106,10 +107,10 @@ EXPANDED_QUERIES = [
     ("cross-encoder reranking", ["ace/reranker.py", "ace/unified_memory.py", "ace/retrieval.py", "ace/config.py"], None),
     
     # --- NEW: Error handling patterns (VERIFIED) ---
-    # "Qdrant REST error" appears in code_retrieval.py and unified_memory.py
-    ("Qdrant REST error", ["ace/code_retrieval.py", "ace/unified_memory.py"], None),
-    # "embedding error" appears in code_retrieval.py, code_indexer.py; "fallback" appears in code_indexer.py, code_retrieval.py
-    ("embedding error fallback", ["ace/code_retrieval.py", "ace/code_indexer.py"], None),
+    # "Qdrant REST error" appears in code_retrieval.py, unified_memory.py, and qdrant_retrieval.py
+    ("Qdrant REST error", ["ace/code_retrieval.py", "ace/unified_memory.py", "ace/qdrant_retrieval.py"], None),
+    # "embedding error" and "fallback" appear in multiple files handling embeddings
+    ("embedding error fallback", ["ace/code_retrieval.py", "ace/code_indexer.py", "ace/gemini_embeddings.py", "ace/openai_embeddings.py"], None),
     
     # --- NEW: Specific implementations (VERIFIED) ---
     ("format_ThatOtherContextEngine_style implementation", ["ace/code_retrieval.py"], "ace/code_retrieval.py"),

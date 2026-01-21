@@ -122,8 +122,8 @@ class CrossEncoderReranker:
         # Create query-document pairs
         pairs = [[query, doc] for doc in documents]
         
-        # Get scores from cross-encoder
-        scores = model.predict(pairs)
+        # Get scores from cross-encoder - disable progress bar (batches are annoying in benchmarks)
+        scores = model.predict(pairs, show_progress_bar=False)
         
         # Convert to list of floats
         return [float(s) for s in scores]

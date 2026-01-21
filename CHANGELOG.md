@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.8.0] - 2025-01-10
 
+### Fixed - 2025-01-12
+
+- **CodeRetrieval KISS/DRY Violation** - Unified embedding provider configuration across indexer and retrieval
+  - **Problem**: `CodeRetrieval` hardcoded Voyage embeddings while `CodeIndexer` used config-based provider selection
+  - **Root Cause**: KISS/DRY violation - same logic duplicated with different implementations
+  - **Solution**: Refactored `CodeRetrieval.__init__()` and `_get_embedder()` to use `get_embedding_provider_config()` pattern matching `CodeIndexer`
+  - **Provider Detection**: Uses `is_code_local()` → Jina (768d), `is_code_nomic()` → nomic (3584d), default → Voyage (1024d)
+  - **Files Modified**: `ace/code_retrieval.py` (lines 55-148)
+  - **Lesson**: All embedding consumers must use centralized config for DRY compliance
+
+- **CodeIndexer File Watcher Bug** - Added `_should_process()` helper for correct file filtering
+  - **Problem**: File watcher processed files that should be excluded (dotfiles, binaries)
+  - **Root Cause**: `_watch_directory()` only called `_is_code_file()` but not `_should_exclude()`
+  - **Solution**: Added `_should_process()` helper that checks BOTH conditions
+  - **Impact**: File watcher now correctly skips `.git/`, `.vscode/`, binaries, etc.
+  - **Files Modified**: `ace/code_indexer.py` (lines 1396-1403, 1430, 1434)
+  - **Lesson**: When filtering logic exists in multiple places, extract to single helper method
+
+### Changed - 2025-01-12
+
+- **Comprehensive .gitignore Update** - Added IDE, build, and development artifacts
+  - Added `.vscode/` for VS Code settings
+  - Added `*.tmp`, `*.bak`, `*.swp` for editor temporaries
+  - Added `benchmark_results/` and `benchmark_chunks/` for benchmark output
+  - Added `tenant_data/` for local data storage
+  - Added `logs/` and `htmlcov/` for development artifacts
+
 ### Added
 
 - **AdaptiveChunker - File-Type-Aware Chunking** - Intelligent semantic chunking based on file type

@@ -106,7 +106,10 @@ class EmbeddingProviderConfig:
     
     Environment Variables:
         ACE_TEXT_EMBEDDING_PROVIDER: "local" or "external" (default: local)
-        ACE_CODE_EMBEDDING_PROVIDER: "local" or "voyage" (default: voyage)
+        ACE_CODE_EMBEDDING_PROVIDER: "local", "nomic", or "voyage" (default: voyage)
+            - "local": jina-embeddings-v2-base-code (768d)
+            - "nomic": nomic-embed-code (3584d) - SOTA, outperforms Voyage on CodeSearchNet
+            - "voyage": voyage-code-3 (1024d) - cloud API
     """
     
     # Provider selection: "local" (LM Studio) or "external" (cloud APIs)
@@ -118,8 +121,12 @@ class EmbeddingProviderConfig:
         return self.text_provider.lower() == "local"
     
     def is_code_local(self) -> bool:
-        """Check if code embeddings use local provider."""
+        """Check if code embeddings use local provider (Jina)."""
         return self.code_provider.lower() == "local"
+    
+    def is_code_nomic(self) -> bool:
+        """Check if code embeddings use nomic-embed-code (local, 3584d)."""
+        return self.code_provider.lower() == "nomic"
     
     def is_code_voyage(self) -> bool:
         """Check if code embeddings use Voyage API."""
@@ -223,6 +230,44 @@ class CodeEmbeddingConfig:
 
     # Max input length (chars)
     max_input_length: int = field(default_factory=lambda: _get_env_int("ACE_CODE_EMBEDDING_MAX_LENGTH", 8000))
+
+
+@dataclass
+class NomicCodeEmbeddingConfig:
+    """Nomic AI code embedding configuration (nomic-embed-code).
+    
+    Uses nomic-embed-code which is a SOTA 7B code embedding model that
+    outperforms Voyage Code 3 on CodeSearchNet benchmarks.
+    Runs locally via LM Studio.
+    
+    Key Features:
+        - 7B parameters, 32K context window
+        - Trained on CoRNStack dataset (Python, Java, Ruby, PHP, JS, Go)
+        - Based on Qwen2.5-Coder-7B
+        - Output dimension: 3584
+    
+    Environment Variables:
+        ACE_NOMIC_URL: LM Studio server URL (default: http://localhost:1234)
+        ACE_NOMIC_MODEL: Model name (default: nomic-embed-code)
+        ACE_NOMIC_DIMENSION: Embedding dimension (default: 3584)
+    """
+
+    # LM Studio server URL
+    url: str = field(default_factory=lambda: _get_env("ACE_NOMIC_URL", "http://localhost:1234"))
+
+    # Model name in LM Studio (q8_0 is faster, f16 is higher precision)
+    model: str = field(default_factory=lambda: _get_env("ACE_NOMIC_MODEL", "text-embedding-nomic-embed-code@q8_0"))
+
+    # Embedding dimension (3584d for nomic-embed-code based on Qwen2.5-7B)
+    dimension: int = field(default_factory=lambda: _get_env_int("ACE_NOMIC_DIMENSION", 3584))
+
+    # Max input length (tokens) - 32K for nomic-embed-code
+    max_input_tokens: int = field(default_factory=lambda: _get_env_int("ACE_NOMIC_MAX_TOKENS", 32000))
+
+
+def get_nomic_code_embedding_config() -> NomicCodeEmbeddingConfig:
+    """Get Nomic code embedding configuration."""
+    return NomicCodeEmbeddingConfig()
 
 
 @dataclass
@@ -471,6 +516,14 @@ class PresetConfig:
 
 # P7.1 Multi-Preset System - Predefined Configurations
 PRESETS: dict[str, PresetConfig] = {
+    # Precision mode: Auggie-like focused results, minimal context usage
+    # Use when you want fewer, highly relevant results
+    "precision": PresetConfig(
+        final_k=10,           # Return few, focused results
+        use_hyde=False,       # No hypothetical docs - direct matching only
+        enable_reranking=True,  # Keep reranker for quality filtering
+        num_expanded_queries=1  # No query expansion - single focused query
+    ),
     "fast": PresetConfig(
         final_k=40,
         use_hyde=False,
@@ -527,6 +580,24 @@ def get_preset(name: str) -> PresetConfig:
         enable_reranking=preset.enable_reranking,
         num_expanded_queries=preset.num_expanded_queries
     )
+
+
+def get_active_preset_name() -> str | None:
+    """
+    Get the active preset name from ACE_PRESET environment variable.
+    
+    Returns:
+        Preset name if set and valid, None otherwise.
+        
+    Valid presets: precision, fast, balanced, deep, diverse
+    
+    Example:
+        Set ACE_PRESET=precision for Auggie-like focused results.
+    """
+    preset_name = os.getenv("ACE_PRESET", "").lower()
+    if preset_name and preset_name in PRESETS:
+        return preset_name
+    return None
 
 
 def apply_preset_to_retrieval_config(config: RetrievalConfig, preset: str) -> RetrievalConfig:

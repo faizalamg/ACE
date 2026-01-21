@@ -1379,7 +1379,8 @@ class OptimizedRetriever:
             doc_text = payload.get("lesson", "") or payload.get("content", "") or str(payload)
             pairs.append([query, doc_text[:1000]])
 
-        scores = self.cross_encoder.predict(pairs)
+        # Disable progress bar - batches are annoying in benchmarks/tests
+        scores = self.cross_encoder.predict(pairs, show_progress_bar=False)
 
         scored = list(zip(scores, candidates))
         scored.sort(key=lambda x: x[0], reverse=True)

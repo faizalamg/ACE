@@ -102,7 +102,8 @@ class GPUCrossEncoder:
             return []
 
         if self._fallback_model is not None:
-            return self._fallback_model.predict(sentence_pairs).tolist()
+            # Disable progress bar for benchmarks/tests - batches are annoying
+            return self._fallback_model.predict(sentence_pairs, show_progress_bar=False).tolist()
 
         if hasattr(self, '_ort_model') and self._ort_model is not None:
             # Use ONNX model

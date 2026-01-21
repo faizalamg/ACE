@@ -64,33 +64,38 @@ class CodeRetrieval:
         
         Args:
             qdrant_url: Qdrant server URL (default: from env or localhost:6333)
-            collection_name: Qdrant collection name (default: from env or auto-detected by provider)
+            collection_name: Qdrant collection name (default: from env or ace_code_context)
             embed_fn: Custom embedding function (default: None, uses configured provider)
         """
-        # Check provider config
-        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
-        provider_config = get_embedding_provider_config()
+        # Check provider config (same pattern as CodeIndexer - KISS/DRY)
+        from ace.config import (
+            get_embedding_provider_config, LocalEmbeddingConfig, 
+            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig
+        )
+        self._provider_config = get_embedding_provider_config()
         
-        if provider_config.is_code_local():
-            # Use local LM Studio embeddings
-            local_config = LocalEmbeddingConfig()
-            default_collection = "ace_code_context_local"  # Separate collection for 768d vectors
-            self._embedding_dim = local_config.code_dimension
-            logger.info(f"Code retrieval using local provider ({local_config.code_dimension}d)")
+        if self._provider_config.is_code_local():
+            # Use local LM Studio embeddings (Jina)
+            self._local_config = LocalEmbeddingConfig()
+            default_collection = "ace_code_context_local"
+            logger.info(f"Using local config: {self._local_config.code_model} ({self._local_config.code_dimension}d)")
+        elif self._provider_config.is_code_nomic():
+            # Use nomic-embed-code (SOTA, 3584d)
+            self._nomic_config = NomicCodeEmbeddingConfig()
+            default_collection = "ace_code_context_nomic"
+            logger.info(f"Using nomic config: {self._nomic_config.model} ({self._nomic_config.dimension}d)")
         else:
             # Use Voyage API
-            voyage_config = VoyageCodeEmbeddingConfig()
+            self._voyage_config = VoyageCodeEmbeddingConfig()
+            default_collection = "ace_code_context"
             
-            if not voyage_config.is_configured():
+            if not self._voyage_config.is_configured():
                 raise RuntimeError(
                     "VOYAGE_API_KEY environment variable is required for code embeddings. "
                     "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
-                    "to use LM Studio instead."
+                    "to use LM Studio instead, or ACE_CODE_EMBEDDING_PROVIDER=nomic for nomic-embed-code."
                 )
-            
-            default_collection = "ace_code_context"
-            self._embedding_dim = voyage_config.dimension
-            logger.info(f"Code retrieval using Voyage provider ({voyage_config.dimension}d)")
+            logger.info(f"Using Voyage config: {self._voyage_config.model} ({self._voyage_config.dimension}d)")
         
         self.qdrant_url = qdrant_url or os.environ.get("QDRANT_URL", "http://localhost:6333")
         self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
@@ -116,11 +121,9 @@ class CodeRetrieval:
     def _get_embedder(self) -> Optional[Callable[[str], List[float]]]:
         """Get or create code-specific embedding function.
         
-        Supports both Voyage API (voyage-code-3, 1024d) and local LM Studio
-        (jina-embeddings-v2-base-code, 768d) based on ACE_CODE_EMBEDDING_PROVIDER.
-        
-        Environment Variables:
-            ACE_CODE_EMBEDDING_PROVIDER: "local" or "voyage" (default: voyage)
+        Supports Voyage API (voyage-code-3, 1024d), local LM Studio (Jina, 768d),
+        and nomic-embed-code (3584d) based on ACE_CODE_EMBEDDING_PROVIDER config.
+        Same pattern as CodeIndexer._get_embedder() for KISS/DRY compliance.
         
         Returns:
             Embedding function that accepts text and returns vector.
@@ -131,26 +134,21 @@ class CodeRetrieval:
         if self._embed_fn:
             return self._embed_fn
         
-        # Check provider config
-        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
-        provider_config = get_embedding_provider_config()
-        
-        if provider_config.is_code_local():
-            # Use LM Studio local embeddings
-            local_config = LocalEmbeddingConfig()
-            logger.info(f"Using local {local_config.code_model} for code embeddings ({local_config.code_dimension}d)")
+        if self._provider_config.is_code_local():
+            # Use LM Studio local embeddings (Jina)
+            logger.info(f"Using local {self._local_config.code_model} for code retrieval ({self._local_config.code_dimension}d)")
             
             import httpx
-            http_client = httpx.Client(timeout=30.0)
+            http_client = httpx.Client(timeout=60.0)
             
             def local_embed(text: str) -> List[float]:
-                """Embed text using local LM Studio model."""
+                """Embed query using local LM Studio model."""
                 try:
                     resp = http_client.post(
-                        f"{local_config.url}/v1/embeddings",
+                        f"{self._local_config.url}/v1/embeddings",
                         json={
-                            "model": local_config.code_model,
-                            "input": text[:local_config.code_max_length]
+                            "model": self._local_config.code_model,
+                            "input": text[:self._local_config.code_max_length]
                         }
                     )
                     resp.raise_for_status()
@@ -158,20 +156,39 @@ class CodeRetrieval:
                     return data["data"][0]["embedding"]
                 except Exception as e:
                     logger.error(f"Local embedding error: {e}")
-                    return [0.0] * local_config.code_dimension
+                    return [0.0] * self._local_config.code_dimension
             
+            self._embed_fn = local_embed
             return local_embed
         
+        if self._provider_config.is_code_nomic():
+            # Use nomic-embed-code (SOTA, 3584d)
+            logger.info(f"Using nomic {self._nomic_config.model} for code retrieval ({self._nomic_config.dimension}d)")
+            
+            import httpx
+            http_client = httpx.Client(timeout=120.0)  # Longer timeout for 7B model
+            
+            def nomic_embed(text: str) -> List[float]:
+                """Embed query using nomic-embed-code model."""
+                try:
+                    resp = http_client.post(
+                        f"{self._nomic_config.url}/v1/embeddings",
+                        json={
+                            "model": self._nomic_config.model,
+                            "input": text[:8000]  # Truncate to safe limit
+                        }
+                    )
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["data"][0]["embedding"]
+                except Exception as e:
+                    logger.error(f"Nomic embedding error: {e}")
+                    return [0.0] * self._nomic_config.dimension
+            
+            self._embed_fn = nomic_embed
+            return nomic_embed
+        
         # Default: Use Voyage API
-        voyage_config = VoyageCodeEmbeddingConfig()
-        
-        if not voyage_config.is_configured():
-            raise RuntimeError(
-                "VOYAGE_API_KEY environment variable is required for code embeddings. "
-                "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
-                "to use LM Studio instead."
-            )
-        
         try:
             import voyageai
         except ImportError:
@@ -181,22 +198,23 @@ class CodeRetrieval:
             )
         
         # Create Voyage client
-        vo_client = voyageai.Client(api_key=voyage_config.api_key)
-        logger.info(f"Using Voyage {voyage_config.model} for code embeddings ({voyage_config.dimension}d)")
+        vo_client = voyageai.Client(api_key=self._voyage_config.api_key)
+        logger.info(f"Using Voyage {self._voyage_config.model} for code retrieval ({self._voyage_config.dimension}d)")
         
         def voyage_embed(text: str) -> List[float]:
-            """Embed text using Voyage code model."""
+            """Embed query using Voyage code model."""
             try:
                 result = vo_client.embed(
                     [text],
-                    model=voyage_config.model,
-                    input_type=voyage_config.query_input_type
+                    model=self._voyage_config.model,
+                    input_type=self._voyage_config.query_input_type
                 )
                 return result.embeddings[0]
             except Exception as e:
                 logger.error(f"Voyage embedding error: {e}")
-                return [0.0] * voyage_config.dimension
+                return [0.0] * self._voyage_config.dimension
         
+        self._embed_fn = voyage_embed
         return voyage_embed
     
     def _expand_query(self, query: str) -> str:
@@ -964,6 +982,7 @@ class CodeRetrieval:
         min_score: float = 0.0,
         use_reranker: bool = False,  # Disabled by default - text rerankers hurt code retrieval
         exclude_tests: bool = True,
+        precision_mode: bool = False,  # Auggie-like focused mode - fewer, higher quality results
     ) -> List[Dict[str, Any]]:
         """
         Search for relevant code chunks using dense vector search.
@@ -980,6 +999,8 @@ class CodeRetrieval:
             use_reranker: Whether to use cross-encoder reranking (disabled by default
                          because text-based rerankers prefer docstrings over implementations)
             exclude_tests: Whether to exclude test files from results (default: True)
+            precision_mode: When True, uses conservative fetch limits and higher min_score
+                           for Auggie-like focused results (fewer but higher quality)
         
         Returns:
             List of code results with metadata
@@ -987,6 +1008,11 @@ class CodeRetrieval:
         if not self._client:
             logger.warning("Qdrant client not available")
             return []
+        
+        # In precision mode, enforce higher minimum score for quality filtering
+        if precision_mode and min_score < 0.3:
+            min_score = 0.3  # Higher threshold for precision
+            logger.debug(f"Precision mode: min_score raised to {min_score}")
         
         embedder = self._get_embedder()
         if not embedder:
@@ -1023,22 +1049,29 @@ class CodeRetrieval:
             # because the method chunk may rank low (embedding prefers docstrings)
             is_class_method_query = bool(re.search(r'\w+\s+class\s+\w+\s+method', query, re.I))
             
-            # Fetch more results when excluding tests to compensate for filtering
-            fetch_limit = limit * 3 if (use_reranker or deduplicate) else limit
-            if exclude_tests:
-                fetch_limit = fetch_limit * 2  # Double fetch for filtering
-            if is_pattern_query:
-                # Pattern/concept queries need to fetch more to get docs (ranked lower by code embeddings)
-                fetch_limit = max(fetch_limit, 100)
-            if is_phrase_query:
-                # Phrase queries need larger fetch to find exact phrase matches that
-                # embeddings may rank low (coarse chunks dilute phrase signal)
-                fetch_limit = max(fetch_limit, 200)
-            if is_class_method_query:
-                # "ClassName class methodName method" queries need large fetch because
-                # the method implementation chunk often ranks low (embeddings prefer
-                # docstrings/class headers over method bodies far down in the file)
-                fetch_limit = max(fetch_limit, 200)
+            # PRECISION MODE: Conservative fetch limits for focused results
+            if precision_mode:
+                # Precision mode: minimal overfetch, rely on embedding quality
+                fetch_limit = limit * 2 if deduplicate else limit
+                logger.debug(f"Precision mode: fetch_limit capped at {fetch_limit}")
+            else:
+                # Standard mode: aggressive overfetch for recall
+                # Fetch more results when excluding tests to compensate for filtering
+                fetch_limit = limit * 3 if (use_reranker or deduplicate) else limit
+                if exclude_tests:
+                    fetch_limit = fetch_limit * 2  # Double fetch for filtering
+                if is_pattern_query:
+                    # Pattern/concept queries need to fetch more to get docs (ranked lower by code embeddings)
+                    fetch_limit = max(fetch_limit, 100)
+                if is_phrase_query:
+                    # Phrase queries need larger fetch to find exact phrase matches that
+                    # embeddings may rank low (coarse chunks dilute phrase signal)
+                    fetch_limit = max(fetch_limit, 200)
+                if is_class_method_query:
+                    # "ClassName class methodName method" queries need large fetch because
+                    # the method implementation chunk often ranks low (embeddings prefer
+                    # docstrings/class headers over method bodies far down in the file)
+                    fetch_limit = max(fetch_limit, 200)
             
             # ============================================================
             # EXACT PHRASE TEXT SEARCH FALLBACK
@@ -1048,7 +1081,8 @@ class CodeRetrieval:
             # NOTE: Qdrant text search is case-sensitive, so we try original case
             # ============================================================
             exact_phrase_matches = []
-            if is_phrase_query:
+            if is_phrase_query and not precision_mode:
+                # Skip text search in precision mode (trust embedding quality)
                 # Remove common prefix words for phrase matching (keep original case)
                 phrase_to_search = query.strip()
                 for prefix in ['How to ', 'how to ', 'What is ', 'what is ', 'Where is ', 
@@ -1210,61 +1244,30 @@ class CodeRetrieval:
 
 
     def _is_test_file(self, file_path: str) -> bool:
-        """Check if a file path is a test, script, debug, benchmark, or example file.
-
-        These files should be excluded from results when exclude_tests=True
-        to prioritize core implementation files over auxiliary/tooling files.
+        """Check if a file path is a test file.
 
         Args:
             file_path: Relative file path
 
         Returns:
-            True if file should be excluded (test/script/debug/benchmark/example)
+            True if file is a test file
         """
         path_lower = file_path.lower()
-        import os
-        filename = os.path.basename(path_lower)
 
         # Test directory patterns
-        test_dirs = ['tests/', 'test/']
-        for td in test_dirs:
-            if td in path_lower or td.replace('/', '\\') in path_lower:
-                return True
-            if path_lower.startswith(td) or path_lower.startswith(td.replace('/', '\\')):
-                return True
+        if '/tests/' in path_lower or '\\tests\\' in path_lower:
+            return True
+        if '/test/' in path_lower or '\\test\\' in path_lower:
+            return True
 
         # Test file name patterns
+        import os
+        filename = os.path.basename(path_lower)
         if filename.startswith('test_'):
             return True
         if filename.endswith('_test.py'):
             return True
         if filename == 'conftest.py':
-            return True
-
-        # Script/tooling directories - exclude non-core implementation files
-        tooling_dirs = ['scripts/', 'dev_scripts/', 'examples/', 'benchmarks/']
-        for td in tooling_dirs:
-            if td in path_lower or td.replace('/', '\\') in path_lower:
-                return True
-            if path_lower.startswith(td) or path_lower.startswith(td.replace('/', '\\')):
-                return True
-
-        # Debug file patterns
-        if filename.startswith('debug_'):
-            return True
-
-        # Benchmark file patterns
-        if filename.startswith('benchmark_') or 'benchmark' in filename:
-            return True
-        if filename.startswith('run_') and 'benchmark' in filename:
-            return True
-
-        # Example file patterns
-        if filename.startswith('example_') or filename.startswith('example.'):
-            return True
-
-        # Compare/analyze scripts (typically tooling, not implementation)
-        if filename.startswith('compare_') or filename.startswith('analyze_'):
             return True
 
         return False

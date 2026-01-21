@@ -190,6 +190,9 @@ DEFAULT_EXCLUDE_PATTERNS = [
     # Benchmark and test result data
     "**/benchmark_results/**",
     "benchmark_results/**",
+    # Benchmark code (test harnesses, not core library)
+    "**/benchmarks/**",
+    "benchmarks/**",
     "**/tenant_data/**",
     "tenant_data/**",
     "**/logs/**",
@@ -203,6 +206,118 @@ DEFAULT_EXCLUDE_PATTERNS = [
     # Serena memories (indexed separately)
     "**/.serena/**",
     ".serena/**",
+    # Documentation (index code, not docs)
+    "**/docs/**",
+    "docs/**",
+    # Benchmark chunks/data
+    "**/benchmark_chunks/**",
+    "benchmark_chunks/**",
+    # Embedding model files (vocab, weights)
+    "**/embedding_finetuning/models/**",
+    "embedding_finetuning/models/**",
+    # VSCode vendor copies
+    "**/vscode/**",
+    "vscode/**",
+    # Dev scripts (utility, not core code)
+    "**/dev_scripts/**",
+    "dev_scripts/**",
+    # Scripts folder (operational scripts)
+    "**/scripts/**",
+    "scripts/**",
+    # Examples (sample code, not lib)
+    "**/examples/**",
+    "examples/**",
+    # Query/benchmark text files (match all queries semantically)
+    "**/all_*_queries*.txt",
+    "all_*_queries*.txt",
+    "*.txt",  # Generally exclude txt files
+    # JSON/YAML data files - index code, not data
+    "*.json",
+    "**/*.json",
+    "*.yaml",
+    "**/*.yaml",
+    "*.yml",
+    "**/*.yml",
+    # Config files that aren't code
+    ".claude/**",
+    "**/.claude/**",
+    ".ace/**",
+    "**/.ace/**",
+    # Temp files
+    "*.tmp",
+    "*.temp",
+    "*.bak",
+    # TEST FILES - exclude to prevent test code from outranking source
+    # Tests contain class names but aren't the actual implementation
+    "**/tests/**",
+    "tests/**",
+    "test_*.py",
+    "*_test.py",
+    # Markdown/README files - index code, not docs
+    "*.md",
+    "**/*.md",
+    "README*",
+    "CHANGELOG*",
+    "CONTRIBUTING*",
+    "LICENSE*",
+    
+    # =========================================================================
+    # TEMPORARY/ANALYSIS SCRIPTS - Common naming conventions for throwaway code
+    # These are typically one-off scripts that shouldn't pollute semantic search
+    # =========================================================================
+    # Debug scripts
+    "debug_*.py",
+    "**/debug_*.py",
+    "*_debug.py",
+    "**/*_debug.py",
+    # Check/verify scripts
+    "check_*.py",
+    "**/check_*.py",
+    "verify_*.py",
+    "**/verify_*.py",
+    # Analysis scripts
+    "analyze_*.py",
+    "**/analyze_*.py",
+    "analysis_*.py",
+    "**/analysis_*.py",
+    # Show/display scripts
+    "show_*.py",
+    "**/show_*.py",
+    "display_*.py",
+    "**/display_*.py",
+    # Temp/scratch scripts
+    "temp_*.py",
+    "**/temp_*.py",
+    "tmp_*.py",
+    "**/tmp_*.py",
+    "scratch_*.py",
+    "**/scratch_*.py",
+    # Benchmark scripts (specific, not core code)
+    "benchmark_*.py",
+    "**/benchmark_*.py",
+    # Fix/patch scripts (one-off fixes)
+    "fix_*.py",
+    "**/fix_*.py",
+    "patch_*.py",
+    "**/patch_*.py",
+    # Reindex/migration scripts
+    "reindex_*.py",
+    "**/reindex_*.py",
+    "migrate_*.py",
+    "**/migrate_*.py",
+    # Demo/example scripts
+    "demo_*.py",
+    "**/demo_*.py",
+    "example_*.py",
+    "**/example_*.py",
+    # Quick/test scripts
+    "quick_*.py",
+    "**/quick_*.py",
+    "try_*.py",
+    "**/try_*.py",
+    # Run scripts (usually just main invocations)
+    "run_*.py",
+    "**/run_*.py",
 ]
 
 
@@ -256,15 +371,24 @@ class CodeIndexer:
             respect_gitignore: Whether to respect .gitignore files
         """
         # Check provider config
-        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        from ace.config import (
+            get_embedding_provider_config, LocalEmbeddingConfig, 
+            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig
+        )
         provider_config = get_embedding_provider_config()
         
         if provider_config.is_code_local():
-            # Use local LM Studio embeddings
+            # Use local LM Studio embeddings (Jina)
             local_config = LocalEmbeddingConfig()
             default_dim = local_config.code_dimension  # 768d for Jina
             default_collection = "ace_code_context_local"  # Separate collection for different dimension
             logger.info(f"Using local config: {local_config.code_model} ({default_dim}d)")
+        elif provider_config.is_code_nomic():
+            # Use nomic-embed-code (SOTA, 3584d)
+            nomic_config = NomicCodeEmbeddingConfig()
+            default_dim = nomic_config.dimension  # 3584d for nomic-embed-code
+            default_collection = "ace_code_context_nomic"  # Separate collection for 3584d
+            logger.info(f"Using nomic config: {nomic_config.model} ({default_dim}d)")
         else:
             # Use Voyage API
             voyage_config = VoyageCodeEmbeddingConfig()
@@ -273,7 +397,7 @@ class CodeIndexer:
                 raise RuntimeError(
                     "VOYAGE_API_KEY environment variable is required for code indexing. "
                     "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
-                    "to use LM Studio instead."
+                    "to use LM Studio instead, or ACE_CODE_EMBEDDING_PROVIDER=nomic for nomic-embed-code."
                 )
             
             default_dim = voyage_config.dimension  # 1024d for Voyage
@@ -375,11 +499,14 @@ class CodeIndexer:
             return self._embed_fn
         
         # Check provider config
-        from ace.config import get_embedding_provider_config, LocalEmbeddingConfig, VoyageCodeEmbeddingConfig
+        from ace.config import (
+            get_embedding_provider_config, LocalEmbeddingConfig, 
+            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig
+        )
         provider_config = get_embedding_provider_config()
         
         if provider_config.is_code_local():
-            # Use LM Studio local embeddings
+            # Use LM Studio local embeddings (Jina)
             local_config = LocalEmbeddingConfig()
             logger.info(f"Using local {local_config.code_model} for code indexing ({local_config.code_dimension}d)")
             
@@ -409,6 +536,37 @@ class CodeIndexer:
             self._embed_fn = local_embed
             return local_embed
         
+        if provider_config.is_code_nomic():
+            # Use nomic-embed-code (SOTA, 3584d)
+            nomic_config = NomicCodeEmbeddingConfig()
+            logger.info(f"Using nomic {nomic_config.model} for code indexing ({nomic_config.dimension}d)")
+            
+            # Update dimension for collection creation
+            self.embedding_dim = nomic_config.dimension
+            
+            import httpx
+            http_client = httpx.Client(timeout=120.0)  # Longer timeout for 7B model
+            
+            def nomic_embed(text: str) -> List[float]:
+                """Embed text using nomic-embed-code model for documents."""
+                try:
+                    resp = http_client.post(
+                        f"{nomic_config.url}/v1/embeddings",
+                        json={
+                            "model": nomic_config.model,
+                            "input": text[:8000]  # Truncate to safe limit
+                        }
+                    )
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["data"][0]["embedding"]
+                except Exception as e:
+                    logger.error(f"Nomic embedding error: {e}")
+                    return [0.0] * nomic_config.dimension
+            
+            self._embed_fn = nomic_embed
+            return nomic_embed
+        
         # Default: Use Voyage API
         voyage_config = VoyageCodeEmbeddingConfig()
         
@@ -416,7 +574,7 @@ class CodeIndexer:
             raise RuntimeError(
                 "VOYAGE_API_KEY environment variable is required for code embeddings. "
                 "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
-                "to use LM Studio instead."
+                "to use LM Studio instead, or ACE_CODE_EMBEDDING_PROVIDER=nomic for nomic-embed-code."
             )
         
         try:
@@ -499,7 +657,16 @@ class CodeIndexer:
             max_concurrent = max_concurrent or 4
         
         if not hasattr(self, '_voyage_client') or not self._voyage_client:
-            # Fallback to individual calls
+            # Use LM Studio batch API for local/nomic (pass array of inputs)
+            from ace.config import (
+                get_embedding_provider_config, LocalEmbeddingConfig, NomicCodeEmbeddingConfig
+            )
+            provider_config = get_embedding_provider_config()
+            
+            if provider_config.is_code_local() or provider_config.is_code_nomic():
+                return self._embed_batch_lmstudio(texts, batch_size, max_tokens_per_batch, max_concurrent)
+            
+            # Fallback to individual calls for unknown providers
             embed_fn = self._get_embedder()
             return [embed_fn(t) for t in texts]
         
@@ -575,6 +742,160 @@ class CodeIndexer:
         
         return all_embeddings
     
+    def _embed_batch_lmstudio(
+        self,
+        texts: List[str],
+        batch_size: int = None,
+        max_tokens_per_batch: int = None,
+        max_concurrent: int = None
+    ) -> List[List[float]]:
+        """Embed texts using LM Studio - uses individual requests for nomic 7B (no batching).
+        
+        For nomic 7B model: Uses individual requests for reliability. The 7B model can have
+        memory issues with batching that cause None values.
+        
+        For Jina: Uses batch API with array input for speed.
+        
+        Args:
+            texts: List of texts to embed
+            batch_size: Max texts per API call (ignored for nomic)
+            max_tokens_per_batch: Max estimated tokens per batch (ignored for nomic)
+            max_concurrent: Max parallel API calls (ignored for nomic)
+            
+        Returns:
+            List of embedding vectors
+        """
+        import concurrent.futures
+        import httpx
+        
+        from ace.config import (
+            get_embedding_provider_config, LocalEmbeddingConfig, NomicCodeEmbeddingConfig
+        )
+        provider_config = get_embedding_provider_config()
+        
+        # Configure based on model type
+        if provider_config.is_code_nomic():
+            config = NomicCodeEmbeddingConfig()
+            dimension = config.dimension  # 3584d
+            model = config.model
+            url = f"{config.url}/v1/embeddings"
+            timeout = 300.0  # 5 min per request for 7B model
+            use_batching = False  # Disable batching for nomic 7B - causes None values
+        else:
+            config = LocalEmbeddingConfig()
+            dimension = config.code_dimension  # 768d
+            model = config.code_model
+            url = f"{config.url}/v1/embeddings"
+            timeout = 120.0
+            use_batching = True
+            batch_size = 100  # Fixed for Jina
+            max_tokens_per_batch = 50000
+            max_concurrent = 4
+        
+        http_client = httpx.Client(timeout=timeout)
+        
+        # For nomic 7B: Use individual requests (no batching)
+        if not use_batching:
+            logger.info(f"LM Studio sequential: {len(texts)} texts (no batching for {model})")
+            all_embeddings = []
+            
+            for i, text in enumerate(texts, 1):
+                try:
+                    resp = http_client.post(
+                        url,
+                        json={
+                            "model": model,
+                            "input": text  # Single string, not array
+                        }
+                    )
+                    resp.raise_for_status()
+                    data = resp.json()
+                    embedding = data["data"][0]["embedding"]
+                    all_embeddings.append(embedding)
+                    
+                    if i % 100 == 0:
+                        logger.info(f"Embedded {i}/{len(texts)} chunks")
+                except Exception as e:
+                    logger.error(f"Embedding {i} error: {e}")
+                    all_embeddings.append([0.0] * dimension)
+            
+            http_client.close()
+            logger.info(f"Completed: embedded {len(texts)} chunks")
+            return all_embeddings
+        
+        # For Jina: Use batch API
+        def estimate_tokens(text: str) -> int:
+            """Estimate tokens - code uses ~2-3 chars per token."""
+            return max(1, len(text) // 2)
+        
+        # Build token-aware batches
+        batches = []
+        current_batch = []
+        current_tokens = 0
+        
+        for text in texts:
+            text_tokens = estimate_tokens(text)
+            
+            if current_batch and (len(current_batch) >= batch_size or current_tokens + text_tokens > max_tokens_per_batch):
+                batches.append(current_batch)
+                current_batch = []
+                current_tokens = 0
+            
+            current_batch.append(text)
+            current_tokens += text_tokens
+        
+        if current_batch:
+            batches.append(current_batch)
+        
+        logger.info(f"LM Studio batch: {len(texts)} texts -> {len(batches)} batches (batch_size={batch_size})")
+        
+        def embed_single_batch(batch_info):
+            """Embed a batch using LM Studio's array input."""
+            batch_num, batch = batch_info
+            batch_tokens = sum(estimate_tokens(t) for t in batch)
+            
+            try:
+                resp = http_client.post(
+                    url,
+                    json={
+                        "model": model,
+                        "input": batch  # Array of strings for batch embedding
+                    }
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                
+                # Extract embeddings in order (LM Studio returns sorted by index)
+                embeddings = [item["embedding"] for item in sorted(data["data"], key=lambda x: x["index"])]
+                logger.info(f"Batch {batch_num}/{len(batches)}: embedded {len(batch)} chunks (~{batch_tokens} tokens)")
+                return (batch_num, embeddings)
+            except Exception as e:
+                logger.error(f"LM Studio batch {batch_num} error: {e}")
+                return (batch_num, [[0.0] * dimension] * len(batch))
+        
+        # Parallel execution for Jina
+        if len(batches) > 1 and max_concurrent > 1:
+            all_results = []
+            with concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent) as executor:
+                futures = {executor.submit(embed_single_batch, (i+1, b)): i for i, b in enumerate(batches)}
+                for future in concurrent.futures.as_completed(futures):
+                    all_results.append(future.result())
+            
+            # Sort by batch number to maintain order
+            all_results.sort(key=lambda x: x[0])
+            all_embeddings = []
+            for _, embeddings in all_results:
+                all_embeddings.extend(embeddings)
+        else:
+            # Sequential for single batch
+            all_embeddings = []
+            for batch_num, batch in enumerate(batches, 1):
+                _, embeddings = embed_single_batch((batch_num, batch))
+                all_embeddings.extend(embeddings)
+        
+        http_client.close()
+        return all_embeddings
+
     def _should_exclude(self, file_path: str) -> bool:
         """Check if file should be excluded based on patterns."""
         # Skip Windows special devices (nul, con, prn, etc.)
@@ -1072,12 +1393,21 @@ class CodeIndexer:
                 def __init__(self, indexer):
                     self.indexer = indexer
                 
+                def _should_process(self, file_path: str) -> bool:
+                    """Check if file should be processed (code file AND not excluded)."""
+                    # DRY: Same logic as scan_workspace
+                    if not self.indexer._is_code_file(file_path):
+                        return False
+                    if self.indexer._should_exclude(file_path):
+                        return False
+                    return True
+                
                 def on_modified(self, event):
-                    if not event.is_directory and self.indexer._is_code_file(event.src_path):
+                    if not event.is_directory and self._should_process(event.src_path):
                         self.indexer.update_file(event.src_path)
                 
                 def on_created(self, event):
-                    if not event.is_directory and self.indexer._is_code_file(event.src_path):
+                    if not event.is_directory and self._should_process(event.src_path):
                         self.indexer.index_file(event.src_path)
                 
                 def on_deleted(self, event):
