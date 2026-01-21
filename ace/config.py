@@ -362,6 +362,33 @@ class QdrantConfig:
     # Collection dimensions (must match embedding model)
     memories_dimension: int = field(default_factory=lambda: _get_env_int("ACE_MEMORIES_DIMENSION", 4096))
     code_dimension: int = field(default_factory=lambda: _get_env_int("ACE_CODE_DIMENSION", 1024))
+
+    def get_code_collection_name(self) -> str:
+        """
+        Get the correct code collection name based on embedding provider.
+
+        Returns:
+            "ace_code_context_voyage" for Voyage (1024d)
+            "ace_code_context_jina" for Jina (768d)
+            "ace_code_context_nomic" for Nomic (3584d)
+            "ace_code_context" as fallback (Voyage default)
+        """
+        # Import provider config to determine suffix
+        from ace.config import get_embedding_provider_config
+        provider_config = get_embedding_provider_config()
+
+        if provider_config.is_code_nomic():
+            return "ace_code_context_nomic"
+        elif provider_config.is_code_local():
+            return "ace_code_context_jina"
+        elif provider_config.is_code_voyage():
+            return "ace_code_context_voyage"
+        else:
+            # Fallback - check if env var is explicitly set
+            env_collection = os.environ.get("ACE_CODE_COLLECTION", "")
+            if env_collection:
+                return env_collection
+            return "ace_code_context"
     
     def get_connection_url(self) -> str:
         """Get the effective connection URL."""
@@ -807,6 +834,7 @@ class ACEConfig:
 
     embedding: EmbeddingConfig = field(default_factory=EmbeddingConfig)
     code_embedding: CodeEmbeddingConfig = field(default_factory=CodeEmbeddingConfig)
+    code_embedding_model: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_MODEL", "voyage"))
     qdrant: QdrantConfig = field(default_factory=QdrantConfig)
     bm25: BM25Config = field(default_factory=BM25Config)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
