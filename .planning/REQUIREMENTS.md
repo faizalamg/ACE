@@ -79,19 +79,19 @@
 | SWITCH-02 | Phase 2 | Pending |
 | SWITCH-03 | Phase 2 | Pending |
 | SWITCH-04 | Phase 2 | Pending |
-| LM-01 | Phase 1 | Pending |
-| LM-02 | Phase 1 | Pending |
-| LM-03 | Phase 1 | Pending |
-| IDX-01 | Phase 2 | Pending |
-| IDX-02 | Phase 2 | Pending |
-| IDX-03 | Phase 2 | Pending |
-| RET-01 | Phase 2 | Pending |
-| RET-02 | Phase 2 | Pending |
-| RET-03 | Phase 2 | Pending |
+| LM-01 | Phase 3 | Pending |
+| LM-02 | Phase 3 | Pending |
+| LM-03 | Phase 3 | Pending |
+| IDX-01 | Phase 4 | Pending |
+| IDX-02 | Phase 4 | Pending |
+| IDX-03 | Phase 4 | Pending |
+| RET-01 | Phase 5 | Pending |
+| RET-02 | Phase 5 | Pending |
+| RET-03 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 16 total
-- Mapped to phases: 16
+- v1 requirements: 20 total
+- Mapped to phases: 20
 - Unmapped: 0 ✓
 
 ---
