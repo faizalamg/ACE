@@ -100,22 +100,39 @@ def get_feature_flags() -> FeatureFlags:
 @dataclass
 class EmbeddingProviderConfig:
     """Provider selection for embedding models.
-    
+
     Allows choosing between local (LM Studio) and external (cloud API) providers
     for both text and code embeddings.
-    
+
     Environment Variables:
         ACE_TEXT_EMBEDDING_PROVIDER: "local" or "external" (default: local)
         ACE_CODE_EMBEDDING_PROVIDER: "local", "nomic", or "voyage" (default: voyage)
             - "local": jina-embeddings-v2-base-code (768d)
             - "nomic": nomic-embed-code (3584d) - SOTA, outperforms Voyage on CodeSearchNet
             - "voyage": voyage-code-3 (1024d) - cloud API
+        ACE_CODE_EMBEDDING_MODEL: Override model selection (same as ACE_CODE_EMBEDDING_PROVIDER)
+            - Reads from ACEConfig.code_embedding_model first
+            - Falls back to ACE_CODE_EMBEDDING_PROVIDER env var
     """
-    
+
     # Provider selection: "local" (LM Studio) or "external" (cloud APIs)
     text_provider: str = field(default_factory=lambda: _get_env("ACE_TEXT_EMBEDDING_PROVIDER", "local"))
     code_provider: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_PROVIDER", "voyage"))
-    
+
+    def __post_init__(self):
+        """Post-initialization: Check ACEConfig for code_embedding_model override."""
+        # Import here to avoid circular dependency
+        try:
+            # Import get_config from this module (may already be in namespace)
+            from ace.config import get_config
+            ace_config = get_config()
+            # If ACEConfig has code_embedding_model set (from config file), use it
+            if hasattr(ace_config, 'code_embedding_model') and ace_config.code_embedding_model:
+                self.code_provider = ace_config.code_embedding_model
+        except Exception:
+            # If ACEConfig not initialized yet, use default from field
+            pass
+
     def is_text_local(self) -> bool:
         """Check if text embeddings use local provider."""
         return self.text_provider.lower() == "local"
