@@ -279,7 +279,7 @@ class EmbeddingProviderConfig:
     
     def is_code_local(self) -> bool:
         """Check if code embeddings use local provider (Jina)."""
-        return self.code_provider.lower() == "local"
+        return self.code_provider.lower() in ("local", "jina")
     
     def is_code_nomic(self) -> bool:
         """Check if code embeddings use nomic-embed-code (local, 3584d)."""

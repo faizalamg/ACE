@@ -69,26 +69,27 @@ class CodeRetrieval:
         """
         # Check provider config (same pattern as CodeIndexer - KISS/DRY)
         from ace.config import (
-            get_embedding_provider_config, LocalEmbeddingConfig, 
-            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig
+            get_embedding_provider_config, LocalEmbeddingConfig,
+            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig, QdrantConfig
         )
         self._provider_config = get_embedding_provider_config()
-        
+        qdrant_config = QdrantConfig()
+
         if self._provider_config.is_code_local():
             # Use local LM Studio embeddings (Jina)
             self._local_config = LocalEmbeddingConfig()
-            default_collection = "ace_code_context_local"
+            default_collection = qdrant_config.get_code_collection_name()
             logger.info(f"Using local config: {self._local_config.code_model} ({self._local_config.code_dimension}d)")
         elif self._provider_config.is_code_nomic():
             # Use nomic-embed-code (SOTA, 3584d)
             self._nomic_config = NomicCodeEmbeddingConfig()
-            default_collection = "ace_code_context_nomic"
+            default_collection = qdrant_config.get_code_collection_name()
             logger.info(f"Using nomic config: {self._nomic_config.model} ({self._nomic_config.dimension}d)")
         else:
             # Use Voyage API
             self._voyage_config = VoyageCodeEmbeddingConfig()
-            default_collection = "ace_code_context"
-            
+            default_collection = qdrant_config.get_code_collection_name()
+
             if not self._voyage_config.is_configured():
                 raise RuntimeError(
                     "VOYAGE_API_KEY environment variable is required for code embeddings. "
@@ -96,12 +97,12 @@ class CodeRetrieval:
                     "to use LM Studio instead, or ACE_CODE_EMBEDDING_PROVIDER=nomic for nomic-embed-code."
                 )
             logger.info(f"Using Voyage config: {self._voyage_config.model} ({self._voyage_config.dimension}d)")
-        
+
         self.qdrant_url = qdrant_url or os.environ.get("QDRANT_URL", "http://localhost:6333")
         self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
         self._embed_fn = embed_fn
         self._client = None
-        
+
         self._init_qdrant()
     
     def _init_qdrant(self) -> None:
