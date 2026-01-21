@@ -28,9 +28,12 @@ Override via environment variables or .env file.
 """
 
 import os
+import logging
 from dataclasses import dataclass, field
 from typing import Optional
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 # Load .env if python-dotenv is available
 try:
@@ -61,6 +64,143 @@ def _get_env_bool(key: str, default: bool) -> bool:
     """Get boolean environment variable with default."""
     val = os.getenv(key, str(default)).lower()
     return val in ("true", "1", "yes", "on")
+
+
+# ============================================================================
+# CONFIG FILE LOADING
+# ============================================================================
+
+def _get_workspace_root() -> Path:
+    """
+    Find the workspace root by looking for .ace/.ace.json.
+
+    Searches upward from current directory until .ace/.ace.json is found.
+
+    Returns:
+        Path to workspace root directory.
+
+    Raises:
+        FileNotFoundError: If no .ace/.ace.json found.
+    """
+    current = Path.cwd()
+
+    # Search upward until .ace directory found or filesystem root
+    while current != current.parent:
+        ace_config = current / ".ace" / ".ace.json"
+        if ace_config.exists():
+            return current
+
+        # Move up one level
+        current = current.parent
+
+    # Not found - check if .ace exists in cwd
+    cwd_config = Path.cwd() / ".ace" / ".ace.json"
+    if cwd_config.exists():
+        return Path.cwd()
+
+    raise FileNotFoundError(
+        "No .ace/.ace.json found. "
+        "Run ace_onboard to initialize workspace configuration."
+    )
+
+
+def _load_ace_config() -> dict:
+    """
+    Load .ace/.ace.json config file if it exists.
+
+    Returns:
+        Dict with config values, or empty dict if file not found.
+
+    Valid config fields:
+        - code_embedding_model: str ("voyage" | "jina" | "nomic")
+        - workspace_name: str (used by ace_onboard)
+        - workspace_path: str (used by ace_onboard)
+        - collection_name: str (for Qdrant collection naming)
+        - onboarded_at: str (timestamp for ace_onboard)
+    """
+    try:
+        workspace_root = _get_workspace_root()
+        config_path = workspace_root / ".ace" / ".ace.json"
+
+        if not config_path.exists():
+            return {}
+
+        import json
+        with open(config_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    except FileNotFoundError:
+        # No workspace config found - return empty
+        return {}
+    except Exception as e:
+        logger.warning(f"Failed to load .ace/.ace.json: {e}")
+        return {}
+
+
+# Module-level cache for config file
+_ace_config_file_cache: dict = {}
+
+
+def _get_ace_config_field(field: str, default: str = None) -> str | None:
+    """
+    Get a config field from .ace/.ace.json with caching.
+
+    Priority: Config file > env var > default
+
+    Args:
+        field: Config field name (e.g., "code_embedding_model")
+        default: Default value if not found
+
+    Returns:
+        Field value from config, env var, or default
+    """
+    global _ace_config_file_cache
+
+    # Load config file once
+    if not _ace_config_file_cache:
+        _ace_config_file_cache = _load_ace_config()
+
+    # Check config file first
+    if field in _ace_config_file_cache:
+        return _ace_config_file_cache[field]
+
+    # Fall back to env var
+    env_var = f"ACE_{field.upper()}"
+    return os.getenv(env_var, default)
+
+
+def update_ace_config_field(field: str, value: str) -> None:
+    """
+    Update a field in .ace/.ace.json.
+
+    Creates or updates .ace/.ace.json file with new field value.
+
+    Args:
+        field: Config field name
+        value: New value to set
+
+    Raises:
+        FileNotFoundError: If no .ace/.ace.json exists
+    """
+    workspace_root = _get_workspace_root()
+    config_path = workspace_root / ".ace" / ".ace.json"
+
+    import json
+
+    # Read existing config
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+
+    # Update field
+    config[field] = value
+
+    # Write back
+    with open(config_path, "w", encoding="utf-8") as f:
+        json.dump(config, f, indent=2)
+
+    # Clear cache so next read picks up change
+    global _ace_config_file_cache
+    _ace_config_file_cache = {}
 
 
 # ============================================================================
@@ -851,7 +991,14 @@ class ACEConfig:
 
     embedding: EmbeddingConfig = field(default_factory=EmbeddingConfig)
     code_embedding: CodeEmbeddingConfig = field(default_factory=CodeEmbeddingConfig)
-    code_embedding_model: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_MODEL", "voyage"))
+
+    # Load code_embedding_model from config file first, then env var
+    code_embedding_model: str = field(
+        default_factory=lambda: _get_ace_config_field(
+            "code_embedding_model",
+            _get_env("ACE_CODE_EMBEDDING_PROVIDER", "voyage")
+        )
+    )
     qdrant: QdrantConfig = field(default_factory=QdrantConfig)
     bm25: BM25Config = field(default_factory=BM25Config)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
