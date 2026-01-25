@@ -866,7 +866,8 @@ async def ace_retrieve(
                 workspace_id_for_retrieval = "".join(c if c.isalnum() or c in ('_', '-') else '_' for c in workspace_id_for_retrieval)
     
     # Wait for cross-encoder preload before using it (prevents first-call timeout)
-    _wait_for_preload(timeout=30.0)
+    # Use asyncio.to_thread to avoid blocking the event loop
+    await asyncio.to_thread(_wait_for_preload, 30.0)
     
     memory_results = await asyncio.to_thread(
         index.retrieve,
@@ -1457,7 +1458,8 @@ async def ace_enhance_prompt(
     if include_memories:
         try:
             # Wait for cross-encoder preload before using it (prevents first-call timeout)
-            _wait_for_preload(timeout=30.0)
+            # Use asyncio.to_thread to avoid blocking the event loop
+            await asyncio.to_thread(_wait_for_preload, 30.0)
             
             index = get_memory_index()
             memory_results = await asyncio.to_thread(
