@@ -819,7 +819,8 @@ async def ace_retrieve(
     else:
         logger.info("Balanced mode active - using broader retrieval")
     
-    code_retrieval = get_code_retrieval()
+    # get_code_retrieval() can block (auto-indexing, loading models) - run in thread
+    code_retrieval = await asyncio.to_thread(get_code_retrieval)
     logger.info(f"code_retrieval instance: {code_retrieval is not None}, collection: {code_retrieval.collection_name if code_retrieval else 'N/A'}")
     if code_retrieval:
         try:
