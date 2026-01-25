@@ -259,8 +259,16 @@
     "jina": "gina",
     "batches": "batch",
     "udnerstanding": "understanding",
-    "challenge": "challenge\u5df4\u8fbe"
+    "challenge": "challenge\u5df4\u8fbe",
+    "breaking": "reranking",
+    "afe": "safe",
+    "erwin": "irwin",
+    "version": "vision",
+    "ttl": "total",
+    "qwen3": "qwen",
+    "edt": "edit",
+    "est": "east"
   },
-  "updated_at": "2026-01-21T03:47:31Z",
-  "count": 260
+  "updated_at": "2026-01-25T16:41:15Z",
+  "count": 268
 }

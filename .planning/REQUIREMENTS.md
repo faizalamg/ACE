@@ -7,9 +7,9 @@
 
 ### Configuration
 
-- [ ] **CONFIG-01**: User can set code embedding model via .ace/.ace.json config file
-- [ ] **CONFIG-02**: Config file value overrides environment variable (config priority > env var)
-- [ ] **CONFIG-03**: config.json includes code_embedding_model field ("voyage" | "jina" | "nomic")
+- [x] **CONFIG-01**: User can set code embedding model via .ace/.ace.json config file
+- [x] **CONFIG-02**: Config file value overrides environment variable (config priority > env var)
+- [x] **CONFIG-03**: config.json includes code_embedding_model field ("voyage" | "jina" | "nomic")
 
 ### Collection Management
 
@@ -70,11 +70,11 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CONFIG-01 | Phase 1 | Pending |
-| CONFIG-02 | Phase 1 | Pending |
-| CONFIG-03 | Phase 1 | Pending |
-| COLL-01 | Phase 1 | Pending |
-| COLL-02 | Phase 1 | Pending |
+| CONFIG-01 | Phase 1 | Complete |
+| CONFIG-02 | Phase 1 | Complete |
+| CONFIG-03 | Phase 1 | Complete |
+| COLL-01 | Phase 1 | Complete |
+| COLL-02 | Phase 1 | Complete |
 | SWITCH-01 | Phase 2 | Pending |
 | SWITCH-02 | Phase 2 | Pending |
 | SWITCH-03 | Phase 2 | Pending |

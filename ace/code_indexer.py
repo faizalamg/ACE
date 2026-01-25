@@ -372,41 +372,42 @@ class CodeIndexer:
         """
         # Check provider config
         from ace.config import (
-            get_embedding_provider_config, LocalEmbeddingConfig, 
-            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig
+            get_embedding_provider_config, LocalEmbeddingConfig,
+            VoyageCodeEmbeddingConfig, NomicCodeEmbeddingConfig, QdrantConfig
         )
         provider_config = get_embedding_provider_config()
-        
+        qdrant_config = QdrantConfig()
+
         if provider_config.is_code_local():
             # Use local LM Studio embeddings (Jina)
             local_config = LocalEmbeddingConfig()
             default_dim = local_config.code_dimension  # 768d for Jina
-            default_collection = "ace_code_context_local"  # Separate collection for different dimension
+            default_collection = qdrant_config.get_code_collection_name()
             logger.info(f"Using local config: {local_config.code_model} ({default_dim}d)")
         elif provider_config.is_code_nomic():
             # Use nomic-embed-code (SOTA, 3584d)
             nomic_config = NomicCodeEmbeddingConfig()
             default_dim = nomic_config.dimension  # 3584d for nomic-embed-code
-            default_collection = "ace_code_context_nomic"  # Separate collection for 3584d
+            default_collection = qdrant_config.get_code_collection_name()
             logger.info(f"Using nomic config: {nomic_config.model} ({default_dim}d)")
         else:
             # Use Voyage API
             voyage_config = VoyageCodeEmbeddingConfig()
-            
+
             if not voyage_config.is_configured():
                 raise RuntimeError(
                     "VOYAGE_API_KEY environment variable is required for code indexing. "
                     "Set VOYAGE_API_KEY to use voyage-code-3, or set ACE_CODE_EMBEDDING_PROVIDER=local "
                     "to use LM Studio instead, or ACE_CODE_EMBEDDING_PROVIDER=nomic for nomic-embed-code."
                 )
-            
+
             default_dim = voyage_config.dimension  # 1024d for Voyage
-            default_collection = "ace_code_context"
+            default_collection = qdrant_config.get_code_collection_name()
             logger.info(f"Using Voyage config: {voyage_config.model} ({default_dim}d)")
-        
+
         self.workspace_path = os.path.abspath(workspace_path)
         self.qdrant_url = qdrant_url or os.environ.get("QDRANT_URL", "http://localhost:6333")
-        self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
+        self.collection_name = collection_name or qdrant_config.get_code_collection_name()
         self.embedding_dim = embedding_dim or int(os.environ.get("ACE_CODE_EMBEDDING_DIM", str(default_dim)))
         self._embed_fn = embed_fn
         self.respect_gitignore = respect_gitignore

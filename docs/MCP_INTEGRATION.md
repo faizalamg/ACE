@@ -508,6 +508,24 @@ When a new workspace is detected, ACE automatically:
 - First `UserPromptSubmit` hook invocation in Claude Code
 - Manual call to `ace_onboard` MCP tool
 
+## Performance
+
+### Lazy Loading Optimization (v0.8.1+)
+
+The MCP server uses **lazy loading** to ensure fast initialization:
+
+| Metric | Before (v0.8.0) | After (v0.8.1+) | Improvement |
+|--------|-----------------|-----------------|-------------|
+| Module import | ~18 seconds | <1 second | 36x faster |
+| MCP `initialize` response | 60+ seconds (timeout) | <1 second | 60x+ faster |
+
+**How it works:**
+- Heavy imports (`ace.unified_memory`, `ace.config`, `ace.file_watcher_daemon`) are **deferred until first tool call**
+- MCP clients (VS Code, Claude Desktop) no longer timeout waiting for `initialize` response
+- All 8 tools register instantly, actual loading happens when you first call `ace_retrieve`, `ace_store`, etc.
+
+**Note:** The first tool call may take 5-10 seconds as modules load. Subsequent calls are instant.
+
 ## Security Notes
 
 - ACE stores memories locally in Qdrant

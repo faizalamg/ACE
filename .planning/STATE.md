@@ -7,15 +7,15 @@
 See: .planning/PROJECT.md (updated 2026-01-21)
 
 **Core value:** Single config change, automatic everything else
-**Current focus:** Phase 1 - Configuration Layer
+**Current focus:** Phase 1 - Configuration Layer (COMPLETE)
 
 ## Current Position
 
 **Phase:** 1 of 6
-**Plan:** 3 of 4 complete
-**Status:** In progress - completed Plan 01-03
-**CONTEXT:** .planning/phases/01-configuration-layer/01-03-SUMMARY.md
-**Progress:** ███████░░░░░░░░░░░░ 75%
+**Plan:** 4 of 4 complete
+**Status:** Phase 1 complete
+**CONTEXT:** .planning/phases/01-configuration-layer/01-04-SUMMARY.md
+**Progress:** 100% Phase 1 Complete
 
 ## Pending Todos
 - 0 pending - /gsd:check-todos to review
@@ -35,6 +35,7 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 | LM Studio error-only behavior | Fail fast if unreachable, no fallback | - Pending |
 | Using __post_init__ in EmbeddingProviderConfig | Avoid circular import while enabling config override | Implemented in 01-01 |
 | Treat "jina" as local provider | Both use LocalEmbeddingConfig (jina-embeddings-v2-base-code, 768d) | Implemented in 01-03 |
+| Fixed env var typo: ACE_CODE_EMBEDDING_MODEL | _get_ace_config_field uses field.upper() as suffix | Fixed in 01-04 |
 
 ## Blockers/Concerns
 (None)
@@ -46,7 +47,7 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 | Phase 1 | Plan 01-01 | Complete | 2026-01-21 |
 | Phase 1 | Plan 01-02 | Complete | 2026-01-21 |
 | Phase 1 | Plan 01-03 | Complete | 2026-01-21 |
-| Phase 1 | Plan 01-04 | Pending |
+| Phase 1 | Plan 01-04 | Complete | 2026-01-21 |
 | Phase 2 | Plan 02-01 to 02-03 | Pending |
 | Phase 3 | Plan 03-01 to 03-03 | Pending |
 | Phase 4 | Plan 04-01 to 04-03 | Pending |
@@ -55,9 +56,9 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 
 ## Session Continuity
 
-Last session: 2026-01-21T20:00:00Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-01-21T20:33:00Z
+Stopped at: Completed 01-04-PLAN.md
 Resume file: None
 
 ---
-*Last updated: 2026-01-21 after 01-03 completion*
+*Last updated: 2026-01-21 after 01-04 completion*

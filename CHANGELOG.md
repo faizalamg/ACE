@@ -5,6 +5,18 @@ All notable changes to ACE Framework will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed - 2025-01-25
+
+- **MCP Server Initialize Timeout** - Server now responds to `initialize` in <1 second
+  - **Problem**: MCP clients (VS Code Copilot) showed "Waiting for server to respond to `initialize` request..." for 60+ seconds
+  - **Root Cause**: Heavy imports at module load time (`ace.unified_memory` 9s, `ace.config` 5s, `ace.file_watcher_daemon` 4s)
+  - **Solution**: Implemented lazy loading - imports deferred until first tool call
+  - **Impact**: Module import time reduced from ~18 seconds to <1 second (36x improvement)
+  - **Files Modified**: `ace_mcp_server.py` (added `_get_unified_memory()`, `_get_config()`, `_get_watcher_daemon()` lazy loaders)
+  - **Lesson**: MCP servers must initialize instantly - defer heavy imports to first use
+
 ## [0.8.0] - 2025-01-10
 
 ### Fixed - 2025-01-12

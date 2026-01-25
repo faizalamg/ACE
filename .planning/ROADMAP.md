@@ -9,7 +9,7 @@ Implement single-switch code embedding model selection with per-model Qdrant col
 
 | Phase | Goal | Requirements | Plans | Status |
 |--------|------|-------------|-------|--------|
-| 1 | Configuration Layer | CONFIG-01, CONFIG-02, CONFIG-03 | 4 | Pending |
+| 1 | Configuration Layer | CONFIG-01, CONFIG-02, CONFIG-03 | 4 | Complete |
 | 2 | Switching Behavior | SWITCH-01, SWITCH-02, SWITCH-03, SWITCH-04 | 3 | Pending |
 | 3 | LM Studio Integration | LM-01, LM-02, LM-03 | 3 | Pending |
 | 4 | Code Indexer Integration | IDX-01, IDX-02, IDX-03 | 3 | Pending |

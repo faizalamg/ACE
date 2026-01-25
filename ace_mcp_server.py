@@ -42,14 +42,56 @@ except ImportError:
     print("Error: MCP/FastMCP package not installed. Run: pip install mcp", file=sys.stderr)
     sys.exit(1)
 
-from ace.unified_memory import (
-    UnifiedMemoryIndex,
-    UnifiedBullet,
-    UnifiedNamespace,
-    UnifiedSource,
-    format_unified_context,
-)
-from ace.config import get_config
+# LAZY IMPORTS: Heavy modules are imported on first use to speed up MCP server initialization
+# These imports take 10-20 seconds total at module load time, causing MCP initialize timeout.
+# By deferring them to first tool call, the server responds to initialize in <1 second.
+#
+# Deferred imports:
+# - ace.unified_memory (UnifiedMemoryIndex, UnifiedBullet, UnifiedNamespace, UnifiedSource, format_unified_context)
+# - ace.config (get_config)
+# - ace.file_watcher_daemon (_spawn_daemon, is_watcher_running)
+
+# Lazy import cache
+_lazy_imports = {}
+
+
+def _get_unified_memory():
+    """Lazy import ace.unified_memory module."""
+    if "unified_memory" not in _lazy_imports:
+        from ace.unified_memory import (
+            UnifiedMemoryIndex,
+            UnifiedBullet,
+            UnifiedNamespace,
+            UnifiedSource,
+            format_unified_context,
+        )
+        _lazy_imports["unified_memory"] = {
+            "UnifiedMemoryIndex": UnifiedMemoryIndex,
+            "UnifiedBullet": UnifiedBullet,
+            "UnifiedNamespace": UnifiedNamespace,
+            "UnifiedSource": UnifiedSource,
+            "format_unified_context": format_unified_context,
+        }
+    return _lazy_imports["unified_memory"]
+
+
+def _get_config():
+    """Lazy import ace.config.get_config."""
+    if "config" not in _lazy_imports:
+        from ace.config import get_config
+        _lazy_imports["config"] = get_config
+    return _lazy_imports["config"]
+
+
+def _get_watcher_daemon():
+    """Lazy import ace.file_watcher_daemon module."""
+    if "watcher" not in _lazy_imports:
+        from ace.file_watcher_daemon import _spawn_daemon, is_watcher_running
+        _lazy_imports["watcher"] = {
+            "start_watcher_daemon": _spawn_daemon,
+            "is_watcher_running": is_watcher_running,
+        }
+    return _lazy_imports["watcher"]
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -609,15 +651,16 @@ def _log_startup_info():
 
 
 # Global unified memory index (lazy initialization)
-_memory_index: Optional[UnifiedMemoryIndex] = None
+_memory_index: Optional[Any] = None  # Type is UnifiedMemoryIndex but imported lazily
 
 
-def get_memory_index() -> UnifiedMemoryIndex:
+def get_memory_index():
     """Get or create the unified memory index singleton."""
     global _memory_index
     if _memory_index is None:
-        config = get_config()
-        _memory_index = UnifiedMemoryIndex(
+        um = _get_unified_memory()
+        config = _get_config()()  # Call the function returned by _get_config
+        _memory_index = um["UnifiedMemoryIndex"](
             collection_name=config.qdrant.unified_collection,
             qdrant_url=config.qdrant.url,
         )
@@ -719,11 +762,12 @@ async def ace_retrieve(
             logger.warning("Code retrieval not available")
 
     # 2. Memory retrieval (always available)
+    um = _get_unified_memory()
     index = get_memory_index()
     
     ns = None
     if namespace != "all":
-        ns = UnifiedNamespace(namespace)
+        ns = um["UnifiedNamespace"](namespace)
     
     # Get workspace_id for project_specific namespace isolation
     workspace_id_for_retrieval = None
@@ -748,7 +792,7 @@ async def ace_retrieve(
     )
 
     if memory_results:
-        formatted_memories = format_unified_context(memory_results)
+        formatted_memories = um["format_unified_context"](memory_results)
         results_parts.append(formatted_memories)
 
     if not results_parts:
@@ -836,6 +880,7 @@ async def ace_store(
     if final_namespace != "project_specific" and extracted_principle and extracted_principle != content:
         final_content = extracted_principle
 
+    um = _get_unified_memory()
     index = get_memory_index()
 
     # Build bullet with optional workspace_id
@@ -843,8 +888,8 @@ async def ace_store(
         "id": str(uuid.uuid4()),
         "content": final_content,
         "section": section,
-        "namespace": UnifiedNamespace(final_namespace),
-        "source": UnifiedSource.USER_FEEDBACK,
+        "namespace": um["UnifiedNamespace"](final_namespace),
+        "source": um["UnifiedSource"].USER_FEEDBACK,
         "severity": severity,
         "category": category,
     }
@@ -853,7 +898,7 @@ async def ace_store(
     if workspace_id:
         bullet_kwargs["workspace_id"] = workspace_id
 
-    bullet = UnifiedBullet(**bullet_kwargs)
+    bullet = um["UnifiedBullet"](**bullet_kwargs)
 
     result = await asyncio.to_thread(index.index_bullet, bullet)
 
@@ -1022,11 +1067,22 @@ async def ace_onboard(
     if is_workspace_onboarded(workspace_path):
         config = get_workspace_config(workspace_path)
         existing_name = config.get("workspace_name", "unknown") if config else "unknown"
+
+        # Ensure file watcher is running even if already onboarded
+        watcher = _get_watcher_daemon()
+        watcher_msg = ''
+        if not watcher["is_watcher_running"](workspace_path):
+            qdrant_url = os.environ.get("QDRANT_URL", "http://localhost:6333")
+            watcher_result = watcher["start_watcher_daemon"](workspace_path, qdrant_url)
+            watcher_msg = "\n\n**File watcher started** - code changes will be auto-indexed." if watcher_result == 0 else "\n\n**Warning**: File watcher failed to start."
+        else:
+            watcher_msg = "\n\n**File watcher already running** - code changes are being auto-indexed."
         return (
             f"Workspace already onboarded as '{existing_name}'.\n\n"
             f"Workspace: {workspace_path}\n"
             f"Config: .ace/.ace.json\n\n"
             f"To re-onboard with a different name, delete .ace/.ace.json first."
+            f"{watcher_msg}"
         )
 
     # Determine workspace name
@@ -1072,11 +1128,18 @@ async def ace_onboard(
         )
 
         stats = await asyncio.to_thread(indexer.index_workspace)
+        
+        # Auto-start file watcher for continuous reindexing
+        watcher = _get_watcher_daemon()
+        watcher_status = "already running"
+        if not watcher["is_watcher_running"](workspace_path):
+            watcher_result = await asyncio.to_thread(watcher["start_watcher_daemon"], workspace_path, qdrant_url)
+            watcher_status = "started" if watcher_result == 0 else "failed to start"
         output_parts.append(
             f"\n**Onboarding Complete!**\n"
             f"- Indexed {stats.get('files_indexed', 0)} files\n"
             f"- Created {stats.get('chunks_indexed', 0)} code chunks\n"
-            f"- Collection: `{collection_name}`\n\n"
+            f"- Collection: `{collection_name}`\n" + f"- File watcher: {watcher_status}\n\n"
             f"You can now use **ace_retrieve** to search your code and memories."
         )
 
@@ -1316,7 +1379,8 @@ async def ace_enhance_prompt(
                 use_cross_encoder=True,
             )
             if memory_results:
-                memory_text = format_unified_context(memory_results)
+                um = _get_unified_memory()
+                memory_text = um["format_unified_context"](memory_results)
                 context_parts.append(f"**Relevant Learnings from ACE Memory:**\n{memory_text}")
                 logger.info(f"Retrieved {len(memory_results)} memories for context enrichment")
         except Exception as e:
@@ -1380,7 +1444,7 @@ async def ace_enhance_prompt(
         user_message = prompt
     
     # Get LLM configuration
-    config = get_config()
+    config = _get_config()()  # Call the function returned by _get_config
     llm_config = config.llm
     
     # Determine API credentials based on provider
