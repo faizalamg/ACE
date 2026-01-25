@@ -29,6 +29,7 @@ import asyncio
 import json
 import logging
 import os
+import threading
 
 # CRITICAL: Prevent tokenizer parallelism deadlock BEFORE any imports that load
 # HuggingFace tokenizers. This must be set early to prevent deadlocks when
@@ -641,6 +642,65 @@ async def get_workspace_path_async(ctx: Optional[Context] = None) -> Optional[st
 # Log startup info on first tool call
 _startup_logged = False
 
+# Background preload status
+_preload_started = False
+_preload_thread = None
+
+
+def _background_preload():
+    """Background preload of heavy models to avoid first-call latency.
+
+    Runs in a background thread so it doesn't block MCP initialization.
+    """
+    import time
+    logger.info("Starting background preload of reranker model...")
+    start = time.time()
+
+    try:
+        # Preload the cross-encoder reranker
+        from ace.reranker import preload_reranker
+        preload_reranker()
+        elapsed = time.time() - start
+        logger.info(f"Background preload completed in {elapsed:.1f}s")
+    except Exception as e:
+        logger.warning(f"Background preload failed: {e}")
+
+
+def _start_background_preload():
+    """Start background preload if not already started."""
+    global _preload_started, _preload_thread
+
+    if _preload_started:
+        return
+
+    _preload_started = True
+    _preload_thread = threading.Thread(target=_background_preload, daemon=True)
+    _preload_thread.start()
+
+
+def _wait_for_preload(timeout: float = 30.0) -> bool:
+    """Wait for background preload to complete.
+    
+    Args:
+        timeout: Maximum time to wait in seconds.
+        
+    Returns:
+        True if preload completed, False if timeout reached.
+    """
+    global _preload_thread
+    if _preload_thread is None:
+        return True  # Nothing to wait for
+    if not _preload_thread.is_alive():
+        return True  # Already completed
+    
+    logger.info(f"Waiting for background preload to complete (timeout={timeout}s)...")
+    _preload_thread.join(timeout=timeout)
+    if _preload_thread.is_alive():
+        logger.warning(f"Background preload still running after {timeout}s timeout")
+        return False
+    logger.info("Background preload completed")
+    return True
+
 
 def _log_startup_info():
     """Log startup information once per process."""
@@ -648,13 +708,16 @@ def _log_startup_info():
     if _startup_logged:
         return
     _startup_logged = True
-    
+
     logger.info("=" * 60)
     logger.info("ACE MCP Server Starting (FastMCP with list_roots)")
     logger.info(f"  PID: {os.getpid()}")
     logger.info(f"  CWD: {os.getcwd()}")
     logger.info(f"  ACE_WORKSPACE_PATH env: {os.environ.get('ACE_WORKSPACE_PATH', '(not set)')}")
     logger.info("=" * 60)
+
+    # Start background preload of heavy models
+    _start_background_preload()
 
 
 # Global unified memory index (lazy initialization)
@@ -787,6 +850,9 @@ async def ace_retrieve(
             else:
                 workspace_id_for_retrieval = os.path.basename(os.path.normpath(workspace))
                 workspace_id_for_retrieval = "".join(c if c.isalnum() or c in ('_', '-') else '_' for c in workspace_id_for_retrieval)
+    
+    # Wait for cross-encoder preload before using it (prevents first-call timeout)
+    _wait_for_preload(timeout=30.0)
     
     memory_results = await asyncio.to_thread(
         index.retrieve,
@@ -1376,6 +1442,9 @@ async def ace_enhance_prompt(
     # 1. ACE Memory Context
     if include_memories:
         try:
+            # Wait for cross-encoder preload before using it (prevents first-call timeout)
+            _wait_for_preload(timeout=30.0)
+            
             index = get_memory_index()
             memory_results = await asyncio.to_thread(
                 index.retrieve,
@@ -1521,6 +1590,11 @@ async def ace_enhance_prompt(
 def main():
     """Run the MCP server."""
     logger.info("Starting ACE MCP Server (FastMCP with list_roots)...")
+    
+    # Start preloading the cross-encoder model IMMEDIATELY at server startup
+    # This runs in background while MCP initializes, so it's ready for first tool call
+    _start_background_preload()
+    
     server.run()
 
 
