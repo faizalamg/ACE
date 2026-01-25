@@ -506,6 +506,79 @@ logger = logging.getLogger("ace-mcp")
 server = FastMCP("ace")
 
 
+# =============================================================================
+# BACKGROUND PRELOADING: Load heavy models in background to avoid MCP timeout
+# =============================================================================
+_preload_started = False
+_preload_thread = None  # Save thread reference for _wait_for_preload()
+_preload_lock = threading.Lock()
+
+
+def _preload_heavy_models():
+    """Preload CrossEncoder reranker in background thread.
+
+    CrossEncoder takes 10-20 seconds to load on CPU. By preloading in a
+    background thread during MCP initialization, it's ready when ace_retrieve
+    is first called, avoiding MCP tool timeout.
+    """
+    import time
+    start = time.time()
+    try:
+        logger.info("[PRELOAD] Starting background preload of CrossEncoder reranker...")
+        # Import and initialize reranker (triggers model download/load)
+        from ace.reranker import get_reranker
+        reranker = get_reranker()
+        # Warm up with a dummy prediction to ensure model is fully loaded
+        _ = reranker.predict("test query", ["test document"])
+        elapsed = time.time() - start
+        logger.info(f"[PRELOAD] CrossEncoder reranker preloaded successfully in {elapsed:.1f}s")
+    except Exception as e:
+        logger.warning(f"[PRELOAD] Failed to preload reranker (non-fatal): {e}")
+
+
+def _start_background_preload():
+    """Start background preloading of heavy models (thread-safe, runs once)."""
+    global _preload_started, _preload_thread
+    with _preload_lock:
+        if _preload_started:
+            return
+        _preload_started = True
+
+    # Start preload in daemon thread (won't block server shutdown)
+    _preload_thread = threading.Thread(target=_preload_heavy_models, daemon=True)
+    _preload_thread.start()
+    logger.info("[PRELOAD] Background preload thread started")
+
+
+def _wait_for_preload(timeout: float = 30.0) -> bool:
+    """Wait for background preload to complete.
+    
+    Args:
+        timeout: Maximum time to wait in seconds.
+        
+    Returns:
+        True if preload completed, False if timeout reached.
+    """
+    global _preload_thread
+    if _preload_thread is None:
+        return True  # Nothing to wait for
+    if not _preload_thread.is_alive():
+        return True  # Already completed
+    
+    logger.info(f"[PRELOAD] Waiting for preload to complete (timeout={timeout}s)...")
+    _preload_thread.join(timeout=timeout)
+    if _preload_thread.is_alive():
+        logger.warning(f"[PRELOAD] Still running after {timeout}s timeout")
+        return False
+    logger.info("[PRELOAD] Preload completed, proceeding")
+    return True
+
+
+# Start preloading immediately when module loads (parallel to MCP initialization)
+_start_background_preload()
+# =============================================================================
+
+
 async def _get_workspace_from_roots(ctx: Context) -> Optional[str]:
     """Get workspace path from MCP client via list_roots().
     
@@ -641,65 +714,6 @@ async def get_workspace_path_async(ctx: Optional[Context] = None) -> Optional[st
 
 # Log startup info on first tool call
 _startup_logged = False
-
-# Background preload status
-_preload_started = False
-_preload_thread = None
-
-
-def _background_preload():
-    """Background preload of heavy models to avoid first-call latency.
-
-    Runs in a background thread so it doesn't block MCP initialization.
-    """
-    import time
-    logger.info("Starting background preload of reranker model...")
-    start = time.time()
-
-    try:
-        # Preload the cross-encoder reranker
-        from ace.reranker import preload_reranker
-        preload_reranker()
-        elapsed = time.time() - start
-        logger.info(f"Background preload completed in {elapsed:.1f}s")
-    except Exception as e:
-        logger.warning(f"Background preload failed: {e}")
-
-
-def _start_background_preload():
-    """Start background preload if not already started."""
-    global _preload_started, _preload_thread
-
-    if _preload_started:
-        return
-
-    _preload_started = True
-    _preload_thread = threading.Thread(target=_background_preload, daemon=True)
-    _preload_thread.start()
-
-
-def _wait_for_preload(timeout: float = 30.0) -> bool:
-    """Wait for background preload to complete.
-    
-    Args:
-        timeout: Maximum time to wait in seconds.
-        
-    Returns:
-        True if preload completed, False if timeout reached.
-    """
-    global _preload_thread
-    if _preload_thread is None:
-        return True  # Nothing to wait for
-    if not _preload_thread.is_alive():
-        return True  # Already completed
-    
-    logger.info(f"Waiting for background preload to complete (timeout={timeout}s)...")
-    _preload_thread.join(timeout=timeout)
-    if _preload_thread.is_alive():
-        logger.warning(f"Background preload still running after {timeout}s timeout")
-        return False
-    logger.info("Background preload completed")
-    return True
 
 
 def _log_startup_info():
