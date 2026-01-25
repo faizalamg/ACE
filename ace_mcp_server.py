@@ -59,6 +59,22 @@ except ImportError:
 # - ace.config (get_config)
 # - ace.file_watcher_daemon (_spawn_daemon, is_watcher_running)
 
+# CRITICAL: Pre-import qdrant_client BEFORE background preload thread starts.
+# The preload thread imports PyTorch/sentence-transformers which use C extensions.
+# If qdrant_client (which imports grpc, also C extension) is imported while
+# preload thread holds import lock, DEADLOCK occurs.
+# This early import prevents that race condition.
+try:
+    from qdrant_client import QdrantClient  # noqa: F401
+except ImportError:
+    pass  # qdrant_client not installed - will fail gracefully later
+
+# Also pre-import voyageai which has similar heavy dependencies
+try:
+    import voyageai  # noqa: F401
+except ImportError:
+    pass  # voyageai not installed - will fail gracefully later
+
 # Lazy import cache
 _lazy_imports = {}
 

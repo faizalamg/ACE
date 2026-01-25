@@ -103,14 +103,19 @@ class CodeRetrieval:
         self._embed_fn = embed_fn
         self._client = None
 
+        logger.info(f"CodeRetrieval: Initializing Qdrant client at {self.qdrant_url}...")
         self._init_qdrant()
+        logger.info("CodeRetrieval: Qdrant client initialized")
     
     def _init_qdrant(self) -> None:
         """Initialize Qdrant client."""
         try:
+            logger.info("_init_qdrant: ENTRY - about to import QdrantClient")
             from qdrant_client import QdrantClient
             
-            self._client = QdrantClient(url=self.qdrant_url)
+            logger.info(f"_init_qdrant: Creating QdrantClient with url={self.qdrant_url}")
+            self._client = QdrantClient(url=self.qdrant_url, timeout=10)
+            logger.info("_init_qdrant: QdrantClient created successfully")
             logger.debug(f"Connected to Qdrant at {self.qdrant_url}")
         except ImportError:
             logger.warning("qdrant-client not installed")
@@ -191,7 +196,9 @@ class CodeRetrieval:
         
         # Default: Use Voyage API
         try:
+            logger.info("[EMBEDDER] Importing voyageai...")
             import voyageai
+            logger.info("[EMBEDDER] voyageai imported successfully")
         except ImportError:
             raise RuntimeError(
                 "voyageai package is required for code embeddings. "
@@ -199,6 +206,7 @@ class CodeRetrieval:
             )
         
         # Create Voyage client
+        logger.info("[EMBEDDER] Creating Voyage client...")
         vo_client = voyageai.Client(api_key=self._voyage_config.api_key)
         logger.info(f"Using Voyage {self._voyage_config.model} for code retrieval ({self._voyage_config.dimension}d)")
         
@@ -1026,7 +1034,9 @@ class CodeRetrieval:
             logger.debug(f"Expanded query: {expanded_query}")
             
             # Embed expanded query using code-specific model
+            logger.info(f"[SEARCH] Calling embedder for query: {expanded_query[:50]}...")
             query_vector = embedder(expanded_query)
+            logger.info(f"[SEARCH] Got embedding vector, len={len(query_vector)}")
             
             # Determine if this is a pattern/concept query (no specific symbols)
             # Pattern queries need more results because docs rank lower with code embeddings
