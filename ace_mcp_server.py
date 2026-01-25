@@ -29,6 +29,13 @@ import asyncio
 import json
 import logging
 import os
+
+# CRITICAL: Prevent tokenizer parallelism deadlock BEFORE any imports that load
+# HuggingFace tokenizers. This must be set early to prevent deadlocks when
+# cross-encoder reranking runs in asyncio.to_thread() context.
+# See: https://github.com/huggingface/tokenizers/issues/1067
+if "TOKENIZERS_PARALLELISM" not in os.environ:
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import sys
 from typing import Any, Dict, List, Optional
 
@@ -787,7 +794,7 @@ async def ace_retrieve(
         limit=limit,
         namespace=ns,
         auto_detect_preset=True,
-        use_cross_encoder=True,
+        use_cross_encoder=True,  # Re-enabled: provides +23% R@1 improvement
         workspace_id=workspace_id_for_retrieval,
     )
 

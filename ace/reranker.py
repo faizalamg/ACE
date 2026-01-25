@@ -22,14 +22,24 @@ Requirements:
 
 from __future__ import annotations
 
+import os
+import threading
 from typing import List, Optional, TYPE_CHECKING
+
+# CRITICAL: Prevent tokenizer parallelism deadlock when using HuggingFace tokenizers
+# with asyncio/multiprocessing. This MUST be set before importing sentence-transformers.
+# See: https://github.com/huggingface/tokenizers/issues/1067
+# See: https://github.com/UKPLab/sentence-transformers/issues/1318
+if "TOKENIZERS_PARALLELISM" not in os.environ:
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Lazy import to avoid loading sentence-transformers unless needed
 if TYPE_CHECKING:
     from sentence_transformers import CrossEncoder
 
-# Module-level singleton
+# Module-level singleton with thread-safe lock
 _reranker_instance: Optional["CrossEncoderReranker"] = None
+_reranker_lock = threading.Lock()
 
 # Default model - good balance of speed and accuracy
 DEFAULT_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
@@ -51,6 +61,12 @@ class CrossEncoderReranker:
     
     Best used as a second-stage reranker on top-K candidates from
     a fast first-stage retriever (like vector search).
+    
+    Thread Safety:
+        This class uses internal locking to ensure thread-safe model loading.
+        Multiple threads can safely call predict() concurrently - the model
+        will only be loaded once, and all threads will wait for loading to
+        complete before proceeding.
     
     Attributes:
         model_name: The HuggingFace model name/path for the cross-encoder.
@@ -75,9 +91,13 @@ class CrossEncoderReranker:
         """
         self.model_name = model_name
         self._model: Optional["CrossEncoder"] = None
+        self._model_lock = threading.Lock()
         
     def _load_model(self) -> "CrossEncoder":
-        """Lazily load the cross-encoder model.
+        """Lazily load the cross-encoder model (thread-safe).
+        
+        Uses double-checked locking pattern to ensure the model is only
+        loaded once even when multiple threads call this simultaneously.
         
         Returns:
             Loaded CrossEncoder model instance.
@@ -85,7 +105,16 @@ class CrossEncoderReranker:
         Raises:
             ImportError: If sentence-transformers is not installed.
         """
-        if self._model is None:
+        # Fast path: model already loaded
+        if self._model is not None:
+            return self._model
+        
+        # Slow path: acquire lock and load model
+        with self._model_lock:
+            # Double-check after acquiring lock (another thread may have loaded it)
+            if self._model is not None:
+                return self._model
+            
             try:
                 from sentence_transformers import CrossEncoder
             except ImportError as e:
@@ -163,10 +192,14 @@ class CrossEncoderReranker:
 
 
 def get_reranker(model_name: str = DEFAULT_MODEL) -> CrossEncoderReranker:
-    """Get the singleton reranker instance.
+    """Get the singleton reranker instance (thread-safe).
     
     Using a singleton avoids reloading the model multiple times,
     which can be expensive (~200MB model load).
+    
+    Thread Safety:
+        Uses double-checked locking to ensure only one instance is created
+        even when called from multiple threads simultaneously.
     
     Args:
         model_name: HuggingFace model name/path. Only used on first call.
@@ -176,7 +209,16 @@ def get_reranker(model_name: str = DEFAULT_MODEL) -> CrossEncoderReranker:
     """
     global _reranker_instance
     
-    if _reranker_instance is None:
+    # Fast path: instance already exists
+    if _reranker_instance is not None:
+        return _reranker_instance
+    
+    # Slow path: acquire lock and create instance
+    with _reranker_lock:
+        # Double-check after acquiring lock
+        if _reranker_instance is not None:
+            return _reranker_instance
+        
         _reranker_instance = CrossEncoderReranker(model_name)
     
     return _reranker_instance
@@ -188,4 +230,5 @@ def reset_reranker() -> None:
     Useful for testing or when switching models.
     """
     global _reranker_instance
-    _reranker_instance = None
+    with _reranker_lock:
+        _reranker_instance = None

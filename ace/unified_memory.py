@@ -1984,13 +1984,15 @@ class UnifiedMemoryIndex:
         # Apply expensive but accurate cross-encoder on filtered candidates
         stage3_results = [bullet for bullet, _ in stage2_filtered]
 
-        if config.stage3_enabled and len(stage3_results) > 1:
+        # Use singleton reranker (same as main retrieve path) to avoid:
+        # 1. Model loading on every call (slow, ~200MB)
+        # 2. Tokenizer parallelism deadlock in asyncio context
+        # 3. Race conditions from concurrent model instantiation
+        if config.stage3_enabled and len(stage3_results) > 1 and RERANKING_AVAILABLE:
             try:
-                from sentence_transformers import CrossEncoder
-
-                ce_model = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2', max_length=512)
-                pairs = [[query, b.content[:500]] for b in stage3_results]
-                ce_scores = ce_model.predict(pairs)
+                reranker = get_reranker()
+                documents = [b.content[:500] for b in stage3_results]
+                ce_scores = reranker.predict(query, documents)
 
                 # Sort by cross-encoder score
                 scored = list(zip(stage3_results, ce_scores))
@@ -2002,8 +2004,6 @@ class UnifiedMemoryIndex:
                     bullet.qdrant_score = float(ce_score)
                     stage3_results.append(bullet)
 
-            except ImportError:
-                pass  # sentence_transformers not available
             except Exception:
                 pass  # Continue without reranking
 
