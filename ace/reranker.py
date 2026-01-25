@@ -44,6 +44,37 @@ _reranker_lock = threading.Lock()
 # Default model - good balance of speed and accuracy
 DEFAULT_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
+# Cached device detection result
+_detected_device: Optional[str] = None
+
+
+def _get_best_device() -> str:
+    """Detect the best available device for inference.
+
+    Priority: CUDA > MPS (Apple Silicon) > CPU
+
+    Returns:
+        Device string: "cuda", "mps", or "cpu"
+    """
+    global _detected_device
+
+    if _detected_device is not None:
+        return _detected_device
+
+    try:
+        import torch
+
+        if torch.cuda.is_available():
+            _detected_device = "cuda"
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            _detected_device = "mps"
+        else:
+            _detected_device = "cpu"
+    except ImportError:
+        _detected_device = "cpu"
+
+    return _detected_device
+
 # Check if sentence-transformers is available
 try:
     import sentence_transformers
@@ -124,8 +155,12 @@ class CrossEncoderReranker:
                     "or: pip install sentence-transformers"
                 ) from e
             
-            self._model = CrossEncoder(self.model_name)
-        
+            # Use best available device (CUDA > MPS > CPU)
+            device = _get_best_device()
+            import logging
+            logging.getLogger("ace.reranker").info(f"Loading CrossEncoder on device: {device}")
+            self._model = CrossEncoder(self.model_name, device=device)
+
         return self._model
     
     def predict(self, query: str, documents: List[str]) -> List[float]:
@@ -226,9 +261,36 @@ def get_reranker(model_name: str = DEFAULT_MODEL) -> CrossEncoderReranker:
 
 def reset_reranker() -> None:
     """Reset the singleton reranker instance.
-    
+
     Useful for testing or when switching models.
     """
     global _reranker_instance
     with _reranker_lock:
         _reranker_instance = None
+
+
+def preload_reranker(model_name: str = DEFAULT_MODEL) -> bool:
+    """Preload the reranker model to avoid first-call latency.
+
+    Call this at startup (e.g., in a background thread) to ensure
+    the model is loaded before the first actual retrieval request.
+
+    Args:
+        model_name: HuggingFace model name/path.
+
+    Returns:
+        True if preloading succeeded, False otherwise.
+    """
+    import logging
+    logger = logging.getLogger("ace.reranker")
+
+    try:
+        logger.info(f"Preloading reranker model: {model_name}")
+        reranker = get_reranker(model_name)
+        # Force model loading by calling predict with dummy data
+        reranker.predict("warmup query", ["warmup document"])
+        logger.info(f"Reranker preloaded successfully on device: {_get_best_device()}")
+        return True
+    except Exception as e:
+        logger.warning(f"Reranker preloading failed: {e}")
+        return False
