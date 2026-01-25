@@ -796,65 +796,43 @@ async def ace_retrieve(
         limit: Maximum number of results to return (1-20)
         precision: Enable precision mode for focused results (fewer, higher-quality). Default True. Set False for balanced mode with more context.
     """
-    import time as _time
-    _start = _time.time()
-    def _log_step(step_name):
-        elapsed = _time.time() - _start
-        logger.info(f"[NUCLEAR] {elapsed:.2f}s - {step_name}")
-        import sys
-        print(f"[NUCLEAR] {elapsed:.2f}s - {step_name}", file=sys.stderr, flush=True)
-    
-    _log_step("ace_retrieve ENTRY")
     _log_startup_info()
     
-    _log_step(f"ace_retrieve called: query='{query[:50]}...', namespace={namespace}, limit={limit}")
     results_parts = []
 
     # Get workspace via list_roots() or fallback
-    _log_step("Getting workspace path async...")
     workspace = await get_workspace_path_async(ctx)
-    _log_step(f"Got workspace: {workspace}")
 
     # Check if onboarding is needed - AUTO-ONBOARD
     if workspace and not is_workspace_onboarded(workspace):
-        _log_step("Workspace not onboarded, auto-onboarding...")
         workspace_name = os.path.basename(os.path.normpath(workspace))
         
         # Auto-onboard with default workspace name
         onboard_result = await ace_onboard(workspace_name=workspace_name, ctx=ctx)
-        _log_step(f"Onboarding result: {onboard_result[:100] if onboard_result else 'None'}...")
         
         if "Onboarding Complete" in onboard_result or "already onboarded" in onboard_result:
             results_parts.append(onboard_result)
         else:
             results_parts.append(onboard_result)
-    else:
-        _log_step("Workspace already onboarded")
 
     # 1. Code retrieval (only if onboarded)
     # IMPORTANT: We must ensure the cached workspace is set before getting code_retrieval
     # since get_code_retrieval() uses get_workspace_path() which reads _cached_workspace_from_roots
     global _code_retrieval
-    _log_step("Getting workspace collection name...")
     expected_collection = get_workspace_collection_name()
-    _log_step(f"Expected collection: {expected_collection}")
     
     # Reset code_retrieval if collection doesn't match (workspace changed)
     if _code_retrieval is not None and _code_retrieval.collection_name != expected_collection:
-        _log_step(f"Workspace changed - resetting code_retrieval")
+        logger.info(f"Workspace changed - resetting code_retrieval")
         _code_retrieval = None
     
     # Precision mode: parameter takes precedence, then fall back to env var
     precision_mode = precision  # Direct parameter value (defaults to True)
-    _log_step(f"Precision mode: {precision_mode}")
     
     # get_code_retrieval() can block (auto-indexing, loading models) - run in thread
-    _log_step("Calling get_code_retrieval() in thread...")
     code_retrieval = await asyncio.to_thread(get_code_retrieval)
-    _log_step(f"Got code_retrieval: {code_retrieval is not None}")
     if code_retrieval:
         try:
-            _log_step("Calling code_retrieval.search() in thread...")
             code_results = await asyncio.to_thread(
                 code_retrieval.search, 
                 query, 
@@ -865,26 +843,20 @@ async def ace_retrieve(
                 exclude_tests=True,
                 precision_mode=precision_mode
             )
-            _log_step(f"Code search returned {len(code_results)} results")
             if code_results:
                 # Use Auggie-compatible format directly (no wrapper header)
                 # Output starts with "The following code sections were retrieved:"
                 formatted_code = code_retrieval.format_ThatOtherContextEngine_style(code_results)
                 results_parts.append(formatted_code)
         except Exception as e:
-            _log_step(f"Code retrieval EXCEPTION: {e}")
             logger.exception(f"Code retrieval failed: {e}")
     else:
-        _log_step("Code retrieval not available")
         if workspace:
             logger.warning("Code retrieval not available")
 
     # 2. Memory retrieval (always available)
-    _log_step("Getting unified memory...")
     um = _get_unified_memory()
-    _log_step("Getting memory index...")
     index = get_memory_index()
-    _log_step("Got memory index")
     
     ns = None
     if namespace != "all":
@@ -904,11 +876,8 @@ async def ace_retrieve(
     
     # Wait for cross-encoder preload before using it (prevents first-call timeout)
     # Use asyncio.to_thread to avoid blocking the event loop
-    _log_step("Waiting for cross-encoder preload...")
     await asyncio.to_thread(_wait_for_preload, 30.0)
-    _log_step("Preload wait complete")
     
-    _log_step("Calling index.retrieve() in thread...")
     memory_results = await asyncio.to_thread(
         index.retrieve,
         query=query,
@@ -918,18 +887,14 @@ async def ace_retrieve(
         use_cross_encoder=True,  # Re-enabled: provides +23% R@1 improvement
         workspace_id=workspace_id_for_retrieval,
     )
-    _log_step(f"Memory retrieval complete: {len(memory_results) if memory_results else 0} results")
 
     if memory_results:
-        _log_step("Formatting memory results...")
         formatted_memories = um["format_unified_context"](memory_results)
         results_parts.append(formatted_memories)
 
     if not results_parts:
-        _log_step("No results found - returning empty message")
         return "No relevant memories or code found."
 
-    _log_step(f"DONE - returning {len(results_parts)} result parts")
     return "\n\n".join(results_parts)
 
 
