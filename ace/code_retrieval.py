@@ -102,6 +102,7 @@ class CodeRetrieval:
         self.collection_name = collection_name or os.environ.get("ACE_CODE_COLLECTION", default_collection)
         self._embed_fn = embed_fn
         self._client = None
+        self._dimension_mismatch = False  # Flag set if collection dimension doesn't match provider
 
         logger.info(f"CodeRetrieval: Initializing Qdrant (url={self.qdrant_url})")
         self._init_qdrant()
@@ -124,10 +125,11 @@ class CodeRetrieval:
             self._client = None
 
     def _check_collection_dimension(self) -> None:
-        """Check if collection exists with expected dimension, trigger reindex if mismatch.
+        """Check if collection exists with expected dimension, log warning if mismatch.
         
         When embedding provider changes (e.g., Voyage 1024d -> Jina 768d), the collection
-        dimensions won't match. This auto-detects the mismatch and re-indexes.
+        dimensions won't match. This detects the mismatch and LOGS A WARNING instead of
+        blocking with auto-reindex (which would hang MCP server).
         """
         if not self._client:
             return
@@ -165,50 +167,32 @@ class CodeRetrieval:
                 return
             
             if current_dim != expected_dim:
+                # WARN ONLY - do NOT auto-reindex as it blocks MCP server
                 logger.warning(
-                    f"Dimension mismatch detected! Collection {self.collection_name} has {current_dim}d "
-                    f"but current provider expects {expected_dim}d. Auto-reindexing..."
+                    f"DIMENSION MISMATCH: Collection {self.collection_name} has {current_dim}d "
+                    f"but current provider expects {expected_dim}d. "
+                    f"Please run 'python -c \"from ace.code_indexer import CodeIndexer; "
+                    f"CodeIndexer().index_workspace()\"' to re-index."
                 )
-                self._auto_reindex()
+                self._dimension_mismatch = True
                 
         except Exception as e:
             logger.debug(f"Dimension check failed (non-critical): {e}")
     
     def _auto_reindex(self) -> None:
-        """Automatically delete old collection and re-index the workspace.
+        """DEPRECATED: Auto-reindex removed to prevent MCP server blocking.
         
-        Called when dimension mismatch is detected after provider change.
+        This method previously would block for 30+ seconds during re-indexing,
+        which caused MCP server hangs. Now dimension mismatches only log warnings.
+        
+        To manually reindex when needed, run:
+            python -c "from ace.code_indexer import CodeIndexer; CodeIndexer().index_workspace()"
         """
-        try:
-            import httpx
-            
-            # Get workspace path from environment or default
-            workspace_path = os.environ.get("ACE_WORKSPACE_PATH", os.getcwd())
-            
-            logger.info(f"Deleting old collection {self.collection_name}")
-            delete_response = httpx.delete(
-                f"{self.qdrant_url}/collections/{self.collection_name}",
-                timeout=30.0
-            )
-            
-            if delete_response.status_code not in (200, 404):
-                logger.error(f"Failed to delete collection: {delete_response.text}")
-                return
-            
-            logger.info(f"Re-indexing workspace: {workspace_path}")
-            
-            # Import and run indexer
-            from ace.code_indexer import CodeIndexer
-            indexer = CodeIndexer(workspace_path=workspace_path)
-            stats = indexer.index_workspace()
-            
-            logger.info(
-                f"Auto-reindex complete: {stats.get('files_indexed', 0)} files, "
-                f"{stats.get('chunks_indexed', 0)} chunks"
-            )
-            
-        except Exception as e:
-            logger.error(f"Auto-reindex failed: {e}. Manual re-indexing may be required.")
+        logger.warning(
+            "Auto-reindex is disabled to prevent MCP blocking. "
+            "Please manually re-index if needed: "
+            "python -c \"from ace.code_indexer import CodeIndexer; CodeIndexer().index_workspace()\""
+        )
     
     def _get_embedder(self) -> Optional[Callable[[str], List[float]]]:
         """Get or create code-specific embedding function.
