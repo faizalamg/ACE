@@ -110,9 +110,11 @@ class ASTChunker:
     fallback to line-based chunking for unsupported languages.
     
     Configuration via environment variables:
-        ACE_ENABLE_AST_CHUNKING: "true" to enable, anything else to disable
-        ACE_AST_MAX_LINES: Maximum lines per chunk (default: 120)
-        ACE_AST_OVERLAP_LINES: Overlap between chunks (default: 20)
+        ACE_ENABLE_AST_CHUNKING: "true" (default) or "false" to disable
+        ACE_AST_MAX_LINES: Maximum lines per chunk (default: 80)
+        ACE_AST_OVERLAP_LINES: Overlap between chunks (default: 10)
+    
+    Note: Defaults chosen to keep chunks under 8192 tokens for local embedding models.
     """
     
     # Languages with AST support (tree-sitter or built-in)
@@ -123,9 +125,11 @@ class ASTChunker:
     
     def __init__(self):
         """Initialize chunker with config from environment."""
-        self._enabled = os.environ.get("ACE_ENABLE_AST_CHUNKING", "false").lower() == "true"
-        self._max_lines = int(os.environ.get("ACE_AST_MAX_LINES", "120"))
-        self._overlap_lines = int(os.environ.get("ACE_AST_OVERLAP_LINES", "20"))
+        # AST chunking ENABLED by default to prevent token overflow
+        self._enabled = os.environ.get("ACE_ENABLE_AST_CHUNKING", "true").lower() == "true"
+        # Reduced max lines from 120 to 80 to stay under 8192 token limit
+        self._max_lines = int(os.environ.get("ACE_AST_MAX_LINES", "80"))
+        self._overlap_lines = int(os.environ.get("ACE_AST_OVERLAP_LINES", "10"))
         self._parsers: Dict[str, Any] = {}
     
     def is_enabled(self) -> bool:

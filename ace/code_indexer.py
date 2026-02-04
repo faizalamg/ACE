@@ -517,14 +517,20 @@ class CodeIndexer:
             import httpx
             http_client = httpx.Client(timeout=60.0)  # Longer timeout for batch ops
             
+            # Jina model has 8192 token context, ~1.3 tokens/char for code
+            # Use 6000 chars to stay safely under limit
+            JINA_SAFE_CHAR_LIMIT = 6000
+            
             def local_embed(text: str) -> List[float]:
                 """Embed text using local LM Studio model for documents."""
                 try:
+                    # Truncate to safe limit (Jina has 8192 token context)
+                    truncated = text[:JINA_SAFE_CHAR_LIMIT]
                     resp = http_client.post(
                         f"{local_config.url}/v1/embeddings",
                         json={
                             "model": local_config.code_model,
-                            "input": text[:local_config.code_max_length]
+                            "input": truncated
                         }
                     )
                     resp.raise_for_status()
