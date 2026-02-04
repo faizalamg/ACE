@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed - 2025-01-26
+
+- **MCP Server Blocking from Auto-Reindex** - Removed blocking auto-reindex from MCP initialization path
+  - **Problem**: MCP server hung for 45+ minutes during `initialize` due to auto-reindex triggered by embedding dimension change
+  - **Root Cause**: `_check_collection_dimension()` called `_auto_reindex()` which blocked indefinitely
+  - **Solution**: 
+    - `_check_collection_dimension()` now only logs warning, sets `_dimension_mismatch` flag
+    - `_auto_reindex()` deprecated - returns immediately with warning
+    - User must manually re-index via `ace_onboard` when dimension mismatch detected
+  - **Files Modified**: `ace/code_retrieval.py`
+  - **Lesson**: Never add blocking I/O in MCP initialization paths (stored in ACE memory)
+
+- **Token Overflow for Jina Embeddings** - Fixed chunks exceeding 8192 token context limit
+  - **Problem**: LM Studio warnings "Number of tokens (13958) exceeds model context length (8192)"
+  - **Root Cause**: AST chunking disabled by default, entire files sent as single chunks
+  - **Solution**:
+    - ASTChunker now ENABLED by default (`ACE_ENABLE_AST_CHUNKING=true`)
+    - Reduced `ACE_AST_MAX_LINES` from 120 to 80
+    - Reduced `ACE_AST_OVERLAP_LINES` from 20 to 10
+    - Added `JINA_SAFE_CHAR_LIMIT = 6000` chars (~4600 tokens) truncation in `local_embed()`
+  - **Impact**: 79 files → 485 chunks (vs. 79 single-file chunks before)
+  - **Files Modified**: `ace/code_chunker.py`, `ace/code_indexer.py`
+
+- **Embedding Parallelism Mismatch** - Fixed parallelism to match LM Studio's Max Concurrent Predictions
+  - **Problem**: ACE sending 8 parallel requests while LM Studio's Jina model accepts only 4
+  - **Root Cause**: Hardcoded parallelism=8 in CodeIndexer
+  - **Solution**:
+    - Default parallelism reduced from 8 to 4
+    - Added `ACE_EMBEDDING_PARALLEL` env var for configuration
+    - Must match LM Studio's "Max Concurrent Predictions" setting
+  - **Files Modified**: `ace/code_indexer.py`
+
+### Changed - 2025-01-26
+
+- **Documentation Update** - Updated `docs/CODE_EMBEDDING_CONFIG.md` for Jina local embeddings
+  - Replaced Voyage-code-3 (cloud) with Jina-v2-base-code (local) documentation
+  - Added AST chunking configuration section
+  - Added parallelism configuration section
+  - Added migration guide from Voyage to Jina
+
 ### Fixed - 2025-01-25
 
 - **MCP Server Initialize Timeout** - Server now responds to `initialize` in <1 second
