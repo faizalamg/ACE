@@ -761,13 +761,15 @@ class CodeIndexer:
         For nomic 7B model: Uses individual requests for reliability. The 7B model can have
         memory issues with batching that cause None values.
         
-        For Jina: Uses batch API with array input for speed.
+        For Jina: Uses batch API with array input for speed. Parallelism configurable via
+        ACE_EMBEDDING_PARALLEL env var (default: 8). Set LM Studio "Max Concurrent Predictions"
+        to match or exceed this value for optimal throughput.
         
         Args:
             texts: List of texts to embed
             batch_size: Max texts per API call (ignored for nomic)
             max_tokens_per_batch: Max estimated tokens per batch (ignored for nomic)
-            max_concurrent: Max parallel API calls (ignored for nomic)
+            max_concurrent: Max parallel API calls (default: 8, ignored for nomic)
             
         Returns:
             List of embedding vectors
@@ -797,7 +799,8 @@ class CodeIndexer:
             use_batching = True
             batch_size = 100  # Fixed for Jina
             max_tokens_per_batch = 50000
-            max_concurrent = 4
+            # Configurable parallelism - default 8 for LM Studio continuous batching
+            max_concurrent = int(os.environ.get("ACE_EMBEDDING_PARALLEL", "8"))
         
         http_client = httpx.Client(timeout=timeout)
         
