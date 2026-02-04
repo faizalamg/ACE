@@ -107,17 +107,108 @@ class CodeRetrieval:
         self._init_qdrant()
     
     def _init_qdrant(self) -> None:
-        """Initialize Qdrant client."""
+        """Initialize Qdrant client and check collection dimension compatibility."""
         try:
             from qdrant_client import QdrantClient
             self._client = QdrantClient(url=self.qdrant_url, timeout=10)
             logger.debug(f"Connected to Qdrant at {self.qdrant_url}")
+            
+            # Check for dimension mismatch and auto-reindex if needed
+            self._check_collection_dimension()
+            
         except ImportError:
             logger.warning("qdrant-client not installed")
             self._client = None
         except Exception as e:
             logger.warning(f"Failed to connect to Qdrant: {e}")
             self._client = None
+
+    def _check_collection_dimension(self) -> None:
+        """Check if collection exists with expected dimension, trigger reindex if mismatch.
+        
+        When embedding provider changes (e.g., Voyage 1024d -> Jina 768d), the collection
+        dimensions won't match. This auto-detects the mismatch and re-indexes.
+        """
+        if not self._client:
+            return
+            
+        # Get expected dimension from provider config
+        if self._provider_config.is_code_local():
+            expected_dim = self._local_config.code_dimension
+        elif self._provider_config.is_code_nomic():
+            expected_dim = self._nomic_config.dimension
+        else:
+            expected_dim = self._voyage_config.dimension
+        
+        try:
+            import httpx
+            # Check if collection exists
+            info_response = httpx.get(
+                f"{self.qdrant_url}/collections/{self.collection_name}",
+                timeout=5.0
+            )
+            
+            if info_response.status_code != 200:
+                # Collection doesn't exist - will be created on first index
+                logger.debug(f"Collection {self.collection_name} not found, will be created on index")
+                return
+            
+            info = info_response.json()
+            collection_info = info.get("result", {})
+            
+            # Get current collection dimension
+            vectors_config = collection_info.get("config", {}).get("params", {}).get("vectors", {})
+            current_dim = vectors_config.get("dense", {}).get("size", 0)
+            
+            if current_dim == 0:
+                logger.debug("Could not determine collection dimension")
+                return
+            
+            if current_dim != expected_dim:
+                logger.warning(
+                    f"Dimension mismatch detected! Collection {self.collection_name} has {current_dim}d "
+                    f"but current provider expects {expected_dim}d. Auto-reindexing..."
+                )
+                self._auto_reindex()
+                
+        except Exception as e:
+            logger.debug(f"Dimension check failed (non-critical): {e}")
+    
+    def _auto_reindex(self) -> None:
+        """Automatically delete old collection and re-index the workspace.
+        
+        Called when dimension mismatch is detected after provider change.
+        """
+        try:
+            import httpx
+            
+            # Get workspace path from environment or default
+            workspace_path = os.environ.get("ACE_WORKSPACE_PATH", os.getcwd())
+            
+            logger.info(f"Deleting old collection {self.collection_name}")
+            delete_response = httpx.delete(
+                f"{self.qdrant_url}/collections/{self.collection_name}",
+                timeout=30.0
+            )
+            
+            if delete_response.status_code not in (200, 404):
+                logger.error(f"Failed to delete collection: {delete_response.text}")
+                return
+            
+            logger.info(f"Re-indexing workspace: {workspace_path}")
+            
+            # Import and run indexer
+            from ace.code_indexer import CodeIndexer
+            indexer = CodeIndexer(workspace_path=workspace_path)
+            stats = indexer.index_workspace()
+            
+            logger.info(
+                f"Auto-reindex complete: {stats.get('files_indexed', 0)} files, "
+                f"{stats.get('chunks_indexed', 0)} chunks"
+            )
+            
+        except Exception as e:
+            logger.error(f"Auto-reindex failed: {e}. Manual re-indexing may be required.")
     
     def _get_embedder(self) -> Optional[Callable[[str], List[float]]]:
         """Get or create code-specific embedding function.

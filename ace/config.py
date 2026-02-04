@@ -246,10 +246,10 @@ class EmbeddingProviderConfig:
 
     Environment Variables:
         ACE_TEXT_EMBEDDING_PROVIDER: "local" or "external" (default: local)
-        ACE_CODE_EMBEDDING_PROVIDER: "local", "nomic", or "voyage" (default: voyage)
-            - "local": jina-embeddings-v2-base-code (768d)
+        ACE_CODE_EMBEDDING_PROVIDER: "local", "nomic", or "voyage" (default: local)
+            - "local": jina-embeddings-v2-base-code (768d) - BEST quality per benchmark
             - "nomic": nomic-embed-code (3584d) - SOTA, outperforms Voyage on CodeSearchNet
-            - "voyage": voyage-code-3 (1024d) - cloud API
+            - "voyage": voyage-code-3 (1024d) - cloud API (expensive, slower quality)
         ACE_CODE_EMBEDDING_MODEL: Override model selection (same as ACE_CODE_EMBEDDING_PROVIDER)
             - Reads from ACEConfig.code_embedding_model first
             - Falls back to ACE_CODE_EMBEDDING_PROVIDER env var
@@ -257,7 +257,7 @@ class EmbeddingProviderConfig:
 
     # Provider selection: "local" (LM Studio) or "external" (cloud APIs)
     text_provider: str = field(default_factory=lambda: _get_env("ACE_TEXT_EMBEDDING_PROVIDER", "local"))
-    code_provider: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_PROVIDER", "voyage"))
+    code_provider: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_PROVIDER", "local"))
 
     def __post_init__(self):
         """Post-initialization: Check ACEConfig for code_embedding_model override."""
@@ -309,7 +309,7 @@ class LocalEmbeddingConfig:
         ACE_LOCAL_EMBEDDING_URL: LM Studio server URL (default: http://localhost:1234)
         ACE_LOCAL_TEXT_MODEL: Model for text embeddings (default: text-embedding-qwen3-embedding-8b)
         ACE_LOCAL_TEXT_DIM: Text embedding dimension (default: 4096)
-        ACE_LOCAL_CODE_MODEL: Model for code embeddings (default: jina-embeddings-v2-base-code)
+        ACE_LOCAL_CODE_MODEL: Model for code embeddings (default: text-embedding-jina-embeddings-v2-base-code)
         ACE_LOCAL_CODE_DIM: Code embedding dimension (default: 768)
     """
     
@@ -322,7 +322,7 @@ class LocalEmbeddingConfig:
     text_max_length: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_TEXT_MAX_LENGTH", 8000))
     
     # Code embedding model (for code context)
-    code_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_CODE_MODEL", "jina-embeddings-v2-base-code"))
+    code_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_CODE_MODEL", "text-embedding-jina-embeddings-v2-base-code"))
     code_dimension: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_CODE_DIM", 768))
     code_max_length: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_CODE_MAX_LENGTH", 8000))
 
@@ -993,10 +993,11 @@ class ACEConfig:
     code_embedding: CodeEmbeddingConfig = field(default_factory=CodeEmbeddingConfig)
 
     # Load code_embedding_model from config file first, then env var
+    # Default: "local" (Jina 768d) - 58.3% win rate vs Voyage 51.4% in Jan 2026 benchmark
     code_embedding_model: str = field(
         default_factory=lambda: _get_ace_config_field(
             "code_embedding_model",
-            _get_env("ACE_CODE_EMBEDDING_PROVIDER", "voyage")
+            _get_env("ACE_CODE_EMBEDDING_PROVIDER", "local")
         )
     )
     qdrant: QdrantConfig = field(default_factory=QdrantConfig)
