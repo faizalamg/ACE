@@ -48,3 +48,8 @@ htmlcov/
 
 # Other generated files
 all_152_queries.txt
+
+# Build artifacts
+*.egg-info/
+_temp_serena_skill.md
+uv.lock.bak
