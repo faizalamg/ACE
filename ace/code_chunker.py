@@ -9,9 +9,9 @@ Supports multiple languages via tree-sitter:
 - Go (via tree-sitter)
 
 Configuration:
-    ACE_ENABLE_AST_CHUNKING: Enable/disable AST chunking (default: false)
-    ACE_AST_MAX_LINES: Maximum lines per chunk (default: 120)
-    ACE_AST_OVERLAP_LINES: Overlap between chunks (default: 20)
+    ACE_ENABLE_AST_CHUNKING: Enable/disable AST chunking (default: true)
+    ACE_AST_MAX_LINES: Maximum lines per chunk (default: 80)
+    ACE_AST_OVERLAP_LINES: Overlap between chunks (default: 10)
 
 When disabled, falls back to passthrough mode (returns original content as single chunk).
 """

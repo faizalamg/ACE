@@ -114,12 +114,12 @@ Fixed classification logic:
 ### New FAQ Items (0.8.0)
 - **"How does workspace onboarding work?"** - Explains **automatic onboarding** (default: `ace_retrieve` auto-onboards new workspaces), **manual onboarding** via `ace_onboard` for custom names, what gets indexed (code, docs, config), and how to re-index
 - **"What is the .ace folder?"** - Documents `.ace/.ace.json` configuration, collection naming, workspace isolation
-- **"Do I need VOYAGE_API_KEY for code indexing?"** - Clarifies Voyage requirement for 94% R@1 code retrieval, alternatives (LM Studio, skip code indexing)
+- **"Do I need VOYAGE_API_KEY for code indexing?"** - Clarifies Voyage is an optional fallback; default uses local Jina-v2-base-code (768d) via LM Studio
 
 ### Removed/Fixed
 - Removed misleading "ACE complements LangChain/LlamaIndex" messaging
 - ACE is now positioned as a **complete standalone context engine**
-- Clarified: Voyage AI is for **code embeddings**, not required for basic use
+- Clarified: Default code embeddings use **local Jina-v2-base-code** via LM Studio; Voyage AI is an **optional fallback**, not required
 
 ---
 

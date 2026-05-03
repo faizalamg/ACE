@@ -65,7 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Problem**: `CodeRetrieval` hardcoded Voyage embeddings while `CodeIndexer` used config-based provider selection
   - **Root Cause**: KISS/DRY violation - same logic duplicated with different implementations
   - **Solution**: Refactored `CodeRetrieval.__init__()` and `_get_embedder()` to use `get_embedding_provider_config()` pattern matching `CodeIndexer`
-  - **Provider Detection**: Uses `is_code_local()` → Jina (768d), `is_code_nomic()` → nomic (3584d), default → Voyage (1024d)
+  - **Provider Detection**: Uses `is_code_local()` → Jina (768d, default), `is_code_nomic()` → nomic (3584d), Voyage (1024d, explicit opt-in)
   - **Files Modified**: `ace/code_retrieval.py` (lines 55-148)
   - **Lesson**: All embedding consumers must use centralized config for DRY compliance
 
@@ -177,7 +177,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **MCP Config**: Added ACE server to `.vscode/mcp.json` with workspace and Qdrant environment variables
   - **Files Modified**: `ace_mcp_server.py` (`handle_retrieve()`), `.vscode/mcp.json`
 
-- **Voyage-code-3 Embeddings with 100% ThatOtherContextEngine Match** - Upgraded code embedding model
+- **Voyage-code-3 Embeddings with 100% ThatOtherContextEngine Match** - Upgraded code embedding model *(Note: later reverted to Jina-v2-base-code local as default; Voyage now optional fallback)*
   - **Model**: Switched from `Jina-v2-base-code` (768d) to `Voyage-code-3` (1024d)
   - **Configuration**: Added `VoyageCodeEmbeddingConfig` dataclass in `ace/config.py`
   - **Multi-Layer Boost System**: Enhanced `_apply_filename_boost()` with intelligent boosts:

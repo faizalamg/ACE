@@ -1,6 +1,6 @@
 # ACE Framework - Project Status
 
-**Last Updated:** January 6, 2026
+**Last Updated:** January 26, 2025
 
 ## Executive Summary
 
@@ -16,8 +16,10 @@ The Agentic Context Engineering (ACE) Framework is in **advanced development pha
 | **MCP Server** | ✅ Production | 100% | Full FastMCP integration |
 | **Browser-use Integration** | ✅ Production | 100% | ACEAgent drop-in replacement |
 | **Observability Stack** | ✅ Production | 100% | Opik + Prometheus integration |
-| **Voyage-code-3 Embeddings** | ✅ Production | 100% | Code retrieval quality at parity with ThatOtherContextEngine |
+| **Jina-v2-base-code Embeddings** | ✅ Production | 100% | Local code embeddings via LM Studio (768d), replaced Voyage |
 | **File Watcher Daemon** | ✅ Production | 100% | Auto-indexing with PID persistence |
+| **AST Chunking** | ✅ Production | 100% | Enabled by default, keeps chunks under 8192 token limit |
+| **MCP Server Lazy Init** | ✅ Production | 100% | <1s init time (was 60s+), lazy imports |
 | **1000-Query Benchmark** | 🚧 In Progress | 25% | 250 queries completed before ThatOtherContextEngine timeout |
 | **Test File Penalty Fix** | 🚧 In Progress | 50% | Fix added but benchmark bypasses CodeRetrieval class |
 | **Benchmark Analysis** | ✅ Completed | 100% | Root cause analysis identified test file ranking issue |
@@ -88,14 +90,16 @@ The Agentic Context Engineering (ACE) Framework is in **advanced development pha
   - Health check endpoints
   - Distributed tracing with OpenTelemetry
 
-### 7. Voyage-code-3 Embeddings
-- **File:** `ace/embedding_providers.py`
-- **Status:** ✅ Production
-- **Description:** High-quality code embeddings at 100% ThatOtherContextEngine quality parity
+### 7. Jina-v2-base-code Embeddings (Local)
+- **File:** `ace/code_retrieval.py`, `ace/code_indexer.py`, `ace/config.py`
+- **Status:** Production
+- **Description:** Local code embeddings via LM Studio, replacing cloud Voyage-code-3
 - **Key Features:**
-  - 1024-dimensional embeddings
-  - Optimized for code understanding
-  - Fallback to LM Studio or OpenAI
+  - 768-dimensional embeddings (Jina-v2-base-code)
+  - 100% local via LM Studio (no API keys needed for default config)
+  - AST-based chunking to stay under 8192 token context limit
+  - Config-driven provider selection: local (default), nomic, voyage (fallback)
+  - `ACE_EMBEDDING_PARALLEL` configurable (default: 4, match LM Studio setting)
 
 ### 8. File Watcher Daemon
 - **File:** `ace/file_watcher.py`
@@ -232,9 +236,9 @@ The Agentic Context Engineering (ACE) Framework is in **advanced development pha
 | Component | Purpose | Default | Status |
 |-----------|---------|---------|--------|
 | **Qdrant** | Vector database for unified memory | `http://localhost:6333` | ✅ Required |
-| **Voyage AI** | Code embedding generation | `VOYAGE_API_KEY` | ✅ Required |
+| **LM Studio** | Memory embeddings (Qwen3) + Code embeddings (Jina) | `http://localhost:1234` | ✅ Required |
 | **Z.ai GLM** | Default LLM for ACE operations | `ZAI_API_KEY` | ✅ Required |
-| **LM Studio** | Fallback embedding service | `http://localhost:1234` | 🔧 Optional |
+| **Voyage AI** | Cloud code embeddings (optional fallback) | `VOYAGE_API_KEY` | 🔧 Optional |
 | **OpenAI** | Fallback LLM/embeddings | `OPENAI_API_KEY` | 🔧 Optional |
 
 ### Optional Components
@@ -380,10 +384,11 @@ The Agentic Context Engineering (ACE) Framework is in **advanced development pha
 
 - [README.md](../README.md) - Main project overview
 - [CHANGELOG.md](../CHANGELOG.md) - Recent changes
+- [CODE_EMBEDDING_CONFIG.md](CODE_EMBEDDING_CONFIG.md) - Code embedding setup (Jina/AST chunking)
 - [QUICK_START.md](QUICK_START.md) - Get started in 5 minutes
 - [API_REFERENCE.md](API_REFERENCE.md) - Complete API docs
 - [Fortune100.md](Fortune100.md) - Enterprise deployment guide
 
 ---
 
-**This document is maintained as a living status report. Last reviewed:** January 6, 2026
+**This document is maintained as a living status report. Last reviewed:** January 26, 2025

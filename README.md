@@ -93,7 +93,7 @@ ACE_PRESET=precision
 | Component | Recommendation | Notes |
 |-----------|---------------|-------|
 | **Embeddings (Text)** | Qwen3-Embedding-8B (4096d) | Local via LM Studio, ~8GB VRAM |
-| **Embeddings (Code)** | Voyage-code-3 | API, optimized for code |
+| **Embeddings (Code)** | Jina-v2-base-code (768d) | Local via LM Studio (Voyage-code-3 optional fallback) |
 | **Vector DB** | Qdrant | Local or cloud, free tier available |
 | **LLM** | Any | Ollama, LM Studio, OpenAI, Gemini |
 
