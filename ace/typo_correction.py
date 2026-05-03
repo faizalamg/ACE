@@ -3,7 +3,7 @@
 Features:
 - Fast fuzzy matching against technical terms (~1ms)
 - Auto-learning: Remembers user's common typos for instant O(1) lookup
-- Async GLM validation: Background process validates learned corrections
+- Async LLM validation: Background process validates learned corrections
 - Spellchecker validation: Skip LLM for words already in English dictionary
 """
 
@@ -43,7 +43,7 @@ class TypoCorrector:
 
     Auto-Learning Feature (when enabled via ACE_TYPO_AUTO_LEARN=true):
     - Remembers typo->correction mappings for instant O(1) future lookup
-    - Validates corrections via GLM in background thread (non-blocking)
+    - Validates corrections via LLM in background thread (non-blocking)
     - Persists learned typos to JSON for cross-session persistence
     """
 
@@ -224,7 +224,7 @@ class TypoCorrector:
             pass
 
     def _start_validation_thread(self) -> None:
-        """Start background thread for GLM validation of learned typos."""
+        """Start background thread for LLM validation of learned typos."""
         if not self._config.enable_glm_validation:
             return
 
@@ -236,7 +236,7 @@ class TypoCorrector:
         self._validation_thread.start()
 
     def _validation_worker(self) -> None:
-        """Background worker that validates typo corrections via GLM."""
+        """Background worker that validates typo corrections via LLM."""
         while not self._stop_validation.is_set():
             try:
                 # Get next item from queue (block for 1 second)
@@ -246,8 +246,8 @@ class TypoCorrector:
                 if typo in self._learned_typos:
                     continue
 
-                # Validate via GLM
-                if self._validate_correction_with_glm(typo, correction):
+                # Validate via configured LLM provider
+                if self._validate_correction_with_llm(typo, correction):
                     # Add to learned typos
                     self._learned_typos[typo] = correction
                     # Persist immediately
@@ -260,10 +260,12 @@ class TypoCorrector:
                 # Log and continue
                 continue
 
-    def _validate_correction_with_glm(self, typo: str, correction: str) -> bool:
+    def _validate_correction_with_llm(self, typo: str, correction: str) -> bool:
         """Validate a typo correction using LLM.
 
         Uses the configured provider (local or cloud) matching _correct_with_llm routing.
+        Intentional fail-open: returns True on LLM failure since fuzzy matching
+        already validated the correction before this secondary check runs.
 
         Args:
             typo: The misspelled word
@@ -304,8 +306,9 @@ Answer only YES or NO."""
             return response_text.startswith("YES")
 
         except Exception:
-            # If validation fails, default to accepting the correction
-            # (fuzzy matching already established high similarity)
+            # INTENTIONAL FAIL-OPEN: LLM validation is a secondary quality check.
+            # The primary validation (fuzzy matching with high similarity threshold)
+            # already confirmed the correction. Accept it if LLM is unreachable.
             return True
 
     def _cleanup(self) -> None:
@@ -370,7 +373,7 @@ Answer only YES or NO."""
         return typos
 
     def _queue_for_validation(self, typo: str, correction: str) -> None:
-        """Queue a typo correction for async GLM validation.
+        """Queue a typo correction for async LLM validation.
 
         Non-blocking: adds to queue and returns immediately.
         Only queues corrections that pass similarity threshold to prevent
@@ -438,7 +441,7 @@ Answer only YES or NO."""
         5. Check learned typos (O(1) instant lookup) - with similarity validation
         6. Fuzzy match against technical terms
         7. LLM-based correction (if enabled and fuzzy failed)
-        8. Queue new corrections for async GLM validation
+        8. Queue new corrections for async LLM validation
         """
         word_lower = word.lower()
 
@@ -493,7 +496,7 @@ Answer only YES or NO."""
 
             correction = matches[0]
 
-            # Queue for async GLM validation (non-blocking)
+            # Queue for async LLM validation (non-blocking)
             self._queue_for_validation(word_lower, correction)
 
             return self._preserve_case(word, correction)
@@ -625,7 +628,7 @@ Answer only YES or NO."""
         Args:
             typo: The misspelled word (will be lowercased)
             correction: The correct word
-            validate: If True, validate via GLM before adding
+            validate: If True, validate via LLM before adding
 
         Returns:
             True if added successfully

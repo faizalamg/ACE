@@ -84,6 +84,41 @@ class TestToolDispatch:
         assert content_list[0].type == "text"
         assert "ACE Unified Memory Statistics" in content_list[0].text
 
+    @pytest.mark.asyncio
+    async def test_call_retrieve_via_server(self):
+        """ace_retrieve dispatches correctly via server.call_tool."""
+        content_list, result_dict = await server.call_tool(
+            "ace_retrieve", {"query": "test protocol dispatch", "limit": 1}
+        )
+        assert len(content_list) >= 1
+        assert content_list[0].type == "text"
+
+    @pytest.mark.asyncio
+    async def test_call_store_via_server(self):
+        """ace_store dispatches correctly via server.call_tool."""
+        content_list, result_dict = await server.call_tool(
+            "ace_store", {"content": "Protocol layer test memory"}
+        )
+        assert len(content_list) >= 1
+        assert content_list[0].type == "text"
+        text = content_list[0].text
+        assert "stored" in text.lower() or "reinforced" in text.lower()
+
+    @pytest.mark.asyncio
+    async def test_call_tag_via_server(self):
+        """ace_tag dispatches correctly via server.call_tool."""
+        content_list, result_dict = await server.call_tool(
+            "ace_tag", {"memory_id": "protocol-test-id", "tag": "helpful"}
+        )
+        assert len(content_list) >= 1
+        assert content_list[0].type == "text"
+
+    @pytest.mark.asyncio
+    async def test_call_tool_missing_required_arg(self):
+        """Missing required arg through protocol returns error."""
+        with pytest.raises(Exception):
+            await server.call_tool("ace_retrieve", {})
+
 
 class TestRetrieveHandler:
     """Test ace_retrieve handler."""
