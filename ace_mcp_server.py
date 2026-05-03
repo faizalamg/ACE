@@ -137,6 +137,10 @@ _cached_workspace_from_roots: Optional[str] = None
 _all_workspace_roots: List[str] = []  # All valid roots from list_roots()
 _roots_fetch_attempted = False
 
+# Cache for CodeRetrieval instances per non-primary workspace root
+_code_retrieval_cache: Dict[str, Any] = {}  # keyed by collection_name
+_code_retrieval_cache_lock = asyncio.Lock()
+
 # ACE workspace configuration file
 _ACE_CONFIG_DIR = ".ace"
 _ACE_CONFIG_FILE = ".ace.json"
@@ -874,9 +878,14 @@ async def ace_retrieve(
                     _code_retrieval = None
                 cr = await asyncio.to_thread(get_code_retrieval)
             else:
-                # For additional roots, create a temporary CodeRetrieval instance
-                from ace.code_retrieval import CodeRetrieval
-                cr = CodeRetrieval(collection_name=collection)
+                # For additional roots, use cached CodeRetrieval instance
+                async with _code_retrieval_cache_lock:
+                    if collection in _code_retrieval_cache:
+                        cr = _code_retrieval_cache[collection]
+                    else:
+                        from ace.code_retrieval import CodeRetrieval
+                        cr = CodeRetrieval(collection_name=collection)
+                        _code_retrieval_cache[collection] = cr
             
             if cr:
                 if primary_code_retrieval is None:

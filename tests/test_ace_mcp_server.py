@@ -397,3 +397,171 @@ class TestMultiRootWorkspace:
             mod._cached_workspace_from_roots = orig_cached
             mod._all_workspace_roots = orig_all
             mod._roots_fetch_attempted = orig_attempted
+
+
+class TestMultiCollectionMerge:
+    """Integration tests for multi-collection result merging and CodeRetrieval caching."""
+
+    @pytest.mark.asyncio
+    async def test_ace_retrieve_merges_results_from_multiple_roots(self):
+        """ace_retrieve merges code results from multiple workspace roots, sorted by score."""
+        import ace_mcp_server as mod
+
+        # Save originals
+        orig_all_roots = mod._all_workspace_roots
+        orig_cache = mod._code_retrieval_cache
+        orig_code_retrieval = mod._code_retrieval
+
+        try:
+            import tempfile, os
+
+            with tempfile.TemporaryDirectory() as root1, tempfile.TemporaryDirectory() as root2:
+                # Create .ace config for both roots
+                for root in [root1, root2]:
+                    ace_dir = os.path.join(root, ".ace")
+                    os.makedirs(ace_dir)
+                    name = os.path.basename(root)
+                    with open(os.path.join(ace_dir, ".ace.json"), "w") as f:
+                        json.dump({"workspace_name": name, "onboarded": True}, f)
+
+                col1 = f"{os.path.basename(root1)}_code_context"
+                col2 = f"{os.path.basename(root2)}_code_context"
+
+                # Mock CodeRetrieval instances returning different results
+                mock_cr1 = MagicMock()
+                mock_cr1.collection_name = col1
+                mock_cr1.search.return_value = [
+                    {"file_path": "auth.py", "content": "def login():", "score": 0.9, "start_line": 1, "end_line": 10},
+                ]
+                mock_cr1.format_ThatOtherContextEngine_style.return_value = "formatted_code"
+
+                mock_cr2 = MagicMock()
+                mock_cr2.collection_name = col2
+                mock_cr2.search.return_value = [
+                    {"file_path": "api.py", "content": "def endpoint():", "score": 0.95, "start_line": 1, "end_line": 5},
+                    {"file_path": "db.py", "content": "class DB:", "score": 0.7, "start_line": 1, "end_line": 20},
+                ]
+
+                # Set up state: both roots, primary = root1
+                mod._all_workspace_roots = [root1, root2]
+                mod._code_retrieval = mock_cr1  # Primary workspace
+                mod._code_retrieval_cache = {col2: mock_cr2}  # Non-primary cached
+
+                # Mock dependencies
+                with patch.object(mod, 'get_workspace_path_async', return_value=root1), \
+                     patch.object(mod, 'is_workspace_onboarded', return_value=True), \
+                     patch.object(mod, 'get_workspace_collection_name', return_value=col1), \
+                     patch.object(mod, '_check_collection_exists', return_value=True), \
+                     patch.object(mod, 'get_code_retrieval', return_value=mock_cr1), \
+                     patch.object(mod, '_get_unified_memory') as mock_um, \
+                     patch.object(mod, 'get_memory_index') as mock_idx, \
+                     patch.object(mod, '_wait_for_preload'), \
+                     patch.object(mod, '_log_startup_info'):
+
+                    # Mock memory retrieval (empty)
+                    mock_index = MagicMock()
+                    mock_index.retrieve.return_value = []
+                    mock_idx.return_value = mock_index
+                    mock_um.return_value = {"UnifiedNamespace": MagicMock(), "format_unified_context": MagicMock()}
+
+                    result = await ace_retrieve("find authentication", ctx=None)
+
+                    # Verify both CRs were searched
+                    mock_cr1.search.assert_called_once()
+                    mock_cr2.search.assert_called_once()
+
+                    # Verify results are formatted (merged results should be score-sorted)
+                    mock_cr1.format_ThatOtherContextEngine_style.assert_called_once()
+                    call_args = mock_cr1.format_ThatOtherContextEngine_style.call_args[0][0]
+                    # Top result should be api.py (0.95), then auth.py (0.9)
+                    assert call_args[0]["file_path"] == "api.py"
+                    assert call_args[1]["file_path"] == "auth.py"
+        finally:
+            mod._all_workspace_roots = orig_all_roots
+            mod._code_retrieval_cache = orig_cache
+            mod._code_retrieval = orig_code_retrieval
+
+    @pytest.mark.asyncio
+    async def test_cache_hit_reuses_code_retrieval_instance(self):
+        """Non-primary root CodeRetrieval is cached and reused on subsequent calls."""
+        import ace_mcp_server as mod
+
+        orig_cache = mod._code_retrieval_cache
+        try:
+            mod._code_retrieval_cache = {}
+
+            mock_cr = MagicMock()
+            mock_cr.collection_name = "test_project_code_context"
+            mod._code_retrieval_cache["test_project_code_context"] = mock_cr
+
+            # Cache hit: should return existing instance
+            assert "test_project_code_context" in mod._code_retrieval_cache
+            assert mod._code_retrieval_cache["test_project_code_context"] is mock_cr
+        finally:
+            mod._code_retrieval_cache = orig_cache
+
+    @pytest.mark.asyncio
+    async def test_ace_retrieve_skips_failed_root(self):
+        """If one root's CodeRetrieval fails, results from other roots are still returned."""
+        import ace_mcp_server as mod
+
+        orig_all_roots = mod._all_workspace_roots
+        orig_cache = mod._code_retrieval_cache
+        orig_code_retrieval = mod._code_retrieval
+
+        try:
+            import tempfile, os
+
+            with tempfile.TemporaryDirectory() as root1, tempfile.TemporaryDirectory() as root2:
+                for root in [root1, root2]:
+                    ace_dir = os.path.join(root, ".ace")
+                    os.makedirs(ace_dir)
+                    name = os.path.basename(root)
+                    with open(os.path.join(ace_dir, ".ace.json"), "w") as f:
+                        json.dump({"workspace_name": name, "onboarded": True}, f)
+
+                col1 = f"{os.path.basename(root1)}_code_context"
+                col2 = f"{os.path.basename(root2)}_code_context"
+
+                # Primary CR works, non-primary CR throws
+                mock_cr1 = MagicMock()
+                mock_cr1.collection_name = col1
+                mock_cr1.search.return_value = [
+                    {"file_path": "main.py", "content": "def main():", "score": 0.8, "start_line": 1, "end_line": 5},
+                ]
+                mock_cr1.format_ThatOtherContextEngine_style.return_value = "formatted"
+
+                mock_cr2 = MagicMock()
+                mock_cr2.collection_name = col2
+                mock_cr2.search.side_effect = Exception("Qdrant connection refused")
+
+                mod._all_workspace_roots = [root1, root2]
+                mod._code_retrieval = mock_cr1
+                mod._code_retrieval_cache = {col2: mock_cr2}
+
+                with patch.object(mod, 'get_workspace_path_async', return_value=root1), \
+                     patch.object(mod, 'is_workspace_onboarded', return_value=True), \
+                     patch.object(mod, 'get_workspace_collection_name', return_value=col1), \
+                     patch.object(mod, '_check_collection_exists', return_value=True), \
+                     patch.object(mod, 'get_code_retrieval', return_value=mock_cr1), \
+                     patch.object(mod, '_get_unified_memory') as mock_um, \
+                     patch.object(mod, 'get_memory_index') as mock_idx, \
+                     patch.object(mod, '_wait_for_preload'), \
+                     patch.object(mod, '_log_startup_info'):
+
+                    mock_index = MagicMock()
+                    mock_index.retrieve.return_value = []
+                    mock_idx.return_value = mock_index
+                    mock_um.return_value = {"UnifiedNamespace": MagicMock(), "format_unified_context": MagicMock()}
+
+                    result = await ace_retrieve("find main entry", ctx=None)
+
+                    # Primary root results still returned despite secondary failure
+                    mock_cr1.format_ThatOtherContextEngine_style.assert_called_once()
+                    call_args = mock_cr1.format_ThatOtherContextEngine_style.call_args[0][0]
+                    assert len(call_args) == 1
+                    assert call_args[0]["file_path"] == "main.py"
+        finally:
+            mod._all_workspace_roots = orig_all_roots
+            mod._code_retrieval_cache = orig_cache
+            mod._code_retrieval = orig_code_retrieval

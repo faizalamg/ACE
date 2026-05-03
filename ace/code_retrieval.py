@@ -1189,16 +1189,34 @@ class CodeRetrieval:
                 except Exception as e:
                     logger.warning(f"Text search failed: {e}")
             
-            # Use dense-only search - Voyage-code-3 embeddings are
-            # specifically trained for semantic code similarity, and BM25/sparse
-            # actually hurts results by matching imports/usages over definitions
+            # Search strategy: hybrid (dense + sparse BM25 via RRF) or dense-only
+            # Hybrid search uses Reciprocal Rank Fusion to combine semantic similarity
+            # (dense vectors) with keyword matching (sparse BM25 vectors).
+            # Precision mode uses dense-only to trust embedding quality without BM25 noise.
             import httpx
-            query_payload = {
-                "query": query_vector,
-                "using": "dense",
-                "limit": fetch_limit,
-                "with_payload": True,
-            }
+            
+            if precision_mode:
+                # Dense-only: trust embedding quality for focused results
+                query_payload = {
+                    "query": query_vector,
+                    "using": "dense",
+                    "limit": fetch_limit,
+                    "with_payload": True,
+                }
+            else:
+                # Hybrid: dense + sparse BM25 with RRF fusion
+                from ace.unified_memory import create_sparse_vector
+                sparse_data = create_sparse_vector(expanded_query)
+                
+                query_payload = {
+                    "prefetch": [
+                        {"query": query_vector, "using": "dense", "limit": fetch_limit},
+                        {"query": {"indices": sparse_data["indices"], "values": sparse_data["values"]}, "using": "sparse", "limit": fetch_limit},
+                    ],
+                    "query": {"fusion": "rrf"},
+                    "limit": fetch_limit,
+                    "with_payload": True,
+                }
             
             rest_response = httpx.post(
                 f"{self.qdrant_url}/collections/{self.collection_name}/points/query",
