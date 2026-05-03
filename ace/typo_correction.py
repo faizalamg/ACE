@@ -261,27 +261,35 @@ class TypoCorrector:
                 continue
 
     def _validate_correction_with_glm(self, typo: str, correction: str) -> bool:
-        """Validate a typo correction using GLM API.
+        """Validate a typo correction using LLM.
+
+        Uses the configured provider (local or cloud) matching _correct_with_llm routing.
 
         Args:
             typo: The misspelled word
             correction: The proposed correction
 
         Returns:
-            True if GLM confirms the correction is valid
+            True if LLM confirms the correction is valid
         """
         try:
-            # Import LiteLLM client for GLM access
             from .llm_providers.litellm_client import LiteLLMClient
             from .config import get_llm_config
 
-            llm_config = get_llm_config()
+            if self._config.llm_correction_provider == "local":
+                model = self._config.llm_correction_model
+                api_key = "not-needed"
+                api_base = self._config.llm_correction_url
+            else:
+                llm_config = get_llm_config()
+                model = llm_config.model
+                api_key = llm_config.api_key
+                api_base = llm_config.api_base
 
-            # Use Z.ai GLM for validation
             client = LiteLLMClient(
-                model=llm_config.model,
-                api_key=llm_config.api_key,
-                api_base=llm_config.api_base,
+                model=model,
+                api_key=api_key,
+                api_base=api_base,
                 max_tokens=50,
                 temperature=0.0
             )
