@@ -1404,7 +1404,7 @@ async def ace_enhance_prompt(
     chat_history: str = "",
     custom_context: str = "",
     workspace_path: str = "",
-    provider: str = "zai",
+    provider: str = "",
     model: str = "",
     max_tokens: int = 8000,
     temperature: float = 0.3,
@@ -1440,7 +1440,7 @@ async def ace_enhance_prompt(
         chat_history: String containing recent chat messages (optional)
         custom_context: Any additional context string (optional)
         workspace_path: Path to workspace for git operations (optional, uses cwd if empty)
-        provider: LLM provider - "zai" (default GLM), "openai", "anthropic", "lmstudio"
+        provider: LLM provider - "lmstudio" (default), "zai", "openai", "anthropic" (auto-detected from ACE_USE_LOCAL_LLM if empty)
         model: Specific model to use (empty = provider default)
         max_tokens: Maximum tokens for enhancement response (default 8000)
         temperature: LLM temperature (default 0.3 for focused enhancement)
@@ -1451,6 +1451,13 @@ async def ace_enhance_prompt(
     _log_startup_info()
     
     logger.info(f"ace_enhance_prompt called: prompt_len={len(prompt)}, provider={provider}, model={model}")
+    
+    # Auto-detect provider from ACE config if not explicitly set
+    if not provider:
+        config = _get_config()()
+        llm_config = config.llm
+        provider = "lmstudio" if llm_config.use_local_llm else "zai"
+        logger.info(f"Auto-detected provider: {provider} (ACE_USE_LOCAL_LLM={llm_config.use_local_llm})")
     
     # Load the enhancement system prompt
     try:
@@ -1565,6 +1572,11 @@ async def ace_enhance_prompt(
         api_key = "not-needed"
         api_base = llm_config.local_llm_url
         actual_model = model if model else llm_config.local_llm_model
+
+        # Auto-launch llama-server if not running
+        from ace.llama_launcher import ensure_server_running
+        if not ensure_server_running(api_base):
+            return f"Error: llama-server not available at {api_base}. Check ACE_LLAMA_SERVER_EXE and ACE_LLAMA_MODEL_PATH."
     else:
         return f"Error: Unknown provider '{provider}'. Use: zai, openai, anthropic, lmstudio"
     

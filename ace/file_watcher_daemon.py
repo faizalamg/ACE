@@ -18,6 +18,7 @@ import argparse
 import atexit
 import logging
 import os
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -378,14 +379,17 @@ def _spawn_daemon(workspace_path: str, qdrant_url: str) -> int:
     This is called when the script is invoked with 'start' command.
     It spawns a new Python process that runs the actual watcher.
     """
-    import subprocess
-
     workspace_path = str(Path(workspace_path).resolve())
 
     # Check if already running
     if is_watcher_running(workspace_path):
         print(f"File watcher already running for: {workspace_path}")
         return 0
+
+    env = os.environ.copy()
+    env.setdefault("ACE_TEXT_EMBEDDING_PROVIDER", "local")
+    env.setdefault("ACE_CODE_EMBEDDING_PROVIDER", "local")
+    env.setdefault("ACE_LOCAL_EMBEDDING_URL", "http://localhost:1234")
 
     # Get the path to this script
     script_path = Path(__file__).resolve().parent / "file_watcher_daemon.py"
@@ -406,6 +410,7 @@ def _spawn_daemon(workspace_path: str, qdrant_url: str) -> int:
 
         process = subprocess.Popen(
             [python_exe, str(script_path), '_run_daemon', workspace_path, '--qdrant-url', qdrant_url],
+            env=env,
             creationflags=creation_flags,
             close_fds=True,
         )
@@ -413,6 +418,7 @@ def _spawn_daemon(workspace_path: str, qdrant_url: str) -> int:
         # Unix: use double fork to daemonize
         process = subprocess.Popen(
             [sys.executable, str(script_path), '_run_daemon', workspace_path, '--qdrant-url', qdrant_url],
+            env=env,
             start_new_session=True,  # Creates new process group
             close_fds=True,
             stdin=subprocess.DEVNULL,
@@ -420,20 +426,23 @@ def _spawn_daemon(workspace_path: str, qdrant_url: str) -> int:
             stderr=subprocess.DEVNULL,
         )
 
-    # Give the daemon a moment to start and write PID
-    time.sleep(2)
+    # Poll for daemon startup — Python imports can take 5-10s on Windows
+    max_wait = 15
+    poll_interval = 0.5
+    elapsed = 0.0
+    while elapsed < max_wait:
+        time.sleep(poll_interval)
+        elapsed += poll_interval
+        if is_watcher_running(workspace_path):
+            print(f"File watcher started for: {workspace_path} (took {elapsed:.1f}s)")
+            print(f"  PID: {process.pid}")
+            log_file = get_log_file(workspace_path)
+            print(f"  Log: {log_file}")
+            return 0
 
-    # Check if it started successfully
-    if is_watcher_running(workspace_path):
-        print(f"File watcher started for: {workspace_path}")
-        print(f"  PID: {process.pid}")
-        log_file = get_log_file(workspace_path)
-        print(f"  Log: {log_file}")
-        return 0
-    else:
-        print(f"Failed to start file watcher for: {workspace_path}")
-        print(f"  Check log: {get_log_file(workspace_path)}")
-        return 1
+    print(f"Failed to start file watcher for: {workspace_path} (waited {max_wait}s)")
+    print(f"  Check log: {get_log_file(workspace_path)}")
+    return 1
 
 
 def _run_daemon(workspace_path: str, qdrant_url: str) -> int:

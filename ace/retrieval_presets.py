@@ -378,7 +378,7 @@ def expand_query_with_llm(
     timeout: Optional[float] = None,
 ) -> List[str]:
     """
-    Use LLM (GLM 4.6) to semantically expand query for better retrieval.
+    Use LLM to semantically expand query for better retrieval.
 
     This generates related terms and rephrased queries that capture
     the semantic intent beyond simple synonym matching.
@@ -387,7 +387,7 @@ def expand_query_with_llm(
 
     Args:
         query: Original query string
-        llm_url: Z.ai API URL (default: from config)
+        llm_url: API URL (default: from config, local or cloud)
         model: Model to use for expansion (default: from config)
         timeout: Request timeout in seconds (default: from config)
 
@@ -398,10 +398,17 @@ def expand_query_with_llm(
 
     llm_config = get_llm_config()
 
-    # Use config defaults if not specified
-    llm_url = llm_url or llm_config.api_base
-    model = model or llm_config.model
-    timeout = timeout or llm_config.expansion_timeout
+    # Use local LLM for speed if configured, otherwise cloud
+    if llm_config.use_local_llm:
+        llm_url = llm_url or llm_config.local_llm_url
+        model = model or llm_config.local_llm_model
+        timeout = timeout or llm_config.local_llm_timeout
+        api_key = ""
+    else:
+        llm_url = llm_url or llm_config.api_base
+        model = model or llm_config.model
+        timeout = timeout or llm_config.expansion_timeout
+        api_key = llm_config.api_key
 
     # Check if feature is disabled
     if not llm_config.enable_llm_expansion:
@@ -423,14 +430,16 @@ Query: {query}
 
 Alternatives:"""
 
-        # Z.ai GLM 4.6 API requires Bearer auth
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {llm_config.api_key}",
-        }
+        # Build headers (auth only needed for cloud providers)
+        headers = {"Content-Type": "application/json"}
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+
+        # Determine endpoint path
+        endpoint = f"{llm_url.rstrip('/')}/chat/completions"
 
         response = httpx.post(
-            f"{llm_url}/chat/completions",
+            endpoint,
             headers=headers,
             json={
                 "model": model,
@@ -614,8 +623,8 @@ JSON response:"""
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
 
-        # Determine endpoint path (local LLM uses /v1/, Z.ai uses direct path)
-        endpoint = f"{llm_url}/v1/chat/completions" if llm_config.use_local_llm else f"{llm_url}/chat/completions"
+        # Determine endpoint path
+        endpoint = f"{llm_url.rstrip('/')}/chat/completions"
 
         # Retry with exponential backoff for rate limits
         max_retries = 3
@@ -682,8 +691,8 @@ JSON response:"""
 def llm_rerank_results(
     query: str,
     results: List[Tuple[any, float]],
-    llm_url: str = "http://localhost:1234",
-    model: str = "glm-4-9b-chat",
+    llm_url: str = "http://localhost:8091",
+    model: str = "gemma-4-26b-a4b-it",
     top_k: int = 5,
     timeout: float = 8.0,
     filter_threshold: float = 5.0,

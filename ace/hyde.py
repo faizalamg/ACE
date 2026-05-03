@@ -5,7 +5,7 @@ and detailed memory documents. HyDE transforms queries into hypothetical documen
 that would answer the query, then uses their embeddings for more accurate retrieval.
 
 Key Features:
-- LLM-based hypothetical document generation (Z.ai GLM-4.6 by default)
+- LLM-based hypothetical document generation (local LM Studio by default)
 - Configurable number of hypothetical documents (default: 3-5)
 - Caching for repeated queries
 - Async support for batch processing
@@ -39,10 +39,10 @@ class HyDEConfig:
     max_tokens: int = 150  # Max tokens per hypothetical document
     temperature: float = 0.7  # Higher temperature for diversity
 
-    # LLM configuration
-    model: str = "openai/glm-4.6"  # Z.ai GLM-4.6 (default ACE model)
-    api_key: Optional[str] = None  # Auto-detected from ZAI_API_KEY or OPENAI_API_KEY
-    api_base: Optional[str] = None  # Auto-configured for Z.ai
+    # LLM configuration (auto-resolved from ACE config at runtime)
+    model: str = ""  # Empty = auto-resolve from LLMConfig (local or cloud)
+    api_key: Optional[str] = None  # Auto-detected from env
+    api_base: Optional[str] = None  # Auto-configured from LLMConfig
 
     # Cache configuration
     cache_enabled: bool = True
@@ -61,16 +61,15 @@ class HyDEConfig:
 class HyDEGenerator:
     """Generate hypothetical documents for query expansion using LLM.
 
-    Uses Z.ai GLM-4.6 by default (ACE framework standard) with fallback to OpenAI.
+    Uses local LM Studio by default (ACE_USE_LOCAL_LLM=true) with fallback to cloud providers.
 
     Example:
         >>> from ace.hyde import HyDEGenerator, HyDEConfig
         >>> from ace.llm_providers.litellm_client import LiteLLMClient
         >>>
-        >>> # Uses Z.ai GLM-4.6 by default (requires ZAI_API_KEY in .env)
-        >>> llm = LiteLLMClient(model="openai/glm-4.6")
+        >>> # Uses local LM Studio by default (no API key needed)
         >>> config = HyDEConfig(num_hypotheticals=3)
-        >>> hyde = HyDEGenerator(llm, config)
+        >>> hyde = HyDEGenerator(config=config)
         >>>
         >>> # Generate hypothetical documents
         >>> query = "How to fix authentication errors?"
@@ -108,29 +107,50 @@ class HyDEGenerator:
         )
 
     def _initialize_default_llm(self) -> None:
-        """Initialize default LLM client (Z.ai GLM-4.6)."""
+        """Initialize default LLM client from ACE config (local llama.cpp or cloud)."""
         try:
             from .llm_providers.litellm_client import LiteLLMClient
+            from .config import ACEConfig
 
-            # Auto-detect API key from environment
-            api_key = self.config.api_key or os.getenv("ZAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+            # Get centralized LLM config
+            ace_config = ACEConfig()
+            llm_config = ace_config.llm
 
-            if not api_key:
-                raise ValueError(
-                    "No API key found. Set ZAI_API_KEY (for Z.ai GLM) or "
-                    "OPENAI_API_KEY in .env file, or pass api_key in HyDEConfig"
-                )
+            if llm_config.use_local_llm:
+                # Local llama.cpp server (primary path)
+                model = self.config.model or f"openai/{llm_config.local_llm_model}"
+                api_base = self.config.api_base or llm_config.local_llm_url
+                api_key = "not-needed"
 
-            # Configure for Z.ai GLM-4.6 (ACE default)
+                # Auto-launch llama-server if not running
+                from .llama_launcher import ensure_server_running
+                if not ensure_server_running(api_base):
+                    raise RuntimeError(
+                        f"llama-server not available at {api_base}. "
+                        "Check ACE_LLAMA_SERVER_EXE and ACE_LLAMA_MODEL_PATH env vars."
+                    )
+
+                logger.info(f"HyDE using local LLM: {model} at {api_base}")
+            else:
+                # Cloud provider fallback
+                api_key = self.config.api_key or os.getenv("ZAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+                if not api_key:
+                    raise ValueError(
+                        "No API key found. Set ACE_USE_LOCAL_LLM=true for local LM Studio, "
+                        "or set ZAI_API_KEY / OPENAI_API_KEY in .env file"
+                    )
+                model = self.config.model or f"openai/{llm_config.model}"
+                api_base = self.config.api_base or llm_config.api_base
+
             self.llm_client = LiteLLMClient(
-                model=self.config.model,
+                model=model,
                 api_key=api_key,
-                api_base=self.config.api_base,
+                api_base=api_base,
                 temperature=self.config.temperature,
                 max_tokens=self.config.max_tokens
             )
 
-            logger.info(f"Initialized LiteLLM client with model: {self.config.model}")
+            logger.info(f"Initialized LiteLLM client with model: {model}")
 
         except ImportError:
             raise ImportError(

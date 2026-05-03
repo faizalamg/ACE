@@ -1397,7 +1397,10 @@ class CodeIndexer:
         
         # Try to use watchdog if available
         try:
-            from watchdog.observers import Observer
+            if os.name == "nt":
+                from watchdog.observers.polling import PollingObserver as Observer
+            else:
+                from watchdog.observers import Observer
             from watchdog.events import FileSystemEventHandler
             
             class CodeFileHandler(FileSystemEventHandler):
@@ -1414,16 +1417,22 @@ class CodeIndexer:
                     return True
                 
                 def on_modified(self, event):
-                    if not event.is_directory and self._should_process(event.src_path):
-                        self.indexer.update_file(event.src_path)
+                    src_path = str(event.src_path)
+                    if not event.is_directory and self._should_process(src_path):
+                        logger.info(f"Watcher modified: {src_path}")
+                        self.indexer.update_file(src_path)
                 
                 def on_created(self, event):
-                    if not event.is_directory and self._should_process(event.src_path):
-                        self.indexer.index_file(event.src_path)
+                    src_path = str(event.src_path)
+                    if not event.is_directory and self._should_process(src_path):
+                        logger.info(f"Watcher created: {src_path}")
+                        self.indexer.index_file(src_path)
                 
                 def on_deleted(self, event):
+                    src_path = str(event.src_path)
                     if not event.is_directory:
-                        rel_path = os.path.relpath(event.src_path, self.indexer.workspace_path)
+                        rel_path = os.path.relpath(src_path, self.indexer.workspace_path)
+                        logger.info(f"Watcher deleted: {src_path}")
                         self.indexer.remove_file(rel_path)
             
             self._observer = Observer()

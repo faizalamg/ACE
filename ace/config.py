@@ -571,8 +571,7 @@ class BM25Config:
 class LLMConfig:
     """LLM configuration for query rewriting and retrieval enhancements."""
 
-    # Z.ai GLM API (default)
-    # Note: GLM 4.7 has 2 concurrency limit but better quality than 4.6
+    # Cloud API config (used when ACE_USE_LOCAL_LLM=false)
     api_key: str = field(default_factory=lambda: _get_env("ZAI_API_KEY", ""))
     api_base: str = field(default_factory=lambda: _get_env("ZAI_API_BASE", "https://api.z.ai/api/coding/paas/v4"))
     model: str = field(default_factory=lambda: _get_env("ZAI_MODEL", "glm-4.7"))
@@ -600,11 +599,12 @@ class LLMConfig:
     filtering_timeout: float = field(default_factory=lambda: _get_env_float("ACE_FILTERING_TIMEOUT", 120.0))
     filtering_top_k: int = field(default_factory=lambda: _get_env_int("ACE_FILTERING_TOP_K", 10))
 
-    # Fast local LLM fallback (for speed-critical operations)
-    # Set ACE_USE_LOCAL_LLM=true to use local LM Studio instead of Z.ai
+    # Local LLM (primary path when ACE_USE_LOCAL_LLM=true)
+    # Set ACE_USE_LOCAL_LLM=true to use local llama.cpp server instead of cloud APIs
+    # Default port 8091 = llama.cpp server (Gemma 4 26B). Embeddings stay on LM Studio port 1234.
     use_local_llm: bool = field(default_factory=lambda: _get_env_bool("ACE_USE_LOCAL_LLM", False))
-    local_llm_url: str = field(default_factory=lambda: _get_env("ACE_LOCAL_LLM_URL", "http://localhost:1234"))
-    local_llm_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_LLM_MODEL", "gpt-oss-20b"))
+    local_llm_url: str = field(default_factory=lambda: _get_env("ACE_LOCAL_LLM_URL", "http://localhost:8091/v1"))
+    local_llm_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_LLM_MODEL", "gemma-4-26b-a4b-it"))
     # Max tokens for local LLM (high for reasoning models that output reasoning + content)
     local_llm_max_tokens: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_LLM_MAX_TOKENS", 800))
     # Timeout for local LLM (high default for JIT model loading on first request)
@@ -966,15 +966,14 @@ class TypoCorrectionConfig:
     # e.g., "updste" -> "update", "plsn" -> "plan"
     enable_llm_correction: bool = field(default_factory=lambda: _get_env_bool("ACE_TYPO_LLM_CORRECTION", True))
 
-    # Provider for LLM typo correction: "zai" (z.ai GLM) or "local" (LM Studio)
-    llm_correction_provider: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_PROVIDER", "zai"))
+    # Provider for LLM typo correction: "local" (llama.cpp) or "zai" (z.ai GLM, disabled)
+    llm_correction_provider: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_PROVIDER", "local"))
 
-    # Model for LLM typo correction (only used if provider is "local")
-    # z.ai uses ZAI_MODEL from LLMConfig, local uses this model
-    llm_correction_model: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_MODEL", "gpt-oss-20b"))
+    # Model for LLM typo correction
+    llm_correction_model: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_MODEL", "gemma-4-26b-a4b-it"))
 
-    # LM Studio URL (only used if provider is "local")
-    llm_correction_url: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_URL", "http://localhost:1234/v1"))
+    # llama.cpp server URL (only used if provider is "local")
+    llm_correction_url: str = field(default_factory=lambda: _get_env("ACE_TYPO_LLM_URL", "http://localhost:8091/v1"))
 
     # Timeout for LLM typo correction (ms)
     llm_correction_timeout: float = field(default_factory=lambda: _get_env_float("ACE_TYPO_LLM_TIMEOUT", 5.0))

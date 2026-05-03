@@ -880,8 +880,18 @@ Respond in English. Format: NUMBER: expansion1 | expansion2 | expansion3"""
         self._cache: Dict[str, List[str]] = {}  # Query -> expanded queries cache
         self._client = None
 
-        if HTTPX_AVAILABLE and self.config.api_key:
-            self._client = httpx.Client(timeout=60.0)  # 60s for GLM reasoning
+        if HTTPX_AVAILABLE:
+            if self.config.use_local_llm:
+                # Local llama.cpp server - no API key needed
+                # Auto-launch if not running
+                from .llama_launcher import ensure_server_running
+                if ensure_server_running(self.config.local_llm_url):
+                    self._client = httpx.Client(timeout=self.config.local_llm_timeout)
+                else:
+                    logger.warning("llama-server not available, LLM query rewriting disabled")
+            elif self.config.api_key:
+                # Cloud provider (Z.AI, OpenAI, etc.)
+                self._client = httpx.Client(timeout=60.0)
 
     def rewrite(self, query: str) -> List[str]:
         """
@@ -900,18 +910,28 @@ Respond in English. Format: NUMBER: expansion1 | expansion2 | expansion3"""
             return [query] + cached if cached else [query]
 
         try:
-            # Rate limit: GLM allows max 5 concurrent requests
+            # Rate limit: max 5 concurrent requests
             semaphore = self._get_semaphore()
             with semaphore:
-                # Call GLM API
-                response = self._client.post(
-                    f"{self.config.api_base}/chat/completions",
-                    headers={
+                # Determine endpoint and auth based on local vs cloud
+                if self.config.use_local_llm:
+                    base_url = self.config.local_llm_url.rstrip("/")
+                    url = f"{base_url.rstrip('/')}/chat/completions"
+                    headers = {"Content-Type": "application/json"}
+                    model_name = self.config.local_llm_model
+                else:
+                    url = f"{self.config.api_base}/chat/completions"
+                    headers = {
                         "Authorization": f"Bearer {self.config.api_key}",
                         "Content-Type": "application/json",
-                    },
+                    }
+                    model_name = self.config.model
+
+                response = self._client.post(
+                    url,
+                    headers=headers,
                     json={
-                        "model": self.config.model,
+                        "model": model_name,
                         "messages": [
                             {"role": "system", "content": self.SYSTEM_PROMPT},
                             {"role": "user", "content": self.REWRITE_PROMPT.format(query=query)}

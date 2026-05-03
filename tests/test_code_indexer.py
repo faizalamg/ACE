@@ -506,7 +506,28 @@ class TestCodeIndexerUpdates:
 
 class TestCodeIndexerFileWatcher:
     """Test file watcher for auto-updates."""
-    
+
+    def test_start_file_watcher_uses_polling_observer_on_windows(self, temp_workspace, mock_qdrant_client, mock_embedder):
+        """Windows watcher should use PollingObserver for reliable daemon updates."""
+        from ace.code_indexer import CodeIndexer
+
+        fake_observer = MagicMock()
+
+        with patch("ace.code_indexer.os.name", "nt"), \
+             patch("watchdog.observers.polling.PollingObserver", return_value=fake_observer) as mock_polling:
+            indexer = CodeIndexer(
+                workspace_path=temp_workspace,
+                embed_fn=mock_embedder,
+            )
+
+            indexer.start_watching()
+
+            assert mock_polling.called
+            fake_observer.schedule.assert_called_once()
+            fake_observer.start.assert_called_once()
+
+            indexer.stop_watching()
+
     def test_start_file_watcher(self, temp_workspace, mock_qdrant_client, mock_embedder):
         """Should start file watcher for workspace."""
         from ace.code_indexer import CodeIndexer
