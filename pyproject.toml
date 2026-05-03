@@ -155,6 +155,16 @@ exclude = [
     "^benchmarks/",
 ]
 
+[tool.uv]
+override-dependencies = [
+    "aiohttp>=3.13.5",
+    "pillow>=12.2.0",
+    "requests>=2.33.0",
+    "pypdf>=6.10.2",
+    "python-dotenv>=1.2.2",
+    "openai>=2.26.0",
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
