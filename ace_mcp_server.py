@@ -134,6 +134,7 @@ _mcp_client_workspace: Optional[str] = None
 
 # Cache for workspace path obtained from MCP list_roots() capability
 _cached_workspace_from_roots: Optional[str] = None
+_all_workspace_roots: List[str] = []  # All valid roots from list_roots()
 _roots_fetch_attempted = False
 
 # ACE workspace configuration file
@@ -371,6 +372,21 @@ def get_workspace_collection_name() -> str:
     return _workspace_collection_name
 
 
+def _get_collection_name_for_workspace(workspace_path: str) -> str:
+    """Get code collection name for a specific workspace path.
+    
+    Unlike get_workspace_collection_name() which uses the cached primary workspace,
+    this accepts an explicit workspace path for multi-root support.
+    """
+    config = get_workspace_config(workspace_path)
+    if config and "workspace_name" in config:
+        return f"{config['workspace_name']}_code_context"
+    
+    workspace_name = os.path.basename(os.path.normpath(workspace_path))
+    workspace_name = "".join(c if c.isalnum() or c in ('_', '-') else '_' for c in workspace_name)
+    return f"{workspace_name}_code_context"
+
+
 def is_workspace_onboarded(workspace_path: str) -> bool:
     """Check if workspace has been onboarded (has .ace/.ace.json)."""
     config = get_workspace_config(workspace_path)
@@ -602,8 +618,12 @@ async def _get_workspace_from_roots(ctx: Context) -> Optional[str]:
     - Server requests roots from client at runtime
     - No need for env vars or config files
     - Works with any MCP-compliant client (VS Code, Claude Desktop, etc.)
+    
+    Multi-root support: Stores ALL valid roots in _all_workspace_roots
+    so that ace_retrieve can search code across all open workspaces.
+    Returns the first valid root as the "primary" workspace.
     """
-    global _cached_workspace_from_roots, _roots_fetch_attempted
+    global _cached_workspace_from_roots, _roots_fetch_attempted, _all_workspace_roots
     
     # Return cached value if we already have it
     if _cached_workspace_from_roots:
@@ -622,15 +642,22 @@ async def _get_workspace_from_roots(ctx: Context) -> Optional[str]:
             roots_result = await ctx.session.list_roots()
             
             if roots_result and roots_result.roots:
+                valid_roots = []
                 for root in roots_result.roots:
                     # Extract path from file:// URI
                     workspace_path = _extract_workspace_from_uri(str(root.uri))
                     if workspace_path and _is_valid_workspace_path(workspace_path):
-                        _cached_workspace_from_roots = workspace_path
-                        logger.info(f"Got workspace from MCP roots: {workspace_path}")
-                        return workspace_path
+                        valid_roots.append(workspace_path)
                     else:
                         logger.debug(f"Skipping invalid root: {root.uri}")
+                
+                if valid_roots:
+                    _all_workspace_roots = valid_roots
+                    _cached_workspace_from_roots = valid_roots[0]  # Primary root
+                    logger.info(f"Got {len(valid_roots)} workspace root(s) from MCP. Primary: {valid_roots[0]}")
+                    if len(valid_roots) > 1:
+                        logger.info(f"Additional roots: {valid_roots[1:]}")
+                    return valid_roots[0]
             else:
                 logger.debug("list_roots() returned no roots")
         else:
@@ -815,44 +842,73 @@ async def ace_retrieve(
         else:
             results_parts.append(onboard_result)
 
-    # 1. Code retrieval (only if onboarded)
-    # IMPORTANT: We must ensure the cached workspace is set before getting code_retrieval
-    # since get_code_retrieval() uses get_workspace_path() which reads _cached_workspace_from_roots
+    # 1. Code retrieval across ALL workspace roots
+    # Multi-root support: search code collections for all open workspaces,
+    # merge results by score. This ensures ACE finds code from any open project.
     global _code_retrieval
-    expected_collection = get_workspace_collection_name()
-    
-    # Reset code_retrieval if collection doesn't match (workspace changed)
-    if _code_retrieval is not None and _code_retrieval.collection_name != expected_collection:
-        logger.info(f"Workspace changed - resetting code_retrieval")
-        _code_retrieval = None
-    
-    # Precision mode: parameter takes precedence, then fall back to env var
     precision_mode = precision  # Direct parameter value (defaults to True)
     
-    # get_code_retrieval() can block (auto-indexing, loading models) - run in thread
-    code_retrieval = await asyncio.to_thread(get_code_retrieval)
-    if code_retrieval:
+    # Determine which workspace roots to search
+    roots_to_search = _all_workspace_roots if _all_workspace_roots else ([workspace] if workspace else [])
+    qdrant_url = os.environ.get("QDRANT_URL", "http://localhost:6333")
+    
+    all_code_results = []
+    primary_code_retrieval = None  # For formatting
+    
+    for ws_root in roots_to_search:
+        if not is_workspace_onboarded(ws_root):
+            continue
+        
+        collection = _get_collection_name_for_workspace(ws_root)
+        
+        # Only search collections that already exist (don't trigger auto-indexing for non-primary)
+        if ws_root != workspace and not _check_collection_exists(qdrant_url, collection):
+            continue
+        
         try:
-            code_results = await asyncio.to_thread(
-                code_retrieval.search, 
-                query, 
-                limit,
-                deduplicate=True,
-                min_score=0.0,
-                use_reranker=False,
-                exclude_tests=True,
-                precision_mode=precision_mode
-            )
-            if code_results:
-                # Use Auggie-compatible format directly (no wrapper header)
-                # Output starts with "The following code sections were retrieved:"
-                formatted_code = code_retrieval.format_ThatOtherContextEngine_style(code_results)
-                results_parts.append(formatted_code)
+            # For the primary workspace, use the cached _code_retrieval instance
+            if ws_root == workspace:
+                expected_collection = get_workspace_collection_name()
+                if _code_retrieval is not None and _code_retrieval.collection_name != expected_collection:
+                    logger.info(f"Workspace changed - resetting code_retrieval")
+                    _code_retrieval = None
+                cr = await asyncio.to_thread(get_code_retrieval)
+            else:
+                # For additional roots, create a temporary CodeRetrieval instance
+                from ace.code_retrieval import CodeRetrieval
+                cr = CodeRetrieval(collection_name=collection)
+            
+            if cr:
+                if primary_code_retrieval is None:
+                    primary_code_retrieval = cr
+                
+                results = await asyncio.to_thread(
+                    cr.search,
+                    query,
+                    limit,
+                    deduplicate=True,
+                    min_score=0.0,
+                    use_reranker=False,
+                    exclude_tests=True,
+                    precision_mode=precision_mode
+                )
+                if results:
+                    all_code_results.extend(results)
         except Exception as e:
-            logger.exception(f"Code retrieval failed: {e}")
-    else:
-        if workspace:
-            logger.warning("Code retrieval not available")
+            logger.warning(f"Code retrieval failed for {ws_root}: {e}")
+    
+    if all_code_results:
+        # Sort merged results by score (highest first) and take top N
+        all_code_results.sort(key=lambda x: x.get("score", 0), reverse=True)
+        all_code_results = all_code_results[:limit]
+        
+        # Format using any available CodeRetrieval instance
+        formatter = primary_code_retrieval or _code_retrieval
+        if formatter:
+            formatted_code = formatter.format_ThatOtherContextEngine_style(all_code_results)
+            results_parts.append(formatted_code)
+    elif workspace:
+        logger.warning("Code retrieval not available for any workspace root")
 
     # 2. Memory retrieval (always available)
     um = _get_unified_memory()

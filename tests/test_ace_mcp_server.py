@@ -303,3 +303,97 @@ class TestIntegration:
             memory_id = store_result.split("ID:")[-1].strip()
             tag_result = await ace_tag(memory_id=memory_id, tag="helpful")
             assert isinstance(tag_result, str)
+
+
+class TestMultiRootWorkspace:
+    """Tests for multi-root workspace detection and code retrieval."""
+
+    def test_get_workspace_from_roots_stores_all_roots(self):
+        """_get_workspace_from_roots stores all valid roots, not just the first."""
+        from ace_mcp_server import _all_workspace_roots
+        # The global should be a list (may be empty if not fetched yet)
+        assert isinstance(_all_workspace_roots, list)
+
+    def test_get_collection_name_for_workspace(self):
+        """_get_collection_name_for_workspace derives correct collection name."""
+        from ace_mcp_server import _get_collection_name_for_workspace
+        import tempfile, os
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Folder name should become the collection prefix
+            folder_name = os.path.basename(tmpdir)
+            expected = f"{folder_name}_code_context"
+            result = _get_collection_name_for_workspace(tmpdir)
+            assert result == expected
+
+    def test_get_collection_name_for_workspace_with_config(self):
+        """_get_collection_name_for_workspace reads .ace/.ace.json if present."""
+        from ace_mcp_server import _get_collection_name_for_workspace
+        import tempfile, os, json
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ace_dir = os.path.join(tmpdir, ".ace")
+            os.makedirs(ace_dir)
+            config = {"workspace_name": "my-project"}
+            with open(os.path.join(ace_dir, ".ace.json"), "w") as f:
+                json.dump(config, f)
+
+            result = _get_collection_name_for_workspace(tmpdir)
+            assert result == "my-project_code_context"
+
+    def test_get_collection_name_sanitizes_special_chars(self):
+        """Collection names are sanitized for Qdrant compatibility."""
+        from ace_mcp_server import _get_collection_name_for_workspace
+        import tempfile, os
+
+        with tempfile.TemporaryDirectory(prefix="my project (v2)") as tmpdir:
+            result = _get_collection_name_for_workspace(tmpdir)
+            # Should not contain spaces or parens
+            assert " " not in result
+            assert "(" not in result
+            assert result.endswith("_code_context")
+
+    @pytest.mark.asyncio
+    async def test_get_workspace_from_roots_multi_root(self):
+        """_get_workspace_from_roots stores all roots from list_roots()."""
+        import ace_mcp_server as mod
+        import tempfile, os
+
+        # Save originals
+        orig_cached = mod._cached_workspace_from_roots
+        orig_all = mod._all_workspace_roots
+        orig_attempted = mod._roots_fetch_attempted
+
+        try:
+            # Reset state
+            mod._cached_workspace_from_roots = None
+            mod._all_workspace_roots = []
+            mod._roots_fetch_attempted = False
+
+            # Create two temp workspace dirs
+            with tempfile.TemporaryDirectory() as root1, tempfile.TemporaryDirectory() as root2:
+                # Mock context with two roots
+                mock_ctx = MagicMock()
+                mock_session = AsyncMock()
+
+                mock_root1 = MagicMock()
+                mock_root1.uri = f"file:///{root1.replace(os.sep, '/')}"
+                mock_root2 = MagicMock()
+                mock_root2.uri = f"file:///{root2.replace(os.sep, '/')}"
+
+                mock_roots_result = MagicMock()
+                mock_roots_result.roots = [mock_root1, mock_root2]
+                mock_session.list_roots = AsyncMock(return_value=mock_roots_result)
+                mock_ctx.session = mock_session
+
+                result = await mod._get_workspace_from_roots(mock_ctx)
+
+                # Should return first root as primary
+                assert result is not None
+                # Should store BOTH roots
+                assert len(mod._all_workspace_roots) == 2
+        finally:
+            # Restore originals
+            mod._cached_workspace_from_roots = orig_cached
+            mod._all_workspace_roots = orig_all
+            mod._roots_fetch_attempted = orig_attempted
