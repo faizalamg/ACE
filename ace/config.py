@@ -524,13 +524,19 @@ class QdrantConfig:
         """
         Get the correct code collection name based on embedding provider.
 
-        Returns:
+        If ACE_CODE_COLLECTION is explicitly set, it takes priority.
+        Otherwise, auto-names based on provider:
             "ace_code_context_voyage" for Voyage (1024d)
             "ace_code_context_jina" for Jina (768d)
             "ace_code_context_nomic" for Nomic (3584d)
-            "ace_code_context" as fallback (Voyage default)
+            "ace_code_context" as fallback
         """
-        # Import provider config to determine suffix
+        # Explicit env var takes priority over auto-naming
+        env_collection = os.environ.get("ACE_CODE_COLLECTION", "")
+        if env_collection:
+            return env_collection
+
+        # Auto-name based on embedding provider
         from ace.config import get_embedding_provider_config
         provider_config = get_embedding_provider_config()
 
@@ -541,10 +547,6 @@ class QdrantConfig:
         elif provider_config.is_code_voyage():
             return "ace_code_context_voyage"
         else:
-            # Fallback - check if env var is explicitly set
-            env_collection = os.environ.get("ACE_CODE_COLLECTION", "")
-            if env_collection:
-                return env_collection
             return "ace_code_context"
     
     def get_connection_url(self) -> str:

@@ -1226,6 +1226,8 @@ class CodeIndexer:
                     all_chunks.extend(chunks)
                     file_chunk_counts[file_path] = (start_idx, len(chunks))
                     stats["files_indexed"] += 1
+                    rel_path = os.path.relpath(file_path, self.workspace_path)
+                    self._indexed_files.add(rel_path)
                 else:
                     stats["files_skipped"] += 1
             except Exception as e:

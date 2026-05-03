@@ -172,12 +172,13 @@ class TestCodeIndexerInit:
             assert indexer.embedding_dim == 1024
     
     def test_init_default_collection_name(self, mock_qdrant_client):
-        """Default collection should be ace_code_context."""
+        """Default collection should reflect the active embedding provider."""
         from ace.code_indexer import CodeIndexer
         
         indexer = CodeIndexer(workspace_path="/workspace")
         
-        assert indexer.collection_name == "ace_code_context"
+        # With local provider (default), collection is ace_code_context_jina
+        assert indexer.collection_name == "ace_code_context_jina"
     
     def test_init_creates_collection_if_not_exists(self, mock_qdrant_client):
         """Should create Qdrant collection on init if missing."""
@@ -509,6 +510,7 @@ class TestCodeIndexerFileWatcher:
 
     def test_start_file_watcher_uses_polling_observer_on_windows(self, temp_workspace, mock_qdrant_client, mock_embedder):
         """Windows watcher should use PollingObserver for reliable daemon updates."""
+        pytest.importorskip("watchdog")
         from ace.code_indexer import CodeIndexer
 
         fake_observer = MagicMock()
@@ -530,6 +532,7 @@ class TestCodeIndexerFileWatcher:
 
     def test_start_file_watcher(self, temp_workspace, mock_qdrant_client, mock_embedder):
         """Should start file watcher for workspace."""
+        pytest.importorskip("watchdog")
         from ace.code_indexer import CodeIndexer
         
         indexer = CodeIndexer(
@@ -550,6 +553,7 @@ class TestCodeIndexerFileWatcher:
     @pytest.mark.asyncio
     async def test_file_change_triggers_update(self, temp_workspace, mock_qdrant_client, mock_embedder):
         """File changes should trigger index update."""
+        pytest.importorskip("watchdog")
         from ace.code_indexer import CodeIndexer
         import asyncio
         
