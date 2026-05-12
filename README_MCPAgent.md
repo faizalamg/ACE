@@ -12,9 +12,10 @@ The MCP (Model Context Protocol) server provides AI agents with persistent memor
 # 1. Install ACE with MCP support
 pip install ace-framework mcp
 
-# 2. Set your API key
-export ZAI_API_KEY="your-key-here"   # Recommended
-# Or: export OPENAI_API_KEY="your-key-here"
+# 2. Configure runtime in workspace .env
+ACE_LLM_PRIMARY_URL=https://opencode.ai/zen/go/v1
+ACE_LLM_PRIMARY_MODEL=qwen3.6-plus
+QDRANT_URL=http://localhost:6333
 
 # 3. Start Qdrant vector database
 docker run -d -p 6333:6333 qdrant/qdrant
@@ -81,28 +82,25 @@ Add to MCP settings:
 |-----------|---------|-------|
 | **ACE Framework** | Memory & learning | `pip install ace-framework mcp` |
 | **Qdrant** | Vector storage | `docker run -d -p 6333:6333 qdrant/qdrant` |
-| **LLM Provider** | AI inference | Z.ai (default) or OpenAI |
+| **LM Studio** | Local text/code embeddings | Run local embedding models |
 
 ### API Keys
 
 | Provider | Environment Variable | Model | Notes |
 |----------|---------------------|-------|-------|
-| **Z.ai (Default)** | `ZAI_API_KEY` | GLM-4.7 | Best quality |
-| OpenAI | `OPENAI_API_KEY` | gpt-4o-mini | Alternative |
-| Anthropic | `ANTHROPIC_API_KEY` | claude-3-haiku | Alternative |
+| OpenCode Go | `ACE_LLM_PRIMARY_API_KEY` | `qwen3.6-plus` | Prompt enhancement / optional LLM tasks |
+| LM Studio | none | local embedding models | Required for embeddings |
 
 ### Optional Dependencies
 
 | Component | Purpose | Setup |
 |-----------|---------|-------|
-| **Voyage AI** | Code embeddings (94% R@1) | `pip install voyageai` + `VOYAGE_API_KEY` |
 | **Opik** | Observability & costs | `pip install ace-framework[observability]` |
-| **LM Studio** | Local embeddings | Download from lmstudio.ai |
 
 **Substitution:** Any component can be replaced with alternatives:
 - Qdrant → Any vector DB (Pinecone, Weaviate, Milvus)
 - Z.ai → Any OpenAI-compatible API
-- Voyage → OpenAI embeddings or local models
+- Local LM Studio embeddings are the default and required runtime path
 
 ---
 
@@ -192,14 +190,20 @@ Or call the `ace_onboard` MCP tool.
 ### Environment Variables
 
 ```bash
-# Required
-export ZAI_API_KEY="your-key"              # Or OPENAI_API_KEY
-export QDRANT_URL="http://localhost:6333"  # Default
-
-# Optional
-export VOYAGE_API_KEY="your-key"           # Code embeddings
-export ACE_DEBUG="true"                    # Debug logging
-export OPIK_API_KEY="your-key"             # Observability
+# Required runtime source of truth: workspace .env
+QDRANT_URL=http://localhost:6333
+ACE_TEXT_EMBEDDING_PROVIDER=local
+ACE_CODE_EMBEDDING_PROVIDER=local
+ACE_LOCAL_EMBEDDING_URL=http://localhost:1234
+ACE_LOCAL_TEXT_MODEL=qwen3-embedding-8b
+ACE_LOCAL_TEXT_DIM=4096
+ACE_LOCAL_CODE_MODEL=text-embedding-jina-embeddings-v2-base-code
+ACE_LOCAL_CODE_DIM=768
+ACE_LLM_EXPANSION=false
+ACE_LLM_FILTERING=false
+ACE_TYPO_LLM_CORRECTION=false
+ACE_TYPO_GLM_VALIDATION=false
+ACE_TYPO_AUTO_LEARN=false
 ```
 
 ### Workspace Configuration
@@ -265,7 +269,7 @@ curl http://localhost:6333/collections
 |-------|----------|
 | "Connection refused" | Start Qdrant: `docker run -d -p 6333:6333 qdrant/qdrant` |
 | "No memories found" | Call `ace_onboard` to initialize workspace |
-| "Invalid API key" | Verify `ZAI_API_KEY` or `OPENAI_API_KEY` is set |
+| "Invalid API key" | Verify optional LLM keys only if LLM features are enabled |
 | MCP tools not appearing | Restart IDE after adding MCP config |
 
 ---
@@ -281,8 +285,7 @@ curl http://localhost:6333/collections
 
 Example `.env` file (gitignored):
 ```bash
-ZAI_API_KEY=your-actual-key
-VOYAGE_API_KEY=your-voyage-key
+ACE_LLM_PRIMARY_API_KEY=your-actual-key
 OPIK_API_KEY=your-opik-key
 ```
 

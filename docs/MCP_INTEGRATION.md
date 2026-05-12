@@ -8,7 +8,7 @@ ACE MCP Server exposes the unified memory system as 6 MCP tools:
 
 | Tool | Description | Primary Use |
 |------|-------------|-------------|
-| `ace_retrieve` | Query memories with semantic search + cross-encoder reranking | Get context before tasks |
+| `ace_retrieve` | Query memories with semantic search; optional cross-encoder reranking with `precision=true` | Get context before tasks |
 | `ace_store` | Store new memories with automatic deduplication | Save lessons/preferences |
 | `ace_search` | Filtered search by category/severity | Find specific memories |
 | `ace_stats` | Collection statistics | Debug/monitor |
@@ -16,6 +16,53 @@ ACE MCP Server exposes the unified memory system as 6 MCP tools:
 | `ace_enhance_prompt` | Enhance prompts via LLM with ACE context injection | Transform vague prompts into structured specs |
 
 ## Quick Start
+
+## Configuration Source of Truth
+
+ACE runtime configuration is centralized in the workspace `.env` file. MCP client
+JSON should only define how to launch `ace_mcp_server.py`; it must not duplicate
+provider, embedding, Qdrant, or LLM runtime settings.
+
+`.ace/.ace.json` is workspace metadata only. It identifies the onboarded
+workspace and collection metadata; it does not override `.env` runtime values.
+
+Required runtime values belong in `.env`:
+
+```bash
+ACE_LLM_PRIMARY_URL=https://opencode.ai/zen/go/v1
+ACE_LLM_PRIMARY_MODEL=qwen3.6-plus
+ACE_LLM_FALLBACK_ENABLED=true
+ACE_LLM_FALLBACK_URL=http://localhost:1234/v1
+ACE_LLM_FALLBACK_MODEL=qwen3.6-35b-a3b@q3_k_m
+
+ACE_TEXT_EMBEDDING_PROVIDER=local
+ACE_CODE_EMBEDDING_PROVIDER=local
+ACE_LOCAL_EMBEDDING_URL=http://localhost:1234
+ACE_LOCAL_TEXT_MODEL=qwen3-embedding-8b
+ACE_LOCAL_TEXT_DIM=4096
+ACE_LOCAL_CODE_MODEL=text-embedding-jina-embeddings-v2-base-code
+ACE_LOCAL_CODE_DIM=768
+
+QDRANT_URL=http://localhost:6333
+ACE_LLM_EXPANSION=false
+ACE_LLM_FILTERING=false
+ACE_TYPO_LLM_CORRECTION=false
+ACE_TYPO_GLM_VALIDATION=false
+ACE_TYPO_AUTO_LEARN=false
+ACE_PRELOAD_CROSS_ENCODER=false
+
+# Optional prompt enhancement via OpenAI-compatible local router
+ACE_ROUTER_BASE_URL=http://127.0.0.1:8085/v1
+ACE_ENHANCE_PROMPT_ROUTER_MODEL=dynamic-slot-fast
+```
+
+Secrets also belong in `.env` or the host process environment. Do not copy
+secrets into documentation or commit them.
+
+`ace_enhance_prompt` can bypass the local LLM by setting `provider="router"` or
+`provider="dynamic-slot"`. Router mode is explicit and fail-fast: it uses the
+configured router slot only, requires a non-empty router URL and model slot, and
+does not fall back to the local llama-server if the router call fails.
 
 ### 1. Prerequisites
 
@@ -42,6 +89,9 @@ Add to your VS Code `settings.json` or workspace `.vscode/mcp.json`:
   }
 }
 ```
+
+Keep runtime configuration out of this MCP JSON. The server loads `.env` from the
+workspace at startup.
 
 Or with full path (Windows example):
 
@@ -377,9 +427,10 @@ These phrases should trigger `ace_store`:
 
 ### Slow Responses
 
-1. Cross-encoder reranking adds ~50ms per query
-2. First query loads model (~2s warm-up)
-3. Subsequent queries are fast (~100-200ms total)
+1. `ace_retrieve` defaults to the fast path with cross-encoder reranking disabled.
+2. Use `precision=true` only when reranking quality is worth the local model load/scoring cost.
+3. `ACE_PRELOAD_CROSS_ENCODER=true` preloads the reranker for precision-heavy sessions; keep it `false` for normal MCP startup.
+4. If default retrieval is still slow, check code-index embedding startup and Qdrant/LM Studio health first.
 
 ## Testing
 
@@ -425,12 +476,15 @@ Add to your `copilot-instructions.md`:
 
 ## Environment Variables
 
+These variables are read from the workspace `.env` file first. Use the MCP client
+configuration only to launch the server process.
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `ACE_QDRANT_URL` | `http://localhost:6333` | Qdrant server URL |
 | `ACE_UNIFIED_COLLECTION` | `ace_memories_hybrid` | Collection name |
 | `ACE_EMBEDDING_URL` | `http://localhost:1234` | Embedding server |
-| `ACE_EMBEDDING_MODEL` | `text-embedding-qwen3-embedding-8b` | Model name |
+| `ACE_EMBEDDING_MODEL` | `qwen3-embedding-8b` | Model name |
 | `ACE_EMBEDDING_DIM` | `4096` | Vector dimension |
 
 ## Auto-Indexing and File Watching

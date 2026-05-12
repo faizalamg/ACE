@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed - 2026-05-08
+
+- **ACE Retrieve CrossEncoder Fast Path** - Made CrossEncoder reranking opt-in for MCP retrieval
+  - **Problem**: Default `ace_retrieve` paid CrossEncoder startup/model-loading cost even when fast context retrieval was sufficient
+  - **Root Cause**: `ace_retrieve` hard-coded `use_cross_encoder=True` and server startup preloaded the reranker unconditionally
+  - **Solution**:
+    - `ace_retrieve` now defaults `precision=false`
+    - `precision=true` explicitly enables CrossEncoder reranking
+    - `ACE_PRELOAD_CROSS_ENCODER=false` disables startup preload by default
+    - Added `scripts/compare_cross_encoder_retrieval.py` for off/on quality checks
+  - **Validation**: Targeted MCP tests passed and a 12-query memory comparison script is available for broader quality regression checks
+  - **Files Modified**: `ace_mcp_server.py`, `tests/test_ace_mcp_server.py`, `docs/MCP_INTEGRATION.md`, `scripts/compare_cross_encoder_retrieval.py`
+
 ### Fixed - 2025-01-26
 
 - **MCP Server Blocking from Auto-Reindex** - Removed blocking auto-reindex from MCP initialization path

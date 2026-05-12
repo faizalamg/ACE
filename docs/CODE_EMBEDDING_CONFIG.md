@@ -25,15 +25,57 @@ After migrating from Voyage-code-3 (cloud) to local embeddings for privacy and c
 - 768d dimension provides good balance of quality and performance
 - **AST-based chunking** ensures code fits within context limits
 
+
+## Current Routing Status (Verified 2026-05-03)
+
+ACE is currently configured to use the local code-embedding route unless `ACE_CODE_EMBEDDING_PROVIDER` is explicitly set.
+
+- `ACE_CODE_EMBEDDING_PROVIDER` default: `local`
+- Local code route: Jina-compatible LM Studio embedding model, 768 dimensions
+- Nomic route: `ACE_CODE_EMBEDDING_PROVIDER=nomic`, 3584 dimensions
+- Code collection routing:
+  - Local/Jina: `ace_code_context_jina`
+  - Nomic: `ace_code_context_nomic`
+
+Do not configure `VOYAGE_API_KEY` for the default runtime. ACE code retrieval uses
+local LM Studio embeddings and fails fast if the local embedding server is not
+available.
+
+### ACE Context Engine vs. SigMap
+
+ACE context and SigMap serve different context roles:
+
+| Tool | Primary Role | Best Use |
+|------|--------------|----------|
+| ACE context engine | Semantic code retrieval over indexed code chunks | Natural-language questions, vague implementation intent, blended code + memory evidence |
+| SigMap | Lexical/signature ranking and generated context artifacts | Fast deterministic file/module prefiltering, static AI instruction/context outputs |
+| Serena | Source-of-truth code navigation and edits | Symbol reads, references, precise edits |
+
+Recommended flow:
+
+1. Use SigMap to rank likely files/modules quickly.
+2. Use ACE context engine when semantic code chunks are needed.
+3. Use Serena to verify symbols, references, and exact source before edits.
+4. Store durable lessons in ACE memory only after verification.
+
 ## Configuration
+
+### Source of Truth
+
+The workspace `.env` file is the single runtime source of truth for ACE
+embedding configuration. MCP client JSON launches the server only; it must not
+duplicate provider, model, Qdrant, or LLM values. `.ace/.ace.json` is onboarding
+metadata only and does not override `.env` runtime settings.
 
 ### Environment Variables
 
 ```bash
 # Code embedding configuration (local via LM Studio)
-ACE_CODE_EMBEDDING_URL=http://localhost:1234/v1
-ACE_CODE_EMBEDDING_MODEL=text-embedding-jina-embeddings-v2-base-code
-ACE_CODE_EMBEDDING_DIM=768
+ACE_CODE_EMBEDDING_PROVIDER=local
+ACE_LOCAL_EMBEDDING_URL=http://localhost:1234
+ACE_LOCAL_CODE_MODEL=text-embedding-jina-embeddings-v2-base-code
+ACE_LOCAL_CODE_DIM=768
+ACE_CODE_EMBEDDING_MODEL=local
 
 # AST Chunking (enabled by default)
 ACE_ENABLE_AST_CHUNKING=true       # Enable AST-based semantic chunking
@@ -44,8 +86,15 @@ ACE_AST_OVERLAP_LINES=10           # Overlap between chunks (default: 10)
 ACE_EMBEDDING_PARALLEL=4           # Default: 4 workers
 
 # Memory embedding configuration (unchanged)
-ACE_EMBEDDING_MODEL=text-embedding-qwen3-embedding-8b
+ACE_EMBEDDING_MODEL=qwen3-embedding-8b
 ACE_EMBEDDING_DIM=4096
+
+# Retrieval-time LLM features disabled by default for fast deterministic MCP tools
+ACE_LLM_EXPANSION=false
+ACE_LLM_FILTERING=false
+ACE_TYPO_LLM_CORRECTION=false
+ACE_TYPO_GLM_VALIDATION=false
+ACE_TYPO_AUTO_LEARN=false
 ```
 
 ### Programmatic Configuration
@@ -55,9 +104,9 @@ from ace.config import get_embedding_provider_config
 
 # Get code embedding config (auto-detects provider from env)
 config = get_embedding_provider_config()
-print(config["model"])      # jina-v2-base-code (local) or voyage-code-3 (cloud)
-print(config["dimension"])  # 768 or 1024
-print(config["is_local"])   # True for Jina, False for Voyage
+print(config["model"])      # text-embedding-jina-embeddings-v2-base-code
+print(config["dimension"])  # 768
+print(config["is_local"])   # True for local/Jina
 ```
 
 ## Usage
@@ -172,3 +221,4 @@ If migrating from cloud Voyage embeddings:
 2. **Delete old collection**: Drop `{workspace}_code_context` in Qdrant
 3. **Re-index**: Run `CodeIndexer(workspace).index_workspace()`
 4. **Remove VOYAGE_API_KEY**: No longer needed
+

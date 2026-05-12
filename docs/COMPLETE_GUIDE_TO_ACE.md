@@ -85,7 +85,7 @@ Qdrant Collection: ace_memories_hybrid (2,725+ memories)
 
 ### Hybrid Retrieval
 
-- **Dense Embeddings**: 4096-dimensional vectors (text-embedding-qwen3-embedding-8b)
+- **Dense Embeddings**: 4096-dimensional vectors (qwen3-embedding-8b)
 - **Sparse Vectors**: BM25 for keyword matching
 - **RRF Fusion**: Combines both for optimal retrieval
 

@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional, Tuple
 import math
+import os
 
 
 class RetrievalPreset(Enum):
@@ -371,6 +372,58 @@ _llm_filter_cache_ttl: Dict[str, float] = {}
 LLM_FILTER_CACHE_TTL = 300  # 5 minutes
 
 
+def _get_llm_routes(llm_config, llm_url: Optional[str], model: Optional[str], timeout: Optional[float], max_tokens: int) -> List[Dict[str, object]]:
+    """Build primary/fallback LLM routes for OpenAI-compatible chat completions."""
+    if llm_config.use_local_llm:
+        return [{
+            "url": llm_url or llm_config.local_llm_url,
+            "model": model or llm_config.local_llm_model,
+            "timeout": timeout or llm_config.local_llm_timeout,
+            "api_key": os.getenv("ACE_LOCAL_LLM_API_KEY", ""),
+            "max_tokens": llm_config.local_llm_max_tokens,
+        }]
+
+    routes = [{
+        "url": llm_url or os.getenv("ACE_LLM_PRIMARY_URL") or llm_config.api_base,
+        "model": model or os.getenv("ACE_LLM_PRIMARY_MODEL") or llm_config.model,
+        "timeout": timeout or llm_config.expansion_timeout,
+        "api_key": os.getenv("ACE_LLM_PRIMARY_API_KEY") or llm_config.api_key,
+        "max_tokens": max_tokens,
+    }]
+
+    if os.getenv("ACE_LLM_FALLBACK_ENABLED", "false").lower() == "true":
+        routes.append({
+            "url": os.getenv("ACE_LLM_FALLBACK_URL", "http://localhost:1234/v1"),
+            "model": os.getenv("ACE_LLM_FALLBACK_MODEL", "qwen3.6-35b-a3b@q3_k_m"),
+            "timeout": float(os.getenv("ACE_LLM_FALLBACK_TIMEOUT", str(llm_config.local_llm_timeout))),
+            "api_key": os.getenv("ACE_LLM_FALLBACK_API_KEY", ""),
+            "max_tokens": int(os.getenv("ACE_LLM_FALLBACK_MAX_TOKENS", str(llm_config.local_llm_max_tokens))),
+        })
+
+    return routes
+
+
+def _post_chat_completion(httpx_module, route: Dict[str, object], prompt: str, temperature: float):
+    """Post to one configured OpenAI-compatible chat completion route."""
+    headers = {"Content-Type": "application/json"}
+    api_key = str(route.get("api_key") or "")
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+
+    endpoint = f"{str(route['url']).rstrip('/')}/chat/completions"
+    return httpx_module.post(
+        endpoint,
+        headers=headers,
+        json={
+            "model": route["model"],
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": route["max_tokens"],
+            "temperature": temperature,
+        },
+        timeout=route["timeout"],
+    )
+
+
 def expand_query_with_llm(
     query: str,
     llm_url: Optional[str] = None,
@@ -398,18 +451,6 @@ def expand_query_with_llm(
 
     llm_config = get_llm_config()
 
-    # Use local LLM for speed if configured, otherwise cloud
-    if llm_config.use_local_llm:
-        llm_url = llm_url or llm_config.local_llm_url
-        model = model or llm_config.local_llm_model
-        timeout = timeout or llm_config.local_llm_timeout
-        api_key = ""
-    else:
-        llm_url = llm_url or llm_config.api_base
-        model = model or llm_config.model
-        timeout = timeout or llm_config.expansion_timeout
-        api_key = llm_config.api_key
-
     # Check if feature is disabled
     if not llm_config.enable_llm_expansion:
         return [query]
@@ -430,27 +471,13 @@ Query: {query}
 
 Alternatives:"""
 
-        # Build headers (auth only needed for cloud providers)
-        headers = {"Content-Type": "application/json"}
-        if api_key:
-            headers["Authorization"] = f"Bearer {api_key}"
+        response = None
+        for route in _get_llm_routes(llm_config, llm_url, model, timeout, llm_config.expansion_max_tokens):
+            response = _post_chat_completion(httpx, route, prompt, 0.3)
+            if response.status_code == 200:
+                break
 
-        # Determine endpoint path
-        endpoint = f"{llm_url.rstrip('/')}/chat/completions"
-
-        response = httpx.post(
-            endpoint,
-            headers=headers,
-            json={
-                "model": model,
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": llm_config.expansion_max_tokens,
-                "temperature": 0.3,
-            },
-            timeout=timeout,
-        )
-
-        if response.status_code == 200:
+        if response and response.status_code == 200:
             result = response.json()
             content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
 
@@ -536,19 +563,7 @@ def llm_filter_and_rerank(
 
     llm_config = get_llm_config()
 
-    # Use local LLM for speed if configured, otherwise Z.ai
-    if llm_config.use_local_llm:
-        llm_url = llm_url or llm_config.local_llm_url
-        model = model or llm_config.local_llm_model
-        max_tokens = llm_config.local_llm_max_tokens
-        timeout = timeout or llm_config.local_llm_timeout
-        api_key = ""  # Local LLM doesn't need auth
-    else:
-        llm_url = llm_url or llm_config.api_base
-        model = model or llm_config.model
-        max_tokens = llm_config.filtering_max_tokens
-        timeout = timeout or llm_config.filtering_timeout
-        api_key = llm_config.api_key
+    max_tokens = llm_config.local_llm_max_tokens if llm_config.use_local_llm else llm_config.filtering_max_tokens
 
     top_k = top_k or llm_config.filtering_top_k
 
@@ -564,7 +579,7 @@ def llm_filter_and_rerank(
 
     # Generate cache key from query + model (5-min TTL is short enough for query-only key)
     if use_cache:
-        cache_key = hashlib.sha256(f"{query}:{model}".encode()).hexdigest()
+        cache_key = hashlib.sha256(f"{query}:{model or os.getenv('ACE_LLM_PRIMARY_MODEL') or llm_config.model}".encode()).hexdigest()
 
         # Check cache
         now = time.time()
@@ -618,40 +633,13 @@ Example: {{"relevant": [3, 1, 5], "irrelevant": [2, 4]}}
 
 JSON response:"""
 
-        # Build headers (auth only needed for Z.ai, not local LLM)
-        headers = {"Content-Type": "application/json"}
-        if api_key:
-            headers["Authorization"] = f"Bearer {api_key}"
-
-        # Determine endpoint path
-        endpoint = f"{llm_url.rstrip('/')}/chat/completions"
-
-        # Retry with exponential backoff for rate limits
-        max_retries = 3
-        for retry in range(max_retries):
-            response = httpx.post(
-                endpoint,
-                headers=headers,
-                json={
-                    "model": model,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": max_tokens,
-                    "temperature": 0.1,
-                },
-                timeout=timeout,
-            )
-
+        response = None
+        for route in _get_llm_routes(llm_config, llm_url, model, timeout, max_tokens):
+            response = _post_chat_completion(httpx, route, prompt, 0.1)
             if response.status_code == 200:
                 break
-            elif response.status_code == 429:
-                # Rate limited - wait and retry
-                wait_time = (2 ** retry) * 2  # 2s, 4s, 8s
-                time.sleep(wait_time)
-            else:
-                # Other error - don't retry
-                break
 
-        if response.status_code == 200:
+        if response and response.status_code == 200:
             result_json = response.json()
             content = result_json.get("choices", [{}])[0].get("message", {}).get("content", "")
 

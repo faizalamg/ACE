@@ -21,7 +21,7 @@ This document details the optimization work performed on the ACE (Agentic Contex
 
 ### Collection & Embedding
 - **Collection**: `ace_memories_hybrid` with **2988 memories**
-- **Embedding Model**: `text-embedding-qwen3-embedding-8b` (4096 dimensions)
+- **Embedding Model**: `qwen3-embedding-8b` (4096 dimensions)
 - **Targets**: R@1 ≥ 80%, R@5 ≥ 95%
 
 ### Multi-Stage Retrieval Pipeline

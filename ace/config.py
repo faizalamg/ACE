@@ -1,7 +1,8 @@
 """Centralized ACE configuration.
 
 All embedding and retrieval settings in one place.
-Override via environment variables or .env file.
+Override runtime settings via environment variables or the workspace .env file.
+.ace/.ace.json is workspace metadata only and does not override runtime values.
 
 === CONFIGURATION HIERARCHY ===
 
@@ -17,7 +18,7 @@ Override via environment variables or .env file.
    - ACE_CODE_EMBEDDING_PROVIDER: For code (local=LM Studio, external=Voyage)
 
 3. Provider-Specific Settings
-   - Local: ACE_LOCAL_EMBEDDING_URL, ACE_LOCAL_EMBEDDING_MODEL, ACE_LOCAL_EMBEDDING_DIM
+    - Local: ACE_LOCAL_EMBEDDING_URL, ACE_LOCAL_TEXT_MODEL, ACE_LOCAL_CODE_MODEL
    - Voyage: VOYAGE_API_KEY, ACE_VOYAGE_MODEL, ACE_VOYAGE_DIMENSION, ACE_VOYAGE_BATCH_*
 
 4. Qdrant Settings (ACE_QDRANT_*)
@@ -112,7 +113,6 @@ def _load_ace_config() -> dict:
         Dict with config values, or empty dict if file not found.
 
     Valid config fields:
-        - code_embedding_model: str ("voyage" | "jina" | "nomic")
         - workspace_name: str (used by ace_onboard)
         - workspace_path: str (used by ace_onboard)
         - collection_name: str (for Qdrant collection naming)
@@ -145,7 +145,7 @@ def _get_ace_config_field(field: str, default: str = None) -> str | None:
     """
     Get a config field from .ace/.ace.json with caching.
 
-    Priority: Config file > env var > default
+    Priority: env var > .ace metadata > default
 
     Args:
         field: Config field name (e.g., "code_embedding_model")
@@ -160,13 +160,14 @@ def _get_ace_config_field(field: str, default: str = None) -> str | None:
     if not _ace_config_file_cache:
         _ace_config_file_cache = _load_ace_config()
 
-    # Check config file first
+    env_var = f"ACE_{field.upper()}"
+    if env_var in os.environ:
+        return os.environ[env_var]
+
     if field in _ace_config_file_cache:
         return _ace_config_file_cache[field]
 
-    # Fall back to env var
-    env_var = f"ACE_{field.upper()}"
-    return os.getenv(env_var, default)
+    return default
 
 
 def update_ace_config_field(field: str, value: str) -> None:
@@ -250,9 +251,7 @@ class EmbeddingProviderConfig:
             - "local": jina-embeddings-v2-base-code (768d) - BEST quality per benchmark
             - "nomic": nomic-embed-code (3584d) - SOTA, outperforms Voyage on CodeSearchNet
             - "voyage": voyage-code-3 (1024d) - cloud API (expensive, slower quality)
-        ACE_CODE_EMBEDDING_MODEL: Override model selection (same as ACE_CODE_EMBEDDING_PROVIDER)
-            - Reads from ACEConfig.code_embedding_model first
-            - Falls back to ACE_CODE_EMBEDDING_PROVIDER env var
+        ACE_CODE_EMBEDDING_MODEL: Legacy alias for ACE_CODE_EMBEDDING_PROVIDER
     """
 
     # Provider selection: "local" (LM Studio) or "external" (cloud APIs)
@@ -260,18 +259,8 @@ class EmbeddingProviderConfig:
     code_provider: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_PROVIDER", "local"))
 
     def __post_init__(self):
-        """Post-initialization: Check ACEConfig for code_embedding_model override."""
-        # Import here to avoid circular dependency
-        try:
-            # Import get_config from this module (may already be in namespace)
-            from ace.config import get_config
-            ace_config = get_config()
-            # If ACEConfig has code_embedding_model set (from config file), use it
-            if hasattr(ace_config, 'code_embedding_model') and ace_config.code_embedding_model:
-                self.code_provider = ace_config.code_embedding_model
-        except Exception:
-            # If ACEConfig not initialized yet, use default from field
-            pass
+        """Apply legacy model alias without reading workspace metadata."""
+        self.code_provider = _get_env("ACE_CODE_EMBEDDING_MODEL", self.code_provider)
 
     def is_text_local(self) -> bool:
         """Check if text embeddings use local provider."""
@@ -279,7 +268,7 @@ class EmbeddingProviderConfig:
     
     def is_code_local(self) -> bool:
         """Check if code embeddings use local provider (Jina)."""
-        return self.code_provider.lower() in ("local", "jina")
+        return self.code_provider.lower() in ("local", "jina", "jina-embeddings-v2-base-code", "text-embedding-jina-embeddings-v2-base-code")
     
     def is_code_nomic(self) -> bool:
         """Check if code embeddings use nomic-embed-code (local, 3584d)."""
@@ -307,7 +296,7 @@ class LocalEmbeddingConfig:
     
     Environment Variables:
         ACE_LOCAL_EMBEDDING_URL: LM Studio server URL (default: http://localhost:1234)
-        ACE_LOCAL_TEXT_MODEL: Model for text embeddings (default: text-embedding-qwen3-embedding-8b)
+        ACE_LOCAL_TEXT_MODEL: Model for text embeddings (default: qwen3-embedding-8b)
         ACE_LOCAL_TEXT_DIM: Text embedding dimension (default: 4096)
         ACE_LOCAL_CODE_MODEL: Model for code embeddings (default: text-embedding-jina-embeddings-v2-base-code)
         ACE_LOCAL_CODE_DIM: Code embedding dimension (default: 768)
@@ -317,7 +306,7 @@ class LocalEmbeddingConfig:
     url: str = field(default_factory=lambda: _get_env("ACE_LOCAL_EMBEDDING_URL", "http://localhost:1234"))
     
     # Text embedding model (for memories/lessons)
-    text_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_TEXT_MODEL", "text-embedding-qwen3-embedding-8b"))
+    text_model: str = field(default_factory=lambda: _get_env("ACE_LOCAL_TEXT_MODEL", "qwen3-embedding-8b"))
     text_dimension: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_TEXT_DIM", 4096))
     text_max_length: int = field(default_factory=lambda: _get_env_int("ACE_LOCAL_TEXT_MAX_LENGTH", 8000))
     
@@ -354,7 +343,7 @@ class EmbeddingConfig:
     url: str = field(default_factory=lambda: _get_env("ACE_EMBEDDING_URL", "http://localhost:1234"))
 
     # Model name (Qwen3-Embedding-8B - proper embedding model, 4096 dims)
-    model: str = field(default_factory=lambda: _get_env("ACE_EMBEDDING_MODEL", "text-embedding-qwen3-embedding-8b"))
+    model: str = field(default_factory=lambda: _get_env("ACE_EMBEDDING_MODEL", "qwen3-embedding-8b"))
 
     # Embedding dimension
     dimension: int = field(default_factory=lambda: _get_env_int("ACE_EMBEDDING_DIM", 4096))
@@ -365,25 +354,22 @@ class EmbeddingConfig:
 
 @dataclass
 class CodeEmbeddingConfig:
-    """DEPRECATED - Use VoyageCodeEmbeddingConfig instead.
-    
-    This configuration was for the old Jina-v2-base-code model (768d).
-    Code indexing now uses Voyage-code-3 (1024d) exclusively.
-    
+    """Code embedding configuration for local LM Studio code search.
+
     Environment Variables:
-        ACE_CODE_EMBEDDING_URL: LM Studio server URL (DEPRECATED)
-        ACE_CODE_EMBEDDING_MODEL: Model name (DEPRECATED)
-        ACE_CODE_EMBEDDING_DIM: Embedding dimension (DEPRECATED)
+        ACE_CODE_EMBEDDING_URL: LM Studio server URL
+        ACE_CODE_EMBEDDING_MODEL: Legacy provider/model alias
+        ACE_CODE_EMBEDDING_DIM: Embedding dimension
     """
 
     # LM Studio server (defaults to same as general embedding)
     url: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_URL", _get_env("ACE_EMBEDDING_URL", "http://localhost:1234")))
 
-    # Model name (DEPRECATED - was Jina-v2-base-code, now use Voyage-code-3)
-    model: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_MODEL", "voyage-code-3"))
+    # Model name (local Jina code embeddings)
+    model: str = field(default_factory=lambda: _get_env("ACE_CODE_EMBEDDING_MODEL", "text-embedding-jina-embeddings-v2-base-code"))
 
-    # Embedding dimension (1024d for Voyage-code-3)
-    dimension: int = field(default_factory=lambda: _get_env_int("ACE_CODE_EMBEDDING_DIM", 1024))
+    # Embedding dimension (768d for Jina code embeddings)
+    dimension: int = field(default_factory=lambda: _get_env_int("ACE_CODE_EMBEDDING_DIM", 768))
 
     # Max input length (chars)
     max_input_length: int = field(default_factory=lambda: _get_env_int("ACE_CODE_EMBEDDING_MAX_LENGTH", 8000))
@@ -590,7 +576,7 @@ class LLMConfig:
 
     # LLM Query Expansion (generates semantic alternatives)
     # Note: GLM 4.6 uses reasoning mode which needs high token limit
-    enable_llm_expansion: bool = field(default_factory=lambda: _get_env_bool("ACE_LLM_EXPANSION", True))
+    enable_llm_expansion: bool = field(default_factory=lambda: _get_env_bool("ACE_LLM_EXPANSION", False))
     expansion_max_tokens: int = field(default_factory=lambda: _get_env_int("ACE_EXPANSION_MAX_TOKENS", 1500))
     expansion_timeout: float = field(default_factory=lambda: _get_env_float("ACE_EXPANSION_TIMEOUT", 60.0))
 
@@ -993,7 +979,7 @@ class ACEConfig:
     embedding: EmbeddingConfig = field(default_factory=EmbeddingConfig)
     code_embedding: CodeEmbeddingConfig = field(default_factory=CodeEmbeddingConfig)
 
-    # Load code_embedding_model from config file first, then env var
+    # Runtime provider comes from .env/environment first; .ace/.ace.json is metadata only.
     # Default: "local" (Jina 768d) - 58.3% win rate vs Voyage 51.4% in Jan 2026 benchmark
     code_embedding_model: str = field(
         default_factory=lambda: _get_ace_config_field(

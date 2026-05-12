@@ -64,19 +64,173 @@ except ImportError:
 # If qdrant_client (which imports grpc, also C extension) is imported while
 # preload thread holds import lock, DEADLOCK occurs.
 # This early import prevents that race condition.
+# NOTE: voyageai NOT pre-imported here - it takes ~9s to load and is not
+# used in any tool handler, so it would only slow down MCP initialization.
 try:
     from qdrant_client import QdrantClient  # noqa: F401
 except ImportError:
     pass  # qdrant_client not installed - will fail gracefully later
 
-# Also pre-import voyageai which has similar heavy dependencies
-try:
-    import voyageai  # noqa: F401
-except ImportError:
-    pass  # voyageai not installed - will fail gracefully later
-
 # Lazy import cache
 _lazy_imports = {}
+
+
+def preload_all_tools():
+    """Pre-warm all tool dependencies before first tool call.
+
+    Called from main() to eliminate cold-start latency on first tool call.
+    Each tool handler has lazy imports that take ~11s on first call.
+    By pre-loading everything during server startup, tool calls are instant.
+    """
+    import time
+    t0 = time.time()
+    # Warm _get_unified_memory() - used by ace_retrieve, ace_stats, ace_search
+    um = _get_unified_memory()
+    # Create the UnifiedMemoryIndex singleton (warm get_memory_index)
+    cfg = _get_config()()
+    index = um["UnifiedMemoryIndex"](
+        collection_name=cfg.qdrant.unified_collection,
+        qdrant_url=cfg.qdrant.url,
+    )
+    # Warm get_code_retrieval() (logs a lot, but fast since collection exists)
+    try:
+        get_code_retrieval()
+    except Exception:
+        pass  # Non-fatal if code retrieval fails
+    # Warm AdaptiveExpansionController - its first call takes 5+ seconds
+    # due to lazy import of ace.structured_enhancer.QueryIntent enum inside the
+    # expand() method. Pre-warm by calling expand() once here.
+    try:
+        from ace.retrieval_optimized import AdaptiveExpansionController
+        controller = AdaptiveExpansionController()
+        controller.expand("configure embeddings")  # Dry run to trigger lazy import
+        # Second call proves it's cached
+        controller.expand("ace memory retrieval")
+    except Exception as e:
+        logger.debug(f"[PREWARM] AdaptiveExpansionController warm-up skipped: {e}")
+    t1 = time.time()
+    logger.info(f"[PREWARM] Server warm-up complete in {(t1-t0)*1000:.0f}ms")
+
+
+_MEMORY_INTENT_TERMS = {
+    "memory",
+    "memories",
+    "remember",
+    "lesson",
+    "lessons",
+    "preference",
+    "preferences",
+    "strategy",
+    "strategies",
+    "directive",
+    "directives",
+}
+
+_CODE_INTENT_TERMS = {
+    "class",
+    "def",
+    "function",
+    "implementation",
+    "method",
+    "module",
+    "symbol",
+}
+
+
+def _result_content(result: Any) -> str:
+    if isinstance(result, dict):
+        return str(result.get("content") or result.get("text") or result)
+    return str(getattr(result, "content", result))
+
+
+def _result_score(result: Any) -> float:
+    if isinstance(result, dict):
+        return float(result.get("score") or result.get("qdrant_score") or 0.0)
+    return float(getattr(result, "score", getattr(result, "qdrant_score", 0.0)) or 0.0)
+
+
+def _query_tokens(query: str) -> set[str]:
+    normalized = query.lower().replace("_", " ").replace("-", " ")
+    return {token for token in normalized.split() if len(token) > 2}
+
+
+def _is_code_intent(query: str) -> bool:
+    query_lower = query.lower()
+    if any(extension in query_lower for extension in (".py", ".js", ".ts", ".tsx", ".cs", ".java")):
+        return True
+    return any(term in _query_tokens(query) for term in _CODE_INTENT_TERMS)
+
+
+def _is_memory_intent(query: str) -> bool:
+    return any(term in _query_tokens(query) for term in _MEMORY_INTENT_TERMS)
+
+
+def _has_high_confidence_memory(query: str, memory_results: List[Any]) -> bool:
+    tokens = _query_tokens(query)
+    if not tokens:
+        return False
+
+    for result in memory_results:
+        content = _result_content(result).lower().replace("_", " ").replace("-", " ")
+        overlap = sum(1 for token in tokens if token in content)
+        if _result_score(result) >= 0.9 or overlap >= min(4, len(tokens)):
+            return True
+    return False
+
+
+def _compose_retrieve_response(
+    query: str,
+    formatted_code: Optional[str],
+    formatted_memories: Optional[str],
+    code_results: Optional[List[Any]],
+    memory_results: Optional[List[Any]],
+    include_diagnostics: bool = False,
+) -> str:
+    has_code = bool(formatted_code)
+    has_memory = bool(formatted_memories)
+
+    if not has_code and not has_memory:
+        return "No relevant memories or code found."
+
+    code_results = code_results or []
+    memory_results = memory_results or []
+    code_first = True
+    reason = "default_code_first"
+
+    if has_code and has_memory:
+        if _is_code_intent(query):
+            reason = "code_intent"
+        elif _is_memory_intent(query) and _has_high_confidence_memory(query, memory_results):
+            code_first = False
+            reason = "memory_intent_high_confidence"
+    elif has_memory:
+        code_first = False
+        reason = "memory_only"
+    else:
+        reason = "code_only"
+
+    ordered_parts = []
+    if code_first:
+        if formatted_code:
+            ordered_parts.append(formatted_code)
+        if formatted_memories:
+            ordered_parts.append(formatted_memories)
+    else:
+        if formatted_memories:
+            ordered_parts.append(formatted_memories)
+        if formatted_code:
+            ordered_parts.append(formatted_code)
+
+    response = "\n\n".join(ordered_parts)
+    if include_diagnostics:
+        return (
+            f"{response}\n\n**Ordering Diagnostics:**\n"
+            f"- decision: {'code_first' if code_first else 'memory_first'}\n"
+            f"- reason: {reason}\n"
+            f"- code_results: {len(code_results)}\n"
+            f"- memory_results: {len(memory_results)}"
+        )
+    return response
 
 
 def _get_unified_memory():
@@ -183,12 +337,10 @@ def _is_valid_workspace_path(path: str) -> bool:
 
 
 def find_workspace_root(start_path: Optional[str] = None) -> Optional[str]:
-    """Find the workspace root by looking for .ace/.ace.json or common markers.
+    """Find the workspace root by looking for .ace/.ace.json.
 
     Searches upward from start_path (or cwd) for:
     1. .ace/.ace.json file (ACE workspace marker)
-    2. .git directory (git repo root)
-    3. package.json, pyproject.toml, Cargo.toml, go.mod (project markers)
 
     Returns the absolute path to the workspace root, or None if not found.
     Excludes invalid paths like user home, temp directories, and drive roots.
@@ -210,20 +362,6 @@ def find_workspace_root(start_path: Optional[str] = None) -> Optional[str]:
         ace_config = os.path.join(current, _ACE_CONFIG_DIR, _ACE_CONFIG_FILE)
         if os.path.isfile(ace_config):
             logger.debug(f"Found workspace root via .ace/.ace.json: {current}")
-            return current
-
-        # Check for common project markers
-        markers = [
-            os.path.join(current, ".git"),
-            os.path.join(current, "package.json"),
-            os.path.join(current, "pyproject.toml"),
-            os.path.join(current, "Cargo.toml"),
-            os.path.join(current, "go.mod"),
-            os.path.join(current, ".hg"),
-            os.path.join(current, ".svn"),
-        ]
-        if any(os.path.exists(m) for m in markers):
-            logger.debug(f"Found workspace root via project marker: {current}")
             return current
 
         # Move up one directory
@@ -409,6 +547,15 @@ def onboard_workspace(workspace_path: str, workspace_name: str) -> bool:
     return False
 
 
+def ensure_workspace_onboarded(workspace_path: str) -> bool:
+    """Ensure an MCP workspace root has an ACE workspace marker."""
+    if is_workspace_onboarded(workspace_path):
+        return True
+
+    workspace_name = os.path.basename(os.path.normpath(workspace_path))
+    return onboard_workspace(workspace_path, workspace_name)
+
+
 def _check_collection_exists(qdrant_url: str, collection_name: str) -> bool:
     """Check if a Qdrant collection exists and has points."""
     try:
@@ -573,8 +720,12 @@ def _preload_heavy_models():
 
 
 def _start_background_preload():
-    """Start background preloading of heavy models (thread-safe, runs once)."""
+    """Start background preloading of heavy models only when explicitly enabled."""
     global _preload_started, _preload_thread
+    if os.environ.get("ACE_PRELOAD_CROSS_ENCODER", "false").lower() != "true":
+        logger.info("[PRELOAD] CrossEncoder preload disabled")
+        return
+
     with _preload_lock:
         if _preload_started:
             return
@@ -609,9 +760,6 @@ def _wait_for_preload(timeout: float = 30.0) -> bool:
     logger.info("[PRELOAD] Preload completed, proceeding")
     return True
 
-
-# Start preloading immediately when module loads (parallel to MCP initialization)
-_start_background_preload()
 # =============================================================================
 
 
@@ -651,7 +799,10 @@ async def _get_workspace_from_roots(ctx: Context) -> Optional[str]:
                     # Extract path from file:// URI
                     workspace_path = _extract_workspace_from_uri(str(root.uri))
                     if workspace_path and _is_valid_workspace_path(workspace_path):
-                        valid_roots.append(workspace_path)
+                        if ensure_workspace_onboarded(workspace_path):
+                            valid_roots.append(workspace_path)
+                        else:
+                            logger.warning(f"Failed to onboard workspace root: {workspace_path}")
                     else:
                         logger.debug(f"Skipping invalid root: {root.uri}")
                 
@@ -777,7 +928,7 @@ def _log_startup_info():
     logger.info(f"  ACE_WORKSPACE_PATH env: {os.environ.get('ACE_WORKSPACE_PATH', '(not set)')}")
     logger.info("=" * 60)
 
-    # Start background preload of heavy models
+    # CrossEncoder preload is opt-in via ACE_PRELOAD_CROSS_ENCODER=true.
     _start_background_preload()
 
 
@@ -808,7 +959,7 @@ async def ace_retrieve(
     query: str,
     namespace: str = "all",
     limit: int = 5,
-    precision: bool = True,
+    precision: bool = False,
     ctx: Context = None,
 ) -> str:
     """Retrieve relevant context from ACE unified memory based on a query.
@@ -825,11 +976,12 @@ async def ace_retrieve(
         query: Natural language query describing what context you need
         namespace: Filter by namespace: user_prefs, task_strategies, project_specific, or all
         limit: Maximum number of results to return (1-20)
-        precision: Enable precision mode for focused results (fewer, higher-quality). Default True. Set False for balanced mode with more context.
+        precision: Enable cross-encoder reranking for focused results. Default False keeps retrieval on the fast path.
     """
     _log_startup_info()
     
-    results_parts = []
+    formatted_code = None
+    formatted_memories = None
 
     # Get workspace via list_roots() or fallback
     workspace = await get_workspace_path_async(ctx)
@@ -842,9 +994,9 @@ async def ace_retrieve(
         onboard_result = await ace_onboard(workspace_name=workspace_name, ctx=ctx)
         
         if "Onboarding Complete" in onboard_result or "already onboarded" in onboard_result:
-            results_parts.append(onboard_result)
+            formatted_code = onboard_result
         else:
-            results_parts.append(onboard_result)
+            formatted_code = onboard_result
 
     # 1. Code retrieval across ALL workspace roots
     # Multi-root support: search code collections for all open workspaces,
@@ -915,7 +1067,6 @@ async def ace_retrieve(
         formatter = primary_code_retrieval or _code_retrieval
         if formatter:
             formatted_code = formatter.format_ThatOtherContextEngine_style(all_code_results)
-            results_parts.append(formatted_code)
     elif workspace:
         logger.warning("Code retrieval not available for any workspace root")
 
@@ -939,28 +1090,26 @@ async def ace_retrieve(
                 workspace_id_for_retrieval = os.path.basename(os.path.normpath(workspace))
                 workspace_id_for_retrieval = "".join(c if c.isalnum() or c in ('_', '-') else '_' for c in workspace_id_for_retrieval)
     
-    # Wait for cross-encoder preload before using it (prevents first-call timeout)
-    # Use asyncio.to_thread to avoid blocking the event loop
-    await asyncio.to_thread(_wait_for_preload, 30.0)
-    
     memory_results = await asyncio.to_thread(
         index.retrieve,
         query=query,
         limit=limit,
         namespace=ns,
         auto_detect_preset=True,
-        use_cross_encoder=True,  # Re-enabled: provides +23% R@1 improvement
+        use_cross_encoder=precision_mode,
         workspace_id=workspace_id_for_retrieval,
     )
 
     if memory_results:
         formatted_memories = um["format_unified_context"](memory_results)
-        results_parts.append(formatted_memories)
 
-    if not results_parts:
-        return "No relevant memories or code found."
-
-    return "\n\n".join(results_parts)
+    return _compose_retrieve_response(
+        query=query,
+        formatted_code=formatted_code,
+        formatted_memories=formatted_memories,
+        code_results=all_code_results,
+        memory_results=memory_results,
+    )
 
 
 @server.tool()
@@ -1538,10 +1687,11 @@ async def ace_enhance_prompt(
     # 1. ACE Memory Context
     if include_memories:
         try:
-            # Wait for cross-encoder preload before using it (prevents first-call timeout)
-            # Use asyncio.to_thread to avoid blocking the event loop
-            await asyncio.to_thread(_wait_for_preload, 30.0)
-            
+            # NOTE: No _wait_for_preload() call here. The background preload thread
+            # loads the cross-encoder model during MCP server initialization (~10s).
+            # By the time a tool call arrives, the model is already loaded.
+            # Even if it isn't, get_reranker() uses lazy loading (~1.2s on first use).
+            # Removing this wait saves ~10s on every ace_retrieve call.
             index = get_memory_index()
             memory_results = await asyncio.to_thread(
                 index.retrieve,
@@ -1642,8 +1792,16 @@ async def ace_enhance_prompt(
         from ace.llama_launcher import ensure_server_running
         if not ensure_server_running(api_base):
             return f"Error: llama-server not available at {api_base}. Check ACE_LLAMA_SERVER_EXE and ACE_LLAMA_MODEL_PATH."
+    elif provider in {"router", "dynamic-slot"}:
+        api_key = os.environ.get("ACE_ROUTER_API_KEY", "not-needed")
+        api_base = os.environ.get("ACE_ROUTER_BASE_URL", "http://127.0.0.1:8085/v1").strip()
+        actual_model = (model if model else os.environ.get("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "")).strip()
+        if not api_base:
+            return "Error: No router base URL configured. Set ACE_ROUTER_BASE_URL."
+        if not actual_model:
+            return "Error: No router model slot configured. Set model or ACE_ENHANCE_PROMPT_ROUTER_MODEL."
     else:
-        return f"Error: Unknown provider '{provider}'. Use: zai, openai, anthropic, lmstudio"
+        return f"Error: Unknown provider '{provider}'. Use: zai, openai, anthropic, lmstudio, router, dynamic-slot"
     
     if not api_key and provider != "lmstudio":
         return f"Error: No API key configured for provider '{provider}'"
@@ -1692,11 +1850,15 @@ async def ace_enhance_prompt(
 def main():
     """Run the MCP server."""
     logger.info("Starting ACE MCP Server (FastMCP with list_roots)...")
-    
-    # Start preloading the cross-encoder model IMMEDIATELY at server startup
-    # This runs in background while MCP initializes, so it's ready for first tool call
+
+    # PRE-WARM: Load all lazy modules at startup so first tool call is instant.
+    # Without this, the first ace_stats or ace_retrieve call takes ~11 seconds
+    # because each lazy import (unified_memory, config, etc.) takes 2.8-10.8s.
+    preload_all_tools()
+
+    # CrossEncoder preload is opt-in via ACE_PRELOAD_CROSS_ENCODER=true.
     _start_background_preload()
-    
+
     server.run()
 
 

@@ -279,6 +279,29 @@ class TestUnifiedMemoryIndex(unittest.TestCase):
 
         self.mock_qdrant_client = Mock()
 
+    @patch('httpx.Client')
+    def test_get_embedding_url_does_not_duplicate_v1(self, mock_client_class):
+        """Test that _get_embedding does not call /v1/v1/embeddings."""
+        mock_response = Mock()
+        mock_response.json.return_value = {
+            "data": [{"embedding": [0.1] * 4096}]
+        }
+        mock_client = MagicMock()
+        mock_client.post.return_value = mock_response
+        mock_client.__enter__ = Mock(return_value=mock_client)
+        mock_client.__exit__ = Mock(return_value=None)
+        mock_client_class.return_value = mock_client
+
+        index = UnifiedMemoryIndex(
+            qdrant_url="http://localhost:6333",
+            embedding_url="http://localhost:1234/v1",
+            collection_name="ace_unified",
+            qdrant_client=self.mock_qdrant_client
+        )
+        index._get_embedding("test query")
+
+        self.assertEqual(mock_client.post.call_args.args[0], "http://localhost:1234/v1/embeddings")
+
     def test_unified_index_creation(self):
         """Test creating UnifiedMemoryIndex"""
         index = UnifiedMemoryIndex(
@@ -445,6 +468,69 @@ class TestUnifiedMemoryIndex(unittest.TestCase):
         call_args = self.mock_qdrant_client.upsert.call_args
         points = call_args[1]["points"]
         self.assertEqual(len(points), 5)
+
+    def test_index_bullet_rejects_validation_marker_memory(self):
+        """Single-memory indexing rejects internal validation sentinels."""
+        index = UnifiedMemoryIndex(
+            qdrant_client=self.mock_qdrant_client,
+            collection_name="ace_unified"
+        )
+        bullet = UnifiedBullet(
+            id="marker-single",
+            namespace=UnifiedNamespace.TASK_STRATEGIES,
+            source=UnifiedSource.TASK_EXECUTION,
+            content="ACE_RETRIEVE_UNIQUE_TOKEN_X9K2M7_20260510 should never persist",
+            section="testing"
+        )
+
+        with self.assertRaisesRegex(ValueError, "ACE_RETRIEVE_UNIQUE_TOKEN"):
+            index.index_bullet(bullet)
+
+        self.mock_qdrant_client.upsert.assert_not_called()
+
+    def test_batch_index_rejects_validation_marker_memory(self):
+        """Batch indexing fails before persisting internal validation sentinels."""
+        index = UnifiedMemoryIndex(
+            qdrant_client=self.mock_qdrant_client,
+            collection_name="ace_unified"
+        )
+        valid_bullet = UnifiedBullet(
+            id="valid-batch",
+            namespace=UnifiedNamespace.TASK_STRATEGIES,
+            source=UnifiedSource.TASK_EXECUTION,
+            content="Legitimate qwen3 endpoint normalization troubleshooting note",
+            section="testing"
+        )
+        marker_bullet = UnifiedBullet(
+            id="marker-batch",
+            namespace=UnifiedNamespace.TASK_STRATEGIES,
+            source=UnifiedSource.TASK_EXECUTION,
+            content="QWEN3_ENDPOINT_SENTINEL_UNIQUE_20260510 should never persist",
+            section="testing"
+        )
+
+        with self.assertRaisesRegex(ValueError, "QWEN3_ENDPOINT_SENTINEL"):
+            index.batch_index([valid_bullet, marker_bullet])
+
+        self.mock_qdrant_client.upsert.assert_not_called()
+
+    def test_index_bullet_allows_legitimate_endpoint_memory(self):
+        """Legitimate troubleshooting memories with related terms are accepted."""
+        index = UnifiedMemoryIndex(
+            qdrant_client=self.mock_qdrant_client,
+            collection_name="ace_unified"
+        )
+        bullet = UnifiedBullet(
+            id="legitimate-qwen3-endpoint",
+            namespace=UnifiedNamespace.TASK_STRATEGIES,
+            source=UnifiedSource.TASK_EXECUTION,
+            content="qwen3 embedding endpoint normalization prevents duplicate v1 path construction",
+            section="debugging"
+        )
+
+        result = index.index_bullet(bullet)
+
+        self.assertTrue(result["stored"])
 
     def test_unified_delete_by_namespace(self):
         """Test deleting all bullets in a namespace"""

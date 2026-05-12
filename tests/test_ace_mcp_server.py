@@ -15,7 +15,9 @@ Updated to use FastMCP decorator-based API.
 
 import asyncio
 import json
+import os
 import pytest
+import tempfile
 from unittest.mock import patch, MagicMock, AsyncMock
 
 # Import the server module and FastMCP tool functions
@@ -23,12 +25,20 @@ import ace_mcp_server
 from ace_mcp_server import (
     server,
     get_memory_index,
+    _compose_retrieve_response,
     ace_retrieve,
     ace_store,
     ace_search,
     ace_stats,
     ace_tag,
+    ace_enhance_prompt,
 )
+
+
+class _MemoryResult:
+    def __init__(self, content, score):
+        self.content = content
+        self.score = score
 
 
 class TestMCPToolListing:
@@ -94,6 +104,26 @@ class TestToolDispatch:
         assert content_list[0].type == "text"
 
     @pytest.mark.asyncio
+    async def test_call_retrieve_precision_argument_via_server(self):
+        """Protocol-layer precision argument controls cross-encoder usage."""
+        calls = []
+
+        class FakeIndex:
+            def retrieve(self, **kwargs):
+                calls.append(kwargs)
+                return []
+
+        with patch("ace_mcp_server.get_workspace_path_async", AsyncMock(return_value=None)), \
+             patch("ace_mcp_server.get_memory_index", return_value=FakeIndex()):
+            await server.call_tool("ace_retrieve", {"query": "default protocol lookup"})
+            await server.call_tool("ace_retrieve", {"query": "fast protocol lookup", "precision": False})
+            await server.call_tool("ace_retrieve", {"query": "precise protocol lookup", "precision": True})
+
+        assert calls[0]["use_cross_encoder"] is False
+        assert calls[1]["use_cross_encoder"] is False
+        assert calls[2]["use_cross_encoder"] is True
+
+    @pytest.mark.asyncio
     async def test_call_store_via_server(self):
         """ace_store dispatches correctly via server.call_tool."""
         content_list, result_dict = await server.call_tool(
@@ -123,6 +153,64 @@ class TestToolDispatch:
 class TestRetrieveHandler:
     """Test ace_retrieve handler."""
 
+    def test_compose_response_prioritizes_exact_memory_for_memory_intent(self):
+        """Exact memory matches are visible before broad code for memory-intent queries."""
+        result = _compose_retrieve_response(
+            query="remember qwen3 embedding endpoint duplicate v1 normalization",
+            formatted_code="**Code Context:**\nBroad embedding client implementation",
+            formatted_memories="**Task Strategies:**\nACE embedding retrieval fix - duplicate /v1 normalization",
+            code_results=[{"file_path": "ace/openai_embeddings.py", "score": 0.91}],
+            memory_results=[_MemoryResult("ACE embedding retrieval fix - duplicate /v1 normalization", 0.95)],
+        )
+
+        assert result.index("**Task Strategies:**") < result.index("**Code Context:**")
+
+    def test_compose_response_preserves_code_first_for_code_intent(self):
+        """Direct code-intent queries keep code before memory context."""
+        result = _compose_retrieve_response(
+            query="ace_mcp_server.py _compose_retrieve_response implementation",
+            formatted_code="**Code Context:**\nPath: ace_mcp_server.py",
+            formatted_memories="**Task Strategies:**\nACE response ordering lesson",
+            code_results=[{"file_path": "ace_mcp_server.py", "score": 0.93}],
+            memory_results=[_MemoryResult("ACE response ordering lesson", 0.95)],
+        )
+
+        assert result.index("**Code Context:**") < result.index("**Task Strategies:**")
+
+    def test_compose_response_uses_deterministic_ambiguous_order(self):
+        """Ambiguous queries use a stable public response order."""
+        result = _compose_retrieve_response(
+            query="retrieval ordering",
+            formatted_code="**Code Context:**\nPath: ace_mcp_server.py",
+            formatted_memories="**Task Strategies:**\nACE response ordering lesson",
+            code_results=[{"file_path": "ace_mcp_server.py", "score": 0.70}],
+            memory_results=[_MemoryResult("ACE response ordering lesson", 0.70)],
+        )
+
+        assert result == "**Code Context:**\nPath: ace_mcp_server.py\n\n**Task Strategies:**\nACE response ordering lesson"
+
+    def test_compose_response_diagnostics_are_opt_in(self):
+        """Diagnostics do not alter the normal response unless requested."""
+        default_result = _compose_retrieve_response(
+            query="remember response ordering lesson",
+            formatted_code="**Code Context:**\nPath: ace_mcp_server.py",
+            formatted_memories="**Task Strategies:**\nACE response ordering lesson",
+            code_results=[{"file_path": "ace_mcp_server.py", "score": 0.70}],
+            memory_results=[_MemoryResult("ACE response ordering lesson", 0.95)],
+        )
+        diagnostic_result = _compose_retrieve_response(
+            query="remember response ordering lesson",
+            formatted_code="**Code Context:**\nPath: ace_mcp_server.py",
+            formatted_memories="**Task Strategies:**\nACE response ordering lesson",
+            code_results=[{"file_path": "ace_mcp_server.py", "score": 0.70}],
+            memory_results=[_MemoryResult("ACE response ordering lesson", 0.95)],
+            include_diagnostics=True,
+        )
+
+        assert "Ordering Diagnostics" not in default_result
+        assert "Ordering Diagnostics" in diagnostic_result
+        assert default_result in diagnostic_result
+
     @pytest.mark.asyncio
     async def test_retrieve_returns_text(self):
         """Retrieve returns a string result."""
@@ -145,6 +233,54 @@ class TestRetrieveHandler:
             limit=3,
         )
         assert isinstance(result, str)
+
+    @pytest.mark.asyncio
+    async def test_retrieve_precision_controls_cross_encoder(self):
+        """Precision mode is the only path that enables cross-encoder reranking."""
+        calls = []
+
+        class FakeIndex:
+            def retrieve(self, **kwargs):
+                calls.append(kwargs)
+                return []
+
+        with patch("ace_mcp_server.get_workspace_path_async", AsyncMock(return_value=None)), \
+             patch("ace_mcp_server.get_memory_index", return_value=FakeIndex()):
+            await ace_retrieve(query="default fast lookup")
+            await ace_retrieve(query="fast lookup", precision=False)
+            await ace_retrieve(query="precise lookup", precision=True)
+
+        assert calls[0]["use_cross_encoder"] is False
+        assert calls[1]["use_cross_encoder"] is False
+        assert calls[2]["use_cross_encoder"] is True
+
+    def test_cross_encoder_preload_disabled_by_default(self, monkeypatch):
+        """Default startup must not load the cross-encoder model."""
+        import ace_mcp_server as mod
+
+        monkeypatch.delenv("ACE_PRELOAD_CROSS_ENCODER", raising=False)
+        mod._preload_started = False
+        mod._preload_thread = None
+
+        mod._start_background_preload()
+
+        assert mod._preload_started is False
+        assert mod._preload_thread is None
+
+    def test_cross_encoder_preload_enabled_by_env(self, monkeypatch):
+        """Explicit env flag is required to start cross-encoder preload."""
+        import ace_mcp_server as mod
+
+        monkeypatch.setenv("ACE_PRELOAD_CROSS_ENCODER", "true")
+        mod._preload_started = False
+        mod._preload_thread = None
+
+        with patch("threading.Thread") as mock_thread:
+            mod._start_background_preload()
+
+        assert mod._preload_started is True
+        assert mod._preload_thread is mock_thread.return_value
+        mock_thread.return_value.start.assert_called_once()
 
 
 class TestStoreHandler:
@@ -178,6 +314,14 @@ class TestStoreHandler:
         result1 = await ace_store(content=content)
         result2 = await ace_store(content=content)
         assert "reinforced" in result2.lower() or "stored" in result2.lower()
+
+    @pytest.mark.asyncio
+    async def test_store_rejects_validation_marker_memory(self):
+        """Public ace_store rejects internal validation sentinels."""
+        with pytest.raises(ValueError, match="ACE_RETRIEVE_QUALITY_SENTINEL"):
+            await ace_store(
+                content="ACE_RETRIEVE_QUALITY_SENTINEL_FINAL_20260510 should never persist"
+            )
 
 
 class TestSearchHandler:
@@ -247,6 +391,117 @@ class TestTagHandler:
         assert isinstance(result, str)
 
 
+class TestEnhancePromptHandler:
+    """Test ace_enhance_prompt provider routing."""
+
+    @pytest.mark.asyncio
+    async def test_router_provider_dispatches_to_configured_slot(self, monkeypatch):
+        """Router provider uses the configured router endpoint and slot."""
+        monkeypatch.setenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "dynamic-slot-fast")
+        monkeypatch.setenv("ACE_ROUTER_BASE_URL", "http://127.0.0.1:8085/v1")
+
+        with patch("ace_mcp_server._load_enhancement_prompt", return_value="Enhance: {{userInput}}"), \
+             patch("ace_mcp_server.get_memory_index") as mock_index, \
+             patch("ace.llm_providers.litellm_client.completion") as mock_completion:
+            mock_index.return_value.retrieve.return_value = []
+            mock_completion.return_value = MagicMock(
+                choices=[MagicMock(message=MagicMock(content="Enhanced prompt"))],
+                usage=None,
+                model="dynamic-slot-fast",
+                _hidden_params={},
+            )
+
+            result = await ace_enhance_prompt(prompt="make this better", provider="router")
+
+        assert result == "Enhanced prompt"
+        call_kwargs = mock_completion.call_args.kwargs
+        assert call_kwargs["model"] == "openai/dynamic-slot-fast"
+        assert call_kwargs["api_base"] == "http://127.0.0.1:8085/v1"
+        assert call_kwargs["timeout"] == 120.0
+
+    @pytest.mark.asyncio
+    async def test_router_provider_dispatches_via_mcp_tool_call(self, monkeypatch):
+        """server.call_tool dispatches ace_enhance_prompt through the router provider."""
+        monkeypatch.setenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "dynamic-slot-fast")
+        monkeypatch.setenv("ACE_ROUTER_BASE_URL", "http://127.0.0.1:8085/v1")
+
+        with patch("ace_mcp_server._load_enhancement_prompt", return_value="Enhance: {{userInput}}"), \
+             patch("ace_mcp_server.get_memory_index") as mock_index, \
+             patch("ace.llm_providers.litellm_client.completion") as mock_completion:
+            mock_index.return_value.retrieve.return_value = []
+            mock_completion.return_value = MagicMock(
+                choices=[MagicMock(message=MagicMock(content="Enhanced prompt"))],
+                usage=None,
+                model="dynamic-slot-fast",
+                _hidden_params={},
+            )
+
+            content_list, _ = await server.call_tool(
+                "ace_enhance_prompt",
+                {"prompt": "make this better", "provider": "router"},
+            )
+
+        assert content_list[0].text == "Enhanced prompt"
+        assert mock_completion.call_args.kwargs["model"] == "openai/dynamic-slot-fast"
+        assert mock_completion.call_args.kwargs["api_base"] == "http://127.0.0.1:8085/v1"
+
+    @pytest.mark.asyncio
+    async def test_dynamic_slot_alias_uses_router_provider(self, monkeypatch):
+        """dynamic-slot is an alias for strict router dispatch."""
+        monkeypatch.setenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "dynamic-slot-fast")
+
+        with patch("ace_mcp_server._load_enhancement_prompt", return_value="Enhance: {{userInput}}"), \
+             patch("ace_mcp_server.get_memory_index") as mock_index, \
+             patch("ace.llm_providers.litellm_client.completion") as mock_completion:
+            mock_index.return_value.retrieve.return_value = []
+            mock_completion.return_value = MagicMock(
+                choices=[MagicMock(message=MagicMock(content="Enhanced prompt"))],
+                usage=None,
+                model="dynamic-slot-fast",
+                _hidden_params={},
+            )
+
+            result = await ace_enhance_prompt(prompt="make this better", provider="dynamic-slot")
+
+        assert result == "Enhanced prompt"
+        assert mock_completion.call_args.kwargs["model"] == "openai/dynamic-slot-fast"
+
+    @pytest.mark.asyncio
+    async def test_router_provider_requires_slot(self, monkeypatch):
+        """Router provider fails fast when no slot is configured."""
+        monkeypatch.delenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", raising=False)
+
+        result = await ace_enhance_prompt(prompt="make this better", provider="router", model="   ")
+
+        assert "Error: No router model slot configured" in result
+
+    @pytest.mark.asyncio
+    async def test_router_provider_requires_base_url(self, monkeypatch):
+        """Router provider fails fast when the router base URL is blank."""
+        monkeypatch.setenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "dynamic-slot-fast")
+        monkeypatch.setenv("ACE_ROUTER_BASE_URL", "   ")
+
+        result = await ace_enhance_prompt(prompt="make this better", provider="router")
+
+        assert "Error: No router base URL configured" in result
+
+    @pytest.mark.asyncio
+    async def test_router_failure_does_not_call_local_launcher(self, monkeypatch):
+        """Router failures do not fall back to local llama-server."""
+        monkeypatch.setenv("ACE_ENHANCE_PROMPT_ROUTER_MODEL", "dynamic-slot-fast")
+
+        with patch("ace_mcp_server._load_enhancement_prompt", return_value="Enhance: {{userInput}}"), \
+             patch("ace_mcp_server.get_memory_index") as mock_index, \
+             patch("ace.llm_providers.litellm_client.completion", side_effect=RuntimeError("router down")), \
+             patch("ace.llama_launcher.ensure_server_running") as mock_launcher:
+            mock_index.return_value.retrieve.return_value = []
+
+            result = await ace_enhance_prompt(prompt="make this better", provider="router")
+
+        assert "router down" in result
+        mock_launcher.assert_not_called()
+
+
 class TestMemoryIndexSingleton:
     """Test memory index initialization."""
 
@@ -307,6 +562,56 @@ class TestIntegration:
 
 class TestMultiRootWorkspace:
     """Tests for multi-root workspace detection and code retrieval."""
+
+    def test_find_workspace_root_requires_ace_marker(self):
+        """Workspace discovery uses .ace/.ace.json as the authoritative marker."""
+        from ace_mcp_server import find_workspace_root
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            open(os.path.join(tmpdir, "pyproject.toml"), "w", encoding="utf-8").close()
+
+            assert find_workspace_root(tmpdir) is None
+
+            ace_dir = os.path.join(tmpdir, ".ace")
+            os.makedirs(ace_dir)
+            with open(os.path.join(ace_dir, ".ace.json"), "w", encoding="utf-8") as f:
+                json.dump({"workspace_name": "marker-project"}, f)
+
+            assert find_workspace_root(tmpdir) == os.path.abspath(tmpdir)
+
+    @pytest.mark.asyncio
+    async def test_get_workspace_from_roots_auto_onboards_missing_ace(self):
+        """Open MCP roots without .ace are onboarded immediately."""
+        import ace_mcp_server as mod
+
+        orig_cached = mod._cached_workspace_from_roots
+        orig_all = mod._all_workspace_roots
+        orig_attempted = mod._roots_fetch_attempted
+
+        try:
+            mod._cached_workspace_from_roots = None
+            mod._all_workspace_roots = []
+            mod._roots_fetch_attempted = False
+
+            with tempfile.TemporaryDirectory() as root:
+                mock_ctx = MagicMock()
+                mock_session = AsyncMock()
+                mock_root = MagicMock()
+                mock_root.uri = f"file:///{root.replace(os.sep, '/')}"
+                mock_roots_result = MagicMock()
+                mock_roots_result.roots = [mock_root]
+                mock_session.list_roots = AsyncMock(return_value=mock_roots_result)
+                mock_ctx.session = mock_session
+
+                result = await mod._get_workspace_from_roots(mock_ctx)
+
+                assert result == os.path.abspath(root)
+                assert os.path.isfile(os.path.join(root, ".ace", ".ace.json"))
+                assert mod.is_workspace_onboarded(root)
+        finally:
+            mod._cached_workspace_from_roots = orig_cached
+            mod._all_workspace_roots = orig_all
+            mod._roots_fetch_attempted = orig_attempted
 
     def test_get_workspace_from_roots_stores_all_roots(self):
         """_get_workspace_from_roots stores all valid roots, not just the first."""

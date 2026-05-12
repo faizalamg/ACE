@@ -47,7 +47,7 @@ ACE needs an embedding server for semantic search. Two options:
 **Option A: LM Studio (Local)**
 ```bash
 # Download LM Studio: https://lmstudio.ai/
-# Start server with embedding model (e.g., text-embedding-qwen3-embedding-8b)
+# Start server with embedding model (e.g., qwen3-embedding-8b)
 # Default: http://localhost:1234
 ```
 
@@ -66,7 +66,7 @@ Add to `~/.claude/settings.json`:
   "env": {
     "QDRANT_URL": "http://localhost:6333",
     "ACE_EMBEDDING_URL": "http://192.168.10.64:1234",
-    "ACE_EMBEDDING_MODEL": "text-embedding-qwen3-embedding-8b",
+    "ACE_EMBEDDING_MODEL": "qwen3-embedding-8b",
     "VOYAGE_API_KEY": "your-voyage-api-key-if-using"
   }
 }
@@ -195,7 +195,7 @@ Each hook may need configuration for your environment. Edit these values:
 # Common configuration values (edit in each hook file)
 QDRANT_URL = "http://localhost:6333"           # Qdrant server
 EMBEDDING_URL = "http://192.168.10.64:1234"    # LM Studio or Voyage
-EMBEDDING_MODEL = "text-embedding-qwen3-embedding-8b"
+EMBEDDING_MODEL = "qwen3-embedding-8b"
 COLLECTION_NAME = "ace_unified"                # Qdrant collection
 ZAI_API_KEY = "your-zai-api-key"              # For LLM analysis
 ```

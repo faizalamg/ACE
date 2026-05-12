@@ -98,8 +98,23 @@ from .retrieval_presets import (
     llm_rerank_results,
 )
 
-# Import cross-encoder reranker (singleton pattern for efficiency)
-from .reranker import get_reranker, RERANKING_AVAILABLE
+_VALIDATION_MARKER_SENTINELS = (
+    "ACE_RETRIEVE_UNIQUE_TOKEN",
+    "ACE_RETRIEVE_QUALITY_SENTINEL",
+    "ACE_RETRIEVE_TERMINAL_MARKER",
+    "ACE_RETRIEVE_LAST_MARKER",
+    "QWEN3_ENDPOINT_SENTINEL",
+)
+
+
+def _validate_no_validation_marker(content: str) -> None:
+    for sentinel in _VALIDATION_MARKER_SENTINELS:
+        if sentinel in content:
+            raise ValueError(f"Refusing to store validation marker memory: {sentinel}")
+
+# Cross-encoder reranker lazy imported inside retrieve() to avoid 5.75s
+# sentence-transformers import at module load time. Import only when
+# cross-encoder is actually needed for re-ranking.
 
 # Load centralized configuration at module initialization
 _embedding_config = EmbeddingConfig()
@@ -936,8 +951,9 @@ class UnifiedMemoryIndex:
             # httpx.Timeout requires either a single default or all 4 parameters
             timeout = httpx.Timeout(5.0, connect=2.0)
             with httpx.Client(timeout=timeout) as client:
+                embedding_endpoint = f"{self.embedding_url.rstrip('/').removesuffix('/v1')}/v1/embeddings"
                 resp = client.post(
-                    f"{self.embedding_url}/v1/embeddings",
+                    embedding_endpoint,
                     json={"model": self.embedding_model, "input": text[:8000]}
                 )
                 resp.raise_for_status()
@@ -977,6 +993,8 @@ class UnifiedMemoryIndex:
                 - existing_id: str - ID of existing memory if reinforced
                 - conflicts: List[UnifiedBullet] - detected conflicts (if enabled)
         """
+        _validate_no_validation_marker(bullet.content)
+
         result = {"stored": False, "action": "failed", "similarity": 0.0, "existing_id": None, "conflicts": []}
 
         if self._client is None:
@@ -1199,6 +1217,9 @@ class UnifiedMemoryIndex:
         """
         if self._client is None or not bullets:
             return 0
+
+        for bullet in bullets:
+            _validate_no_validation_marker(bullet.content)
 
         points = []
         for bullet in bullets:
@@ -1470,8 +1491,8 @@ class UnifiedMemoryIndex:
             preset = detect_query_type(query)
         config = get_preset_config(preset) if preset else get_preset_config(RetrievalPreset.BM25_HEAVY)
 
-        # LLM URL for enhancements (use embedding URL as default since it's same LM Studio)
-        effective_llm_url = llm_url or self.embedding_url
+        # LLM URL for enhancements is resolved by retrieval_presets from centralized .env config.
+        effective_llm_url = llm_url
 
         # Resolve use_llm_expansion from config if not explicitly set
         # IMPORTANT: Adaptive expansion controller may override this based on query specificity
@@ -1751,11 +1772,12 @@ class UnifiedMemoryIndex:
                 final_results = [b for b, _ in bullets_with_embeddings]
 
             # Cross-encoder reranking for 95%+ precision (fast, ~50ms for 15 results)
-            # Uses singleton pattern from ace/reranker.py for efficiency
+            # Lazy import to avoid 5.75s sentence-transformers cost at module load time.
             # CRITICAL: Use original_query (not expanded) for cross-encoder scoring
             # The expanded query is good for recall but CE should judge relevance to user's actual query
-            if use_cross_encoder and final_results and len(final_results) > 1 and RERANKING_AVAILABLE:
+            if use_cross_encoder and final_results and len(final_results) > 1:
                 try:
+                    from .reranker import get_reranker  # lazy import only when needed
                     reranker = get_reranker()
                     documents = [b.content[:500] for b in final_results]
                     ce_scores = reranker.predict(original_query, documents)
@@ -1810,10 +1832,10 @@ class UnifiedMemoryIndex:
                     bullets.append(bullet)
 
                 # Cross-encoder reranking for fallback path (consistent with main path)
-                # Uses singleton pattern from ace/reranker.py for efficiency
-                # CRITICAL: Use original_query for cross-encoder (same fix as main path)
-                if use_cross_encoder and bullets and len(bullets) > 1 and RERANKING_AVAILABLE:
+                # Lazy import to avoid 5.75s sentence-transformers cost at module load time.
+                if use_cross_encoder and bullets and len(bullets) > 1:
                     try:
+                        from .reranker import get_reranker  # lazy import only when needed
                         reranker = get_reranker()
                         documents = [b.content[:500] for b in bullets]
                         ce_scores = reranker.predict(original_query, documents)
@@ -1988,8 +2010,9 @@ class UnifiedMemoryIndex:
         # 1. Model loading on every call (slow, ~200MB)
         # 2. Tokenizer parallelism deadlock in asyncio context
         # 3. Race conditions from concurrent model instantiation
-        if config.stage3_enabled and len(stage3_results) > 1 and RERANKING_AVAILABLE:
+        if config.stage3_enabled and len(stage3_results) > 1:
             try:
+                from .reranker import get_reranker  # lazy import only when needed
                 reranker = get_reranker()
                 documents = [b.content[:500] for b in stage3_results]
                 ce_scores = reranker.predict(query, documents)

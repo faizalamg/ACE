@@ -9,7 +9,9 @@ import pytest
 from pathlib import Path
 from ace.config import (
     ACEConfig,
+    EmbeddingConfig,
     EmbeddingProviderConfig,
+    LocalEmbeddingConfig,
     QdrantConfig,
     _get_ace_config_field,
     _load_ace_config,
@@ -77,17 +79,16 @@ class TestAceConfigFileLoading:
 
 
 class TestConfigFieldResolution:
-    """Test config field resolution priority: file > env > default."""
+    """Test config field resolution priority: env > file > default."""
 
-    def test_config_file_overrides_env_var(self, tmp_path, monkeypatch):
-        """Config file value should override env var."""
+    def test_env_var_overrides_config_file(self, tmp_path, monkeypatch):
+        """Environment value should override .ace metadata for runtime config."""
         # Setup config file
         ace_dir = tmp_path / ".ace"
         ace_dir.mkdir(parents=True, exist_ok=True)
         (ace_dir / ".ace.json").write_text('{"code_embedding_model": "nomic"}')
 
-        # Set conflicting env var (ACE_CODE_EMBEDDING_MODEL - single D)
-        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "voyage")
+        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "local")
 
         monkeypatch.chdir(tmp_path)
         reset_config()  # Clear global config
@@ -95,9 +96,8 @@ class TestConfigFieldResolution:
         from ace import config as config_module
         config_module._ace_config_file_cache = {}
 
-        # Config file should win
         result = _get_ace_config_field("code_embedding_model", "voyage")
-        assert result == "nomic"
+        assert result == "local"
 
     def test_env_var_used_when_no_config_file(self, tmp_path, monkeypatch):
         """Env var should be used when no config file."""
@@ -123,12 +123,13 @@ class TestConfigFieldResolution:
         result = _get_ace_config_field("code_embedding_model", "voyage")
         assert result == "voyage"
 
-    def test_aceconfig_uses_config_file(self, tmp_path, monkeypatch):
-        """ACEConfig.code_embedding_model should read from config file."""
+    def test_aceconfig_uses_env_before_config_file(self, tmp_path, monkeypatch):
+        """ACEConfig.code_embedding_model should use env before .ace metadata."""
         # Setup config file
         ace_dir = tmp_path / ".ace"
         ace_dir.mkdir(parents=True, exist_ok=True)
         (ace_dir / ".ace.json").write_text('{"code_embedding_model": "nomic"}')
+        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "local")
 
         monkeypatch.chdir(tmp_path)
         reset_config()
@@ -137,7 +138,7 @@ class TestConfigFieldResolution:
         config_module._ace_config_file_cache = {}
 
         config = ACEConfig()
-        assert config.code_embedding_model == "nomic"
+        assert config.code_embedding_model == "local"
 
 
 class TestValidEmbeddingModels:
@@ -146,6 +147,7 @@ class TestValidEmbeddingModels:
     @pytest.mark.parametrize("model", ["voyage", "jina", "nomic"])
     def test_accepts_valid_models(self, tmp_path, model, monkeypatch):
         """Should accept all valid model names."""
+        monkeypatch.delenv("ACE_CODE_EMBEDDING_MODEL", raising=False)
         ace_dir = tmp_path / ".ace"
         ace_dir.mkdir(parents=True, exist_ok=True)
         (ace_dir / ".ace.json").write_text(f'{{"code_embedding_model": "{model}"}}')
@@ -239,6 +241,22 @@ class TestConfigFileUpdates:
 class TestEmbeddingProviderConfig:
     """Test EmbeddingProviderConfig methods."""
 
+    def test_embedding_config_default_model_matches_lm_studio_model(self, monkeypatch):
+        """EmbeddingConfig default model should match the LM Studio model name."""
+        monkeypatch.delenv("ACE_EMBEDDING_MODEL", raising=False)
+        reset_config()
+
+        config = EmbeddingConfig()
+        assert config.model == "qwen3-embedding-8b"
+
+    def test_local_embedding_config_default_text_model_matches_lm_studio_model(self, monkeypatch):
+        """LocalEmbeddingConfig default text model should match the LM Studio model name."""
+        monkeypatch.delenv("ACE_LOCAL_TEXT_MODEL", raising=False)
+        reset_config()
+
+        config = LocalEmbeddingConfig()
+        assert config.text_model == "qwen3-embedding-8b"
+
     def test_is_code_local_true_for_jina(self, monkeypatch):
         """is_code_local returns True for 'jina'."""
         monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "jina")
@@ -290,23 +308,24 @@ class TestEmbeddingProviderConfig:
         assert not config.is_code_voyage()
 
     def test_post_init_uses_config_file_value(self, tmp_path, monkeypatch):
-        """__post_init__ should override code_provider from config file."""
+        """Env provider should override stale .ace code_embedding_model metadata."""
         ace_dir = tmp_path / ".ace"
         ace_dir.mkdir(parents=True, exist_ok=True)
         (ace_dir / ".ace.json").write_text('{"code_embedding_model": "nomic"}')
 
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "voyage")
+        monkeypatch.setenv("ACE_CODE_EMBEDDING_PROVIDER", "local")
+        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "local")
         reset_config()
 
         from ace import config as config_module
         config_module._ace_config_file_cache = {}
 
         config = ACEConfig()
-        assert config.code_embedding_model == "nomic"
+        assert config.code_embedding_model == "local"
 
         provider_config = EmbeddingProviderConfig()
-        assert provider_config.is_code_nomic()
+        assert provider_config.is_code_local()
 
 
 class TestQdrantConfig:
@@ -348,13 +367,14 @@ class TestQdrantConfig:
         collection = config.get_code_collection_name()
         assert collection == "ace_code_context_nomic"
 
-    def test_get_code_collection_name_from_config_file(self, tmp_path, monkeypatch):
-        """Config file should determine collection name."""
+    def test_get_code_collection_name_env_overrides_config_file(self, tmp_path, monkeypatch):
+        """Runtime env should determine collection name before .ace metadata."""
         ace_dir = tmp_path / ".ace"
         ace_dir.mkdir(parents=True, exist_ok=True)
         (ace_dir / ".ace.json").write_text('{"code_embedding_model": "nomic"}')
 
         monkeypatch.chdir(tmp_path)
+        monkeypatch.setenv("ACE_CODE_EMBEDDING_MODEL", "local")
         reset_config()
 
         from ace import config as config_module
@@ -362,4 +382,4 @@ class TestQdrantConfig:
 
         config = QdrantConfig()
         collection = config.get_code_collection_name()
-        assert collection == "ace_code_context_nomic"
+        assert collection == "ace_code_context_jina"

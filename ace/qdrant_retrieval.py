@@ -182,8 +182,9 @@ class QdrantBulletIndex:
             if "qwen" in self._model.lower() and not text.endswith("</s>"):
                 text = f"{text}</s>"
             
+            embedding_endpoint = f"{self._embedding_url.rstrip('/').removesuffix('/v1')}/v1/embeddings"
             resp = self._client.post(
-                f"{self._embedding_url}/v1/embeddings",
+                embedding_endpoint,
                 json={
                     "model": self._model,
                     "input": text[:8000]

@@ -13,10 +13,79 @@ Implementation targets:
 
 import unittest
 import time
+import os
 from typing import Optional
+from unittest.mock import patch
 
 # These imports WILL FAIL - that's the RED phase
 from ace.config import PresetConfig, get_preset, apply_preset_to_retrieval_config, RetrievalConfig
+from ace.retrieval_presets import expand_query_with_llm, llm_filter_and_rerank
+
+
+class TestOpenCodeGoFallback(unittest.TestCase):
+    """Test explicit OpenCode Go primary with LM Studio fallback routing."""
+
+    def setUp(self):
+        self.env_patch = patch.dict(os.environ, {
+            "ACE_USE_LOCAL_LLM": "false",
+            "ACE_LLM_PRIMARY_URL": "https://opencode.ai/zen/go/v1",
+            "ACE_LLM_PRIMARY_MODEL": "qwen3.6-plus",
+            "ACE_LLM_PRIMARY_API_KEY": "test-opencode-key",
+            "ACE_LLM_FALLBACK_URL": "http://localhost:1234/v1",
+            "ACE_LLM_FALLBACK_MODEL": "qwen3.6-35b-a3b@q3_k_m",
+            "ACE_LLM_FALLBACK_ENABLED": "true",
+            "ACE_LLM_EXPANSION": "true",
+            "ACE_LLM_FILTERING": "true",
+        }, clear=False)
+        self.env_patch.start()
+
+        from ace.config import reset_config
+        reset_config()
+
+    def tearDown(self):
+        self.env_patch.stop()
+        from ace.config import reset_config
+        reset_config()
+
+    @patch("httpx.post")
+    def test_expand_query_uses_lm_studio_when_opencode_go_fails(self, mock_post):
+        primary_response = unittest.mock.Mock(status_code=429, text="rate limited")
+        fallback_response = unittest.mock.Mock(status_code=200)
+        fallback_response.json.return_value = {
+            "choices": [{"message": {"content": "code chunk settings\nchunking configuration\nindexing chunk parameters"}}]
+        }
+        mock_post.side_effect = [primary_response, fallback_response]
+
+        expansions = expand_query_with_llm("code chunking config")
+
+        self.assertEqual(mock_post.call_args_list[0].args[0], "https://opencode.ai/zen/go/v1/chat/completions")
+        self.assertEqual(mock_post.call_args_list[1].args[0], "http://localhost:1234/v1/chat/completions")
+        self.assertEqual(mock_post.call_args_list[0].kwargs["json"]["model"], "qwen3.6-plus")
+        self.assertEqual(mock_post.call_args_list[1].kwargs["json"]["model"], "qwen3.6-35b-a3b@q3_k_m")
+        self.assertIn("code chunk settings", expansions)
+
+    @patch("httpx.post")
+    def test_llm_filter_uses_lm_studio_when_opencode_go_fails(self, mock_post):
+        primary_response = unittest.mock.Mock(status_code=500, text="provider error")
+        fallback_response = unittest.mock.Mock(status_code=200)
+        fallback_response.json.return_value = {
+            "choices": [{"message": {"content": '{"relevant": [1], "irrelevant": [2]}'}}]
+        }
+        mock_post.side_effect = [primary_response, fallback_response]
+
+        class Result:
+            def __init__(self, id, content):
+                self.id = id
+                self.content = content
+
+        first = Result("first", "code chunking config details")
+        second = Result("second", "unrelated")
+
+        filtered = llm_filter_and_rerank("code chunking config", [(first, 0.9), (second, 0.1)], use_cache=False)
+
+        self.assertEqual(mock_post.call_args_list[0].args[0], "https://opencode.ai/zen/go/v1/chat/completions")
+        self.assertEqual(mock_post.call_args_list[1].args[0], "http://localhost:1234/v1/chat/completions")
+        self.assertEqual(filtered, [first])
 
 
 class TestPresetConfigDataclass(unittest.TestCase):

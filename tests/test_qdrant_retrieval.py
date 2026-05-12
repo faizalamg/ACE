@@ -67,6 +67,44 @@ class TestQdrantBulletIndexEmbedding(unittest.TestCase):
     """Test embedding generation (Phase 1A.3-1A.4)."""
 
     @patch('httpx.Client')
+    def test_embedding_url_does_not_duplicate_v1(self, mock_client_class):
+        """Test that _get_embedding does not call /v1/v1/embeddings."""
+        from ace.qdrant_retrieval import QdrantBulletIndex
+
+        mock_response = Mock()
+        mock_response.json.return_value = {
+            "data": [{"embedding": [0.1] * 768}]
+        }
+        mock_client = MagicMock()
+        mock_client.post.return_value = mock_response
+        mock_client_class.return_value = mock_client
+
+        index = QdrantBulletIndex(embedding_url="http://localhost:1234/v1")
+        index._client = mock_client
+        index._get_embedding("test query")
+
+        self.assertEqual(mock_client.post.call_args.args[0], "http://localhost:1234/v1/embeddings")
+
+    @patch('httpx.Client')
+    def test_embedding_url_adds_v1_when_missing(self, mock_client_class):
+        """Test that _get_embedding adds /v1/embeddings when base URL omits /v1."""
+        from ace.qdrant_retrieval import QdrantBulletIndex
+
+        mock_response = Mock()
+        mock_response.json.return_value = {
+            "data": [{"embedding": [0.1] * 768}]
+        }
+        mock_client = MagicMock()
+        mock_client.post.return_value = mock_response
+        mock_client_class.return_value = mock_client
+
+        index = QdrantBulletIndex(embedding_url="http://localhost:1234")
+        index._client = mock_client
+        index._get_embedding("test query")
+
+        self.assertEqual(mock_client.post.call_args.args[0], "http://localhost:1234/v1/embeddings")
+
+    @patch('httpx.Client')
     def test_get_embedding_returns_vector(self, mock_client_class):
         """Test that _get_embedding returns a 768-dim vector."""
         from ace.qdrant_retrieval import QdrantBulletIndex

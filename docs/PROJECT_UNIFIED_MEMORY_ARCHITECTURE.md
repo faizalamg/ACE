@@ -811,7 +811,7 @@ See `docs/RETRIEVAL_PRECISION_OPTIMIZATION.md` for detailed analysis.
 |-----------|-------|--------|
 | **Collection** | `ace_memories_hybrid` | Active |
 | **Memory Count** | 2,725 | Growing |
-| **Embedding Model** | `text-embedding-qwen3-embedding-8b` | 4096 dims |
+| **Embedding Model** | `qwen3-embedding-8b` | 4096 dims |
 | **Qdrant Server** | `localhost:6333` | Healthy |
 | **LMStudio Server** | `localhost:1234` | Healthy |
 
